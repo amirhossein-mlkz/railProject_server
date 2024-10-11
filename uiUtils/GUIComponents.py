@@ -1,4 +1,4 @@
-from PySide6.QtWidgets import QWidget, QFrame, QLabel, QHBoxLayout, QVBoxLayout, QSizePolicy,QPushButton, QMessageBox
+from PySide6.QtWidgets import QWidget, QFrame, QLabel, QHBoxLayout, QVBoxLayout, QSizePolicy,QPushButton, QMessageBox,QCheckBox
 from PySide6.QtCore import QTimer, Qt
 from PySide6.QtGui import QPixmap, QIcon
 
@@ -211,3 +211,30 @@ class confirmMessageBox:
         for btn_name in self.buttons:
             if self.STANDARD_BUTTONS[btn_name] == retval:
                 return btn_name
+            
+
+
+
+class tabelCheckbox(QCheckBox):
+
+    def __init__(self, *a, **kw):
+        super(tabelCheckbox, self).__init__(*a, **kw)
+        
+
+    def set_size(self, w, h):
+        self.setStyleSheet(f"""QCheckBox::indicator 
+                                {{
+                               width :{w}px;
+                               height :{h}px;
+                               }}
+                            
+                            QCheckBox::indicator:checked
+                                {{
+                               width :{w+4}px;
+                               height :{h+4}px;
+                               }}
+
+                               """ )
+
+        #self.setMaximumWidth(h+5)
+        #self.setMaximumWidth(w+5)

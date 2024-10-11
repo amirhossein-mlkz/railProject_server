@@ -34,6 +34,7 @@ class API:
 
 
         self.systems_stations = []
+        self.selected_stations_id_for_download = []
         self.current_system_staion_modify_id = None
         
         self.pingThreadWorker = threadWorkers(None, None)
@@ -58,6 +59,11 @@ class API:
         self.ui_obj.btn_select_train.clicked.connect(self.set_train_id)
         self.ui_obj.play_btn.clicked.connect(self.play_images)
         self.ui_obj.stop_btn.clicked.connect(self.stop_show_image)
+        # self.ui_obj.download_filter_next_btn.clicked.connect(self)
+        #--------------------------------------------------------------------
+        self.ui_obj.download_search_station.textChanged.connect(self.update_download_stations_list)
+        self.ui_obj.download_all_stations_checkbox.checkStateChanged.connect(self.select_all_staions_for_download)
+        
 
 
 
@@ -74,7 +80,38 @@ class API:
 
     def refresh_system_stations(self,):
         self.systems_stations = self.db.load_all_system_stations()
-        self.ui_obj.set_system_stations_table(self.systems_stations, event_func=self.ststem_station_table_event)
+        self.ui_obj.set_system_stations_table(self.systems_stations, 
+                                              event_func=self.ststem_station_table_event)
+        
+        self.update_download_stations_list()
+
+    def download_system_station_select_event(self, state, id):
+        if state:
+            if id not in self.selected_stations_id_for_download:
+                self.selected_stations_id_for_download.append(id)
+        else:
+            if id in self.selected_stations_id_for_download:
+                self.selected_stations_id_for_download.remove(id)
+
+    def select_all_staions_for_download(self, state):
+        if state.value:
+            self.selected_stations_id_for_download = list(map(lambda x:x['id'], self.systems_stations))
+        else:
+            self.selected_stations_id_for_download = []
+        
+        self.update_download_stations_list()
+        
+
+    def update_download_stations_list(self, ):
+        search_q = self.ui_obj.download_search_station.text()
+        if search_q:
+            resluts = list(filter( lambda x:search_q.lower() in x['name'], self.systems_stations))
+        else:
+            resluts = self.systems_stations
+        
+        self.ui_obj.set_download_stations_list(resluts, 
+                                               event_func=self.download_system_station_select_event,
+                                               selected_ids=self.selected_stations_id_for_download)
 
     def ststem_station_table_event(self, name:str, id:str):
         if name == 'delete':

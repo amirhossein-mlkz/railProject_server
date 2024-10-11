@@ -69,7 +69,7 @@ class UI_main_window_org(sQMainWindow, Ui_MainWindow):
 
 
         
-        self.stackedWidget.setCurrentWidget(self.page_playback)
+        # self.stackedWidget.setCurrentWidget(self.page_playback)
         
 
 
@@ -439,6 +439,35 @@ class UI_main_window_org(sQMainWindow, Ui_MainWindow):
                                              widget=edit_btn
                                             )
 
+
+    def set_download_stations_list(self, datas:list[dict], event_func, selected_ids:list):
+        headers = ['-', 'name', 'city']
+        GUIBackend.set_table_dim(self.download_stations_table, len(datas), len(headers))
+        GUIBackend.set_table_cheaders(self.download_stations_table, headers)
+        GUIBackend.set_cell_width_content_adjust(self.download_stations_table)
+        
+        for row_idx, row_info in enumerate(datas):
+            for cell_name, cell_value in row_info.items():
+                if cell_name in headers:
+                    col_idx = headers.index(cell_name)
+                    GUIBackend.set_table_cell_value(table=self.download_stations_table,
+                                                    index=(row_idx, col_idx),
+                                                    value=cell_value
+                                                    )
+            
+            checkbox = GUIComponents.tabelCheckbox()
+            GUIBackend.checkbox_connector_argument_pass(checkbox, event_func, args=(row_info['id'],))
+
+            GUIBackend.set_table_cell_widget(table=self.download_stations_table,
+                                             index=(row_idx, headers.index('-')),
+                                             widget=checkbox
+                                            )
+            
+            if row_info['id'] in selected_ids:
+                GUIBackend.set_checkbox_value(checkbox, True, block_signal=True)
+            else:
+                GUIBackend.set_checkbox_value(checkbox, False, block_signal=False)
+            
 
     def get_add_system_station(self):
         input_fields = {}
