@@ -263,6 +263,10 @@ QPushButton[styleClass=&quot;borderBlueButton&quot;]:disabled {
 }
 
 
+QLabel[styleClass=&quot;h3&quot;]{
+font-weight:bold;
+font-size:14px;
+}
 
 
 </string>
@@ -2145,7 +2149,7 @@ font: 24pt &quot;Mongolian Baiti&quot;;</string>
 }</string>
                                   </property>
                                   <property name="currentIndex">
-                                   <number>1</number>
+                                   <number>0</number>
                                   </property>
                                   <widget class="QWidget" name="add">
                                    <attribute name="title">
@@ -2167,7 +2171,7 @@ font: 24pt &quot;Mongolian Baiti&quot;;</string>
                                        <property name="geometry">
                                         <rect>
                                          <x>0</x>
-                                         <y>-199</y>
+                                         <y>-319</y>
                                          <width>486</width>
                                          <height>573</height>
                                         </rect>
@@ -3013,26 +3017,57 @@ font: 24pt &quot;Mongolian Baiti&quot;;</string>
                             </property>
                             <layout class="QVBoxLayout" name="verticalLayout_13">
                              <item>
-                              <widget class="QStackedWidget" name="stackedWidget_2">
+                              <widget class="QStackedWidget" name="download_filter_stackWidget">
                                <property name="currentIndex">
-                                <number>1</number>
+                                <number>0</number>
                                </property>
-                               <widget class="QWidget" name="page">
-                                <widget class="QLabel" name="label_8">
-                                 <property name="geometry">
-                                  <rect>
-                                   <x>30</x>
-                                   <y>30</y>
-                                   <width>149</width>
-                                   <height>40</height>
-                                  </rect>
-                                 </property>
-                                 <property name="text">
-                                  <string>Server Name :</string>
-                                 </property>
-                                </widget>
+                               <widget class="QWidget" name="step1">
+                                <layout class="QVBoxLayout" name="verticalLayout_14">
+                                 <item>
+                                  <layout class="QHBoxLayout" name="horizontalLayout_18">
+                                   <item>
+                                    <widget class="QLabel" name="label_8">
+                                     <property name="sizePolicy">
+                                      <sizepolicy hsizetype="Maximum" vsizetype="Preferred">
+                                       <horstretch>0</horstretch>
+                                       <verstretch>0</verstretch>
+                                      </sizepolicy>
+                                     </property>
+                                     <property name="maximumSize">
+                                      <size>
+                                       <width>16777215</width>
+                                       <height>20</height>
+                                      </size>
+                                     </property>
+                                     <property name="text">
+                                      <string>Trains:</string>
+                                     </property>
+                                     <property name="styleClass" stdset="0">
+                                      <string>h3</string>
+                                     </property>
+                                    </widget>
+                                   </item>
+                                   <item>
+                                    <widget class="QComboBox" name="download_filters_train_combobox"/>
+                                   </item>
+                                  </layout>
+                                 </item>
+                                 <item>
+                                  <spacer name="verticalSpacer">
+                                   <property name="orientation">
+                                    <enum>Qt::Orientation::Vertical</enum>
+                                   </property>
+                                   <property name="sizeHint" stdset="0">
+                                    <size>
+                                     <width>20</width>
+                                     <height>40</height>
+                                    </size>
+                                   </property>
+                                  </spacer>
+                                 </item>
+                                </layout>
                                </widget>
-                               <widget class="QWidget" name="page_2">
+                               <widget class="QWidget" name="step0">
                                 <layout class="QVBoxLayout" name="verticalLayout_12">
                                  <item>
                                   <widget class="QLabel" name="label_4">
@@ -3043,11 +3078,13 @@ font: 24pt &quot;Mongolian Baiti&quot;;</string>
                                     </size>
                                    </property>
                                    <property name="styleSheet">
-                                    <string notr="true">font-weight:bold;
-font-size:14px;</string>
+                                    <string notr="true"/>
                                    </property>
                                    <property name="text">
                                     <string>Select Stations:</string>
+                                   </property>
+                                   <property name="styleClass" stdset="0">
+                                    <string>h3</string>
                                    </property>
                                   </widget>
                                  </item>
@@ -3143,6 +3180,19 @@ font-size:14px;</string>
                               </widget>
                              </item>
                              <item>
+                              <widget class="MessageWidget" name="download_filter_message" native="true">
+                               <property name="minimumSize">
+                                <size>
+                                 <width>0</width>
+                                 <height>60</height>
+                                </size>
+                               </property>
+                               <property name="styleSheet">
+                                <string notr="true"/>
+                               </property>
+                              </widget>
+                             </item>
+                             <item>
                               <layout class="QHBoxLayout" name="horizontalLayout_41">
                                <property name="topMargin">
                                 <number>0</number>
@@ -3174,29 +3224,6 @@ font-size:14px;</string>
                                 </widget>
                                </item>
                               </layout>
-                             </item>
-                             <item>
-                              <widget class="QFrame" name="frame_36">
-                               <property name="frameShape">
-                                <enum>QFrame::Shape::StyledPanel</enum>
-                               </property>
-                               <property name="frameShadow">
-                                <enum>QFrame::Shadow::Raised</enum>
-                               </property>
-                               <layout class="QVBoxLayout" name="verticalLayout_20">
-                                <item>
-                                 <widget class="QFrame" name="frame_37">
-                                  <property name="frameShape">
-                                   <enum>QFrame::Shape::StyledPanel</enum>
-                                  </property>
-                                  <property name="frameShadow">
-                                   <enum>QFrame::Shadow::Raised</enum>
-                                  </property>
-                                  <layout class="QHBoxLayout" name="horizontalLayout_18"/>
-                                 </widget>
-                                </item>
-                               </layout>
-                              </widget>
                              </item>
                             </layout>
                            </widget>

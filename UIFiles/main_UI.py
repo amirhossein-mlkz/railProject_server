@@ -283,6 +283,10 @@ class Ui_MainWindow(object):
 "}\n"
 "\n"
 "\n"
+"QLabel[styleClass=\"h3\"]{\n"
+"font-weight:bold;\n"
+"font-size:14px;\n"
+"}\n"
 "\n"
 "\n"
 "")
@@ -1190,7 +1194,7 @@ class Ui_MainWindow(object):
         self.scrollArea_2.setWidgetResizable(True)
         self.scrollAreaWidgetContents_2 = QWidget()
         self.scrollAreaWidgetContents_2.setObjectName(u"scrollAreaWidgetContents_2")
-        self.scrollAreaWidgetContents_2.setGeometry(QRect(0, -199, 486, 573))
+        self.scrollAreaWidgetContents_2.setGeometry(QRect(0, -319, 486, 573))
         self.verticalLayout_7 = QVBoxLayout(self.scrollAreaWidgetContents_2)
         self.verticalLayout_7.setObjectName(u"verticalLayout_7")
         self.frame_47 = QFrame(self.scrollAreaWidgetContents_2)
@@ -1682,30 +1686,53 @@ class Ui_MainWindow(object):
         self.frame_20.setFrameShadow(QFrame.Shadow.Raised)
         self.verticalLayout_13 = QVBoxLayout(self.frame_20)
         self.verticalLayout_13.setObjectName(u"verticalLayout_13")
-        self.stackedWidget_2 = QStackedWidget(self.frame_20)
-        self.stackedWidget_2.setObjectName(u"stackedWidget_2")
-        self.page = QWidget()
-        self.page.setObjectName(u"page")
-        self.label_8 = QLabel(self.page)
+        self.download_filter_stackWidget = QStackedWidget(self.frame_20)
+        self.download_filter_stackWidget.setObjectName(u"download_filter_stackWidget")
+        self.step1 = QWidget()
+        self.step1.setObjectName(u"step1")
+        self.verticalLayout_14 = QVBoxLayout(self.step1)
+        self.verticalLayout_14.setObjectName(u"verticalLayout_14")
+        self.horizontalLayout_18 = QHBoxLayout()
+        self.horizontalLayout_18.setObjectName(u"horizontalLayout_18")
+        self.label_8 = QLabel(self.step1)
         self.label_8.setObjectName(u"label_8")
-        self.label_8.setGeometry(QRect(30, 30, 149, 40))
-        self.stackedWidget_2.addWidget(self.page)
-        self.page_2 = QWidget()
-        self.page_2.setObjectName(u"page_2")
-        self.verticalLayout_12 = QVBoxLayout(self.page_2)
+        sizePolicy2 = QSizePolicy(QSizePolicy.Policy.Maximum, QSizePolicy.Policy.Preferred)
+        sizePolicy2.setHorizontalStretch(0)
+        sizePolicy2.setVerticalStretch(0)
+        sizePolicy2.setHeightForWidth(self.label_8.sizePolicy().hasHeightForWidth())
+        self.label_8.setSizePolicy(sizePolicy2)
+        self.label_8.setMaximumSize(QSize(16777215, 20))
+
+        self.horizontalLayout_18.addWidget(self.label_8)
+
+        self.download_filters_train_combobox = QComboBox(self.step1)
+        self.download_filters_train_combobox.setObjectName(u"download_filters_train_combobox")
+
+        self.horizontalLayout_18.addWidget(self.download_filters_train_combobox)
+
+
+        self.verticalLayout_14.addLayout(self.horizontalLayout_18)
+
+        self.verticalSpacer = QSpacerItem(20, 40, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Expanding)
+
+        self.verticalLayout_14.addItem(self.verticalSpacer)
+
+        self.download_filter_stackWidget.addWidget(self.step1)
+        self.step0 = QWidget()
+        self.step0.setObjectName(u"step0")
+        self.verticalLayout_12 = QVBoxLayout(self.step0)
         self.verticalLayout_12.setObjectName(u"verticalLayout_12")
-        self.label_4 = QLabel(self.page_2)
+        self.label_4 = QLabel(self.step0)
         self.label_4.setObjectName(u"label_4")
         self.label_4.setMaximumSize(QSize(16777215, 20))
-        self.label_4.setStyleSheet(u"font-weight:bold;\n"
-"font-size:14px;")
+        self.label_4.setStyleSheet(u"")
 
         self.verticalLayout_12.addWidget(self.label_4)
 
         self.horizontalLayout_34 = QHBoxLayout()
         self.horizontalLayout_34.setObjectName(u"horizontalLayout_34")
         self.horizontalLayout_34.setContentsMargins(0, 0, -1, -1)
-        self.download_all_stations_checkbox = QCheckBox(self.page_2)
+        self.download_all_stations_checkbox = QCheckBox(self.step0)
         self.download_all_stations_checkbox.setObjectName(u"download_all_stations_checkbox")
 
         self.horizontalLayout_34.addWidget(self.download_all_stations_checkbox)
@@ -1714,7 +1741,7 @@ class Ui_MainWindow(object):
 
         self.horizontalLayout_34.addItem(self.horizontalSpacer)
 
-        self.download_search_station = QLineEdit(self.page_2)
+        self.download_search_station = QLineEdit(self.step0)
         self.download_search_station.setObjectName(u"download_search_station")
 
         self.horizontalLayout_34.addWidget(self.download_search_station)
@@ -1722,7 +1749,7 @@ class Ui_MainWindow(object):
 
         self.verticalLayout_12.addLayout(self.horizontalLayout_34)
 
-        self.download_stations_table = QTableWidget(self.page_2)
+        self.download_stations_table = QTableWidget(self.step0)
         if (self.download_stations_table.columnCount() < 2):
             self.download_stations_table.setColumnCount(2)
         __qtablewidgetitem3 = QTableWidgetItem()
@@ -1746,9 +1773,16 @@ class Ui_MainWindow(object):
 
         self.verticalLayout_12.addWidget(self.download_stations_table)
 
-        self.stackedWidget_2.addWidget(self.page_2)
+        self.download_filter_stackWidget.addWidget(self.step0)
 
-        self.verticalLayout_13.addWidget(self.stackedWidget_2)
+        self.verticalLayout_13.addWidget(self.download_filter_stackWidget)
+
+        self.download_filter_message = MessageWidget(self.frame_20)
+        self.download_filter_message.setObjectName(u"download_filter_message")
+        self.download_filter_message.setMinimumSize(QSize(0, 60))
+        self.download_filter_message.setStyleSheet(u"")
+
+        self.verticalLayout_13.addWidget(self.download_filter_message)
 
         self.horizontalLayout_41 = QHBoxLayout()
         self.horizontalLayout_41.setObjectName(u"horizontalLayout_41")
@@ -1767,24 +1801,6 @@ class Ui_MainWindow(object):
 
 
         self.verticalLayout_13.addLayout(self.horizontalLayout_41)
-
-        self.frame_36 = QFrame(self.frame_20)
-        self.frame_36.setObjectName(u"frame_36")
-        self.frame_36.setFrameShape(QFrame.Shape.StyledPanel)
-        self.frame_36.setFrameShadow(QFrame.Shadow.Raised)
-        self.verticalLayout_20 = QVBoxLayout(self.frame_36)
-        self.verticalLayout_20.setObjectName(u"verticalLayout_20")
-        self.frame_37 = QFrame(self.frame_36)
-        self.frame_37.setObjectName(u"frame_37")
-        self.frame_37.setFrameShape(QFrame.Shape.StyledPanel)
-        self.frame_37.setFrameShadow(QFrame.Shadow.Raised)
-        self.horizontalLayout_18 = QHBoxLayout(self.frame_37)
-        self.horizontalLayout_18.setObjectName(u"horizontalLayout_18")
-
-        self.verticalLayout_20.addWidget(self.frame_37)
-
-
-        self.verticalLayout_13.addWidget(self.frame_36)
 
 
         self.formLayout.setWidget(0, QFormLayout.LabelRole, self.frame_20)
@@ -2428,8 +2444,8 @@ class Ui_MainWindow(object):
         self.retranslateUi(MainWindow)
 
         self.stackedWidget.setCurrentIndex(2)
-        self.tabWidget.setCurrentIndex(1)
-        self.stackedWidget_2.setCurrentIndex(1)
+        self.tabWidget.setCurrentIndex(0)
+        self.download_filter_stackWidget.setCurrentIndex(0)
 
 
         QMetaObject.connectSlotsByName(MainWindow)
@@ -2522,8 +2538,10 @@ class Ui_MainWindow(object):
         self.btn_modify_cancel.setProperty("styleClass", QCoreApplication.translate("MainWindow", u"borderBlueButton", None))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.modify), QCoreApplication.translate("MainWindow", u"Modify", None))
         self.label_31.setText(QCoreApplication.translate("MainWindow", u"Download", None))
-        self.label_8.setText(QCoreApplication.translate("MainWindow", u"Server Name :", None))
+        self.label_8.setText(QCoreApplication.translate("MainWindow", u"Trains:", None))
+        self.label_8.setProperty("styleClass", QCoreApplication.translate("MainWindow", u"h3", None))
         self.label_4.setText(QCoreApplication.translate("MainWindow", u"Select Stations:", None))
+        self.label_4.setProperty("styleClass", QCoreApplication.translate("MainWindow", u"h3", None))
         self.download_all_stations_checkbox.setText(QCoreApplication.translate("MainWindow", u"All", None))
         self.download_search_station.setPlaceholderText(QCoreApplication.translate("MainWindow", u"Search name", None))
         ___qtablewidgetitem3 = self.download_stations_table.horizontalHeaderItem(0)

@@ -15,6 +15,11 @@ from backend.utils.threadWorker import threadWorkers
 from Tranform.Network import pingWorker
 from Tranform.sharingConstans import StatusCodes
 from uiUtils.GUIComponents import MessageWidget
+from PagesAPI.settingPageAPI import settingPageAPI
+from PagesAPI.downloadPageAPI import downloadPageAPI
+
+from Mediator.mainMediator import Mediator
+from Mediator.mediatorNames import eventNames
 
 class API:
     def __init__(self, ui_obj:UI_main_window_org):
@@ -30,172 +35,48 @@ class API:
         self.stop_event = Event()
         self.image_loader = ImageLoader(self.stop_event,'', self.speed_rate)
 
-        self.ui_obj.calendar_dialog.set_parent_function(self.calendar_day_click)
+        self.Mediator = Mediator()
+        self.Mediator.register_events(eventNames.MODIFY_SYSTEM_STATIONS)
+
+        self.settingPageAPI = settingPageAPI(self.ui_obj.settingPageUI, self.db)
+        self.downloadPageAPI = downloadPageAPI(self.ui_obj.downloadPageUI, self.db)
+
+        self.settingPageAPI.refresh_system_stations()
 
 
-        self.systems_stations = []
-        self.selected_stations_id_for_download = []
-        self.current_system_staion_modify_id = None
+        self.ui_obj.calendar_dialog.set_parent_function(self.calendar_day_click)        
         
-        self.pingThreadWorker = threadWorkers(None, None)
-        self.ui_obj.show_modify_system_station_form(False)
-        self.refresh_system_stations()
+        
+        
 
 
 
     def button_connector(self):
-        self.ui_obj.btn_modify_cancel.clicked.connect(self.cancel_editing_systems_station)
-        self.ui_obj.btn_modify_save.clicked.connect(self.save_systems_station_change)
+        self.ui_obj.ui.speed_btn.clicked.connect(self.set_speed)
+        self.ui_obj.ui.btn_side_download.clicked.connect(self.load_download_base_params)
 
-        self.ui_obj.btn_save_add.clicked.connect(self.add_system_station)
-        self.ui_obj.btn_add_check_connection.clicked.connect(self.check_system_connection)
-
-        self.ui_obj.speed_btn.clicked.connect(self.set_speed)
-        self.ui_obj.btn_side_download.clicked.connect(self.load_download_base_params)
-
-        self.ui_obj.btn_add.clicked.connect(self.add_name)
-        self.ui_obj.btn_remove.clicked.connect(self.remove_name)
-        self.ui_obj.refresh_btn.clicked.connect(self.check_available_trains)
-        self.ui_obj.btn_select_train.clicked.connect(self.set_train_id)
-        self.ui_obj.play_btn.clicked.connect(self.play_images)
-        self.ui_obj.stop_btn.clicked.connect(self.stop_show_image)
-        # self.ui_obj.download_filter_next_btn.clicked.connect(self)
+        self.ui_obj.ui.btn_add.clicked.connect(self.add_name)
+        self.ui_obj.ui.btn_remove.clicked.connect(self.remove_name)
+        self.ui_obj.ui.refresh_btn.clicked.connect(self.check_available_trains)
+        self.ui_obj.ui.btn_select_train.clicked.connect(self.set_train_id)
+        self.ui_obj.ui.play_btn.clicked.connect(self.play_images)
+        self.ui_obj.ui.stop_btn.clicked.connect(self.stop_show_image)
         #--------------------------------------------------------------------
-        self.ui_obj.download_search_station.textChanged.connect(self.update_download_stations_list)
-        self.ui_obj.download_all_stations_checkbox.checkStateChanged.connect(self.select_all_staions_for_download)
         
-
-
-
-    
-
-
-
-        
-
 
     def create_db_obj(self):
         self.db_manager = DataBaseManager('data.db')
         self.db = mainDatabase(self.db_manager)
 
-    def refresh_system_stations(self,):
-        self.systems_stations = self.db.load_all_system_stations()
-        self.ui_obj.set_system_stations_table(self.systems_stations, 
-                                              event_func=self.ststem_station_table_event)
-        
-        self.update_download_stations_list()
 
-    def download_system_station_select_event(self, state, id):
-        if state:
-            if id not in self.selected_stations_id_for_download:
-                self.selected_stations_id_for_download.append(id)
-        else:
-            if id in self.selected_stations_id_for_download:
-                self.selected_stations_id_for_download.remove(id)
 
-    def select_all_staions_for_download(self, state):
-        if state.value:
-            self.selected_stations_id_for_download = list(map(lambda x:x['id'], self.systems_stations))
-        else:
-            self.selected_stations_id_for_download = []
-        
-        self.update_download_stations_list()
+    
+
+    
         
 
-    def update_download_stations_list(self, ):
-        search_q = self.ui_obj.download_search_station.text()
-        if search_q:
-            resluts = list(filter( lambda x:search_q.lower() in x['name'], self.systems_stations))
-        else:
-            resluts = self.systems_stations
-        
-        self.ui_obj.set_download_stations_list(resluts, 
-                                               event_func=self.download_system_station_select_event,
-                                               selected_ids=self.selected_stations_id_for_download)
-
-    def ststem_station_table_event(self, name:str, id:str):
-        if name == 'delete':
-            self.remove_system_station(id)
-        
-        elif name == 'edit':
-            self.edit_system_station(id)
-        
-        else:
-            print("BUG:ststem_station_table_event", name, id)
-
-
-
-    def remove_system_station(self, id:int):
-        res = self.ui_obj.show_confirmbox('remove', 'Are You Sure to remove?', buttons=['yes', 'no'])
-        if res =='no':
-            return
-        ret = self.db.remove_system_station_by_id(id)
-        self.refresh_system_stations()
-
-    def edit_system_station(self, id):
-        system_info = self.db.load_system_station_by_id(id)
-        if len(system_info) == 0:
-            return
-        
-        self.current_system_staion_modify_id = id
-        
-        system_info = system_info[0]
-        self.ui_obj.set_modify_system_station_fields(system_info)
-        self.ui_obj.show_modify_system_station_form(True)
-
-    def cancel_editing_systems_station(self,):
-        self.ui_obj.clear_modify_system_station_fields()
-        self.ui_obj.show_modify_system_station_form(False)
-
-    def save_systems_station_change(self,):
-        input_fields = self.ui_obj.get_modify_system_station_fields()
-        verfiy = self.verify_system_station(input_fields, 
-                                         self.ui_obj.modify_station_message , 
-                                         id=self.current_system_staion_modify_id)
-        
-        if verfiy:
-
-            ret = self.db.update_system_station_by_id(input_fields, id=self.current_system_staion_modify_id)
-            if ret:
-                self.ui_obj.modify_station_message.show_message('Changes Saved Cusscess', msg_type='success', display_time=3000)
-                self.refresh_system_stations()
-                self.ui_obj.show_modify_system_station_form(False)
-
-            else:
-                self.ui_obj.modify_station_message.show_message('Failed to save', msg_type='error', display_time=3000)
-
-
- 
-
-
-    def add_system_station(self):
-        input_fields = self.ui_obj.get_add_system_station()
-        verfiy = self.verify_system_station(input_fields, msg_wgt=self.ui_obj.add_station_message)
-        if verfiy:
-            ret = self.db.save_system_station(input_fields)
-            if ret:
-                self.refresh_system_stations()
-                self.ui_obj.clear_add_system_station()
-                self.ui_obj.add_station_message.show_message("Saved Success", msg_type='success', display_time=3000)
-            else:
-                self.ui_obj.add_station_message.show_message("failed to save", msg_type='error', display_time=3000)
-
-
-    def verify_system_station(self, data:dict, msg_wgt:MessageWidget, id=None,):
-        if data is None:
-            msg_wgt.show_message('Please Fill All Requierd Fields', msg_type='error', display_time=3000)
-            return False
-
-        for system_info in self.systems_stations:
-            if id is None or id != system_info['id']:
-                if system_info['name'] == data['name']:
-                    msg_wgt.show_message("this name is already exists", msg_type='error', display_time=3000)
-                    return False
-            
-                if system_info['ip'] == data['ip']:
-                    msg_wgt.show_message("this IP is already exists", msg_type='error', display_time=3000)
-                    return False
-        return True
+    
+    
     
     def load_system_spec_column(self,column_name):
         configs = self.db_manager.fetch_table_as_dict(table_name='system_config')
@@ -209,33 +90,8 @@ class API:
         return names
     
 
-    def check_system_connection(self):
-        input_fields = self.ui_obj.get_add_ip()
-        if self.pingThreadWorker.is_alive():
-            self.ui_obj.add_station_message.show_message("Please wait for Response", msg_type='info', display_time=3000)
-            return
-
-        if input_fields['ip']:
-            ip = input_fields['ip']
-            worker = pingWorker(ip)
-            worker.result_signal.connect(self.ping_result_event)
-            thread = threading.Thread(target=worker.run, daemon=True)
-            self.pingThreadWorker = threadWorkers(thread=thread, worker=worker)
-            self.pingThreadWorker.start()
-        else:
-            self.ui_obj.add_station_message.show_message("IP filed can't be empty", msg_type='error', display_time=3000)
-
-
-
-    def ping_result_event(self, status):
-        if status == StatusCodes.pingAndConnectionStatusCodes.NOT_CONNECT:
-            self.ui_obj.add_station_message.show_message("connection failed", msg_type='error', display_time=3000)
-            return
-        
-        if status == StatusCodes.pingAndConnectionStatusCodes.SUCCESS:
-            self.ui_obj.add_station_message.show_message("connection success", msg_type='success', display_time=3000)
-            return
-
+    
+    
 
 
     def set_speed(self):
@@ -263,30 +119,30 @@ class API:
         self.condidate_names = []
 
         self.download_systems_names = self.load_system_spec_column(column_name='name')
-        self.ui_obj.set_item_combo_box(combo_name=self.ui_obj.combo_download_all, items=self.download_systems_names)
+        self.ui_obj.set_item_combo_box(combo_name=self.ui_obj.ui.combo_download_all, items=self.download_systems_names)
 
 
     def add_name(self):
 
-        text = self.ui_obj.ret_current_value_combo_box(self.ui_obj.combo_download_all)
+        text = self.ui_obj.ret_current_value_combo_box(self.ui_obj.ui.combo_download_all)
         if text !='':
             self.download_systems_names.remove(text)
 
             self.condidate_names.append(text)
 
-            self.ui_obj.set_item_combo_box(combo_name=self.ui_obj.combo_download_selected,items=self.condidate_names)
-            self.ui_obj.set_item_combo_box(combo_name=self.ui_obj.combo_download_all,items=self.download_systems_names)
+            self.ui_obj.set_item_combo_box(combo_name=self.ui_obj.ui.combo_download_selected,items=self.condidate_names)
+            self.ui_obj.set_item_combo_box(combo_name=self.ui_obj.ui.combo_download_all,items=self.download_systems_names)
 
 
     def remove_name(self):
-        text = self.ui_obj.ret_current_value_combo_box(self.ui_obj.combo_download_selected)
+        text = self.ui_obj.ret_current_value_combo_box(self.ui_obj.ui.combo_download_selected)
         if text!='':
             self.condidate_names.remove(text)
 
             self.download_systems_names.append(text)
 
-            self.ui_obj.set_item_combo_box(combo_name=self.ui_obj.combo_download_all,items=self.download_systems_names)
-            self.ui_obj.set_item_combo_box(combo_name=self.ui_obj.combo_download_selected,items=self.condidate_names)
+            self.ui_obj.set_item_combo_box(combo_name=self.ui_obj.ui.combo_download_all,items=self.download_systems_names)
+            self.ui_obj.set_item_combo_box(combo_name=self.ui_obj.ui.combo_download_selected,items=self.condidate_names)
 
 
 

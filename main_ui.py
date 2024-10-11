@@ -22,6 +22,8 @@ from UIFiles.main_UI import Ui_MainWindow
 from PySide6.QtWidgets import QGraphicsBlurEffect
 from PySide6.QtGui import QFont,QIcon
 from timeLine import TimelineSlider
+from PagesUI.settingPageUI import settingPageUI
+from PagesUI.downloadPageUI import downloadPageUI
 
 import assets
 
@@ -33,52 +35,30 @@ from uiUtils import GUIComponents
 
 
 # ui class
-class UI_main_window_org(sQMainWindow, Ui_MainWindow):
-    global widgets
-    # widgets = Ui_MainWindow
+class UI_main_window_org(sQMainWindow):
 
     def __init__(self):
         super(UI_main_window_org, self).__init__()
-        self.setWindowTitle("Sepanta RailWay Monitoring")
 
+        self.ui = Ui_MainWindow()
+        self.ui.setupUi(self)
+        self.all_style_repoblish()
+
+        self.settingPageUI = settingPageUI(self.ui)
+        self.downloadPageUI = downloadPageUI(self.ui)
+
+        self.setWindowTitle("Sepanta RailWay Monitoring")
         # window setup
-        self.setupUi(self)
         self.setWindowTitle("Iran RailWay Monitoring")
         # Set the window icon
         self.setWindowIcon(QIcon(":/icons/icons/download.png"))
-
-        self.all_style_repoblish()
-
-        self.new_system_station_fields:dict[str, tuple] = {
-            'name': (self.name_input, True),
-            'city': (self.city_input, True),
-            'ip'  : (self.ip_input  , True),
-            'username': (self.username_input, False),
-            'password': (self.password_input, False),
-        }
-
-        self.modify_system_station_fields = {
-            'name': (self.name_input_modify, True),
-            'city': (self.city_input_modify, True),
-            'ip'  : (self.ip_input_modify  , True),
-            'username': (self.username_input_modify, False),
-            'password': (self.password_input_modify, False),
-        }
-        
-
-
-
-        
-        # self.stackedWidget.setCurrentWidget(self.page_playback)
-        
-
 
 
         self.button_connector()
         
         # Create a central widget
-        central_widget = self.calendar_widget
-        self.calendar_dialog = JalaliCalendarDialog(self.label_date)
+        central_widget = self.ui.calendar_widget
+        self.calendar_dialog = JalaliCalendarDialog(self.ui.label_date)
         self.calendar_dialog.setParent(central_widget)
 
 
@@ -86,12 +66,12 @@ class UI_main_window_org(sQMainWindow, Ui_MainWindow):
         # timeline_widget = self.layout_timeline
         self.timeline = TimelineSlider(duration_ms=ONE_HOUR,played_color="green", unplayed_color="green",
                                      played_red_color="red", unplayed_red_color="red",
-                                     show_dividers=False, groove_height=25,time_label=self.time_label)
+                                     show_dividers=False, groove_height=25,time_label=self.ui.time_label)
 
 
         self.timeline.set_minutes_segments([])
         # GUIBackend.add_widget(self.frame_timeline,self.timeline)
-        GUIBackend.add_widget(self.layout_timeline,self.timeline)
+        GUIBackend.add_widget(self.ui.layout_timeline,self.timeline)
 
 
 
@@ -100,13 +80,13 @@ class UI_main_window_org(sQMainWindow, Ui_MainWindow):
 
 
         # Create animations
-        self.animation = QPropertyAnimation(self.toggle_frame, b"geometry")
+        self.animation = QPropertyAnimation(self.ui.toggle_frame, b"geometry")
         self.animation.setDuration(1500)  # Duration in milliseconds (1.5 seconds)
         self.animation.setEasingCurve(QEasingCurve.InOutQuad)  # Easing curve for smooth animation
 
         # Connect the button's clicked event
-        self.btn_logo.clicked.connect(self.toggle_frame_visibility)
-        self.btn_logo.installEventFilter(self)  # Install an event filter to handle double clicks
+        self.ui.btn_logo.clicked.connect(self.toggle_frame_visibility)
+        self.ui.btn_logo.installEventFilter(self)  # Install an event filter to handle double clicks
         self.hide_all_messages()
 
 
@@ -126,31 +106,32 @@ class UI_main_window_org(sQMainWindow, Ui_MainWindow):
 
 
     def hide_all_messages(self,):
-        self.add_station_message.hide()
-        self.modify_station_message.hide()
+        self.ui.add_station_message.hide()
+        self.ui.modify_station_message.hide()
+        self.ui.download_filter_message.hide()
 
     def toggle_frame_visibility(self):
-        if self.toggle_frame.isVisible():
+        if self.ui.toggle_frame.isVisible():
             # Animate closing
-            self.animation.setStartValue(self.toggle_frame.geometry())
-            self.animation.setEndValue(QRect(self.toggle_frame.x(), self.toggle_frame.y(), 0, self.toggle_frame.height()))
+            self.animation.setStartValue(self.ui.toggle_frame.geometry())
+            self.animation.setEndValue(QRect(self.ui.toggle_frame.x(), self.ui.toggle_frame.y(), 0, self.ui.toggle_frame.height()))
             self.animation.start()
-            self.toggle_frame.setVisible(False)
+            self.ui.toggle_frame.setVisible(False)
         else:
             # Animate opening
-            self.toggle_frame.setVisible(True)
-            self.animation.setStartValue(QRect(self.toggle_frame.x(), self.toggle_frame.y(), 0, self.toggle_frame.height()))
-            self.animation.setEndValue(QRect(self.toggle_frame.x(), self.toggle_frame.y(), 200, self.toggle_frame.height()))
+            self.ui.toggle_frame.setVisible(True)
+            self.animation.setStartValue(QRect(self.ui.toggle_frame.x(), self.ui.toggle_frame.y(), 0, self.ui.toggle_frame.height()))
+            self.animation.setEndValue(QRect(self.ui.toggle_frame.x(), self.ui.toggle_frame.y(), 200, self.ui.toggle_frame.height()))
             self.animation.start()
 
     def eventFilter(self, source, event):
-        if source == self.btn_logo and event.type() == QEvent.MouseButtonDblClick:
+        if source == self.ui.btn_logo and event.type() == QEvent.MouseButtonDblClick:
             # Hide frame on double click with animation
-            if self.toggle_frame.isVisible():
-                self.animation.setStartValue(self.toggle_frame.geometry())
-                self.animation.setEndValue(QRect(self.toggle_frame.x(), self.toggle_frame.y(), 0, self.toggle_frame.height()))
+            if self.ui.toggle_frame.isVisible():
+                self.animation.setStartValue(self.ui.toggle_frame.geometry())
+                self.animation.setEndValue(QRect(self.ui.toggle_frame.x(), self.ui.toggle_frame.y(), 0, self.ui.toggle_frame.height()))
                 self.animation.start()
-                self.toggle_frame.setVisible(False)
+                self.ui.toggle_frame.setVisible(False)
             return True
         return super(UI_main_window_org, self).eventFilter(source, event)
 
@@ -161,10 +142,10 @@ class UI_main_window_org(sQMainWindow, Ui_MainWindow):
 
     def button_connector(self):
 
-        self.btn_side_playback.clicked.connect(self.set_stack_widget)
-        self.btn_side_download.clicked.connect(self.set_stack_widget)
-        self.btn_side_settings.clicked.connect(self.set_stack_widget)
-        self.btn_side_aboutus.clicked.connect(self.set_stack_widget)
+        self.ui.btn_side_playback.clicked.connect(self.set_stack_widget)
+        self.ui.btn_side_download.clicked.connect(self.set_stack_widget)
+        self.ui.btn_side_settings.clicked.connect(self.set_stack_widget)
+        self.ui.btn_side_aboutus.clicked.connect(self.set_stack_widget)
 
 
         
@@ -243,13 +224,13 @@ class UI_main_window_org(sQMainWindow, Ui_MainWindow):
         btn = self.sender()
         btnName = btn.objectName()
         if btnName == "btn_side_playback":
-            self.stackedWidget.setCurrentWidget(self.page_playback)
+            self.ui.stackedWidget.setCurrentWidget(self.ui.page_playback)
         if btnName == "btn_side_download":
-            self.stackedWidget.setCurrentWidget(self.page_download)
+            self.ui.stackedWidget.setCurrentWidget(self.ui.page_download)
         if btnName == "btn_side_settings":
-            self.stackedWidget.setCurrentWidget(self.page_settings)
+            self.ui.stackedWidget.setCurrentWidget(self.ui.page_settings)
         if btnName == "btn_side_aboutus":
-            self.stackedWidget.setCurrentWidget(self.page_playback)
+            self.ui.stackedWidget.setCurrentWidget(self.ui.page_playback)
 
 
     def close_win(self):
@@ -267,9 +248,9 @@ class UI_main_window_org(sQMainWindow, Ui_MainWindow):
         res = self.db.fetch_table_as_dict()
         if len(res)==1:
             res = res[0]
-            self.ip_input.setText(res['ip'])
-            self.username_input.setText(res['username'])
-            self.password_input.setText(res['password'])
+            self.ui.ip_input.setText(res['ip'])
+            self.ui.username_input.setText(res['username'])
+            self.ui.password_input.setText(res['password'])
 
     
 
@@ -290,9 +271,9 @@ class UI_main_window_org(sQMainWindow, Ui_MainWindow):
 
 
     def start_copy(self):
-        ip = self.ip_input.text()
-        username = self.username_input.text()
-        password = self.password_input.text()
+        ip = self.ui.ip_input.text()
+        username = self.ui.username_input.text()
+        password = self.ui.password_input.text()
         src_path = self.src_path
         dst_path = self.dst_path
 
@@ -343,24 +324,24 @@ class UI_main_window_org(sQMainWindow, Ui_MainWindow):
 
     def update_progress(self, value):
         print(value)
-        self.progress_bar.setValue(value)
+        self.ui.progress_bar.setValue(value)
 
     def update_log(self, message):
-        self.log_label.setText(message)
+        self.ui.log_label.setText(message)
         QTimer.singleShot(3000, lambda: self.show_error(''))
 
     def copy_completed(self):
-        self.progress_bar.setValue(100)
-        self.log_label.setText("Copy Completed!")
+        self.ui.progress_bar.setValue(100)
+        self.ui.log_label.setText("Copy Completed!")
         # threading.Timer(3,self.update_log,args=('',)).start()
         # threading.Timer(3,self.update_progress,args=(0,)).start()
 
 
     def show_error(self, error):
         if error !='':
-            self.log_label.setText(f"Error: {error}")
+            self.ui.log_label.setText(f"Error: {error}")
         else:
-            self.log_label.setText('')
+            self.ui.log_label.setText('')
 
         QTimer.singleShot(3000, lambda: self.show_error(''))
 
@@ -394,127 +375,21 @@ class UI_main_window_org(sQMainWindow, Ui_MainWindow):
     def append_ping_result(self, result):
         """Append the ping result to the QTextEdit."""
         # print(result)
-        self.textEdit_ping_status.append(result)
+        self.ui.textEdit_ping_status.append(result)
 
 
     def clear_ping_result(self):
-        self.textEdit_ping_status.setText('')
+        self.ui.textEdit_ping_status.setText('')
 
-    def get_add_ip(self):
-
-        input_fields = {}
-        input_fields['ip'] =GUIBackend.get_input_text(self.ip_input)
-        return input_fields
-
-    def set_system_stations_table(self, datas:list[dict], event_func):
-        headers = ['edit', 'delete', 'name', 'city', 'ip', 'username', 'password']
-        GUIBackend.set_table_dim(self.system_stations_table, len(datas), len(headers))
-        GUIBackend.set_table_cheaders(self.system_stations_table, headers)
-
-
-        for row_idx, row_info in enumerate(datas):
-            for cell_name, cell_value in row_info.items():
-                if cell_name in headers:
-                    col_idx = headers.index(cell_name)
-                    GUIBackend.set_table_cell_value(table=self.system_stations_table,
-                                                    index=(row_idx, col_idx),
-                                                    value=cell_value
-                                                    )
-        
-
-
-            del_btn = GUIComponents.deleteButton()
-            GUIBackend.button_connector_argument_pass(del_btn, event_func, args=('delete', row_info['id']))
-
-            edit_btn = GUIComponents.editButton()
-            GUIBackend.button_connector_argument_pass(edit_btn, event_func, args=('edit', row_info['id']))
-
-            GUIBackend.set_table_cell_widget(table=self.system_stations_table,
-                                             index=(row_idx, headers.index('delete')),
-                                             widget=del_btn
-                                             )
-            
-            GUIBackend.set_table_cell_widget(table=self.system_stations_table,
-                                             index=(row_idx, headers.index('edit')),
-                                             widget=edit_btn
-                                            )
-
-
-    def set_download_stations_list(self, datas:list[dict], event_func, selected_ids:list):
-        headers = ['-', 'name', 'city']
-        GUIBackend.set_table_dim(self.download_stations_table, len(datas), len(headers))
-        GUIBackend.set_table_cheaders(self.download_stations_table, headers)
-        GUIBackend.set_cell_width_content_adjust(self.download_stations_table)
-        
-        for row_idx, row_info in enumerate(datas):
-            for cell_name, cell_value in row_info.items():
-                if cell_name in headers:
-                    col_idx = headers.index(cell_name)
-                    GUIBackend.set_table_cell_value(table=self.download_stations_table,
-                                                    index=(row_idx, col_idx),
-                                                    value=cell_value
-                                                    )
-            
-            checkbox = GUIComponents.tabelCheckbox()
-            GUIBackend.checkbox_connector_argument_pass(checkbox, event_func, args=(row_info['id'],))
-
-            GUIBackend.set_table_cell_widget(table=self.download_stations_table,
-                                             index=(row_idx, headers.index('-')),
-                                             widget=checkbox
-                                            )
-            
-            if row_info['id'] in selected_ids:
-                GUIBackend.set_checkbox_value(checkbox, True, block_signal=True)
-            else:
-                GUIBackend.set_checkbox_value(checkbox, False, block_signal=False)
-            
-
-    def get_add_system_station(self):
-        input_fields = {}
-        for field_name,(field, require) in self.new_system_station_fields.items():
-            value = GUIBackend.get_input(field)
-            if require==True and value=='':
-                return None
-        
-            input_fields[field_name] = value
-        return input_fields
     
 
-    def clear_add_system_station(self,):
-        for field_name,(field, require) in self.new_system_station_fields.items():
-            GUIBackend.set_input(field, '')
-
-
-    def set_modify_system_station_fields(self,datas:dict):
-        for name ,value in datas.items():
-            if name in self.modify_system_station_fields:
-                field, require = self.modify_system_station_fields[name]
-                GUIBackend.set_input(field, value)
-
-    def get_modify_system_station_fields(self):
-        input_fields = {}
-        for field_name,(field, require) in self.modify_system_station_fields.items():
-            value = GUIBackend.get_input(field)
-            if require==True and value=='':
-                return None
-        
-            input_fields[field_name] = value
-        return input_fields
-
-    def clear_modify_system_station_fields(self,):
-        for name ,(field,_) in self.modify_system_station_fields.items():
-            GUIBackend.set_input(field,"")
-            
     
-    def show_modify_system_station_form(self, state):
-        self.modify_station_message.hide()
-        if state:
-            self.modify_form_frame.show()
-            self.system_stations_table.hide()
-        else:
-            self.modify_form_frame.hide()
-            self.system_stations_table.show()
 
+
+    
+            
+
+    
 
 
 
@@ -538,7 +413,7 @@ class UI_main_window_org(sQMainWindow, Ui_MainWindow):
     def update_image(self, pixmap):
         # Resize the image to fit the label
         # self.show_image.setPixmap(pixmap.scaled(self.show_image.size(), Qt.KeepAspectRatio, Qt.SmoothTransformation))
-        self.show_image.setPixmap(pixmap.scaled(self.show_image.size()))#, Qt.KeepAspectRatio, Qt.SmoothTransformation))
+        self.ui.show_image.setPixmap(pixmap.scaled(self.show_image.size()))#, Qt.KeepAspectRatio, Qt.SmoothTransformation))
 
 
     def show_confirmbox(self, title:str, text:str, buttons:list[str]):

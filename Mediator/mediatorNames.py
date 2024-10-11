@@ -1,0 +1,3 @@
+class eventNames:
+    MODIFY_SYSTEM_STATIONS = 'MODIFY_SYSTEM_STATIONS'
+    
