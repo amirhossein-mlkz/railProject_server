@@ -1,0 +1,33 @@
+<RCC>
+  <qresource prefix="icons">
+    <file>icons/icons8-edit-hover-table-50.png</file>
+    <file>icons/icons8-edit-table-50.png</file>
+    <file>icons/icons8-remove-hover-table-50.png</file>
+    <file>icons/icons8-remove-table-50.png</file>
+    <file>icons/error.png</file>
+    <file>icons/info.png</file>
+    <file>icons/success.png</file>
+    <file>icons/icons8-pause-50.png</file>
+    <file>icons/icons8-company-50.png</file>
+    <file>icons/icons8-settings-80.png</file>
+    <file>icons/icons8-railway-50.png</file>
+    <file>icons/icons8-refresh-26.png</file>
+    <file>icons/icons8-check-mark-48.png</file>
+    <file>icons/icons8-playback-24.png</file>
+    <file>icons/icons8-drop-down-80.png</file>
+    <file>icons/icons8-drop-down-50.png</file>
+    <file>icons/setting.png</file>
+    <file>icons/reset_black.png</file>
+    <file>icons/database.png</file>
+    <file>icons/minimize.png</file>
+    <file>icons/maximize.png</file>
+    <file>icons/minus_icon.png</file>
+    <file>icons/2.png</file>
+    <file>icons/download.png</file>
+    <file>icons/Live00.png</file>
+    <file>icons/icons8-file-download-50.png</file>
+    <file>icons/stop-button.png</file>
+    <file>icons/close_icon.png</file>
+    <file>icons/arrow-left.png</file>
+  </qresource>
+</RCC>
