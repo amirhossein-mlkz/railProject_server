@@ -12,7 +12,6 @@ from PySide6.QtWidgets import QVBoxLayout, QWidget, QComboBox, QGridLayout, QLab
 import sys,os,platform,time,subprocess,threading
 from copy_ping import ShareCopyWorker
 from persiantools.jdatetime import JalaliDateTime
-from Calendar import  JalaliCalendarDialog
 from guiBackend import GUIBackend
 from PySide6.QtCore import QTimer
 from login import LoginPage
@@ -24,7 +23,7 @@ from PySide6.QtGui import QFont,QIcon
 from timeLine import TimelineSlider
 from PagesUI.settingPageUI import settingPageUI
 from PagesUI.downloadPageUI import downloadPageUI
-
+from PagesUI.playbackPageUI import playbackPageUI
 import assets
 
 from PySide6.QtCore import Qt, QPropertyAnimation, QEasingCurve, QRect, QEvent
@@ -46,6 +45,7 @@ class UI_main_window_org(sQMainWindow):
 
         self.settingPageUI = settingPageUI(self.ui)
         self.downloadPageUI = downloadPageUI(self.ui)
+        self.playbackPageUI = playbackPageUI(self.ui)
 
         self.setWindowTitle("Sepanta RailWay Monitoring")
         # window setup
@@ -58,8 +58,7 @@ class UI_main_window_org(sQMainWindow):
         
         # Create a central widget
         central_widget = self.ui.calendar_widget
-        self.calendar_dialog = JalaliCalendarDialog(self.ui.label_date)
-        self.calendar_dialog.setParent(central_widget)
+        
 
 
 
@@ -109,6 +108,7 @@ class UI_main_window_org(sQMainWindow):
         self.ui.add_station_message.hide()
         self.ui.modify_station_message.hide()
         self.ui.download_filter_message.hide()
+        self.ui.refresh_image_db_message.hide()
 
     def toggle_frame_visibility(self):
         if self.ui.toggle_frame.isVisible():

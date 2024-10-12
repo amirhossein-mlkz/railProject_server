@@ -66,6 +66,10 @@ class transormUtils:
                 end = date_times[i]
             else:
                 end = date_times[i]
+                if i==len(date_times)-1:
+                    end = timedelta(seconds=step_lenght_sec) + end
+                    res.append((start, end))
+
         return res
 
             

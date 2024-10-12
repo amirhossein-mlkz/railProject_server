@@ -1,3 +1,7 @@
+from PySide6.QtWidgets import QLabel
+from PySide6.QtGui import QPixmap, QIcon
+
+
 from UIFiles.main_UI import Ui_MainWindow
 from uiUtils.guiBackend import GUIBackend
 from uiUtils import GUIComponents
@@ -59,9 +63,42 @@ class downloadPageUI:
     
     def set_filter_trains(self, trains:list[str]):
         GUIBackend.set_combobox_items(self.ui.download_filters_train_combobox, trains, block_signal=True)
+
+    def set_filter_stations_logs(self, logs:list[dict]):
+        headers = ['status', 'name', 'message']
+        GUIBackend.set_table_dim(self.ui.download_filter_station_log, len(logs), len(headers))
+        GUIBackend.set_table_cheaders(self.ui.download_filter_station_log, headers)
+        GUIBackend.set_table_cwidth(self.ui.download_filter_station_log, headers.index('status'), 30)
+        GUIBackend.set_table_cwidth(self.ui.download_filter_station_log, headers.index('name'), 60)
+
+        for row_idx, log in enumerate(logs):
+            icon_label = QLabel()
+            icon_label.setFixedSize(24,24)
+            icon_label.setScaledContents(True)
+
+            if log['status']:
+                icon_label.setPixmap(QPixmap(":/icons/icons/success.png"))  # Use success icon from resources
+            else:
+                icon_label.setPixmap(QPixmap(":/icons/icons/error.png"))  # Use success icon from resources
+
+            GUIBackend.set_table_cell_widget(self.ui.download_filter_station_log,
+                                             index=(row_idx, headers.index('status')),
+                                             widget=icon_label,
+                                             layout=True)
+            
+            GUIBackend.set_table_cell_value(self.ui.download_filter_station_log,
+                                             index=(row_idx, headers.index('message')),
+                                             value=log['message'])
+            
+            GUIBackend.set_table_cell_value(self.ui.download_filter_station_log,
+                                             index=(row_idx, headers.index('name')),
+                                             value=log['name'])
+            
         
       
     def show_confirmbox(self, title:str, text:str, buttons:list[str]):
         confirmbox = GUIComponents.confirmMessageBox(title, text, buttons)
         return confirmbox.render()
     
+    def get_selected_train(self,):
+        return GUIBackend.get_combobox_selected(self.ui.download_filters_train_combobox)

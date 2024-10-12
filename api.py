@@ -17,7 +17,7 @@ from Tranform.sharingConstans import StatusCodes
 from uiUtils.GUIComponents import MessageWidget
 from PagesAPI.settingPageAPI import settingPageAPI
 from PagesAPI.downloadPageAPI import downloadPageAPI
-
+from PagesAPI.playbackPageAPI import playbackPageAPI
 from Mediator.mainMediator import Mediator
 from Mediator.mediatorNames import eventNames
 
@@ -40,11 +40,11 @@ class API:
 
         self.settingPageAPI = settingPageAPI(self.ui_obj.settingPageUI, self.db)
         self.downloadPageAPI = downloadPageAPI(self.ui_obj.downloadPageUI, self.db)
+        self.playbackPageAPI = playbackPageAPI(self.ui_obj.playbackPageUI, self.db)
 
         self.settingPageAPI.refresh_system_stations()
 
 
-        self.ui_obj.calendar_dialog.set_parent_function(self.calendar_day_click)        
         
         
         
@@ -57,7 +57,6 @@ class API:
 
         self.ui_obj.ui.btn_add.clicked.connect(self.add_name)
         self.ui_obj.ui.btn_remove.clicked.connect(self.remove_name)
-        self.ui_obj.ui.refresh_btn.clicked.connect(self.check_available_trains)
         self.ui_obj.ui.btn_select_train.clicked.connect(self.set_train_id)
         self.ui_obj.ui.play_btn.clicked.connect(self.play_images)
         self.ui_obj.ui.stop_btn.clicked.connect(self.stop_show_image)

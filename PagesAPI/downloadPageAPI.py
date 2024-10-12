@@ -27,6 +27,10 @@ class downloadPageAPI:
         
         self.systems_stations = []
         self.selected_stations_id_for_download = []
+        self.selected_train = None
+        self.station_logs  = []
+
+        self.pingThreadWorker = threadWorkers(None,None)
         
 
         self.uiHandler.ui.download_search_station.textChanged.connect(self.update_download_stations_list)
@@ -75,12 +79,13 @@ class downloadPageAPI:
     def next_filter_step(self,):
         if self.filter_step == 0:
             self.step0_filter()
+        
+        if self.filter_step == 1:
+            self.step1_filter()
 
     def prev_filter_step(self,):
         self.filter_step = max(self.filter_step-1, 0)
         self.uiHandler.set_filter_form_step(self.filter_step, self.FILTER_STEP_FINAL)
-
-
     
     def step0_filter(self,):
         if len(self.selected_stations_id_for_download) == 0:
@@ -89,10 +94,42 @@ class downloadPageAPI:
                                                                    display_time=4000)
             return
         
-        #load_all_configs
-        self.fetch_stations_db_event()
+        self.uiHandler.ui.download_filter_frame.setDisabled(True)
+        self.station_logs = []
+
+        for id in self.selected_stations_id_for_download:
+            system_info = self.db.load_system_station_by_id(id)
+            if system_info is None:
+                continue
+
+            worker = pingWorker(str(id), system_info['ip'])
+            worker.result_signal.connect(self.step0_check_connection_event)
+            thread = threading.Thread(target=worker.run, daemon=True)
+            thread.start()
+
+
+        
     
-    def fetch_stations_db_event(self, ):
+    def step0_check_connection_event(self, id, status):
+        station_system = self.db.load_system_station_by_id(int(id))
+        if status == StatusCodes.pingAndConnectionStatusCodes.NOT_CONNECT:
+            self.station_logs.append( { 'name':station_system['name'],
+                                        'status' : False,
+                                        'message': 'Connectin failed'
+                                    }
+                                )
+            
+        
+        elif status == StatusCodes.pingAndConnectionStatusCodes.SUCCESS:
+            pass
+
+        self.check_for_finish()
+
+    def check_for_finish(self,):
+        if len(self.station_logs) == len(self.selected_stations_id_for_download):
+            self.step0_finish()
+    
+    def step0_finish(self,):
         datas:dict[str, dict] = {
             'milad': {
                 '11BG12': [],
@@ -100,10 +137,18 @@ class downloadPageAPI:
             }
         }
         
+        logs = [{'status':False, 'message': 'connection failed', 'name':'milad'},
+                {'status':True, 'message': 'success', 'name':'amir'}
+                ]
+                
+        self.uiHandler.ui.download_filter_frame.setEnabled(True)
+        self.uiHandler.set_filter_stations_logs(self.station_logs)
+        #---------------------------------
         all_trains = []
         for station in datas.keys():
             all_trains = all_trains + list(datas[station].keys())
         all_trains = set(all_trains)
+        #---------------------------------
 
         self.uiHandler.set_filter_trains(all_trains)
 
@@ -113,3 +158,7 @@ class downloadPageAPI:
         self.filter_step +=1
         self.uiHandler.set_filter_form_step(self.filter_step, self.FILTER_STEP_FINAL)
 
+
+    def step1_filter(self, ):
+        self.selected_train = self.uiHandler.get_selected_train()
+        print(self.selected_train)

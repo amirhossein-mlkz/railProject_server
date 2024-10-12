@@ -8,20 +8,21 @@ from Tranform.sharingConstans import StatusCodes
 
 
 class pingWorker(QObject):
-    result_signal = Signal(int)
+    result_signal = Signal(str, int)
 
-    def __init__(self, ip) -> None:
+    def __init__(self,name, ip) -> None:
         super().__init__()
         self.ip = ip
+        self.name = str(name)
     
     def run(self,):
         res = self.__get_ping(self.ip)
         if not res:
-            self.result_signal.emit(StatusCodes.pingAndConnectionStatusCodes.NOT_CONNECT)
+            self.result_signal.emit(self.name, StatusCodes.pingAndConnectionStatusCodes.NOT_CONNECT)
             return
         else:
 
-            self.result_signal.emit(StatusCodes.pingAndConnectionStatusCodes.SUCCESS)
+            self.result_signal.emit(self.name, StatusCodes.pingAndConnectionStatusCodes.SUCCESS )
 
     def __get_ping(self, ip):
         if platform.system().lower() == "windows":

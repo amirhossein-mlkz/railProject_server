@@ -61,12 +61,11 @@ class settingPageAPI:
 
     def edit_system_station(self, id):
         system_info = self.db.load_system_station_by_id(id)
-        if len(system_info) == 0:
+        if system_info is None:
             return
         
         self.current_system_staion_modify_id = id
         
-        system_info = system_info[0]
         self.uiHandler.set_modify_system_station_fields(system_info)
         self.uiHandler.show_modify_system_station_form(True)
 

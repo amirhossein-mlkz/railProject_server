@@ -15,53 +15,42 @@ from UIFiles.calendar import Ui_CalendarDialog
 from PySide6.QtCore import QDate
 from PySide6 import QtCore as sQtCore
 
-from persiantools.jdatetime import JalaliDateTime
+from persiantools.jdatetime import JalaliDateTime, timedelta
+from persiantools import jdatetime
 import jdatetime
 
 
-DAY_NOT_EXIST = 'RED'
 
-DAY_BUTTON_STYLE = """QPushButton {
 
-    background-color:transparent;
-}
 
-QPushButton:hover {
-    background-color:rgba(0,0,255,50);
-}
-"""
 DAY_BUTTON_SELECTED_STYLE = """
 
 QPushButton {
     border:1px solid rgb(0,64,64);
     color: rgb(0,64,64);
-    border-radius:3px;
+    border-radius:10px;
     background-color:transparent;
 }
 """
 
-if DAY_NOT_EXIST=='RED':
+DAY_BUTTON_STYLE = """QPushButton {
 
-    DAY_BUTTON_STYLE = """QPushButton {
+    background-color:#ff4946;
+        color: rgb(0,64,64);
 
-        background-color:#ff4946;
-    }
-
-    QPushButton:hover {
-        background-color:#902828;
     }
     """
 
 
 
-    DAY_BUTTON_SELECTED_STYLE = """
+DAY_BUTTON_SELECTED_STYLE = """
 
-    QPushButton {
-        border:1px solid rgb(0,64,64);
-        border-radius:3px;
-        background-color:#902828;
-    }
-    """
+QPushButton {
+    border:1px solid rgb(0,64,64);
+    border-radius:3px;
+    background-color:#902828;
+}
+"""
 
 DAY_BUTTON_EXIST_STYLE ="""QPushButton {
 
@@ -203,7 +192,7 @@ class JalaliCalendarDialog(QWidget):
 
         self.selected_day = None
         self.input_field = input_field
-        self.spec_days = []
+        self.avaiable_dates = []
         self.path_selected_date = None
         self.parent_func = None
 
@@ -309,26 +298,22 @@ class JalaliCalendarDialog(QWidget):
                     label = QLabel("")
                     self.calendarGrid.addWidget(label, week, weekday)
                 else:
-                    button = QPushButton(str(day))
-                    GUIBackend.set_style(button, DAY_BUTTON_STYLE)
+                    day_btn = QPushButton(str(day))
+                    date_of_btn = JalaliDateTime(year=year, month=month, day=day).jdate()
+                    GUIBackend.button_connector_argument_pass(day_btn, self.date_click, args=(date_of_btn,))
+
+                    if date_of_btn in self.avaiable_dates:
+                        GUIBackend.set_style(day_btn, DAY_BUTTON_EXIST_STYLE)
+                    else:
+                        GUIBackend.set_style(day_btn, DAY_BUTTON_STYLE)
+                        day_btn.setDisabled(True)
+
+                    self.calendarGrid.addWidget(day_btn, week, weekday)
+                    day += 1
+                    continue
                     # button.setStyleSheet(DAY_BUTTON_STYLE)
 
-                    self.calendarGrid.addWidget(button, week, weekday)
 
-
-                    # self.select_day()
-
-
-
-                    ######################3 milad add ##############
-                    # if month<=9:
-                    #     str_month = '0'+str(month)
-                    # else:
-                    #     str_month = month
-                    # if day<=9:
-                    #     str_day = '0'+str(day)
-                    # else:
-                    #     str_day = day
 
                     today = f'{year}_{month}_{day}'
 
@@ -355,10 +340,10 @@ class JalaliCalendarDialog(QWidget):
 
                     ############################################
 
-                    day += 1
 
 
-
+    def date_click(self, date):
+        print(date)
                     
 
         # self.calendarGrid.setLayout(layout)
@@ -429,9 +414,21 @@ class JalaliCalendarDialog(QWidget):
 
 
 
-    def set_spec_days(self,spec_days):
-        self.spec_days = spec_days
+    def set_avaiable_date_ranges(self, date_ranges:list[tuple[JalaliDateTime, JalaliDateTime]]):
+        self.avaiable_dates = []
 
+        for start, end in date_ranges:
+            current_date = start.jdate()
+            end_date = end.jdate()
+            
+            while current_date <= end_date:
+                self.avaiable_dates.append(current_date)
+                current_date += timedelta(days=1)
+                
+
+        self.updateCalendar()
+
+            
 
 
 
