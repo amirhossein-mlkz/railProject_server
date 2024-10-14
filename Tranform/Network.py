@@ -8,21 +8,20 @@ from Tranform.sharingConstans import StatusCodes
 
 
 class pingWorker(QObject):
-    result_signal = Signal(str, int)
+    result_signal = Signal(int)
 
-    def __init__(self,name, ip) -> None:
+    def __init__(self, ip) -> None:
         super().__init__()
         self.ip = ip
-        self.name = str(name)
     
     def run(self,):
-        res = self.__get_ping(self.ip)
+        res,msg = self.__get_ping(self.ip)
         if not res:
-            self.result_signal.emit(self.name, StatusCodes.pingAndConnectionStatusCodes.NOT_CONNECT)
+            self.result_signal.emit(StatusCodes.pingAndConnectionStatusCodes.NOT_CONNECT,msg)
             return
         else:
 
-            self.result_signal.emit(self.name, StatusCodes.pingAndConnectionStatusCodes.SUCCESS )
+            self.result_signal.emit(StatusCodes.pingAndConnectionStatusCodes.SUCCESS,msg)
 
     def __get_ping(self, ip):
         if platform.system().lower() == "windows":
@@ -33,7 +32,7 @@ class pingWorker(QObject):
         try:
             # اجرای دستور پینگ
             output = subprocess.run(["ping", param, "1", ip], capture_output=True, text=True)
-            print(output, '\n')
+            
             # بررسی returncode
             if 'ttl' in output.stdout.lower():
                 return True
@@ -47,7 +46,83 @@ class pingWorker(QObject):
 
 
 
+class pingAndCreateWorker(QObject):
+    result_signal = Signal(int,str)
 
+    def __init__(self, ip:str,src_path:str,username:str,password:str) -> None:
+        super().__init__()
+        self.ip = ip
+        self.src_path=src_path
+        self.username=username
+        self.password=password
+    
+    def run(self,):
+        res,msg = self.__get_ping(self.ip)
+        if not res:
+            self.result_signal.emit(StatusCodes.pingAndConnectionStatusCodes.NOT_CONNECT,msg)
+            return
+        else:
+            ret,msg = self.create_connection()
+            if ret:
+                self.result_signal.emit(StatusCodes.createConnectionStatusCodes.CONNECTED,msg)
+            else:
+                self.result_signal.emit(StatusCodes.createConnectionStatusCodes.NOT_CONNECTED,msg)
+
+    def __get_ping(self, ip):
+        if platform.system().lower() == "windows":
+            param = "-n"
+        else:
+            param = "-c"
+        
+        try:
+            # اجرای دستور پینگ
+            output = subprocess.run(["ping", param, "1", ip], capture_output=True, text=True)
+            
+            # بررسی returncode
+            if 'ttl' in output.stdout.lower():
+                msg = 'Ping Succussfully'
+                return True,msg
+            else:
+                msg = 'Ping Error'
+                return False,msg
+
+        except Exception as e:
+            print(f"An error occurred: {e}")
+            return False,e
+        
+
+
+
+
+    def create_connection(self):
+
+        # Construct the command for mapping the network share
+        if self.username and self.password:
+            command = f'net use {self.src_path} /user:{self.username} {self.password}'
+        else:
+            command = f'net use {self.src_path}'
+
+        try:
+            # Execute the command to map the network share
+            result = subprocess.run(command, shell=True, capture_output=True, text=True)
+            if 'completed successfully' in result.stdout:
+                msg = 'connection completed successfully'
+                return True,msg
+
+            elif 'error 85' in result.stderr:
+                msg = 'Error: A mapping already exists for this drive'
+                print(msg)
+                return False,msg
+            elif 'error 53' in result.stderr:
+                msg = 'Error: The network path was not found'
+                print(msg)
+                return False,msg
+   
+            return False, 'Error : Failed Create Connection, Username Or Password May Be Wrong'
+
+        except Exception as e:
+            print(f"Error: {e}")
+            return False
 
 
 

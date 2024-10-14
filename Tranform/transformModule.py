@@ -1,18 +1,36 @@
 import sys
-sys.path.append('C:\\Users\\amirh\Desktop\\railProject_SoftwareCopy')
-
+import pickle
 import time
 import threading
+import os
 
-# from persiantools.jdatetime import JalaliDateTime, timedelta
+
+
+from persiantools.jdatetime import JalaliDateTime, timedelta
 # from PySide6.QtCore import Signal, QObject
 
-from Tranform.Network import pingWorker, shareMapping
-from Tranform.transformUtils import transormUtils
-from Tranform.sharingConstans import DIRECTORY_TREE, STRUCT_PARTS
-from Tranform.filesScanners import filesFinderWorker
-from Tranform.filesActionWorker import CopyWorker
+try:
+    from Tranform.Network import pingAndCreateWorker
+    from Tranform.Network import pingWorker, shareMapping
+    from Tranform.transformUtils import transormUtils, timeRangeWorker
+    from Tranform.sharingConstans import DIRECTORY_TREE, STRUCT_PARTS
+    from Tranform.filesScanners import filesFinderWorker, updateArchiveWorker
+    from Tranform.filesActionWorker import CopyWorker
+    from Tranform.sharingConstans import StatusCodes
+    
 
+except:
+
+    # from Network import pingWorker, shareMapping
+    from transformUtils import transormUtils
+    # from sharingConstans import DIRECTORY_TREE, STRUCT_PARTS
+    # from filesScanners import filesFinderWorker
+    # from filesActionWorker import CopyWorker
+
+
+
+
+import subprocess
 
 
 class transformModule:
@@ -25,13 +43,23 @@ class transformModule:
                  ) -> None:
         self.ip = ip
         if self.ip is not None:
+
+            
+
             self.src_path = transormUtils.build_share_path(ip, src_path)
+
+            self.dst_path = dst_path
+            self.username = username
+            self.password = password
+
+
         else:
             self.src_path = src_path
 
-        self.dst_path = dst_path
-        self.username = username
-        self.password = password
+            self.dst_path = None
+            self.username = None
+            self.password = None
+
 
 
         self.msg_callback = None
@@ -44,17 +72,7 @@ class transformModule:
 
         self.move_flag = False
         
-    
-    
-    
-    
 
-    # def start_transition(self, msg_callback, trains=None, dates_range=None, move=False):
-    #     self.move_flag = move
-    #     self.msg_callback = msg_callback
-    #     self.trains = trains
-    #     self.dates_range = dates_range
-    #     self.check_connection()
 
 
     def check_connection(self, event_func, ):
@@ -66,13 +84,25 @@ class transformModule:
 
     
 
-    def find_files(self, trains, dates_tange, finish_event_func, log_event_func=None):
+    def check_connection_and_create_connection(self,event_func):
+
+
+
+        self.ping_worker = pingAndCreateWorker(self.ip,self.src_path,self.username,self.password)
+        self.ping_worker.result_signal.connect(event_func)
+        self.ping_thread = threading.Thread(target=self.ping_worker.run, daemon=True)
+        self.ping_thread.start()
+        
+
+
+    def find_files(self, trains, dates_tange, finish_event_func, log_event_func=None,log_search=False):
         
         
         self.searcher_worker = filesFinderWorker(self.src_path,
                                                  trains=trains,
                                                  date_ranges=dates_tange,
-                                                 struct=DIRECTORY_TREE)
+                                                 struct=DIRECTORY_TREE,
+                                                 log_search=log_search)
         if log_event_func is not None:
             self.searcher_worker.log_signal.connect(log_event_func)
 
@@ -97,14 +127,111 @@ class transformModule:
         self.copy_thread.start()
         
 
-    def copy_finish(self, ):
-
-        print('copy done')
 
 
 
 
+class archiveManager:
+    FILE_NAME = 'archive.molmal'
+    def __init__(self, db_dir):
+        self.db_path = os.path.join(db_dir, self.FILE_NAME)
+        
+        self.archive = None
 
+        self.update_worker = None
+        self.update_thread:threading.Thread = None
+
+        self.time_range_worker = None
+        self.time_range_thread:threading.Thread = None
+        self.external_update_finish_func = None
+
+        
+
+    def update_archive(self,src_path, finish_func, log_func=None):        
+        self.external_update_finish_func = finish_func
+
+        self.update_worker = updateArchiveWorker(src_path, DIRECTORY_TREE)
+        self.update_worker.finish_signal.connect(self.__update_archive_finish)
+
+        if log_func is not None:
+            self.update_worker.log_signal.connect(log_func)
+        
+        self.update_thread = threading.Thread(target=self.update_worker.run, daemon=True)
+        self.update_thread.start()
+    
+    def is_during_updating(self):
+        if self.update_thread is None:
+            return False
+        
+        if self.update_thread.is_alive():
+            return True
+        else:
+            return False
+    
+    def __update_archive_finish(self, status_code:int, archive:dict[str,dict[str, dict[str, dict[str, dict]]]]):
+        if status_code == StatusCodes.findFilesStatusCodes.SUCCESS:
+            self.archive = archive
+            self.save()
+
+        if self.external_update_finish_func is not None:
+            self.external_update_finish_func(status_code)
+
+    def get_day_time_ranges(self, train_id, date:JalaliDateTime, cameras, finish_func, progress_func):
+        if self.time_range_thread is not None and self.time_range_thread.is_alive():
+            return
+        
+        self.time_range_worker = timeRangeWorker(self.archive, train_id, date, cameras)
+        self.time_range_worker.finish_signal.connect(finish_func)
+        self.time_range_worker.progress_signal.connect(progress_func)
+        self.time_range_thread = threading.Thread(target=self.time_range_worker.run, daemon=True)
+        self.time_range_thread.start()
+
+    
+    def get_available_trains(self,):
+        return list( self.archive.keys())
+    
+    def get_available_cameras(self, train_id:str):
+        return list( self.archive[train_id].keys())
+    
+    def get_avaiable_dates(self, train_id:str):
+        res = {}
+        if train_id not in self.archive:
+            return {}
+        
+        for camera in self.archive[train_id].keys():
+            dates = self.archive[train_id][camera].keys()
+            dates = list(
+                map( lambda x:JalaliDateTime.strptime(x, '%Y-%m-%d').jdate(), dates)
+            )
+            res[camera] = dates
+        return res
+
+        
+    def load(self,):
+        if not os.path.exists(self.db_path):
+            return False
+        try:
+            with open(self.db_path, 'rb') as f:
+                self.archive = pickle.load(f)
+            return True
+        except Exception as e:
+            print(e)
+            return False
+
+    def save(self,):
+        _dir,_ = os.path.split(self.db_path)
+        if not os.path.exists(_dir):
+            os.makedirs(_dir)
+
+        #remove old file
+        if os.path.exists(self.db_path):
+            os.remove(self.db_path)
+        try:
+            with open(self.db_path, 'wb') as f:
+                pickle.dump(self.archive, f)
+            return True
+        except Exception as e:
+            return False
 
 
 
@@ -115,21 +242,24 @@ if __name__=='__main__':
     app = QApplication(sys.argv)
 
 
-    nmap = shareMapping('','','')
-    drives = nmap.get_mapped_drives()
-    res = nmap.check_drived_is_mapped('192.168.1.60')
-    if res is None and False:
-        nmap.map_network('192.168.1.60','image_share',username='rail',password= '1', )
+    # nmap = shareMapping('','','')
+    # drives = nmap.get_mapped_drives()
+    # res = nmap.check_drived_is_mapped('192.168.1.60')
+    # if res is None and False:
+    #     nmap.map_network('192.168.1.60','image_share',username='rail',password= '1', )
     
     
-    def msg_callback1(txt):
-        print(txt)
+    # def msg_callback1(txt):
+    #     print(txt)
 
-    obj = transformModule('192.168.1.60', 'image_share', 'c:\\image_share')
-    obj.start_transition(msg_callback1,
-                        #  trains=['11BGD1'],
-                        #  dates_range=( JalaliDateTime(1402,3,13, 11,40), JalaliDateTime(1402,4, 11,8,30))
-                            # dates_range=( JalaliDateTime(1402,1,1), JalaliDateTime(1403,12,13))
-                         )
+    ip = '192.168.43.63'                    # IP address of the remote system
+    share_path = 'test'                      # Shared folder on the remote system
+    username = "MMM"                         # Your username
+    password = "PHK"   
+
+
+    obj = transformModule(ip=ip,src_path='test',dst_path='asd',username=username,password=password)
+    ret = obj.create_connection()
+    print(ret)
     app.exec()
     

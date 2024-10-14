@@ -1,6 +1,8 @@
 import os
 import threading
 import time
+import pickle
+
 
 from persiantools.jdatetime import JalaliDateTime, timedelta
 from PySide6.QtCore import Signal, QObject
@@ -12,14 +14,14 @@ from Tranform.sharingConstans import DIRECTORY_TREE, STRUCT_PARTS, StatusCodes
 class filesFinderWorker(QObject):
     #this class returns list of files that pass filters
 
-    finish_signal = Signal(int, list, list, dict)#status_code, paths, sizes, availability
+    finish_signal = Signal(int, list, list)#status_code, paths, sizes, availability
     log_signal = Signal(str)
     def __init__(self, 
                  main_path:str, 
                  struct:list[str],
                  trains:list[str] = None, 
                  date_ranges:tuple[JalaliDateTime] = None,
-                 return_avaiability=True) -> None:
+                 log_search = False) -> None:
         super().__init__()    
         self.trains = trains
         self.date_ranges = date_ranges
@@ -28,8 +30,7 @@ class filesFinderWorker(QObject):
             self.temp_date_ranges = date_ranges[0], date_ranges[1]
         self.main_path = main_path
         self.struct = struct
-        self.return_avaiability = return_avaiability
-
+        self.log_search = log_search
         #choose filter trains by folder name or by directory name
         # self.check_train_by_filename = True
         # if STRUCT_PARTS.TRAIN in self.struct:
@@ -52,20 +53,17 @@ class filesFinderWorker(QObject):
             self.finish_signal.emit(StatusCodes.findFilesStatusCodes.DIR_NOT_EXISTS, 
                                     [], 
                                     [], 
-                                    {})
+                                    )
             return
         self.__init_flags()
         self.res_paths = []
         self.res_sizes = []
-        self.avaiabilities:dict[str, dict[str, list]] = {}
         self.total_size = 0
-        t = time.time()
         self.searcher(self.main_path, pos_index=0)
-        print(time.time() - t)
         self.finish_signal.emit(StatusCodes.findFilesStatusCodes.SUCCESS,
                                 self.res_paths, 
                                 self.res_sizes, 
-                                self.avaiabilities)
+        )
 
     def __sort_number_folder(self, names:list[str]):
         def key_func(x:str):
@@ -85,32 +83,47 @@ class filesFinderWorker(QObject):
 
         step_name = self.struct[pos_index]
         subs = os.listdir(path)
-        if step_name in [STRUCT_PARTS.YEAR,STRUCT_PARTS.MONTH,STRUCT_PARTS.DAY,STRUCT_PARTS.HOUR,STRUCT_PARTS.MINUTE]:
-            subs = self.__sort_number_folder(subs)
+        if not self.log_search:
+            if step_name in [STRUCT_PARTS.YEAR,STRUCT_PARTS.MONTH,STRUCT_PARTS.DAY,STRUCT_PARTS.HOUR,STRUCT_PARTS.MINUTE]:
+                subs = self.__sort_number_folder(subs)
 
-        for sub in subs:
-            sub_path = os.path.join(path, sub)
-            #check if we arent in last level of tree
-            if pos_index != (len(self.struct) -1):
-                if not os.path.isdir(sub_path):
-                    continue
-            else:
-                if not os.path.isfile(sub_path):
-                    continue
-            #-----------------------------------
-            flag, date = self.check_filters(path, sub, step_name, date)
-            if flag:
-                if pos_index == (len(self.struct) -1):
-                    size = os.path.getsize(sub_path)
-                    self.res_paths.append(sub_path)
-                    self.res_sizes.append(size)
-                    self.total_size += size
-                    self.log_signal.emit(f'Size f{int(self.total_size)}')
+        if not self.log_search:
+            for sub in subs:
+                sub_path = os.path.join(path, sub)
+                #check if we arent in last level of tree
+                if pos_index != (len(self.struct) -1):
+                    if not os.path.isdir(sub_path):
+                        continue
                 else:
-                    self.searcher(sub_path, pos_index+1, date)
-                    
-                
-            
+                    if not os.path.isfile(sub_path):
+                        continue
+                #-----------------------------------
+                flag, date = self.check_filters(path, sub, step_name, date)
+
+                if flag:
+                    if pos_index == (len(self.struct) -1):
+                        size = os.path.getsize(sub_path)
+                        self.res_paths.append(sub_path)
+                        self.res_sizes.append(size)
+                        self.total_size += size
+                        self.log_signal.emit(f'Size f{int(self.total_size)}')
+                    else:
+                        self.searcher(sub_path, pos_index+1, date)
+                        
+        else:
+            if os.path.exists(path):
+                for sub in subs:
+                    sub_path = os.path.join(path, sub)
+                    if os.path.exists(sub_path):
+                        for log_name in os.listdir(sub_path):
+                            new_path = os.path.join(sub_path,log_name)
+                            self.res_paths.append(new_path)
+                            size = os.path.getsize(new_path)
+                            self.res_sizes.append(size)
+                            self.total_size += size
+                            self.log_signal.emit(f'Size f{int(self.total_size)}')
+
+
     
 
     def check_filters(self, dir:str, sub:str, step_name:str, date:JalaliDateTime):
@@ -238,29 +251,11 @@ class filesFinderWorker(QObject):
         #------------------------------check FILE-------------------------
          
         elif step_name == STRUCT_PARTS.FILE:
-            date, train_id, camera = transormUtils.extract_file_name_info(sub)
-            # t = time.time()
-
-            if self.return_avaiability:
-                if train_id not in self.avaiabilities:
-                    self.avaiabilities[train_id] = {}
-            
-                if camera not in self.avaiabilities[train_id]:
-                    self.avaiabilities[train_id][camera] = []
-            
-                start_date = date
-                # duration = 600
-                # duration = transormUtils.get_video_duration(os.path.join(dir, sub))
-                # if duration is not None:
-                    # end_date = start_date + timedelta(seconds=duration)
-                self.avaiabilities[train_id][camera].append(start_date)
-            # t = time.time() - t
-            # print(t)
-            
-
             if self.date_ranges is None and self.trains is None:
                 return True, date
             
+            date, train_id, camera = transormUtils.extract_file_name_info(sub)            
+
             
             if self.trains is not None:
                 if not self.is_train_checked:
@@ -280,3 +275,106 @@ class filesFinderWorker(QObject):
         
         else:
             return True, date
+        
+
+
+
+
+
+
+
+
+
+
+class updateArchiveWorker(QObject):
+    #this class returns list of files that pass filters
+
+    finish_signal = Signal(int, dict)#status_code, paths, sizes, availability
+    log_signal = Signal(str)
+    def __init__(self, 
+                 main_path:str, 
+                 struct:list[str],
+                 ) -> None:
+        super().__init__()    
+        
+        self.main_path = main_path
+        self.struct = struct
+
+
+    def run(self, ):
+        if not os.path.exists(self.main_path):
+            # self.log_signal.emit('Directory not Exist')
+            self.finish_signal.emit(StatusCodes.findFilesStatusCodes.DIR_NOT_EXISTS, 
+                                    {})
+            return
+        self.avaiabilities:dict[str, dict[str, dict[str, list]]] = {} #train -> camera -> date_str ->  [dates ranges]
+        
+        self.searcher(self.main_path, pos_index=0)
+        self.finish_signal.emit(StatusCodes.findFilesStatusCodes.SUCCESS,
+                                self.avaiabilities)
+
+    def __sort_number_folder(self, names:list[str]):
+        def key_func(x:str):
+            if x.isdigit():
+                return int(x)
+            else:
+                return 10*6
+        
+        names.sort(key=key_func)
+        return names
+
+    def searcher(self, dir, pos_index,):
+        #pos_index show we are in which level of directory
+        if pos_index >= len(self.struct):
+            return
+        
+
+        step_name = self.struct[pos_index]
+        subs = os.listdir(dir)
+        if step_name in [STRUCT_PARTS.YEAR,STRUCT_PARTS.MONTH,STRUCT_PARTS.DAY,STRUCT_PARTS.HOUR,STRUCT_PARTS.MINUTE]:
+            subs = self.__sort_number_folder(subs)
+
+        for sub in subs:
+            sub_path = os.path.join(dir, sub)
+            #check if we arent in last level of tree
+            if pos_index != (len(self.struct) -1):
+                if not os.path.isdir(sub_path):
+                    continue
+            else:
+                if not os.path.isfile(sub_path):
+                    continue
+            #-----------------------------------
+
+            if step_name == STRUCT_PARTS.FILE:
+                self.log_signal.emit(f'Findes: {sub}')
+                self.append_to_avaiability(sub_path, sub)
+            
+            if pos_index < len(self.struct):
+                self.searcher(sub_path, pos_index+1)
+                        
+
+    
+
+    def append_to_avaiability(self, path:str, fname:str):
+        date_time, train_id, camera = transormUtils.extract_file_name_info(fname)
+        date_str = date_time.strftime('%Y-%m-%d')
+        time_str = date_time.strftime('%H-%M-%S')
+        
+        
+        if train_id not in self.avaiabilities:
+            self.avaiabilities[train_id] = {}
+            
+        if camera not in self.avaiabilities[train_id]:
+            self.avaiabilities[train_id][camera] = {}
+        
+        if date_str not in self.avaiabilities[train_id][camera]:
+            self.avaiabilities[train_id][camera][date_str] = {}
+        
+        if time_str not in self.avaiabilities[train_id][camera][date_str]:
+            self.avaiabilities[train_id][camera][date_str][time_str] = {}
+
+            
+        self.avaiabilities[train_id][camera][date_str][time_str] = {
+            'path':path,
+            'datetime':date_time
+        }
