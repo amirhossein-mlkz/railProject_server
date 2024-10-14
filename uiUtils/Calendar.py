@@ -23,42 +23,38 @@ import jdatetime
 
 
 
-DAY_BUTTON_SELECTED_STYLE = """
-
-QPushButton {
-    border:1px solid rgb(0,64,64);
-    color: rgb(0,64,64);
-    border-radius:10px;
-    background-color:transparent;
-}
-"""
-
 DAY_BUTTON_STYLE = """QPushButton {
 
-    background-color:#ff4946;
-        color: rgb(0,64,64);
+    background-color:transparent;
+    color: #EAE4F5;
+    width:16px;
+    height:16px;
+
 
     }
     """
 
 
 
-DAY_BUTTON_SELECTED_STYLE = """
 
-QPushButton {
-    border:1px solid rgb(0,64,64);
-    border-radius:3px;
-    background-color:#902828;
+
+DAY_BUTTON_EXIST_STYLE ="""QPushButton{
+    max-width:20px;
+    max-height:20px;
+    min-width:20px;
+    min-height:20px;
+    border-radius:12px;
+    font-weight:bold;
+    color:#fff;
+    padding:2px;
+    background-color: rgb(99, 39, 232);
 }
-"""
 
-DAY_BUTTON_EXIST_STYLE ="""QPushButton {
-
-    background-color: #49ff46;
-}
-
-QPushButton:hover {
-    background-color:#299028;
+QPushButton:hover{
+    max-width:24px;
+    max-height:24px;
+    min-width:24px;
+    min-height:24px;
 }
 """
 
@@ -213,7 +209,7 @@ class JalaliCalendarDialog(QWidget):
 
         # Add years to the year combo box
         current_jalali_year = JalaliDateTime.now().year
-        for year in range(current_jalali_year -5, current_jalali_year +10):
+        for year in range(current_jalali_year, current_jalali_year-10, -1):
             self.yearCombo.addItem(str(year))
 
         # Add months to the month combo box
@@ -318,6 +314,8 @@ class JalaliCalendarDialog(QWidget):
         self.external_calender_event_func = func
 
     def date_click(self, date):
+        self.date = date
+        self.__set_date_into_field()
         self.external_calender_event_func(date)
         
 
@@ -357,21 +355,7 @@ class JalaliCalendarDialog(QWidget):
 
 
 
-    def selected_date(self):
-        year = int(self.yearCombo.currentText())
-        month = self.monthCombo.currentIndex() + 1
-        day = self.selected_day
-        
 
-
-
-        if day:
-            self.date = JalaliDateTime(year, month, day)
-            self.__set_date_into_field()
-
-        self.path_selected_date = f'{year}/{month}/{day}'
-
-        # return JalaliDateTime(year, month, day) if day else None
     
     def __set_date_into_field(self,):
         str_date = self.date.strftime("%Y/%m/%d")

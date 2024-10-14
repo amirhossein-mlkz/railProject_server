@@ -84,8 +84,8 @@ class UI_main_window_org(sQMainWindow):
         self.animation.setEasingCurve(QEasingCurve.InOutQuad)  # Easing curve for smooth animation
 
         # Connect the button's clicked event
-        self.ui.btn_logo.clicked.connect(self.toggle_frame_visibility)
-        self.ui.btn_logo.installEventFilter(self)  # Install an event filter to handle double clicks
+        # self.ui.btn_logo.clicked.connect(self.toggle_frame_visibility)
+        # self.ui.btn_logo.installEventFilter(self)  # Install an event filter to handle double clicks
         self.hide_all_messages()
 
 
@@ -93,9 +93,9 @@ class UI_main_window_org(sQMainWindow):
     def all_style_repoblish(self,):
         #for widget in self.ui.
         
-        for atr_name in dir(self):
-            atr = getattr(self, atr_name)
+        for atr_name in dir(self.ui):
             try:
+                atr = getattr(self, atr_name)
                 atr.style().unpolish(atr)
                 atr.style().polish(atr)
             except:
@@ -145,7 +145,7 @@ class UI_main_window_org(sQMainWindow):
         self.ui.btn_side_playback.clicked.connect(self.set_stack_widget)
         self.ui.btn_side_download.clicked.connect(self.set_stack_widget)
         self.ui.btn_side_settings.clicked.connect(self.set_stack_widget)
-        self.ui.btn_side_aboutus.clicked.connect(self.set_stack_widget)
+        # self.ui.btn_side_aboutus.clicked.connect(self.set_stack_widget)
 
 
         

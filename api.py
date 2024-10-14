@@ -53,7 +53,7 @@ class API:
 
         self.ui_obj.ui.btn_add.clicked.connect(self.add_name)
         self.ui_obj.ui.btn_remove.clicked.connect(self.remove_name)
-        self.ui_obj.ui.btn_select_train.clicked.connect(self.set_train_id)
+        # self.ui_obj.ui.btn_select_train.clicked.connect(self.set_train_id)
        
         #--------------------------------------------------------------------
         

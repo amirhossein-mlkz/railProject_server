@@ -1,5 +1,19 @@
 <RCC>
   <qresource prefix="icons">
+    <file>icons/refresh_white.png</file>
+    <file>icons/stop-purple.png</file>
+    <file>icons/stop-white.png</file>
+    <file>icons/play_purple.png</file>
+    <file>icons/play-white.png</file>
+    <file>icons/setting-black.png</file>
+    <file>icons/setting-gray.png</file>
+    <file>icons/setting-white.png</file>
+    <file>icons/download-black.png</file>
+    <file>icons/download-gray.png</file>
+    <file>icons/download-white.png</file>
+    <file>icons/playback-black.png</file>
+    <file>icons/playback-gray.png</file>
+    <file>icons/playback-white.png</file>
     <file>icons/icons8-edit-hover-table-50.png</file>
     <file>icons/icons8-edit-table-50.png</file>
     <file>icons/icons8-remove-hover-table-50.png</file>
