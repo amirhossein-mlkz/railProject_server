@@ -71,11 +71,11 @@ class MediaPlayer:
         def thread_func():
             self.media_player.play()
             if self.media_player.will_play():
-                time.sleep(1)
+                time.sleep(0.5)
                 self.media_player.pause()
                 self.media_player.set_time(t_sec)
-
-        threading.Thread(target=thread_func, daemon=True).start()
+        thread_func()
+        # threading.Thread(target=thread_func, daemon=True).start()
 
     def change_speed(self):
         """Cycle through video playback speeds from 1x to 32x."""

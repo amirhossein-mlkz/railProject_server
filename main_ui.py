@@ -83,6 +83,8 @@ class UI_main_window_org(sQMainWindow):
         self.animation.setDuration(1500)  # Duration in milliseconds (1.5 seconds)
         self.animation.setEasingCurve(QEasingCurve.InOutQuad)  # Easing curve for smooth animation
 
+        self.ui.pages_stackwidget.setCurrentWidget(self.ui.page_playback)
+
         # Connect the button's clicked event
         # self.ui.btn_logo.clicked.connect(self.toggle_frame_visibility)
         # self.ui.btn_logo.installEventFilter(self)  # Install an event filter to handle double clicks
@@ -92,10 +94,9 @@ class UI_main_window_org(sQMainWindow):
 
     def all_style_repoblish(self,):
         #for widget in self.ui.
-        
         for atr_name in dir(self.ui):
             try:
-                atr = getattr(self, atr_name)
+                atr = getattr(self.ui, atr_name)
                 atr.style().unpolish(atr)
                 atr.style().polish(atr)
             except:
@@ -224,13 +225,13 @@ class UI_main_window_org(sQMainWindow):
         btn = self.sender()
         btnName = btn.objectName()
         if btnName == "btn_side_playback":
-            self.ui.stackedWidget.setCurrentWidget(self.ui.page_playback)
+            self.ui.pages_stackwidget.setCurrentWidget(self.ui.page_playback)
         if btnName == "btn_side_download":
-            self.ui.stackedWidget.setCurrentWidget(self.ui.page_download)
+            self.ui.pages_stackwidget.setCurrentWidget(self.ui.page_download)
         if btnName == "btn_side_settings":
-            self.ui.stackedWidget.setCurrentWidget(self.ui.page_settings)
+            self.ui.pages_stackwidget.setCurrentWidget(self.ui.page_settings)
         if btnName == "btn_side_aboutus":
-            self.ui.stackedWidget.setCurrentWidget(self.ui.page_playback)
+            self.ui.pages_stackwidget.setCurrentWidget(self.ui.page_playback)
 
 
     def close_win(self):

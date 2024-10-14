@@ -51,8 +51,6 @@ class API:
     def button_connector(self):
         self.ui_obj.ui.btn_side_download.clicked.connect(self.load_download_base_params)
 
-        self.ui_obj.ui.btn_add.clicked.connect(self.add_name)
-        self.ui_obj.ui.btn_remove.clicked.connect(self.remove_name)
         # self.ui_obj.ui.btn_select_train.clicked.connect(self.set_train_id)
        
         #--------------------------------------------------------------------
@@ -96,13 +94,8 @@ class API:
 
 
     def load_download_base_params(self):
-
-        self.condidate_names = []
-
-        self.download_systems_names = self.load_system_spec_column(column_name='name')
-        self.ui_obj.set_item_combo_box(combo_name=self.ui_obj.ui.combo_download_all, items=self.download_systems_names)
-
-
+        pass
+    
     def add_name(self):
 
         text = self.ui_obj.ret_current_value_combo_box(self.ui_obj.ui.combo_download_all)

@@ -1,5 +1,6 @@
 <RCC>
   <qresource prefix="icons">
+    <file>icons/check-wight-24.png</file>
     <file>icons/refresh_white.png</file>
     <file>icons/stop-purple.png</file>
     <file>icons/stop-white.png</file>

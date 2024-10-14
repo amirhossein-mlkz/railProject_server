@@ -102,7 +102,7 @@ class downloadPageAPI:
             if system_info is None:
                 continue
 
-            worker = pingWorker(str(id), system_info['ip'])
+            worker = pingWorker( system_info['ip'])
             worker.result_signal.connect(self.step0_check_connection_event)
             thread = threading.Thread(target=worker.run, daemon=True)
             thread.start()
