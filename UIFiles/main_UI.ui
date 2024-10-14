@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1085</width>
-    <height>619</height>
+    <width>1096</width>
+    <height>777</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -1116,7 +1116,7 @@ font: 23pt &quot;Mongolian Baiti&quot;;</string>
                          </property>
                          <layout class="QHBoxLayout" name="horizontalLayout_12">
                           <item>
-                           <widget class="QFrame" name="frame_62">
+                           <widget class="QFrame" name="playback_filter_frame">
                             <property name="minimumSize">
                              <size>
                               <width>340</width>
@@ -1421,7 +1421,7 @@ QComboBox::down-arrow {
                                      <property name="minimumSize">
                                       <size>
                                        <width>0</width>
-                                       <height>260</height>
+                                       <height>50</height>
                                       </size>
                                      </property>
                                      <property name="cursor">
@@ -1494,6 +1494,13 @@ QComboBox::down-arrow {
                               </widget>
                              </item>
                              <item>
+                              <widget class="QProgressBar" name="load_videos_progess_bar">
+                               <property name="value">
+                                <number>24</number>
+                               </property>
+                              </widget>
+                             </item>
+                             <item>
                               <spacer name="verticalSpacer_17">
                                <property name="orientation">
                                 <enum>Qt::Orientation::Vertical</enum>
@@ -1510,64 +1517,12 @@ QComboBox::down-arrow {
                            </widget>
                           </item>
                           <item>
+                           <widget class="QWidget" name="video" native="true"/>
+                          </item>
+                          <item>
                            <widget class="Line" name="line_14">
                             <property name="orientation">
                              <enum>Qt::Orientation::Vertical</enum>
-                            </property>
-                           </widget>
-                          </item>
-                          <item>
-                           <widget class="QLabel" name="show_image">
-                            <property name="enabled">
-                             <bool>true</bool>
-                            </property>
-                            <property name="sizePolicy">
-                             <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-                              <horstretch>0</horstretch>
-                              <verstretch>0</verstretch>
-                             </sizepolicy>
-                            </property>
-                            <property name="minimumSize">
-                             <size>
-                              <width>0</width>
-                              <height>0</height>
-                             </size>
-                            </property>
-                            <property name="layoutDirection">
-                             <enum>Qt::LayoutDirection::LeftToRight</enum>
-                            </property>
-                            <property name="autoFillBackground">
-                             <bool>false</bool>
-                            </property>
-                            <property name="styleSheet">
-                             <string notr="true"/>
-                            </property>
-                            <property name="frameShape">
-                             <enum>QFrame::Shape::Panel</enum>
-                            </property>
-                            <property name="frameShadow">
-                             <enum>QFrame::Shadow::Raised</enum>
-                            </property>
-                            <property name="lineWidth">
-                             <number>1</number>
-                            </property>
-                            <property name="text">
-                             <string/>
-                            </property>
-                            <property name="textFormat">
-                             <enum>Qt::TextFormat::PlainText</enum>
-                            </property>
-                            <property name="scaledContents">
-                             <bool>false</bool>
-                            </property>
-                            <property name="alignment">
-                             <set>Qt::AlignmentFlag::AlignCenter</set>
-                            </property>
-                            <property name="wordWrap">
-                             <bool>false</bool>
-                            </property>
-                            <property name="openExternalLinks">
-                             <bool>false</bool>
                             </property>
                            </widget>
                           </item>
@@ -1608,6 +1563,33 @@ QComboBox::down-arrow {
                            <number>0</number>
                           </property>
                           <item>
+                           <layout class="QVBoxLayout" name="layout_timeline">
+                            <item>
+                             <widget class="QFrame" name="time_line_frame">
+                              <property name="minimumSize">
+                               <size>
+                                <width>0</width>
+                                <height>50</height>
+                               </size>
+                              </property>
+                              <property name="maximumSize">
+                               <size>
+                                <width>16777215</width>
+                                <height>50</height>
+                               </size>
+                              </property>
+                              <property name="frameShape">
+                               <enum>QFrame::Shape::StyledPanel</enum>
+                              </property>
+                              <property name="frameShadow">
+                               <enum>QFrame::Shadow::Raised</enum>
+                              </property>
+                              <layout class="QVBoxLayout" name="verticalLayout_23"/>
+                             </widget>
+                            </item>
+                           </layout>
+                          </item>
+                          <item>
                            <widget class="QFrame" name="frame_13">
                             <property name="minimumSize">
                              <size>
@@ -1636,6 +1618,88 @@ QComboBox::down-arrow {
                              <enum>QFrame::Shadow::Raised</enum>
                             </property>
                             <layout class="QHBoxLayout" name="horizontalLayout_4">
+                             <item>
+                              <widget class="QLabel" name="label_28">
+                               <property name="styleSheet">
+                                <string notr="true">	color: white;</string>
+                               </property>
+                               <property name="text">
+                                <string>Camera</string>
+                               </property>
+                              </widget>
+                             </item>
+                             <item>
+                              <widget class="QComboBox" name="playback_camera_combo">
+                               <property name="minimumSize">
+                                <size>
+                                 <width>120</width>
+                                 <height>0</height>
+                                </size>
+                               </property>
+                               <property name="maximumSize">
+                                <size>
+                                 <width>16777215</width>
+                                 <height>16777215</height>
+                                </size>
+                               </property>
+                               <property name="styleSheet">
+                                <string notr="true">QComboBox {
+    background-color:  transparent;
+    border: 2px solid white;
+    border-radius: 5px;
+    padding: 6px 10px;
+
+	color: white;
+}
+
+QComboBox:hover {
+    border: 1px solid #5e81ac;
+}
+
+QComboBox::drop-down {
+    background-color: #fff;
+}
+
+QComboBox QAbstractItemView {
+    background-color: #404040;
+    color: white;
+}
+
+QComboBox::down-arrow {
+    image: url(:/icons/icons/icons8-drop-down-80.png);
+
+    width: 12px;
+    height: 12px;
+}</string>
+                               </property>
+                               <item>
+                                <property name="text">
+                                 <string>test1</string>
+                                </property>
+                               </item>
+                               <item>
+                                <property name="text">
+                                 <string>test2</string>
+                                </property>
+                               </item>
+                              </widget>
+                             </item>
+                             <item>
+                              <spacer name="horizontalSpacer_6">
+                               <property name="orientation">
+                                <enum>Qt::Orientation::Horizontal</enum>
+                               </property>
+                               <property name="sizeType">
+                                <enum>QSizePolicy::Policy::Fixed</enum>
+                               </property>
+                               <property name="sizeHint" stdset="0">
+                                <size>
+                                 <width>40</width>
+                                 <height>20</height>
+                                </size>
+                               </property>
+                              </spacer>
+                             </item>
                              <item>
                               <widget class="QPushButton" name="play_btn">
                                <property name="maximumSize">
@@ -1934,9 +1998,6 @@ QPushButton:pressed {
                              </item>
                             </layout>
                            </widget>
-                          </item>
-                          <item>
-                           <layout class="QVBoxLayout" name="layout_timeline"/>
                           </item>
                          </layout>
                         </widget>
@@ -2258,8 +2319,8 @@ font: 24pt &quot;Mongolian Baiti&quot;;</string>
                                        <property name="geometry">
                                         <rect>
                                          <x>0</x>
-                                         <y>-319</y>
-                                         <width>486</width>
+                                         <y>0</y>
+                                         <width>199</width>
                                          <height>573</height>
                                         </rect>
                                        </property>
@@ -2591,8 +2652,8 @@ font: 24pt &quot;Mongolian Baiti&quot;;</string>
                                           <property name="geometry">
                                            <rect>
                                             <x>0</x>
-                                            <y>-80</y>
-                                            <width>401</width>
+                                            <y>0</y>
+                                            <width>199</width>
                                             <height>485</height>
                                            </rect>
                                           </property>

@@ -30,7 +30,7 @@ class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         if not MainWindow.objectName():
             MainWindow.setObjectName(u"MainWindow")
-        MainWindow.resize(1085, 619)
+        MainWindow.resize(1096, 777)
         MainWindow.setStyleSheet(u"")
         self.centralwidget = QWidget(MainWindow)
         self.centralwidget.setObjectName(u"centralwidget")
@@ -649,16 +649,16 @@ class Ui_MainWindow(object):
         self.frame_18.setFrameShadow(QFrame.Shadow.Raised)
         self.horizontalLayout_12 = QHBoxLayout(self.frame_18)
         self.horizontalLayout_12.setObjectName(u"horizontalLayout_12")
-        self.frame_62 = QFrame(self.frame_18)
-        self.frame_62.setObjectName(u"frame_62")
-        self.frame_62.setMinimumSize(QSize(340, 404))
-        self.frame_62.setMaximumSize(QSize(340, 16777215))
-        self.frame_62.setFrameShape(QFrame.Shape.Panel)
-        self.frame_62.setFrameShadow(QFrame.Shadow.Raised)
-        self.verticalLayout_17 = QVBoxLayout(self.frame_62)
+        self.playback_filter_frame = QFrame(self.frame_18)
+        self.playback_filter_frame.setObjectName(u"playback_filter_frame")
+        self.playback_filter_frame.setMinimumSize(QSize(340, 404))
+        self.playback_filter_frame.setMaximumSize(QSize(340, 16777215))
+        self.playback_filter_frame.setFrameShape(QFrame.Shape.Panel)
+        self.playback_filter_frame.setFrameShadow(QFrame.Shadow.Raised)
+        self.verticalLayout_17 = QVBoxLayout(self.playback_filter_frame)
         self.verticalLayout_17.setObjectName(u"verticalLayout_17")
         self.verticalLayout_17.setContentsMargins(0, 0, 0, 0)
-        self.frame_16 = QFrame(self.frame_62)
+        self.frame_16 = QFrame(self.playback_filter_frame)
         self.frame_16.setObjectName(u"frame_16")
         self.frame_16.setMinimumSize(QSize(330, 0))
         self.frame_16.setMaximumSize(QSize(330, 16777215))
@@ -813,7 +813,7 @@ class Ui_MainWindow(object):
         self.verticalLayout_25.setObjectName(u"verticalLayout_25")
         self.calendar_widget = QWidget(self.groupBox_6)
         self.calendar_widget.setObjectName(u"calendar_widget")
-        self.calendar_widget.setMinimumSize(QSize(0, 260))
+        self.calendar_widget.setMinimumSize(QSize(0, 50))
         self.calendar_widget.setCursor(QCursor(Qt.CursorShape.PointingHandCursor))
 
         self.verticalLayout_25.addWidget(self.calendar_widget)
@@ -856,12 +856,23 @@ class Ui_MainWindow(object):
 
         self.verticalLayout_17.addWidget(self.frame_16, 0, Qt.AlignmentFlag.AlignHCenter|Qt.AlignmentFlag.AlignVCenter)
 
+        self.load_videos_progess_bar = QProgressBar(self.playback_filter_frame)
+        self.load_videos_progess_bar.setObjectName(u"load_videos_progess_bar")
+        self.load_videos_progess_bar.setValue(24)
+
+        self.verticalLayout_17.addWidget(self.load_videos_progess_bar)
+
         self.verticalSpacer_17 = QSpacerItem(20, 40, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Expanding)
 
         self.verticalLayout_17.addItem(self.verticalSpacer_17)
 
 
-        self.horizontalLayout_12.addWidget(self.frame_62)
+        self.horizontalLayout_12.addWidget(self.playback_filter_frame)
+
+        self.video = QWidget(self.frame_18)
+        self.video.setObjectName(u"video")
+
+        self.horizontalLayout_12.addWidget(self.video)
 
         self.line_14 = QFrame(self.frame_18)
         self.line_14.setObjectName(u"line_14")
@@ -869,29 +880,6 @@ class Ui_MainWindow(object):
         self.line_14.setFrameShadow(QFrame.Shadow.Sunken)
 
         self.horizontalLayout_12.addWidget(self.line_14)
-
-        self.show_image = QLabel(self.frame_18)
-        self.show_image.setObjectName(u"show_image")
-        self.show_image.setEnabled(True)
-        sizePolicy2 = QSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding)
-        sizePolicy2.setHorizontalStretch(0)
-        sizePolicy2.setVerticalStretch(0)
-        sizePolicy2.setHeightForWidth(self.show_image.sizePolicy().hasHeightForWidth())
-        self.show_image.setSizePolicy(sizePolicy2)
-        self.show_image.setMinimumSize(QSize(0, 0))
-        self.show_image.setLayoutDirection(Qt.LayoutDirection.LeftToRight)
-        self.show_image.setAutoFillBackground(False)
-        self.show_image.setStyleSheet(u"")
-        self.show_image.setFrameShape(QFrame.Shape.Panel)
-        self.show_image.setFrameShadow(QFrame.Shadow.Raised)
-        self.show_image.setLineWidth(1)
-        self.show_image.setTextFormat(Qt.TextFormat.PlainText)
-        self.show_image.setScaledContents(False)
-        self.show_image.setAlignment(Qt.AlignmentFlag.AlignCenter)
-        self.show_image.setWordWrap(False)
-        self.show_image.setOpenExternalLinks(False)
-
-        self.horizontalLayout_12.addWidget(self.show_image)
 
 
         self.verticalLayout_15.addWidget(self.frame_18)
@@ -905,6 +893,22 @@ class Ui_MainWindow(object):
         self.verticalLayout_16 = QVBoxLayout(self.frame_12)
         self.verticalLayout_16.setObjectName(u"verticalLayout_16")
         self.verticalLayout_16.setContentsMargins(0, 0, 0, 0)
+        self.layout_timeline = QVBoxLayout()
+        self.layout_timeline.setObjectName(u"layout_timeline")
+        self.time_line_frame = QFrame(self.frame_12)
+        self.time_line_frame.setObjectName(u"time_line_frame")
+        self.time_line_frame.setMinimumSize(QSize(0, 50))
+        self.time_line_frame.setMaximumSize(QSize(16777215, 50))
+        self.time_line_frame.setFrameShape(QFrame.Shape.StyledPanel)
+        self.time_line_frame.setFrameShadow(QFrame.Shadow.Raised)
+        self.verticalLayout_23 = QVBoxLayout(self.time_line_frame)
+        self.verticalLayout_23.setObjectName(u"verticalLayout_23")
+
+        self.layout_timeline.addWidget(self.time_line_frame)
+
+
+        self.verticalLayout_16.addLayout(self.layout_timeline)
+
         self.frame_13 = QFrame(self.frame_12)
         self.frame_13.setObjectName(u"frame_13")
         self.frame_13.setMinimumSize(QSize(1, 50))
@@ -919,6 +923,53 @@ class Ui_MainWindow(object):
         self.frame_13.setFrameShadow(QFrame.Shadow.Raised)
         self.horizontalLayout_4 = QHBoxLayout(self.frame_13)
         self.horizontalLayout_4.setObjectName(u"horizontalLayout_4")
+        self.label_28 = QLabel(self.frame_13)
+        self.label_28.setObjectName(u"label_28")
+        self.label_28.setStyleSheet(u"	color: white;")
+
+        self.horizontalLayout_4.addWidget(self.label_28)
+
+        self.playback_camera_combo = QComboBox(self.frame_13)
+        self.playback_camera_combo.addItem("")
+        self.playback_camera_combo.addItem("")
+        self.playback_camera_combo.setObjectName(u"playback_camera_combo")
+        self.playback_camera_combo.setMinimumSize(QSize(120, 0))
+        self.playback_camera_combo.setMaximumSize(QSize(16777215, 16777215))
+        self.playback_camera_combo.setStyleSheet(u"QComboBox {\n"
+"    background-color:  transparent;\n"
+"    border: 2px solid white;\n"
+"    border-radius: 5px;\n"
+"    padding: 6px 10px;\n"
+"\n"
+"	color: white;\n"
+"}\n"
+"\n"
+"QComboBox:hover {\n"
+"    border: 1px solid #5e81ac;\n"
+"}\n"
+"\n"
+"QComboBox::drop-down {\n"
+"    background-color: #fff;\n"
+"}\n"
+"\n"
+"QComboBox QAbstractItemView {\n"
+"    background-color: #404040;\n"
+"    color: white;\n"
+"}\n"
+"\n"
+"QComboBox::down-arrow {\n"
+"    image: url(:/icons/icons/icons8-drop-down-80.png);\n"
+"\n"
+"    width: 12px;\n"
+"    height: 12px;\n"
+"}")
+
+        self.horizontalLayout_4.addWidget(self.playback_camera_combo)
+
+        self.horizontalSpacer_6 = QSpacerItem(40, 20, QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Minimum)
+
+        self.horizontalLayout_4.addItem(self.horizontalSpacer_6)
+
         self.play_btn = QPushButton(self.frame_13)
         self.play_btn.setObjectName(u"play_btn")
         self.play_btn.setMaximumSize(QSize(70, 30))
@@ -1106,11 +1157,6 @@ class Ui_MainWindow(object):
 
         self.verticalLayout_16.addWidget(self.frame_13)
 
-        self.layout_timeline = QVBoxLayout()
-        self.layout_timeline.setObjectName(u"layout_timeline")
-
-        self.verticalLayout_16.addLayout(self.layout_timeline)
-
 
         self.verticalLayout_15.addWidget(self.frame_12)
 
@@ -1160,6 +1206,9 @@ class Ui_MainWindow(object):
         self.horizontalLayout_28.setContentsMargins(0, 0, 0, 0)
         self.frame_32 = QFrame(self.frame_81)
         self.frame_32.setObjectName(u"frame_32")
+        sizePolicy2 = QSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding)
+        sizePolicy2.setHorizontalStretch(0)
+        sizePolicy2.setVerticalStretch(0)
         sizePolicy2.setHeightForWidth(self.frame_32.sizePolicy().hasHeightForWidth())
         self.frame_32.setSizePolicy(sizePolicy2)
         self.frame_32.setMinimumSize(QSize(0, 0))
@@ -1244,7 +1293,7 @@ class Ui_MainWindow(object):
         self.scrollArea_2.setWidgetResizable(True)
         self.scrollAreaWidgetContents_2 = QWidget()
         self.scrollAreaWidgetContents_2.setObjectName(u"scrollAreaWidgetContents_2")
-        self.scrollAreaWidgetContents_2.setGeometry(QRect(0, -319, 486, 573))
+        self.scrollAreaWidgetContents_2.setGeometry(QRect(0, 0, 199, 573))
         self.verticalLayout_7 = QVBoxLayout(self.scrollAreaWidgetContents_2)
         self.verticalLayout_7.setObjectName(u"verticalLayout_7")
         self.frame_47 = QFrame(self.scrollAreaWidgetContents_2)
@@ -1449,7 +1498,7 @@ class Ui_MainWindow(object):
         self.scrollArea.setWidgetResizable(True)
         self.scrollAreaWidgetContents = QWidget()
         self.scrollAreaWidgetContents.setObjectName(u"scrollAreaWidgetContents")
-        self.scrollAreaWidgetContents.setGeometry(QRect(0, -80, 401, 485))
+        self.scrollAreaWidgetContents.setGeometry(QRect(0, 0, 199, 485))
         self.verticalLayout_5 = QVBoxLayout(self.scrollAreaWidgetContents)
         self.verticalLayout_5.setObjectName(u"verticalLayout_5")
         self.frame_54 = QFrame(self.scrollAreaWidgetContents)
@@ -2554,7 +2603,10 @@ class Ui_MainWindow(object):
         self.groupBox_6.setTitle(QCoreApplication.translate("MainWindow", u"Calendar", None))
         self.label_date_2.setText(QCoreApplication.translate("MainWindow", u"Selected Date :", None))
         self.label_date.setText("")
-        self.show_image.setText("")
+        self.label_28.setText(QCoreApplication.translate("MainWindow", u"Camera", None))
+        self.playback_camera_combo.setItemText(0, QCoreApplication.translate("MainWindow", u"test1", None))
+        self.playback_camera_combo.setItemText(1, QCoreApplication.translate("MainWindow", u"test2", None))
+
 #if QT_CONFIG(tooltip)
         self.play_btn.setToolTip(QCoreApplication.translate("MainWindow", u"Show Live", None))
 #endif // QT_CONFIG(tooltip)

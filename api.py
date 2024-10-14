@@ -9,8 +9,6 @@ from backend.database.databaseManager import DataBaseManager
 from backend.database.mainDatabase import mainDatabase
 from main_ui import UI_main_window_org
 from constanst import MAX_SPEED,COLUMN_DESTINATION,TABLE_PATHES
-from loading_train import LoadingWindow
-from ImageLoader import ImageLoader
 from backend.utils.threadWorker import threadWorkers
 from Tranform.Network import pingWorker
 from Tranform.sharingConstans import StatusCodes
@@ -33,7 +31,6 @@ class API:
         self.train_id_selected = False
 
         self.stop_event = Event()
-        self.image_loader = ImageLoader(self.stop_event,'', self.speed_rate)
 
         self.Mediator = Mediator()
         self.Mediator.register_events(eventNames.MODIFY_SYSTEM_STATIONS)
@@ -52,14 +49,12 @@ class API:
 
 
     def button_connector(self):
-        self.ui_obj.ui.speed_btn.clicked.connect(self.set_speed)
         self.ui_obj.ui.btn_side_download.clicked.connect(self.load_download_base_params)
 
         self.ui_obj.ui.btn_add.clicked.connect(self.add_name)
         self.ui_obj.ui.btn_remove.clicked.connect(self.remove_name)
         self.ui_obj.ui.btn_select_train.clicked.connect(self.set_train_id)
-        self.ui_obj.ui.play_btn.clicked.connect(self.play_images)
-        self.ui_obj.ui.stop_btn.clicked.connect(self.stop_show_image)
+       
         #--------------------------------------------------------------------
         
 
@@ -91,19 +86,6 @@ class API:
 
     
     
-
-
-    def set_speed(self):
-        speed = self.ui_obj.speed_btn.text()
-        speed = int(speed[:-1])
-        speed = speed*2
-        if speed> MAX_SPEED:
-            speed = 1
-        self.speed_rate = speed
-        self.ui_obj.speed_btn.setText(str(speed)+'x')
-
-        if self.image_loader is not None:
-            self.image_loader.update_fps(speed_rate=self.speed_rate)
 
 
 
@@ -188,11 +170,6 @@ class API:
         self.ui_obj.calendar_dialog.set_spec_days(days)
 
         self.ui_obj.calendar_dialog.updateCalendar()
-        
-
-        self.loading = LoadingWindow(self.ui_obj)
-        self.loading.show()
-
 
         self.train_id_selected = True
     
@@ -225,49 +202,6 @@ class API:
 
 
         return days
-
-
-    def play_images(self):
-
-        if not self.image_loader.playing:
-
-            if  self.image_loader.is_alive():
-                text = 'Thread is already running.'
-                print(text)
-                self.ui_obj.show_error(text)
-                return
-
-
-            path_selected_day = self.get_path_selected_date()
-
-                
-            # Create a new Worker instance and start it
-            self.stop_event.clear()  # Reset the stop event
-            # self.image_loader = ImageLoader(self.stop_event)
-            self.image_loader = ImageLoader(self.stop_event,path_selected_day, self.speed_rate)
-            
-            # ImageLoader runs in a separate thread
-            self.image_loader.update_folder_path(path_selected_day)
-            self.image_loader.image_signal.connect(self.ui_obj.update_image)  # Connect the signal to the update_image slot
-
-            self.image_loader.start()
-            
-            text = 'Start Playing'
-            self.ui_obj.update_log(text)
-
-
-        else:
-            text = 'First Stop Playing'
-            print(text)
-            self.ui_obj.show_error(text)
-
-
-    def stop_show_image(self, event):
-        # Stop the image loader thread when closing the window
-        self.stop_event.set()
-        self.image_loader.stop()
-        text = 'Stop Playing'
-        self.ui_obj.update_log(text)
 
 
   

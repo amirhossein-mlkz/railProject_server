@@ -12,7 +12,7 @@ from PySide6.QtWidgets import QVBoxLayout, QWidget, QComboBox, QGridLayout, QLab
 import sys,os,platform,time,subprocess,threading
 from copy_ping import ShareCopyWorker
 from persiantools.jdatetime import JalaliDateTime
-from guiBackend import GUIBackend
+from uiUtils.guiBackend import GUIBackend
 from PySide6.QtCore import QTimer
 from login import LoginPage
 from PySide6.QtCore import Qt
@@ -20,7 +20,7 @@ from UIFiles.main_UI import Ui_MainWindow
 
 from PySide6.QtWidgets import QGraphicsBlurEffect
 from PySide6.QtGui import QFont,QIcon
-from timeLine import TimelineSlider
+# from timeLine import TimelineSlider
 from PagesUI.settingPageUI import settingPageUI
 from PagesUI.downloadPageUI import downloadPageUI
 from PagesUI.playbackPageUI import playbackPageUI
@@ -63,14 +63,14 @@ class UI_main_window_org(sQMainWindow):
 
 
         # timeline_widget = self.layout_timeline
-        self.timeline = TimelineSlider(duration_ms=ONE_HOUR,played_color="green", unplayed_color="green",
-                                     played_red_color="red", unplayed_red_color="red",
-                                     show_dividers=False, groove_height=25,time_label=self.ui.time_label)
+        # self.timeline = TimelineSlider(duration_ms=ONE_HOUR,played_color="green", unplayed_color="green",
+        #                              played_red_color="red", unplayed_red_color="red",
+        #                              show_dividers=False, groove_height=25,time_label=self.ui.time_label)
 
 
-        self.timeline.set_minutes_segments([])
+        # self.timeline.set_minutes_segments([])
         # GUIBackend.add_widget(self.frame_timeline,self.timeline)
-        GUIBackend.add_widget(self.ui.layout_timeline,self.timeline)
+        # GUIBackend.add_widget(self.ui.layout_timeline,self.timeline)
 
 
 
