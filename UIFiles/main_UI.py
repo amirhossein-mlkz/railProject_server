@@ -3,7 +3,7 @@
 ################################################################################
 ## Form generated from reading UI file 'main_UI.ui'
 ##
-## Created by: Qt User Interface Compiler version 6.7.2
+## Created by: Qt User Interface Compiler version 6.8.0
 ##
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
@@ -2636,9 +2636,9 @@ class Ui_MainWindow(object):
         self.label_18.setText(QCoreApplication.translate("MainWindow", u"Username :", None))
         self.label_19.setText(QCoreApplication.translate("MainWindow", u"Password : ", None))
         self.btn_add_check_connection.setText(QCoreApplication.translate("MainWindow", u"Check Connection", None))
-        self.btn_add_check_connection.setProperty("styleClass", QCoreApplication.translate("MainWindow", u"borderBlueButton", None))
+        self.btn_add_check_connection.setProperty(u"styleClass", QCoreApplication.translate("MainWindow", u"borderBlueButton", None))
         self.btn_save_add.setText(QCoreApplication.translate("MainWindow", u"Save", None))
-        self.btn_save_add.setProperty("styleClass", QCoreApplication.translate("MainWindow", u"fillBlueButton", None))
+        self.btn_save_add.setProperty(u"styleClass", QCoreApplication.translate("MainWindow", u"fillBlueButton", None))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.add), QCoreApplication.translate("MainWindow", u"ADD", None))
         ___qtablewidgetitem = self.system_stations_table.horizontalHeaderItem(0)
         ___qtablewidgetitem.setText(QCoreApplication.translate("MainWindow", u"name", None));
@@ -2652,13 +2652,13 @@ class Ui_MainWindow(object):
         self.label_27.setText(QCoreApplication.translate("MainWindow", u"User Name :", None))
         self.label_29.setText(QCoreApplication.translate("MainWindow", u"Password : ", None))
         self.btn_modify_save.setText(QCoreApplication.translate("MainWindow", u"Save", None))
-        self.btn_modify_save.setProperty("styleClass", QCoreApplication.translate("MainWindow", u"fillBlueButton", None))
+        self.btn_modify_save.setProperty(u"styleClass", QCoreApplication.translate("MainWindow", u"fillBlueButton", None))
         self.btn_modify_cancel.setText(QCoreApplication.translate("MainWindow", u"Cancel", None))
-        self.btn_modify_cancel.setProperty("styleClass", QCoreApplication.translate("MainWindow", u"borderBlueButton", None))
+        self.btn_modify_cancel.setProperty(u"styleClass", QCoreApplication.translate("MainWindow", u"borderBlueButton", None))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.modify), QCoreApplication.translate("MainWindow", u"Modify", None))
         self.label_31.setText(QCoreApplication.translate("MainWindow", u"Download", None))
         self.label_8.setText(QCoreApplication.translate("MainWindow", u"Trains:", None))
-        self.label_8.setProperty("styleClass", QCoreApplication.translate("MainWindow", u"h3", None))
+        self.label_8.setProperty(u"styleClass", QCoreApplication.translate("MainWindow", u"h3", None))
         ___qtablewidgetitem3 = self.download_filter_station_log.horizontalHeaderItem(0)
         ___qtablewidgetitem3.setText(QCoreApplication.translate("MainWindow", u"New Column", None));
         ___qtablewidgetitem4 = self.download_filter_station_log.horizontalHeaderItem(1)
@@ -2666,7 +2666,7 @@ class Ui_MainWindow(object):
         ___qtablewidgetitem5 = self.download_filter_station_log.verticalHeaderItem(0)
         ___qtablewidgetitem5.setText(QCoreApplication.translate("MainWindow", u"New Row", None));
         self.label_4.setText(QCoreApplication.translate("MainWindow", u"Select Stations:", None))
-        self.label_4.setProperty("styleClass", QCoreApplication.translate("MainWindow", u"h3", None))
+        self.label_4.setProperty(u"styleClass", QCoreApplication.translate("MainWindow", u"h3", None))
         self.download_all_stations_checkbox.setText(QCoreApplication.translate("MainWindow", u"All", None))
         self.download_search_station.setPlaceholderText(QCoreApplication.translate("MainWindow", u"Search name", None))
         ___qtablewidgetitem6 = self.download_stations_table.horizontalHeaderItem(0)
@@ -2680,9 +2680,9 @@ class Ui_MainWindow(object):
         ___qtablewidgetitem10 = self.download_stations_table.verticalHeaderItem(2)
         ___qtablewidgetitem10.setText(QCoreApplication.translate("MainWindow", u"New Row", None));
         self.download_filter_prev_btn.setText(QCoreApplication.translate("MainWindow", u"Previous", None))
-        self.download_filter_prev_btn.setProperty("styleClass", QCoreApplication.translate("MainWindow", u"fillBlueButton", None))
+        self.download_filter_prev_btn.setProperty(u"styleClass", QCoreApplication.translate("MainWindow", u"fillBlueButton", None))
         self.download_filter_next_btn.setText(QCoreApplication.translate("MainWindow", u"Next", None))
-        self.download_filter_next_btn.setProperty("styleClass", QCoreApplication.translate("MainWindow", u"fillBlueButton", None))
+        self.download_filter_next_btn.setProperty(u"styleClass", QCoreApplication.translate("MainWindow", u"fillBlueButton", None))
         self.groupBox_2.setTitle(QCoreApplication.translate("MainWindow", u"Filters", None))
         self.checkBox_4.setText("")
         self.btn_add.setText(QCoreApplication.translate("MainWindow", u"+", None))
