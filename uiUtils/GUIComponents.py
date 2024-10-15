@@ -226,6 +226,7 @@ class tabelCheckbox(QCheckBox):
     def set_size(self, w, h):
         self.setStyleSheet(f"""QCheckBox::indicator 
                                 {{
+                                    
                                width :{w}px;
                                height :{h}px;
                                }}

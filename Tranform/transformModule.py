@@ -188,7 +188,11 @@ class archiveManager:
 
     
     def get_available_trains(self,):
-        return list( self.archive.keys())
+
+        if self.archive is not None:
+            return list( self.archive.keys())
+
+        return []
     
     def get_available_cameras(self, train_id:str):
         return list( self.archive[train_id].keys())

@@ -1097,7 +1097,8 @@ class GUIBackend:
             layout_widget.setAlignment(Qt.AlignCenter)
             layout_widget.addWidget(widget)
             container.setLayout(layout_widget)
-            layout_widget.setContentsMargins(6,6,6,6)
+            layout_widget.setContentsMargins(0,0,0,0)
+            container.setLayout(layout_widget)  # Set the layout to the container
             table.setCellWidget(*index, container)
         else:
             table.setCellWidget(*index, widget)

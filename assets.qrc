@@ -1,5 +1,11 @@
 <RCC>
   <qresource prefix="icons">
+    <file>icons/icons8-log-100.png</file>
+    <file>icons/icons8-subtract-96.png</file>
+    <file>icons/icons8-maximize-button-100.png</file>
+    <file>icons/icons8-close-80.png</file>
+    <file>icons/white_close.png</file>
+    <file>icons/white_minus.png</file>
     <file>icons/check-wight-24.png</file>
     <file>icons/refresh_white.png</file>
     <file>icons/stop-purple.png</file>

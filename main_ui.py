@@ -8,7 +8,7 @@ from PySide6.QtUiTools import loadUiType
 from PySide6 import QtCore as sQtCore
 from PySide6.QtWidgets import QMainWindow as sQMainWindow
 from PySide6.QtWidgets import QApplication as sQApplication
-from PySide6.QtWidgets import QVBoxLayout, QWidget, QComboBox, QGridLayout, QLabel, QDialog,QDialogButtonBox,QPushButton,QFrame
+from PySide6.QtWidgets import QVBoxLayout, QWidget, QComboBox, QGridLayout, QLabel, QDialog,QDialogButtonBox,QPushButton,QFrame , QStatusBar
 import sys,os,platform,time,subprocess,threading
 from copy_ping import ShareCopyWorker
 from persiantools.jdatetime import JalaliDateTime
@@ -27,11 +27,12 @@ from PagesUI.playbackPageUI import playbackPageUI
 import assets
 
 from PySide6.QtCore import Qt, QPropertyAnimation, QEasingCurve, QRect, QEvent
-
+from Styles import SideBtnsStyle
 
 from constanst import ONE_HOUR
 from uiUtils import GUIComponents
-
+from backend.utils.ShowQuestion import show_question
+from backend.utils import texts
 
 # ui class
 class UI_main_window_org(sQMainWindow):
@@ -42,6 +43,7 @@ class UI_main_window_org(sQMainWindow):
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
         self.all_style_repoblish()
+        self.language = 'English'
 
         self.settingPageUI = settingPageUI(self.ui)
         self.downloadPageUI = downloadPageUI(self.ui)
@@ -53,11 +55,40 @@ class UI_main_window_org(sQMainWindow):
         # Set the window icon
         self.setWindowIcon(QIcon(":/icons/icons/download.png"))
 
+        # window setup
+        flags = sQtCore.Qt.WindowFlags(
+            sQtCore.Qt.FramelessWindowHint
+        )  # remove the windows frame of ui
+        self.pos_ = self.pos()
+        self.setWindowFlags(flags)
+        self._old_pos = None
+
+        # Create a QStatusBar
+        self.status_bar = QStatusBar()
+        self.setStatusBar(self.status_bar)
+
+        # Set the maximum height for the status bar (e.g., 30 pixels)
+        self.status_bar.setMaximumHeight(10)
+
+
+                # Set the background color and text color using a stylesheet
+        self.status_bar.setStyleSheet("""
+            QStatusBar {
+                background-color: #262632;  /* Background color */
+            }
+        """)
 
         self.button_connector()
         
         # Create a central widget
         central_widget = self.ui.calendar_widget
+
+
+        self.side_btns = {
+            'playback':self.ui.btn_side_playback,
+            'download':self.ui.btn_side_download,
+            'settings':self.ui.btn_side_settings
+            }
         
 
 
@@ -89,6 +120,33 @@ class UI_main_window_org(sQMainWindow):
         # self.ui.btn_logo.clicked.connect(self.toggle_frame_visibility)
         # self.ui.btn_logo.installEventFilter(self)  # Install an event filter to handle double clicks
         self.hide_all_messages()
+
+
+        self.ui.btn_side_playback.click()
+
+
+
+    def mousePressEvent(self, event):
+        if event.button() == sQtCore.Qt.LeftButton and not self.isMaximized():
+            # accept event only on top bar
+            if (
+                event.position().y() <= self.ui.softeware_top_frame.height()
+            ):
+                self._old_pos = event.globalPosition().toPoint()
+
+    def mouseReleaseEvent(self, event):
+        if event.button() == sQtCore.Qt.LeftButton:
+            self._old_pos = None
+
+
+
+    def mouseMoveEvent(self, event):
+        if not self._old_pos:
+            return
+        delta = sQtCore.QPoint(event.globalPosition().toPoint() - self._old_pos)
+        self.move(self.x() + delta.x(), self.y() + delta.y())
+        self._old_pos = event.globalPosition().toPoint()
+
 
 
 
@@ -149,8 +207,10 @@ class UI_main_window_org(sQMainWindow):
         # self.ui.btn_side_aboutus.clicked.connect(self.set_stack_widget)
 
 
-        
+        self.ui.close_btn.clicked.connect(self.close_win)
+        self.ui.maximize_btn.clicked.connect(self.toggle_maximize)
 
+        self.ui.minimize_btn.clicked.connect(self.minimize_win)
 
 
     def show_login(self):
@@ -226,23 +286,78 @@ class UI_main_window_org(sQMainWindow):
         btnName = btn.objectName()
         if btnName == "btn_side_playback":
             self.ui.pages_stackwidget.setCurrentWidget(self.ui.page_playback)
-        if btnName == "btn_side_download":
+        elif btnName == "btn_side_download":
             self.ui.pages_stackwidget.setCurrentWidget(self.ui.page_download)
-        if btnName == "btn_side_settings":
+        elif btnName == "btn_side_settings":
             self.ui.pages_stackwidget.setCurrentWidget(self.ui.page_settings)
-        if btnName == "btn_side_aboutus":
+        elif btnName == "btn_side_aboutus":
             self.ui.pages_stackwidget.setCurrentWidget(self.ui.page_playback)
 
 
+
+        self.clear_side_btns()
+
+        self.set_side_click_btn(btn)
+
+
+    def set_side_click_btn(self,btn):
+        
+
+        name = btn.objectName()
+        name = name.split('_')[-1]
+    
+        style = SideBtnsStyle['click'][name]
+        btn.setStyleSheet(style)
+
+    def clear_side_btns(self):
+
+
+
+
+
+        # for btn in self.side_btns:
+
+        for btn,style in SideBtnsStyle['normal'].items():
+
+
+            btn = self.side_btns[btn]
+            btn.setStyleSheet(style)
+
+            # current_style = btn.styleSheet()
+
+            # # Check if the border is applied
+            # if "border-left" in current_style:
+            #     # If the border exists, clear it
+            #     new_style = current_style.replace('border-left: 5px solid #D43D41;', '').strip()
+            #     btn.setStyleSheet(new_style)
+            
+
+
+            
+
+
+
+
     def close_win(self):
-        self.close()
-        # pid = os.getpid()
-        # os.kill(pid, SIGKILL)
-        sys.exit()
+
+        ret = show_question(texts.MESSAGES['message'][self.language],texts.MESSAGES['Close'][self.language])
+        if ret:
+            self.close()
+            # pid = os.getpid()
+            # os.kill(pid, SIGKILL)
+            sys.exit()
 
     def minimize_win(self):
         self.showMinimized()
 
+
+        
+    def toggle_maximize(self):
+        """Function to toggle between maximizing and restoring the window."""
+        if self.isMaximized():
+            self.showNormal()  # Restore the window to its original size
+        else:
+            self.showMaximized()  # Maximize the window
 
 
     def load_fields(self):
