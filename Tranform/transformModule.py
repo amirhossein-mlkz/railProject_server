@@ -213,6 +213,8 @@ class archiveManager:
         try:
             with open(self.db_path, 'rb') as f:
                 self.archive = pickle.load(f)
+            if not isinstance(self.archive, dict):
+                self.archive = {}
             return True
         except Exception as e:
             print(e)

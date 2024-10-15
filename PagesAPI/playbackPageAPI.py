@@ -1,4 +1,5 @@
 import threading
+import time
 
 from persiantools.jdatetime import JalaliDateTime, timedelta
 from datetime import time as Time
@@ -36,16 +37,19 @@ class playbackPageAPI:
         self.selected_date = None
         self.selected_train = None
         self.curent_video_idx = 0
+        self.date_ranges = {}
+        self.is_playing = False
+
 
         self.Player = MediaPlayer(self.uiHandler.ui.video)
         self.timer = QTimer()
         self.timer.timeout.connect(self.refreshing_ui)
         self.timer.start(500)  # Update every second
 
+
         self.uiHandler.ui.refresh_btn.clicked.connect(self.update_archive)
         self.uiHandler.calendar_dialog.set_calender_event(self.date_select_event)
         self.uiHandler.ui.play_btn.clicked.connect(self.play_video)
-        self.uiHandler.ui.pause_btn.clicked.connect(self.pause_video)
         self.uiHandler.ui.speed_btn.clicked.connect(self.change_video_speed)
         self.uiHandler.ui.playback_camera_combo.currentTextChanged.connect(self.camera_change_event)
         self.uiHandler.ui.playback_combo_train_id.currentTextChanged.connect(self.select_train_event)
@@ -54,8 +58,9 @@ class playbackPageAPI:
         self.archiveManager = archiveManager(pathConstants.UTILS_DIR)
         self.archiveManager.load()
         self.load_archive()
-
+        
         self.uiHandler.ui.refresh_image_database_log.hide()
+        self.uiHandler.setplaying_button(self.is_playing)
 
 
     def update_archive(self,):
@@ -127,6 +132,8 @@ class playbackPageAPI:
         self.selected_camera = self.uiHandler.get_current_camera()
         if not self.selected_camera:
             return
+        
+        self.curent_video_idx = 0
 
         # self.uiHandler.set_load_video_progress(0)
         self.uiHandler.trainLoading.set_value(0)
@@ -143,15 +150,39 @@ class playbackPageAPI:
         start = JalaliDateTime.combine(self.selected_date, Time.min)
         end = start + timedelta(days=1)
 
-        self.uiHandler.set_timelines(date_ranges[self.selected_camera]['ranges'], start=start, end=end)
-        self.Player.load_video(date_ranges[self.selected_camera]['paths'][self.curent_video_idx])
+        if self.selected_camera in self.date_ranges:
+            self.uiHandler.set_timelines(date_ranges[self.selected_camera]['ranges'], start=start, end=end)
+            
+            #check if any video exists
+            if len(date_ranges[self.selected_camera]['paths']):
+                self.Player.load_video(date_ranges[self.selected_camera]['paths'][self.curent_video_idx])
+                self.Player.update_frame()
+                self.refreshing_ui(force=True)
+            else:
+                self.Player.load_video(None)
+
+            
+            self.is_playing = False
+            self.uiHandler.setplaying_button(self.is_playing)
+        
+
     
     def date_ranges_progress(self, value:float):
         value = int(value * 1000) #denormal
         self.uiHandler.trainLoading.set_value(value)
 
     def play_video(self,):
-        self.Player.play_video()
+
+        if self.is_playing:
+            self.is_playing = False
+            self.Player.pause_video()
+        else:
+            self.Player.play_video()
+            if self.Player.will_play():
+                self.is_playing = True
+        
+        self.uiHandler.setplaying_button(self.is_playing)
+
 
     def pause_video(self,):
         self.Player.pause_video()
@@ -160,17 +191,22 @@ class playbackPageAPI:
         speed = self.Player.change_speed()
         self.uiHandler.ui.speed_btn.setText(f'{speed}x')
     
-    def refreshing_ui(self,):
+    def refreshing_ui(self, force=False):
+        if not self.date_ranges:
+            return
+        
         if self.Player.is_finished():
             #move to next video
             self.curent_video_idx+=1
             if self.curent_video_idx > len(self.date_ranges[self.selected_camera]):
                 self.curent_video_idx = 0
+            
+            
             self.Player.load_video(self.date_ranges[self.selected_camera]['paths'][self.curent_video_idx])
             self.Player.play_video()
 
 
-        if self.Player.is_playing():
+        if self.Player.is_playing() or force:
             sec = self.Player.get_time()
             start_datetime, end_datetime = self.date_ranges[self.selected_camera]['ranges'][self.curent_video_idx]
             current_datetime:JalaliDateTime = start_datetime + timedelta(seconds=sec)
@@ -180,17 +216,31 @@ class playbackPageAPI:
             time_string = current_datetime.strftime('%Y/%m/%d  %H:%M:%S')
             marquee_text = f"{self.selected_train} | {self.selected_camera} {time_string}"
             self.Player.update_marquee(marquee_text, position=6, font_size=48)
+            self.uiHandler.ui.playback_time_label.setText(time_string)
+
+
 
     def timline_change_event(self, date_time:JalaliDateTime):
         date_ranges = self.date_ranges[self.selected_camera]['ranges']
         paths = self.date_ranges[self.selected_camera]['paths']
 
+        prev_video_idx = self.curent_video_idx
         for i,(start, end) in enumerate(date_ranges):
             if start<=date_time<=end:
                 self.curent_video_idx = i
                 secs:timedelta = date_time - start
                 secs = secs.total_seconds()
-                self.Player.load_video(paths[self.curent_video_idx])
-                self.play_video()
-                self.Player.set_time(secs)
+                #--------------------------------------------------------------
+                if prev_video_idx == i:
+                    #vidoe loaded befor we can use set_time function
+                    self.Player.set_time(secs)
+                else:
+                    #video should load so we should use set_start_time function
+                    self.Player.load_video(paths[self.curent_video_idx])
+                    self.Player.set_start_time(secs)
+                #--------------------------------------------------------------
+                if self.is_playing:
+                    self.Player.play_video()
+                else:
+                    self.Player.update_frame()
                 break

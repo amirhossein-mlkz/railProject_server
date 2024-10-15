@@ -110,7 +110,7 @@ class timeRangeWorker(QObject):
                     count+=1
                     progress = count/total_count
                     self.progress_signal.emit(progress)
-
+        self.progress_signal.emit(1)
         self.finish_signal.emit(result)
 
     
