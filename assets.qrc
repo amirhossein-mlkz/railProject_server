@@ -1,5 +1,6 @@
 <RCC>
   <qresource prefix="icons">
+    <file>icons/username.png</file>
     <file>icons/icons8-log-100.png</file>
     <file>icons/icons8-subtract-96.png</file>
     <file>icons/icons8-maximize-button-100.png</file>
@@ -33,6 +34,10 @@
     <file>icons/icons8-settings-80.png</file>
     <file>icons/icons8-railway-50.png</file>
     <file>icons/icons8-refresh-26.png</file>
+    <file>icons/icons8-forgot-password-100 (1).png</file>
+    <file>icons/icons8-login-100 (2).png</file>
+    <file>icons/icons8-login-100 (3).png</file>
+    <file>icons/icons8-password-100 (1).png</file>
     <file>icons/icons8-check-mark-48.png</file>
     <file>icons/icons8-playback-24.png</file>
     <file>icons/icons8-drop-down-80.png</file>

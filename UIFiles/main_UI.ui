@@ -392,6 +392,28 @@ border:none;</string>
      </widget>
     </item>
     <item>
+     <widget class="Line" name="line_9">
+      <property name="minimumSize">
+       <size>
+        <width>0</width>
+        <height>1</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>16777215</width>
+        <height>1</height>
+       </size>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(175, 175, 175);</string>
+      </property>
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+     </widget>
+    </item>
+    <item>
      <widget class="QFrame" name="middle">
       <property name="maximumSize">
        <size>
@@ -665,7 +687,7 @@ icon:url(:/icons/icons/download-white.png);
            </spacer>
           </item>
           <item>
-           <widget class="QPushButton" name="btn_side_settings_2">
+           <widget class="QPushButton" name="btn_side_login">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
               <horstretch>0</horstretch>
@@ -691,15 +713,11 @@ icon:url(:/icons/icons/download-white.png);
              <string>Defect Parameters</string>
             </property>
             <property name="styleSheet">
-             <string notr="true">icon: url(:/asstets/icons/login_icon.png);
+             <string notr="true">icon: url(:/icons/icons/icons8-login-100 (3).png);
 </string>
             </property>
             <property name="text">
              <string>  Login</string>
-            </property>
-            <property name="icon">
-             <iconset resource="../assets.qrc">
-              <normaloff>:/icons/icons/icons8-settings-80.png</normaloff>:/icons/icons/icons8-settings-80.png</iconset>
             </property>
             <property name="iconSize">
              <size>
@@ -791,7 +809,7 @@ icon:url(:/icons/icons/download-white.png);
              <number>2</number>
             </property>
             <property name="currentIndex">
-             <number>1</number>
+             <number>0</number>
             </property>
             <widget class="QWidget" name="page_playback">
              <property name="styleSheet">
@@ -1460,6 +1478,9 @@ QComboBox::down-arrow {
                     </item>
                     <item>
                      <spacer name="horizontalSpacer_6">
+                      <property name="orientation">
+                       <enum>Qt::Vertical</enum>
+                      </property>
                       <property name="sizeType">
                        <enum>QSizePolicy::Fixed</enum>
                       </property>
@@ -1613,6 +1634,22 @@ QPushButton:pressed {
                        </item>
                        <item>
                         <spacer name="horizontalSpacer_4">
+                         <property name="orientation">
+                          <enum>Qt::Vertical</enum>
+                         </property>
+                         <property name="sizeHint" stdset="0">
+                          <size>
+                           <width>40</width>
+                           <height>20</height>
+                          </size>
+                         </property>
+                        </spacer>
+                       </item>
+                       <item>
+                        <spacer name="horizontalSpacer_2">
+                         <property name="orientation">
+                          <enum>Qt::Horizontal</enum>
+                         </property>
                          <property name="sizeHint" stdset="0">
                           <size>
                            <width>40</width>
@@ -1759,7 +1796,7 @@ QPushButton:pressed {
                           <rect>
                            <x>0</x>
                            <y>0</y>
-                           <width>481</width>
+                           <width>263</width>
                            <height>588</height>
                           </rect>
                          </property>
@@ -1834,6 +1871,9 @@ QPushButton:pressed {
                             </item>
                             <item row="0" column="3">
                              <spacer name="horizontalSpacer_3">
+                              <property name="orientation">
+                               <enum>Qt::Vertical</enum>
+                              </property>
                               <property name="sizeHint" stdset="0">
                                <size>
                                 <width>40</width>
@@ -1911,6 +1951,9 @@ QPushButton:pressed {
                             </item>
                             <item row="0" column="0">
                              <spacer name="horizontalSpacer_7">
+                              <property name="orientation">
+                               <enum>Qt::Vertical</enum>
+                              </property>
                               <property name="sizeHint" stdset="0">
                                <size>
                                 <width>40</width>
@@ -1923,6 +1966,9 @@ QPushButton:pressed {
                           </item>
                           <item>
                            <spacer name="verticalSpacer">
+                            <property name="orientation">
+                             <enum>Qt::Vertical</enum>
+                            </property>
                             <property name="sizeType">
                              <enum>QSizePolicy::Fixed</enum>
                             </property>
@@ -2006,6 +2052,9 @@ QPushButton:pressed {
                           </item>
                           <item>
                            <spacer name="verticalSpacer_5">
+                            <property name="orientation">
+                             <enum>Qt::Vertical</enum>
+                            </property>
                             <property name="sizeType">
                              <enum>QSizePolicy::Fixed</enum>
                             </property>
@@ -2470,6 +2519,9 @@ QPushButton:pressed {
         font-weight: bold;  /* بولد کردن فونت سرستون‌ها */
     }</string>
                 </property>
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
                 <widget class="QFrame" name="download_filter_frame">
                  <property name="minimumSize">
                   <size>
@@ -2622,6 +2674,9 @@ background-color:rgb(49, 44, 53);
                         </item>
                         <item>
                          <spacer name="horizontalSpacer">
+                          <property name="orientation">
+                           <enum>Qt::Vertical</enum>
+                          </property>
                           <property name="sizeType">
                            <enum>QSizePolicy::Fixed</enum>
                           </property>
@@ -2644,6 +2699,9 @@ background-color:rgb(49, 44, 53);
                       </item>
                       <item>
                        <spacer name="verticalSpacer_2">
+                        <property name="orientation">
+                         <enum>Qt::Vertical</enum>
+                        </property>
                         <property name="sizeType">
                          <enum>QSizePolicy::Fixed</enum>
                         </property>

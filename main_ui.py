@@ -1,7 +1,17 @@
-import os
+import os,sys
+
+from login_qt.Constants.Constants import UIPages
 os.system('pyside6-uic {} -o {}'.format(os.path.join('UIFiles', 'calendar.ui'), os.path.join('UIFiles', 'calendar.py')))
 os.system('pyside6-uic {} -o {}'.format(os.path.join('UIFiles', 'main_UI.ui'), os.path.join('UIFiles', 'main_UI.py')))
 os.system('CMD /C pyside6-rcc assets.qrc -o assets.py')#PySide
+os.system('pyside6-rcc {} -o {}'.format(os.path.join(r'login_qt\uiFiles\resources', 'resource.qrc'), os.path.join(r'', 'resource_rc.py')))
+
+# Specify the path to the directory you want to add
+directory = "login_qt"
+
+# Add the directory to sys.path
+if directory not in sys.path:
+    sys.path.append(directory)
 ##############################################################################################################################
 
 from PySide6.QtUiTools import loadUiType
@@ -14,7 +24,6 @@ from copy_ping import ShareCopyWorker
 from persiantools.jdatetime import JalaliDateTime
 from uiUtils.guiBackend import GUIBackend
 from PySide6.QtCore import QTimer
-from login import LoginPage
 from PySide6.QtCore import Qt
 from UIFiles.main_UI import Ui_MainWindow
 
@@ -33,6 +42,7 @@ from constanst import ONE_HOUR
 from uiUtils import GUIComponents
 from backend.utils.ShowQuestion import show_question
 from backend.utils import texts
+from login import LoginPage
 
 # ui class
 class UI_main_window_org(sQMainWindow):
@@ -106,6 +116,8 @@ class UI_main_window_org(sQMainWindow):
 
 
         self.preview_login = False
+        self.login_obj = LoginPage()
+
 
 
 
@@ -204,6 +216,8 @@ class UI_main_window_org(sQMainWindow):
         self.ui.btn_side_playback.clicked.connect(self.set_stack_widget)
         self.ui.btn_side_download.clicked.connect(self.set_stack_widget)
         self.ui.btn_side_settings.clicked.connect(self.set_stack_widget)
+        self.ui.btn_side_login.clicked.connect(self.check_user_loggedin)
+        
         # self.ui.btn_side_aboutus.clicked.connect(self.set_stack_widget)
 
 
@@ -213,14 +227,61 @@ class UI_main_window_org(sQMainWindow):
         self.ui.minimize_btn.clicked.connect(self.minimize_win)
 
 
+
+    def check_user_loggedin(self):
+
+        loggedin_user = self.login_obj.login_API.get_logined_user()
+        if loggedin_user is None:
+            self.show_login()
+        else:
+            self.show_user_managment_page(loggedin_user)
+
     def show_login(self):
         if not  self.preview_login:
             self.applyBlurEffect()
-            self.login_ui = LoginPage(self)
-            self.login_ui.show()
-            self.preview_login = True
-            self.login_ui.open_button.clicked.connect(self.check_password)
-            self.login_ui.close_button.clicked.connect(self.close_login)
+            self.login_obj.show_page()
+            self.preview_login = False
+            loggedin_user = self.login_obj.login_API.get_logined_user()
+            if loggedin_user is not None:
+                loggedin_username = loggedin_user['username']
+                self.set_user(is_login=True,user_name= loggedin_username)
+
+            else:
+                loggedin_username = False
+            print(loggedin_username)
+
+
+    def show_user_managment_page(self,loggedin_user):
+        role = loggedin_user['role']
+        if role == 'Admin':
+            accessibity = [1,2,3,4,5]
+        else:
+            accessibity = [1,2]
+
+        if self.login_obj.login_API.get_logined_user() is not None:
+            ret= self.login_obj.show_page(UIPages.MENU,accessibity)
+            
+            if self.login_obj.login_API.get_logined_user() is None:
+
+                self.set_user(is_login=False)
+
+
+
+    def set_user(self,is_login=True,user_name = ''):
+
+        if is_login:
+            self.ui.btn_side_login.setText('User : '+user_name)
+            self.ui.btn_side_login.setStyleSheet('icon: url(:/icons/icons/username.png);')
+        else:
+                
+            self.ui.btn_side_login.setText('  Login')
+            self.ui.btn_side_login.setStyleSheet('icon: url(:/icons/icons/icons8-login-100 (3).png);')
+
+
+
+
+
+
 
     def close_login(self):
             self.preview_login = False
