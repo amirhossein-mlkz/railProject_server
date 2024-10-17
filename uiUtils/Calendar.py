@@ -369,6 +369,12 @@ class JalaliCalendarDialog(QWidget):
 
 
 
+    def set_input_field(self,input_field:QtWidgets):
+
+        self.input_field = input_field
+
+
+
     def set_avaiable_date_ranges(self, avaiable_dates:list[ JalaliDateTime]):
         self.avaiable_dates = avaiable_dates
         self.updateCalendar()

@@ -600,9 +600,12 @@ background-color:transparent;</string>
                          <height>16777215</height>
                         </size>
                        </property>
+                       <property name="currentText">
+                        <string>None</string>
+                       </property>
                        <item>
                         <property name="text">
-                         <string>Role</string>
+                         <string>None</string>
                         </property>
                        </item>
                       </widget>

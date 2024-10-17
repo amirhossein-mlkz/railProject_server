@@ -6,6 +6,7 @@ from datetime import time as Time
 from PySide6.QtCore import Qt, QTimer
 
 
+from Export.export import UIExport
 from PagesUI.playbackPageUI import playbackPageUI
 from backend.database.mainDatabase import mainDatabase
 from uiUtils.GUIComponents import MessageWidget
@@ -20,6 +21,7 @@ from Tranform.sharingConstans import DIRECTORY_TREE
 from Tranform.transformUtils import transormUtils
 from backend.mediaPlayer.player import MediaPlayer
 from pathConstans import pathConstants
+from uiUtils.Calendar import  JalaliCalendarDialog
 
 
 
@@ -51,6 +53,7 @@ class playbackPageAPI:
         self.uiHandler.calendar_dialog.set_calender_event(self.date_select_event)
         self.uiHandler.ui.play_btn.clicked.connect(self.play_video)
         self.uiHandler.ui.speed_btn.clicked.connect(self.change_video_speed)
+        self.uiHandler.ui.btn_export.clicked.connect(self.show_export)
         self.uiHandler.ui.playback_camera_combo.currentTextChanged.connect(self.camera_change_event)
         self.uiHandler.ui.playback_combo_train_id.currentTextChanged.connect(self.select_train_event)
         self.uiHandler.timeLineSlider.timeSelected.connect(self.timline_change_event)
@@ -245,3 +248,18 @@ class playbackPageAPI:
                 else:
                     self.Player.update_frame()
                 break
+
+
+
+
+
+
+
+
+    def show_export(self):
+
+        self.export_obj = UIExport()
+
+        self.export_obj.set_calendar_obj(JalaliCalendarDialog)
+
+        self.export_obj.show()

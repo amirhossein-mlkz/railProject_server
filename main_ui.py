@@ -18,7 +18,7 @@ if export_directory not in sys.path:
 if login_directory not in sys.path:
     sys.path.append(login_directory)
 
-    
+
 ##############################################################################################################################
 
 from PySide6.QtUiTools import loadUiType
@@ -225,7 +225,6 @@ class UI_main_window_org(sQMainWindow):
         self.ui.btn_side_settings.clicked.connect(self.set_stack_widget)
         self.ui.btn_side_login.clicked.connect(self.check_user_loggedin)
 
-        self.ui.btn_export.clicked.connect(self.show_export)
         
         # self.ui.btn_side_aboutus.clicked.connect(self.set_stack_widget)
 
@@ -316,11 +315,6 @@ class UI_main_window_org(sQMainWindow):
 
 
 
-
-    def show_export(self):
-
-        self.export_obj = UIExport()
-        self.export_obj.show()
 
 
 

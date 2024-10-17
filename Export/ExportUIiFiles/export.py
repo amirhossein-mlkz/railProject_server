@@ -19,7 +19,7 @@ from PySide6.QtWidgets import (QApplication, QComboBox, QFrame, QHBoxLayout,
     QLabel, QLineEdit, QProgressBar, QPushButton,
     QSizePolicy, QSpacerItem, QTimeEdit, QVBoxLayout,
     QWidget)
-import assets_rc
+# import assets_rc
 
 class Ui_userProfile(object):
     def setupUi(self, userProfile):

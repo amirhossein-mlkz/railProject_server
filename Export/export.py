@@ -3,9 +3,11 @@ import os,sys,time
 import Export_Constants
 
 
-os.system('pyside6-uic {} -o {}'.format(os.path.join('Export/ExportUIiFiles', 'export.ui'), os.path.join('Export/ExportUIiFiles', 'ui_export.py')))
-os.system('pyside6-rcc {} -o {}'.format('Expor/resources/assets.qrc','Export/resources/assets_rc.py'))
+# os.system('pyside6-uic {} -o {}'.format(os.path.join('Export/ExportUIiFiles', 'export.ui'), os.path.join('Export/ExportUIiFiles', 'ui_export.py')))
+# os.system('pyside6-rcc {} -o {}'.format('resources/assets.qrc','resources/assets_rc.py'))
+# os.system('pyside6-rcc {} -o {}'.format('resources/assets.qrc','ExportUIiFiles/assets_rc.py'))
 
+# sys.path.append('resources/assets_rc.py')
 
 from resources import assets_rc
 
@@ -34,7 +36,7 @@ from ExportUIiFiles.ui_export import Ui_userProfile
 # ui class
 class UIExport(QWidget):
 
-    def __init__(self):
+    def __init__(self,calendar_obj=None):
         super(UIExport, self).__init__()
 
         self.ui = Ui_userProfile()
@@ -44,9 +46,11 @@ class UIExport(QWidget):
         self.setAttribute(Qt.WA_TranslucentBackground)
         self.__center()
         self.offset = None
+        self.calendar_obj = calendar_obj
 
 
-
+        self.ui.btn_start_calendar.clicked.connect(self.show_start_calendar)
+        self.ui.btn_end_calendar.clicked.connect(self.show_stop_calendar)
 
     def __center(self) -> None:
         """Centers the dialog on the screen based on the current primary screen's geometry."""
@@ -85,6 +89,39 @@ class UIExport(QWidget):
         """Finalizes the dragging operation by clearing the offset."""
         self.offset = None
         super().mouseReleaseEvent(event)
+
+
+
+
+    def show_start_calendar(self):
+
+        if self.calendar_obj is not None:
+
+            # self.calendar_obj.set_input_field(self.ui.lbl_start_date)
+            self.start_calendar = self.calendar_obj(self.ui.lbl_start_date)
+            # self.start_calendar.set_input_field(self.ui.lbl_start_date)
+
+            self.start_calendar.show()
+
+
+
+    def show_stop_calendar(self):
+
+        if self.calendar_obj is not None:
+
+            self.calendar_obj.set_input_field(self.ui.lbl_end_date)
+
+
+
+
+    def set_calendar_obj(self,calendar_obj):
+
+        self.calendar_obj = calendar_obj
+
+
+
+
+
 
 
 if __name__ == "__main__":
