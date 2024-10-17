@@ -217,6 +217,7 @@ class UI_main_window_org(sQMainWindow):
         self.ui.btn_side_download.clicked.connect(self.set_stack_widget)
         self.ui.btn_side_settings.clicked.connect(self.set_stack_widget)
         self.ui.btn_side_login.clicked.connect(self.check_user_loggedin)
+        self.ui.btn_export.clicked.connect(self.show_export)
         
         # self.ui.btn_side_aboutus.clicked.connect(self.set_stack_widget)
 
@@ -301,6 +302,21 @@ class UI_main_window_org(sQMainWindow):
 
                 else:
                     self.show_error('Password is Wrong')
+
+
+
+
+
+
+
+    # def show_export(self):
+
+    #     self.export_obj = 
+
+
+
+
+
 
     def time_line_copy(self):
         self.show_timeline(mode=False)

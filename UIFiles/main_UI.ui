@@ -316,12 +316,12 @@ border:none;</string>
             </property>
             <property name="icon">
              <iconset resource="../assets.qrc">
-              <normaloff>:/icons/icons/icons8-subtract-96.png</normaloff>:/icons/icons/icons8-subtract-96.png</iconset>
+              <normaloff>:/icons/icons/icons8-minimize-100 (1).png</normaloff>:/icons/icons/icons8-minimize-100 (1).png</iconset>
             </property>
             <property name="iconSize">
              <size>
-              <width>20</width>
-              <height>20</height>
+              <width>17</width>
+              <height>17</height>
              </size>
             </property>
            </widget>
@@ -346,12 +346,12 @@ border:none;</string>
             </property>
             <property name="icon">
              <iconset resource="../assets.qrc">
-              <normaloff>:/icons/icons/icons8-maximize-button-100.png</normaloff>:/icons/icons/icons8-maximize-button-100.png</iconset>
+              <normaloff>:/icons/icons/icons8-maximize-100.png</normaloff>:/icons/icons/icons8-maximize-100.png</iconset>
             </property>
             <property name="iconSize">
              <size>
-              <width>20</width>
-              <height>20</height>
+              <width>17</width>
+              <height>17</height>
              </size>
             </property>
            </widget>
@@ -1659,6 +1659,57 @@ QPushButton:pressed {
                         </spacer>
                        </item>
                        <item>
+                        <widget class="QPushButton" name="btn_export">
+                         <property name="minimumSize">
+                          <size>
+                           <width>0</width>
+                           <height>31</height>
+                          </size>
+                         </property>
+                         <property name="cursor">
+                          <cursorShape>PointingHandCursor</cursorShape>
+                         </property>
+                         <property name="styleSheet">
+                          <string notr="true">QPushButton {
+    background-color: #2E2A3D; /* Background color similar to top bar */
+    color: white;
+    font-size: 14px;
+    padding: 0px 20px;
+    border-radius: 5px;
+    border: 1px solid #D43D41; /* Red border */
+}
+
+QPushButton:hover {
+    background-color: #D43D41; /* Red hover color */
+}
+
+QPushButton:pressed {
+    background-color: #1F1B2C; /* Darker version of the top bar color on press */
+}
+</string>
+                         </property>
+                         <property name="text">
+                          <string>Export</string>
+                         </property>
+                        </widget>
+                       </item>
+                       <item>
+                        <spacer name="horizontalSpacer_5">
+                         <property name="orientation">
+                          <enum>Qt::Horizontal</enum>
+                         </property>
+                         <property name="sizeType">
+                          <enum>QSizePolicy::Fixed</enum>
+                         </property>
+                         <property name="sizeHint" stdset="0">
+                          <size>
+                           <width>40</width>
+                           <height>20</height>
+                          </size>
+                         </property>
+                        </spacer>
+                       </item>
+                       <item>
                         <widget class="QFrame" name="frame_21">
                          <property name="minimumSize">
                           <size>
@@ -2212,8 +2263,8 @@ QPushButton:pressed {
                              <rect>
                               <x>0</x>
                               <y>0</y>
-                              <width>468</width>
-                              <height>555</height>
+                              <width>218</width>
+                              <height>402</height>
                              </rect>
                             </property>
                             <property name="styleClass" stdset="0">

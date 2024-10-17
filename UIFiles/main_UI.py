@@ -269,9 +269,9 @@ class Ui_MainWindow(object):
         self.minimize_btn.setStyleSheet(u"background-color:none;\n"
 "border:none;")
         icon = QIcon()
-        icon.addFile(u":/icons/icons/icons8-subtract-96.png", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
+        icon.addFile(u":/icons/icons/icons8-minimize-100 (1).png", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
         self.minimize_btn.setIcon(icon)
-        self.minimize_btn.setIconSize(QSize(20, 20))
+        self.minimize_btn.setIconSize(QSize(17, 17))
 
         self.horizontalLayout_2.addWidget(self.minimize_btn)
 
@@ -283,9 +283,9 @@ class Ui_MainWindow(object):
         self.maximize_btn.setStyleSheet(u"background-color:none;\n"
 "border:none;")
         icon1 = QIcon()
-        icon1.addFile(u":/icons/icons/icons8-maximize-button-100.png", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
+        icon1.addFile(u":/icons/icons/icons8-maximize-100.png", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
         self.maximize_btn.setIcon(icon1)
-        self.maximize_btn.setIconSize(QSize(20, 20))
+        self.maximize_btn.setIconSize(QSize(17, 17))
 
         self.horizontalLayout_2.addWidget(self.maximize_btn)
 
@@ -941,6 +941,34 @@ class Ui_MainWindow(object):
 
         self.horizontalLayout_32.addItem(self.horizontalSpacer_2)
 
+        self.pushButton = QPushButton(self.frame_58)
+        self.pushButton.setObjectName(u"pushButton")
+        self.pushButton.setMinimumSize(QSize(0, 31))
+        self.pushButton.setCursor(QCursor(Qt.CursorShape.PointingHandCursor))
+        self.pushButton.setStyleSheet(u"QPushButton {\n"
+"    background-color: #2E2A3D; /* Background color similar to top bar */\n"
+"    color: white;\n"
+"    font-size: 14px;\n"
+"    padding: 0px 20px;\n"
+"    border-radius: 5px;\n"
+"    border: 1px solid #D43D41; /* Red border */\n"
+"}\n"
+"\n"
+"QPushButton:hover {\n"
+"    background-color: #D43D41; /* Red hover color */\n"
+"}\n"
+"\n"
+"QPushButton:pressed {\n"
+"    background-color: #1F1B2C; /* Darker version of the top bar color on press */\n"
+"}\n"
+"")
+
+        self.horizontalLayout_32.addWidget(self.pushButton)
+
+        self.horizontalSpacer_5 = QSpacerItem(40, 20, QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Minimum)
+
+        self.horizontalLayout_32.addItem(self.horizontalSpacer_5)
+
         self.frame_21 = QFrame(self.frame_58)
         self.frame_21.setObjectName(u"frame_21")
         self.frame_21.setMinimumSize(QSize(100, 0))
@@ -1195,7 +1223,7 @@ class Ui_MainWindow(object):
         self.scrollArea.setWidgetResizable(True)
         self.scrollAreaWidgetContents = QWidget()
         self.scrollAreaWidgetContents.setObjectName(u"scrollAreaWidgetContents")
-        self.scrollAreaWidgetContents.setGeometry(QRect(0, 0, 468, 555))
+        self.scrollAreaWidgetContents.setGeometry(QRect(0, 0, 218, 402))
         self.verticalLayout_5 = QVBoxLayout(self.scrollAreaWidgetContents)
         self.verticalLayout_5.setObjectName(u"verticalLayout_5")
         self.gridLayout_2 = QGridLayout()
@@ -1654,6 +1682,7 @@ class Ui_MainWindow(object):
         self.speed_btn.setToolTip(QCoreApplication.translate("MainWindow", u"Stop Live", None))
 #endif // QT_CONFIG(tooltip)
         self.speed_btn.setText(QCoreApplication.translate("MainWindow", u"1x", None))
+        self.pushButton.setText(QCoreApplication.translate("MainWindow", u"Export", None))
         self.label.setText(QCoreApplication.translate("MainWindow", u"Time : ", None))
         self.playback_time_label.setText(QCoreApplication.translate("MainWindow", u"-", None))
         self.page_settings.setProperty(u"styleClass", QCoreApplication.translate("MainWindow", u"page", None))

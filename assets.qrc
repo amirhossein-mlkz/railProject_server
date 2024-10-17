@@ -1,5 +1,8 @@
 <RCC>
   <qresource prefix="icons">
+    <file>icons/export.png</file>
+    <file>icons/icons8-maximize-100.png</file>
+    <file>icons/icons8-minimize-100 (1).png</file>
     <file>icons/username.png</file>
     <file>icons/icons8-log-100.png</file>
     <file>icons/icons8-subtract-96.png</file>
