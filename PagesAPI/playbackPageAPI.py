@@ -100,7 +100,8 @@ class playbackPageAPI:
         trains = self.archiveManager.get_available_trains()    
         if trains:        
             self.uiHandler.set_avaiable_trains(trains)
-        print('No Train Detect')
+        else:
+            print('No Train Detect')
     # def merge_dates(self,):
     #     for train in self.videos_avaiabilities:
     #         for cam in self.videos_avaiabilities[train]:

@@ -3,7 +3,7 @@ class Keys:
     Holds constant keys used for form fields and attribute names within the application.
     """
 
-    DATABASE_PATH = r'C:\Users\milad\Desktop\PythonWork\RailWay\railProject_server\data.db'
+    DATABASE_PATH = r'data.db'
 
     USERNAME_KEY = 'username'
     PASSWORD_KEY = 'password'

@@ -51,6 +51,8 @@ from backend.utils.ShowQuestion import show_question
 from backend.utils import texts
 from login import LoginPage
 from Export.export import UIExport
+from PySide6.QtWidgets import QStyleFactory
+
 # ui class
 class UI_main_window_org(sQMainWindow):
 
@@ -625,6 +627,9 @@ if __name__ == "__main__":
 
     from api import API
     app = sQApplication()
+
+    app.setStyle(QStyleFactory.create("Fusion"))  # Enforces a consistent style
+
 
     win = UI_main_window_org()
     api = API(win)
