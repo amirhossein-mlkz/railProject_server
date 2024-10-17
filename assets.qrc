@@ -1,5 +1,6 @@
 <RCC>
   <qresource prefix="icons">
+    <file>icons/icons8-video-100.png</file>
     <file>icons/export.png</file>
     <file>icons/icons8-maximize-100.png</file>
     <file>icons/icons8-minimize-100 (1).png</file>

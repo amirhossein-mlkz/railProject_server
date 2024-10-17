@@ -941,17 +941,20 @@ class Ui_MainWindow(object):
 
         self.horizontalLayout_32.addItem(self.horizontalSpacer_2)
 
-        self.pushButton = QPushButton(self.frame_58)
-        self.pushButton.setObjectName(u"pushButton")
-        self.pushButton.setMinimumSize(QSize(0, 31))
-        self.pushButton.setCursor(QCursor(Qt.CursorShape.PointingHandCursor))
-        self.pushButton.setStyleSheet(u"QPushButton {\n"
+        self.btn_export = QPushButton(self.frame_58)
+        self.btn_export.setObjectName(u"btn_export")
+        self.btn_export.setMinimumSize(QSize(129, 31))
+        self.btn_export.setCursor(QCursor(Qt.CursorShape.PointingHandCursor))
+        self.btn_export.setStyleSheet(u"QPushButton {\n"
 "    background-color: #2E2A3D; /* Background color similar to top bar */\n"
 "    color: white;\n"
 "    font-size: 14px;\n"
 "    padding: 0px 20px;\n"
 "    border-radius: 5px;\n"
 "    border: 1px solid #D43D41; /* Red border */\n"
+"\n"
+"    icon: url(:/icons/icons/icons8-video-100.png);\n"
+"\n"
 "}\n"
 "\n"
 "QPushButton:hover {\n"
@@ -963,7 +966,7 @@ class Ui_MainWindow(object):
 "}\n"
 "")
 
-        self.horizontalLayout_32.addWidget(self.pushButton)
+        self.horizontalLayout_32.addWidget(self.btn_export)
 
         self.horizontalSpacer_5 = QSpacerItem(40, 20, QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Minimum)
 
@@ -1682,7 +1685,7 @@ class Ui_MainWindow(object):
         self.speed_btn.setToolTip(QCoreApplication.translate("MainWindow", u"Stop Live", None))
 #endif // QT_CONFIG(tooltip)
         self.speed_btn.setText(QCoreApplication.translate("MainWindow", u"1x", None))
-        self.pushButton.setText(QCoreApplication.translate("MainWindow", u"Export", None))
+        self.btn_export.setText(QCoreApplication.translate("MainWindow", u"Export", None))
         self.label.setText(QCoreApplication.translate("MainWindow", u"Time : ", None))
         self.playback_time_label.setText(QCoreApplication.translate("MainWindow", u"-", None))
         self.page_settings.setProperty(u"styleClass", QCoreApplication.translate("MainWindow", u"page", None))

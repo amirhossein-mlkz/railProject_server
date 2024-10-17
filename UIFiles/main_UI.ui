@@ -1662,7 +1662,7 @@ QPushButton:pressed {
                         <widget class="QPushButton" name="btn_export">
                          <property name="minimumSize">
                           <size>
-                           <width>0</width>
+                           <width>129</width>
                            <height>31</height>
                           </size>
                          </property>
@@ -1677,6 +1677,9 @@ QPushButton:pressed {
     padding: 0px 20px;
     border-radius: 5px;
     border: 1px solid #D43D41; /* Red border */
+
+    icon: url(:/icons/icons/icons8-video-100.png);
+
 }
 
 QPushButton:hover {

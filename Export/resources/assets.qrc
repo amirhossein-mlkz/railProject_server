@@ -1,0 +1,12 @@
+<RCC>
+  <qresource prefix="icons">
+    <file>icons/icons8-browse-folder-100.png</file>
+    <file>icons/next_gray.png</file>
+    <file>icons/prev_gray.png</file>
+    <file>icons/save.png</file>
+    <file>icons/calendar.png</file>
+    <file>icons/calendar-hover.png</file>
+    <file>icons/icons8-close-80.png</file>
+    <file>icons/export.png</file>
+  </qresource>
+</RCC>

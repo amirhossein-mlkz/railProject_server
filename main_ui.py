@@ -3,15 +3,22 @@ import os,sys
 from login_qt.Constants.Constants import UIPages
 os.system('pyside6-uic {} -o {}'.format(os.path.join('UIFiles', 'calendar.ui'), os.path.join('UIFiles', 'calendar.py')))
 os.system('pyside6-uic {} -o {}'.format(os.path.join('UIFiles', 'main_UI.ui'), os.path.join('UIFiles', 'main_UI.py')))
+
 os.system('CMD /C pyside6-rcc assets.qrc -o assets.py')#PySide
 os.system('pyside6-rcc {} -o {}'.format(os.path.join(r'login_qt\uiFiles\resources', 'resource.qrc'), os.path.join(r'', 'resource_rc.py')))
 
 # Specify the path to the directory you want to add
-directory = "login_qt"
-
+login_directory = "login_qt"
+export_directory = "Export"
 # Add the directory to sys.path
-if directory not in sys.path:
-    sys.path.append(directory)
+
+
+if export_directory not in sys.path:
+    sys.path.append(export_directory)
+if login_directory not in sys.path:
+    sys.path.append(login_directory)
+
+    
 ##############################################################################################################################
 
 from PySide6.QtUiTools import loadUiType
@@ -43,7 +50,7 @@ from uiUtils import GUIComponents
 from backend.utils.ShowQuestion import show_question
 from backend.utils import texts
 from login import LoginPage
-
+from Export.export import UIExport
 # ui class
 class UI_main_window_org(sQMainWindow):
 
@@ -217,6 +224,7 @@ class UI_main_window_org(sQMainWindow):
         self.ui.btn_side_download.clicked.connect(self.set_stack_widget)
         self.ui.btn_side_settings.clicked.connect(self.set_stack_widget)
         self.ui.btn_side_login.clicked.connect(self.check_user_loggedin)
+
         self.ui.btn_export.clicked.connect(self.show_export)
         
         # self.ui.btn_side_aboutus.clicked.connect(self.set_stack_widget)
@@ -309,9 +317,10 @@ class UI_main_window_org(sQMainWindow):
 
 
 
-    # def show_export(self):
+    def show_export(self):
 
-    #     self.export_obj = 
+        self.export_obj = UIExport()
+        self.export_obj.show()
 
 
 
