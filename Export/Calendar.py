@@ -1,103 +1,170 @@
 from PySide6.QtWidgets import QPushButton, QLabel, QComboBox, QGridLayout, QDialogButtonBox, QVBoxLayout,QHBoxLayout, QWidget, QDialog
 from PySide6 import QtCore
 from PySide6.QtGui import QColor
+from PySide6.QtCore import Qt, QPoint
 
 from persiantools.jdatetime import JalaliDateTime
 
-TODAY_BUTTON_STYLE="""
-    QPushButton {
-        background-color: transparent;
-        border:none;
-        color:rgba(0, 122, 255, 255);
-        font-weight:bold;
-        padding:10px;
-    }
-    QPushButton:hover {
-        color:rgba(0, 40, 255, 255)
-    }
-"""
 
-# Button styles
-DAY_BUTTON_STYLE = """
-    QPushButton {
-        background-color: transparent;
-        border: 1px solid transparent;
-        border-radius: 20px;
-        min-width: 40px;
-        min-height: 40px;
-    }
-    QPushButton:hover {
-        background-color: rgba(0, 122, 255, 30);
-    }
-"""
 
-DAY_BUTTON_SELECTED_STYLE = """
-    QPushButton {
-        background-color: rgba(0, 122, 255, 255);
-        color: white;
-        border-radius: 20px;
-        border: none;
-        min-width: 40px;
-        min-height: 40px;
-    }
-"""
 
-MAIN_STYLE = """
-    QComboBox {
-        border: 2px solid #e0e0e0;
-        border-radius: 17px;
-        padding: 8px;
-        font-size: 14px;
-    }
 
-    QComboBox::drop-down {
-    border: none;
-    background-color: transparent;
+stylesheet = """
+
+
+QDialog {
+ background-color: rgba(77, 158, 255, 0.2); /* Light blue with 20% opacity */
+    background-color: #2E2A3D; /* Dark background */
+    border: 2px solid #4D9EFF; /* Blue border */
+    border-radius: 10px;
 }
 
-    QPushButton#okButton {
-        background-color: #007AFF;
-        color: white;
-        border-radius: 18px;
-        border: 2px solid #007AFF;
-        font-size: 14px;
-        min-height:36px;
-        max-height:36px;
-        min-width:85px;
+QComboBox {
+    background-color: #3A3F44; /* Dark background */
+    color: white; /* White text */
+    border: 1px solid #4D9EFF; /* Blue border */
+    border-radius: 8px; /* Smoother rounded corners */
+    padding: 5px 10px; /* Spacing for text */
+    font-size: 14px; /* Adjust font size for readability */
+}
 
-    }
+QComboBox:hover {
+    background-color: #444A52; /* Slightly lighter background on hover */
+    border: 1px solid #3A7CCC; /* Lighter blue border on hover */
+}
 
-    QPushButton#okButton:hover {
-        background-color: #0051a8;
+QComboBox::drop-down {
+    subcontrol-origin: padding;
+    subcontrol-position: top right;
+    width: 25px; /* Adjust width of drop-down arrow button */
+    border-left: 1px solid #4D9EFF; /* Left border separating drop-down */
+    background-color: #3A3F44; /* Match background with the combobox */
+    border-top-right-radius: 8px; /* Keep the same border radius */
+    border-bottom-right-radius: 8px; /* Keep the same border radius */
+}
 
-    }
+QComboBox::down-arrow {
+    image:  url(:/icons/icons/prev_gray.png); /* Optional hover state for the icon */
+    width: 16px;
+    height: 16px;
+}
 
-    QPushButton#cancelButton {
-        color: #007AFF;
-        background-color: transparent;
-        border: 2px solid #007AFF;
-        border-radius: 18px;
-        font-size: 14px;
-        min-height:36px;
-        max-height:36px;
-        min-width:85px;
+QComboBox QAbstractItemView {
+    background-color: #2E2A3D; /* Dark background for dropdown */
+    color: white; /* White text */
+    border: 1px solid #4D9EFF; /* Blue border for dropdown */
+    selection-background-color: #4D9EFF; /* Blue background for selected item */
+    selection-color: white; /* White text for selected item */
+    border-radius: 8px;
+    padding: 5px;
+}
 
-    }
+QComboBox::down-arrow:hover {
+    image:  url(:/icons/icons/prev_gray.png); /* Optional hover state for the icon */
+    width: 20px;
+    height: 20px;
 
-    QPushButton#cancelButton:hover {
-        color: #0051a8;
-        border: 2px solid #0051a8;
-        
-    }
+}
+
+QComboBox QAbstractItemView::item {
+    padding: 6px 10px; /* Adjust padding for list items */
+    font-size: 14px; /* Font size */
+}
+
+QComboBox QAbstractItemView::item:selected {
+    background-color: #4D9EFF; /* Blue background when an item is selected */
+    color: white;
+}
+
+QComboBox::drop-down:hover {
+    background-color: #3A7CCC; /* Lighter blue background for drop-down hover */
+}
+
+
+QPushButton {
+    background-color: #3A3F44; /* Dark gray for buttons */
+    color: white; /* White text */
+    border: 2px solid #4D9EFF; /* Blue border */
+    border-radius: 5px;
+    padding: 5px 10px;
+}
+
+QPushButton:hover {
+    background-color: #4D9EFF; /* Blue background on hover */
+    color: white;
+}
+
+QPushButton:pressed {
+    background-color: #3A7CCC; /* Darker blue when pressed */
+}
+
+QPushButton#okButton {
+    background-color: #3A7CCC; /* Darker blue for OK button */
+}
+
+QPushButton#cancelButton {
+    background-color: #444444; /* Dark gray for Cancel button */
+    border: 2px solid #777777; /* Lighter gray border */
+}
+
+QLabel {
+    color: white; /* White text color for labels */
+    font-size: 14px;
+}
+
+/* Calendar Day Buttons */
+QPushButton#dayButton {
+    background-color: #3A3F44; /* Dark gray background for unselected day buttons */
+    color: white;
+    border: 1px solid #4D9EFF; /* Blue border for unselected buttons */
+    border-radius: 5px;
+    padding: 10px;
+}
+
+QPushButton#dayButton:hover {
+    background-color: #4D9EFF; /* Blue background on hover */
+}
+
+QPushButton#dayButton:selected {
+    background-color: #4D9EFF; /* Blue background for selected day */
+    color: white;
+}
+
+QPushButton#todayButton {
+    background-color: #4D9EFF; /* Blue for "Today" button */
+    color: white;
+    border-radius: 5px;
+    padding: 8px 12px;
+}
+
+QPushButton#todayButton:hover {
+    background-color: #3A7CCC; /* Slightly darker blue on hover */
+}
+
+QPushButton#todayButton:pressed {
+    background-color: #3A3F44; /* Dark gray when pressed */
+}
+
+
 """
+
+
+
+
+
+
+
+
+
 
 class JalaliCalendarDialog(QDialog):
     def __init__(self, input_field=None, date=None):
         super().__init__()
 
         self.setWindowTitle("Jalali Calendar Dialog")
-        self.setStyleSheet(MAIN_STYLE)
-
+        self.setStyleSheet(stylesheet)
+        self.setWindowFlags(Qt.WindowFlags(Qt.FramelessWindowHint))
+        # self.setAttribute(Qt.WA_TranslucentBackground)
         self.selected_button = None
         self.selected_day = None
         self.input_field = input_field
@@ -145,7 +212,7 @@ class JalaliCalendarDialog(QDialog):
 
         # Add Today button
         todayButton = QPushButton("امروز")
-        todayButton.setStyleSheet(TODAY_BUTTON_STYLE)
+        # todayButton.setStyleSheet(TODAY_BUTTON_STYLE)
         todayButton.clicked.connect(self.select_today)
         layout.addWidget(todayButton)
 
@@ -172,6 +239,12 @@ class JalaliCalendarDialog(QDialog):
         self.setLayout(layout)
 
         self.set_date(self.date, accept=True)
+
+
+
+
+
+
 
     def updateCalendar(self):
         while self.calendarGrid.count():
@@ -201,18 +274,18 @@ class JalaliCalendarDialog(QDialog):
                     self.calendarGrid.addWidget(label, week, weekday)
                 else:
                     button = QPushButton(str(day))
-                    button.setStyleSheet(DAY_BUTTON_STYLE)
+                    # button.setStyleSheet(DAY_BUTTON_STYLE)
                     button.clicked.connect(self.select_day)
                     self.calendarGrid.addWidget(button, week, weekday)
                     self.days_buttons[day] = button
                     day += 1
 
     def select_day(self):
-        for btn in self.days_buttons.values():
-            btn.setStyleSheet(DAY_BUTTON_STYLE)
+        # for btn in self.days_buttons.values():
+            # btn.setStyleSheet(DAY_BUTTON_STYLE)
         
         self.selected_button = self.sender()
-        self.selected_button.setStyleSheet(DAY_BUTTON_SELECTED_STYLE)
+        # self.selected_button.setStyleSheet(DAY_BUTTON_SELECTED_STYLE)
         self.selected_day = int(self.selected_button.text())
 
     def set_date(self, date:JalaliDateTime, accept=False):
