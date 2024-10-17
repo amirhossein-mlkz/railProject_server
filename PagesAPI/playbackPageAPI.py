@@ -259,7 +259,4 @@ class playbackPageAPI:
     def show_export(self):
 
         self.export_obj = UIExport()
-
-        self.export_obj.set_calendar_obj(JalaliCalendarDialog)
-
         self.export_obj.show()

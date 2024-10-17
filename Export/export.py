@@ -30,8 +30,8 @@ from PySide6.QtCore import Qt, QPoint
 
 
 from ExportUIiFiles.ui_export import Ui_userProfile
-
-
+from Calendar import JalaliCalendarDialog
+from uiUtils.guiBackend import GUIBackend
 
 # ui class
 class UIExport(QWidget):
@@ -49,8 +49,30 @@ class UIExport(QWidget):
         self.calendar_obj = calendar_obj
 
 
-        self.ui.btn_start_calendar.clicked.connect(self.show_start_calendar)
-        self.ui.btn_end_calendar.clicked.connect(self.show_stop_calendar)
+
+
+
+
+
+        self.calenders = {
+            'start':JalaliCalendarDialog( self.ui.lbl_start_date),
+            'end'  :JalaliCalendarDialog(self.ui.lbl_end_date)
+        }
+
+        self.calenders_btn = {
+            'start': self.ui.btn_start_calendar,
+            'end': self.ui.btn_end_calendar
+
+        }
+        for name , btn in self.calenders_btn.items():
+            GUIBackend.button_connector_argument_pass(btn, self.open_calender, args=(name,))
+
+
+
+
+
+
+
 
     def __center(self) -> None:
         """Centers the dialog on the screen based on the current primary screen's geometry."""
@@ -93,45 +115,26 @@ class UIExport(QWidget):
 
 
 
-    def show_start_calendar(self):
-
-        if self.calendar_obj is not None:
-
-            # self.calendar_obj.set_input_field(self.ui.lbl_start_date)
-            self.start_calendar = self.calendar_obj(self.ui.lbl_start_date)
-            # self.start_calendar.set_input_field(self.ui.lbl_start_date)
-
-            self.start_calendar.show()
 
 
-
-    def show_stop_calendar(self):
-
-        if self.calendar_obj is not None:
-
-            self.calendar_obj.set_input_field(self.ui.lbl_end_date)
-
-
-
-
-    def set_calendar_obj(self,calendar_obj):
-
-        self.calendar_obj = calendar_obj
-
-
-
-
+    def open_calender(self, name:str):
+        
+        self.calenders[name].show()
 
 
 
 if __name__ == "__main__":
 
 
+    # from uiUtils.Calendar import  JalaliCalendarDialog
+    # from Calendar import JalaliCalendarDialog
 
 
     app = sQApplication()
 
     win = UIExport()
+
+    # win.set_calendar_obj(JalaliCalendarDialog)
  
     win.show()
     sys.exit(app.exec())
