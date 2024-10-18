@@ -15,17 +15,17 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QFont, QFontDatabase, QGradient, QIcon,
     QImage, QKeySequence, QLinearGradient, QPainter,
     QPalette, QPixmap, QRadialGradient, QTransform)
-from PySide6.QtWidgets import (QApplication, QComboBox, QFrame, QHBoxLayout,
-    QLabel, QLineEdit, QProgressBar, QPushButton,
-    QSizePolicy, QSpacerItem, QTimeEdit, QVBoxLayout,
+from PySide6.QtWidgets import (QApplication, QFrame, QHBoxLayout, QLabel,
+    QLineEdit, QProgressBar, QPushButton, QRadioButton,
+    QSizePolicy, QSpacerItem, QSpinBox, QVBoxLayout,
     QWidget)
-# import assets_rc
+import assets_rc
 
 class Ui_userProfile(object):
     def setupUi(self, userProfile):
         if not userProfile.objectName():
             userProfile.setObjectName(u"userProfile")
-        userProfile.resize(431, 534)
+        userProfile.resize(431, 545)
         self.verticalLayout = QVBoxLayout(userProfile)
         self.verticalLayout.setObjectName(u"verticalLayout")
         self.verticalLayout.setContentsMargins(0, 0, 0, 0)
@@ -235,6 +235,15 @@ class Ui_userProfile(object):
 "QScrollBar::add-page:horizontal, QScrollBar::sub-page:horizontal {\n"
 "    background: none;\n"
 "}\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
 "")
         self.verticalLayout_2 = QVBoxLayout(self.GlobalStyleSheet)
         self.verticalLayout_2.setObjectName(u"verticalLayout_2")
@@ -250,7 +259,7 @@ class Ui_userProfile(object):
 "\n"
 "*[styleSheet=\"PmainFrameStyle\"]\n"
 "{\n"
-"	border-image: url(:/icons/icons/export.png);\n"
+"	border-image: url(:/icons/icons/back2.png);\n"
 "	border-radius: 20px;\n"
 "}\n"
 "\n"
@@ -258,7 +267,7 @@ class Ui_userProfile(object):
 "\n"
 "*[styleSheet=\"PinnerFrameStyle\"]\n"
 "{\n"
-"	background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:0, 			y2:0.715909, stop:0 rgba(0, 0, 0, 9), stop:0.375 rgba(0, 0, 0, 200), stop:0.835227 rgba(0, 0, 0, 150));	\n"
+"	background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:0, 			y2:0.715909, stop:0 rgba(0, 0, 0, 9), stop:0.375 rgba(0, 0, 0,100), stop:0.835227 rgba(0, 0, 0, 200));	\n"
 "	border-radius: 20px;\n"
 "}\n"
 "\n"
@@ -415,7 +424,7 @@ class Ui_userProfile(object):
         self.top_frame = QFrame(self.frame)
         self.top_frame.setObjectName(u"top_frame")
         self.top_frame.setMaximumSize(QSize(16777215, 39))
-        self.top_frame.setFrameShape(QFrame.StyledPanel)
+        self.top_frame.setFrameShape(QFrame.NoFrame)
         self.top_frame.setFrameShadow(QFrame.Raised)
         self.horizontalLayout = QHBoxLayout(self.top_frame)
         self.horizontalLayout.setObjectName(u"horizontalLayout")
@@ -439,6 +448,7 @@ class Ui_userProfile(object):
         self.close_btn = QPushButton(self.top_frame)
         self.close_btn.setObjectName(u"close_btn")
         self.close_btn.setMaximumSize(QSize(26, 16777215))
+        self.close_btn.setCursor(QCursor(Qt.CursorShape.PointingHandCursor))
         self.close_btn.setStyleSheet(u"\n"
 "background-color:transparent;")
         icon = QIcon()
@@ -457,7 +467,7 @@ class Ui_userProfile(object):
         self.frame_3 = QFrame(self.frame)
         self.frame_3.setObjectName(u"frame_3")
         self.frame_3.setMaximumSize(QSize(16777215, 50))
-        self.frame_3.setFrameShape(QFrame.StyledPanel)
+        self.frame_3.setFrameShape(QFrame.NoFrame)
         self.frame_3.setFrameShadow(QFrame.Raised)
         self.horizontalLayout_2 = QHBoxLayout(self.frame_3)
         self.horizontalLayout_2.setObjectName(u"horizontalLayout_2")
@@ -466,17 +476,40 @@ class Ui_userProfile(object):
 
         self.horizontalLayout_2.addWidget(self.label)
 
-        self.combo_train_name = QComboBox(self.frame_3)
-        self.combo_train_name.addItem("")
-        self.combo_train_name.setObjectName(u"combo_train_name")
-        self.combo_train_name.setEnabled(True)
-        self.combo_train_name.setMinimumSize(QSize(0, 35))
-        self.combo_train_name.setMaximumSize(QSize(290, 16777215))
+        self.lbl_train_name = QLabel(self.frame_3)
+        self.lbl_train_name.setObjectName(u"lbl_train_name")
 
-        self.horizontalLayout_2.addWidget(self.combo_train_name)
+        self.horizontalLayout_2.addWidget(self.lbl_train_name)
 
 
         self.verticalLayout_5.addWidget(self.frame_3)
+
+        self.line_4 = QFrame(self.frame)
+        self.line_4.setObjectName(u"line_4")
+        self.line_4.setFrameShape(QFrame.Shape.HLine)
+        self.line_4.setFrameShadow(QFrame.Shadow.Sunken)
+
+        self.verticalLayout_5.addWidget(self.line_4)
+
+        self.frame_10 = QFrame(self.frame)
+        self.frame_10.setObjectName(u"frame_10")
+        self.frame_10.setMaximumSize(QSize(16777215, 50))
+        self.frame_10.setFrameShape(QFrame.NoFrame)
+        self.frame_10.setFrameShadow(QFrame.Raised)
+        self.horizontalLayout_9 = QHBoxLayout(self.frame_10)
+        self.horizontalLayout_9.setObjectName(u"horizontalLayout_9")
+        self.label_9 = QLabel(self.frame_10)
+        self.label_9.setObjectName(u"label_9")
+
+        self.horizontalLayout_9.addWidget(self.label_9)
+
+        self.lbl_date = QLabel(self.frame_10)
+        self.lbl_date.setObjectName(u"lbl_date")
+
+        self.horizontalLayout_9.addWidget(self.lbl_date)
+
+
+        self.verticalLayout_5.addWidget(self.frame_10)
 
         self.line = QFrame(self.frame)
         self.line.setObjectName(u"line")
@@ -488,33 +521,36 @@ class Ui_userProfile(object):
         self.frame_5 = QFrame(self.frame)
         self.frame_5.setObjectName(u"frame_5")
         self.frame_5.setMaximumSize(QSize(16777215, 50))
-        self.frame_5.setFrameShape(QFrame.StyledPanel)
+        self.frame_5.setFrameShape(QFrame.NoFrame)
         self.frame_5.setFrameShadow(QFrame.Raised)
         self.horizontalLayout_3 = QHBoxLayout(self.frame_5)
         self.horizontalLayout_3.setObjectName(u"horizontalLayout_3")
+        self.horizontalLayout_3.setContentsMargins(-1, 0, -1, 0)
         self.label_3 = QLabel(self.frame_5)
         self.label_3.setObjectName(u"label_3")
 
         self.horizontalLayout_3.addWidget(self.label_3)
 
-        self.timeEdit_start = QTimeEdit(self.frame_5)
-        self.timeEdit_start.setObjectName(u"timeEdit_start")
-        self.timeEdit_start.setStyleSheet(u"QTimeEdit {\n"
+        self.frame_8 = QFrame(self.frame_5)
+        self.frame_8.setObjectName(u"frame_8")
+        self.frame_8.setFrameShape(QFrame.NoFrame)
+        self.frame_8.setFrameShadow(QFrame.Raised)
+        self.horizontalLayout_6 = QHBoxLayout(self.frame_8)
+        self.horizontalLayout_6.setObjectName(u"horizontalLayout_6")
+        self.spinBox_hour_start = QSpinBox(self.frame_8)
+        self.spinBox_hour_start.setObjectName(u"spinBox_hour_start")
+        self.spinBox_hour_start.setMinimumSize(QSize(60, 30))
+        self.spinBox_hour_start.setMaximumSize(QSize(60, 30))
+        self.spinBox_hour_start.setStyleSheet(u"QSpinBox {\n"
 "    background-color: #2E2A3D; /* Background similar to top bar */\n"
 "    color: white; /* Text color */\n"
 "    font-size: 14px;\n"
-"    padding: 5px;\n"
+"    padding: 0px;\n"
 "    border: 2px solid #D43D41; /* Border with red color */\n"
 "    border-radius: 5px;\n"
 "}\n"
 "\n"
-"QTimeEdit::drop-down {\n"
-"    background-color: #D43D41; /* Red dropdown background */\n"
-"    border: none;\n"
-"    width: 20px;\n"
-"}\n"
-"\n"
-"QTimeEdit::up-button {\n"
+"QSpinBox::up-button {\n"
 "    subcontrol-origin: border;\n"
 "    subcontrol-position: top right;\n"
 "    width: 20px;\n"
@@ -522,7 +558,7 @@ class Ui_userProfile(object):
 "    background-color: #D43D41; /* Red background for the up button */\n"
 "}\n"
 "\n"
-"QTimeEdit::down-button {\n"
+"QSpinBox::down-button {\n"
 "    subcontrol-origin: border;\n"
 "    subcontrol-position: bottom right;\n"
 "    width: 20px;\n"
@@ -530,50 +566,89 @@ class Ui_userProfile(object):
 "    background-color: #D43D41; /* Red background for the down button */\n"
 "}\n"
 "\n"
-"QTimeEdit::up-button:hover, QTimeEdit::down-button:hover {\n"
-"    background-color: #A93226; /* Darker r"
-                        "ed on hover */\n"
+"QSpinBox::up-button:hover, QSpinBox::down-button:hover {\n"
+"    background-color: #A93226; /* Darker red on hover */\n"
 "}\n"
 "\n"
-"QTimeEdit::up-arrow {\n"
+"QSpinBox::up-arrow {\n"
 "    border: none;\n"
 "    width: 15px;\n"
 "    height: 15px;\n"
-"    image: url(:/icons/icons/next_gray.png); /* Path to custom up arrow image */\n"
+"    image: url(:/icons/icons/ne"
+                        "xt_gray.png); /* Path to custom up arrow image */\n"
 "}\n"
 "\n"
-"QTimeEdit::down-arrow {\n"
+"QSpinBox::down-arrow {\n"
 "    border: none;\n"
 "    width: 15px;\n"
 "    height: 15px;\n"
 "    image: url(:/icons/icons/prev_gray.png); /* Path to custom down arrow image */\n"
 "}\n"
 "")
+        self.spinBox_hour_start.setMaximum(23)
 
-        self.horizontalLayout_3.addWidget(self.timeEdit_start)
+        self.horizontalLayout_6.addWidget(self.spinBox_hour_start)
 
-        self.lbl_start_date = QLineEdit(self.frame_5)
-        self.lbl_start_date.setObjectName(u"lbl_start_date")
-        self.lbl_start_date.setMaximumSize(QSize(120, 16777215))
+        self.label_6 = QLabel(self.frame_8)
+        self.label_6.setObjectName(u"label_6")
+        self.label_6.setMaximumSize(QSize(6, 16777215))
 
-        self.horizontalLayout_3.addWidget(self.lbl_start_date)
+        self.horizontalLayout_6.addWidget(self.label_6)
 
-        self.btn_start_calendar = QPushButton(self.frame_5)
-        self.btn_start_calendar.setObjectName(u"btn_start_calendar")
-        self.btn_start_calendar.setMinimumSize(QSize(0, 34))
-        self.btn_start_calendar.setMaximumSize(QSize(34, 16777215))
-        self.btn_start_calendar.setCursor(QCursor(Qt.CursorShape.PointingHandCursor))
-        self.btn_start_calendar.setStyleSheet(u"QPushButton{\n"
-"	border-image: url(:/icons/icons/calendar.png);\n"
-"	border-radius: 20px;\n"
+        self.spinBox_minute_start = QSpinBox(self.frame_8)
+        self.spinBox_minute_start.setObjectName(u"spinBox_minute_start")
+        self.spinBox_minute_start.setMinimumSize(QSize(60, 30))
+        self.spinBox_minute_start.setMaximumSize(QSize(60, 30))
+        self.spinBox_minute_start.setStyleSheet(u"QSpinBox {\n"
+"    background-color: #2E2A3D; /* Background similar to top bar */\n"
+"    color: white; /* Text color */\n"
+"    font-size: 14px;\n"
+"    padding: 0px;\n"
+"    border: 2px solid #D43D41; /* Border with red color */\n"
+"    border-radius: 5px;\n"
 "}\n"
-"QPushButton:hove{\n"
-"	border-image: url(:/icons/icons/calendar-hover.png);\n"
-"	border-radius: 20px;\n"
-"}")
-        self.btn_start_calendar.setIconSize(QSize(16, 16))
+"\n"
+"QSpinBox::up-button {\n"
+"    subcontrol-origin: border;\n"
+"    subcontrol-position: top right;\n"
+"    width: 20px;\n"
+"    border-left: 1px solid white;\n"
+"    background-color: #D43D41; /* Red background for the up button */\n"
+"}\n"
+"\n"
+"QSpinBox::down-button {\n"
+"    subcontrol-origin: border;\n"
+"    subcontrol-position: bottom right;\n"
+"    width: 20px;\n"
+"    border-left: 1px solid white;\n"
+"    background-color: #D43D41; /* Red background for the down button */\n"
+"}\n"
+"\n"
+"QSpinBox::up-button:hover, QSpinBox::down-button:hover {\n"
+"    background-color: #A93226; /* Darker red on hover */\n"
+"}\n"
+"\n"
+"QSpinBox::up-arrow {\n"
+"    border: none;\n"
+"    width: 15px;\n"
+"    height: 15px;\n"
+"    image: url(:/icons/icons/ne"
+                        "xt_gray.png); /* Path to custom up arrow image */\n"
+"}\n"
+"\n"
+"QSpinBox::down-arrow {\n"
+"    border: none;\n"
+"    width: 15px;\n"
+"    height: 15px;\n"
+"    image: url(:/icons/icons/prev_gray.png); /* Path to custom down arrow image */\n"
+"}\n"
+"")
+        self.spinBox_minute_start.setMaximum(59)
 
-        self.horizontalLayout_3.addWidget(self.btn_start_calendar)
+        self.horizontalLayout_6.addWidget(self.spinBox_minute_start)
+
+
+        self.horizontalLayout_3.addWidget(self.frame_8)
 
 
         self.verticalLayout_5.addWidget(self.frame_5)
@@ -581,33 +656,36 @@ class Ui_userProfile(object):
         self.frame_6 = QFrame(self.frame)
         self.frame_6.setObjectName(u"frame_6")
         self.frame_6.setMaximumSize(QSize(16777215, 50))
-        self.frame_6.setFrameShape(QFrame.StyledPanel)
+        self.frame_6.setFrameShape(QFrame.NoFrame)
         self.frame_6.setFrameShadow(QFrame.Raised)
         self.horizontalLayout_4 = QHBoxLayout(self.frame_6)
         self.horizontalLayout_4.setObjectName(u"horizontalLayout_4")
+        self.horizontalLayout_4.setContentsMargins(-1, 0, -1, 0)
         self.label_4 = QLabel(self.frame_6)
         self.label_4.setObjectName(u"label_4")
 
         self.horizontalLayout_4.addWidget(self.label_4)
 
-        self.timeEdit_end = QTimeEdit(self.frame_6)
-        self.timeEdit_end.setObjectName(u"timeEdit_end")
-        self.timeEdit_end.setStyleSheet(u"QTimeEdit {\n"
+        self.frame_9 = QFrame(self.frame_6)
+        self.frame_9.setObjectName(u"frame_9")
+        self.frame_9.setFrameShape(QFrame.NoFrame)
+        self.frame_9.setFrameShadow(QFrame.Raised)
+        self.horizontalLayout_7 = QHBoxLayout(self.frame_9)
+        self.horizontalLayout_7.setObjectName(u"horizontalLayout_7")
+        self.spinBox_hour_end = QSpinBox(self.frame_9)
+        self.spinBox_hour_end.setObjectName(u"spinBox_hour_end")
+        self.spinBox_hour_end.setMinimumSize(QSize(60, 30))
+        self.spinBox_hour_end.setMaximumSize(QSize(60, 30))
+        self.spinBox_hour_end.setStyleSheet(u"QSpinBox {\n"
 "    background-color: #2E2A3D; /* Background similar to top bar */\n"
 "    color: white; /* Text color */\n"
 "    font-size: 14px;\n"
-"    padding: 5px;\n"
+"    padding: 0px;\n"
 "    border: 2px solid #D43D41; /* Border with red color */\n"
 "    border-radius: 5px;\n"
 "}\n"
 "\n"
-"QTimeEdit::drop-down {\n"
-"    background-color: #D43D41; /* Red dropdown background */\n"
-"    border: none;\n"
-"    width: 20px;\n"
-"}\n"
-"\n"
-"QTimeEdit::up-button {\n"
+"QSpinBox::up-button {\n"
 "    subcontrol-origin: border;\n"
 "    subcontrol-position: top right;\n"
 "    width: 20px;\n"
@@ -615,7 +693,7 @@ class Ui_userProfile(object):
 "    background-color: #D43D41; /* Red background for the up button */\n"
 "}\n"
 "\n"
-"QTimeEdit::down-button {\n"
+"QSpinBox::down-button {\n"
 "    subcontrol-origin: border;\n"
 "    subcontrol-position: bottom right;\n"
 "    width: 20px;\n"
@@ -623,50 +701,89 @@ class Ui_userProfile(object):
 "    background-color: #D43D41; /* Red background for the down button */\n"
 "}\n"
 "\n"
-"QTimeEdit::up-button:hover, QTimeEdit::down-button:hover {\n"
-"    background-color: #A93226; /* Darker r"
-                        "ed on hover */\n"
+"QSpinBox::up-button:hover, QSpinBox::down-button:hover {\n"
+"    background-color: #A93226; /* Darker red on hover */\n"
 "}\n"
 "\n"
-"QTimeEdit::up-arrow {\n"
+"QSpinBox::up-arrow {\n"
 "    border: none;\n"
 "    width: 15px;\n"
 "    height: 15px;\n"
-"    image: url(:/icons/icons/next_gray.png); /* Path to custom up arrow image */\n"
+"    image: url(:/icons/icons/ne"
+                        "xt_gray.png); /* Path to custom up arrow image */\n"
 "}\n"
 "\n"
-"QTimeEdit::down-arrow {\n"
+"QSpinBox::down-arrow {\n"
 "    border: none;\n"
 "    width: 15px;\n"
 "    height: 15px;\n"
 "    image: url(:/icons/icons/prev_gray.png); /* Path to custom down arrow image */\n"
 "}\n"
 "")
+        self.spinBox_hour_end.setMaximum(23)
 
-        self.horizontalLayout_4.addWidget(self.timeEdit_end)
+        self.horizontalLayout_7.addWidget(self.spinBox_hour_end)
 
-        self.lbl_end_date = QLineEdit(self.frame_6)
-        self.lbl_end_date.setObjectName(u"lbl_end_date")
-        self.lbl_end_date.setMaximumSize(QSize(120, 16777215))
+        self.label_7 = QLabel(self.frame_9)
+        self.label_7.setObjectName(u"label_7")
+        self.label_7.setMaximumSize(QSize(6, 16777215))
 
-        self.horizontalLayout_4.addWidget(self.lbl_end_date)
+        self.horizontalLayout_7.addWidget(self.label_7)
 
-        self.btn_end_calendar = QPushButton(self.frame_6)
-        self.btn_end_calendar.setObjectName(u"btn_end_calendar")
-        self.btn_end_calendar.setMinimumSize(QSize(0, 34))
-        self.btn_end_calendar.setMaximumSize(QSize(34, 16777215))
-        self.btn_end_calendar.setCursor(QCursor(Qt.CursorShape.PointingHandCursor))
-        self.btn_end_calendar.setStyleSheet(u"QPushButton{\n"
-"	border-image: url(:/icons/icons/calendar.png);\n"
-"	border-radius: 20px;\n"
+        self.spinBox_minute_end = QSpinBox(self.frame_9)
+        self.spinBox_minute_end.setObjectName(u"spinBox_minute_end")
+        self.spinBox_minute_end.setMinimumSize(QSize(60, 30))
+        self.spinBox_minute_end.setMaximumSize(QSize(60, 30))
+        self.spinBox_minute_end.setStyleSheet(u"QSpinBox {\n"
+"    background-color: #2E2A3D; /* Background similar to top bar */\n"
+"    color: white; /* Text color */\n"
+"    font-size: 14px;\n"
+"    padding: 0px;\n"
+"    border: 2px solid #D43D41; /* Border with red color */\n"
+"    border-radius: 5px;\n"
 "}\n"
-"QPushButton:hove{\n"
-"	border-image: url(:/icons/icons/calendar-hover.png);\n"
-"	border-radius: 20px;\n"
-"}")
-        self.btn_end_calendar.setIconSize(QSize(16, 16))
+"\n"
+"QSpinBox::up-button {\n"
+"    subcontrol-origin: border;\n"
+"    subcontrol-position: top right;\n"
+"    width: 20px;\n"
+"    border-left: 1px solid white;\n"
+"    background-color: #D43D41; /* Red background for the up button */\n"
+"}\n"
+"\n"
+"QSpinBox::down-button {\n"
+"    subcontrol-origin: border;\n"
+"    subcontrol-position: bottom right;\n"
+"    width: 20px;\n"
+"    border-left: 1px solid white;\n"
+"    background-color: #D43D41; /* Red background for the down button */\n"
+"}\n"
+"\n"
+"QSpinBox::up-button:hover, QSpinBox::down-button:hover {\n"
+"    background-color: #A93226; /* Darker red on hover */\n"
+"}\n"
+"\n"
+"QSpinBox::up-arrow {\n"
+"    border: none;\n"
+"    width: 15px;\n"
+"    height: 15px;\n"
+"    image: url(:/icons/icons/ne"
+                        "xt_gray.png); /* Path to custom up arrow image */\n"
+"}\n"
+"\n"
+"QSpinBox::down-arrow {\n"
+"    border: none;\n"
+"    width: 15px;\n"
+"    height: 15px;\n"
+"    image: url(:/icons/icons/prev_gray.png); /* Path to custom down arrow image */\n"
+"}\n"
+"")
+        self.spinBox_minute_end.setMaximum(59)
 
-        self.horizontalLayout_4.addWidget(self.btn_end_calendar)
+        self.horizontalLayout_7.addWidget(self.spinBox_minute_end)
+
+
+        self.horizontalLayout_4.addWidget(self.frame_9)
 
 
         self.verticalLayout_5.addWidget(self.frame_6)
@@ -681,7 +798,7 @@ class Ui_userProfile(object):
         self.frame_7 = QFrame(self.frame)
         self.frame_7.setObjectName(u"frame_7")
         self.frame_7.setMaximumSize(QSize(16777215, 50))
-        self.frame_7.setFrameShape(QFrame.StyledPanel)
+        self.frame_7.setFrameShape(QFrame.NoFrame)
         self.frame_7.setFrameShadow(QFrame.Raised)
         self.horizontalLayout_5 = QHBoxLayout(self.frame_7)
         self.horizontalLayout_5.setObjectName(u"horizontalLayout_5")
@@ -690,11 +807,11 @@ class Ui_userProfile(object):
 
         self.horizontalLayout_5.addWidget(self.label_5)
 
-        self.lbl_start_date_2 = QLineEdit(self.frame_7)
-        self.lbl_start_date_2.setObjectName(u"lbl_start_date_2")
-        self.lbl_start_date_2.setMaximumSize(QSize(16777215, 16777215))
+        self.lbl_selected_folder = QLineEdit(self.frame_7)
+        self.lbl_selected_folder.setObjectName(u"lbl_selected_folder")
+        self.lbl_selected_folder.setMaximumSize(QSize(16777215, 16777215))
 
-        self.horizontalLayout_5.addWidget(self.lbl_start_date_2)
+        self.horizontalLayout_5.addWidget(self.lbl_selected_folder)
 
         self.btn_dst_path = QPushButton(self.frame_7)
         self.btn_dst_path.setObjectName(u"btn_dst_path")
@@ -719,24 +836,47 @@ class Ui_userProfile(object):
 
         self.verticalLayout_5.addWidget(self.line_3)
 
+        self.frame_2 = QFrame(self.frame)
+        self.frame_2.setObjectName(u"frame_2")
+        self.frame_2.setStyleSheet(u"font:18px;\n"
+"color:#D43D41;")
+        self.frame_2.setFrameShape(QFrame.NoFrame)
+        self.frame_2.setFrameShadow(QFrame.Raised)
+        self.horizontalLayout_8 = QHBoxLayout(self.frame_2)
+        self.horizontalLayout_8.setObjectName(u"horizontalLayout_8")
+        self.radioButton_mp4 = QRadioButton(self.frame_2)
+        self.radioButton_mp4.setObjectName(u"radioButton_mp4")
+        self.radioButton_mp4.setChecked(True)
+
+        self.horizontalLayout_8.addWidget(self.radioButton_mp4)
+
+        self.radioButton_mkv = QRadioButton(self.frame_2)
+        self.radioButton_mkv.setObjectName(u"radioButton_mkv")
+        self.radioButton_mkv.setChecked(False)
+
+        self.horizontalLayout_8.addWidget(self.radioButton_mkv)
+
+
+        self.verticalLayout_5.addWidget(self.frame_2, 0, Qt.AlignHCenter)
+
         self.frame_4 = QFrame(self.frame)
         self.frame_4.setObjectName(u"frame_4")
-        self.frame_4.setFrameShape(QFrame.StyledPanel)
+        self.frame_4.setFrameShape(QFrame.NoFrame)
         self.frame_4.setFrameShadow(QFrame.Raised)
         self.verticalLayout_6 = QVBoxLayout(self.frame_4)
         self.verticalLayout_6.setObjectName(u"verticalLayout_6")
-        self.login_btn = QPushButton(self.frame_4)
-        self.login_btn.setObjectName(u"login_btn")
-        self.login_btn.setMinimumSize(QSize(200, 40))
-        self.login_btn.setMaximumSize(QSize(200, 40))
+        self.btn_start_copy = QPushButton(self.frame_4)
+        self.btn_start_copy.setObjectName(u"btn_start_copy")
+        self.btn_start_copy.setMinimumSize(QSize(200, 40))
+        self.btn_start_copy.setMaximumSize(QSize(200, 40))
         font = QFont()
         font.setBold(True)
-        self.login_btn.setFont(font)
-        self.login_btn.setCursor(QCursor(Qt.CursorShape.PointingHandCursor))
-        self.login_btn.setStyleSheet(u"QPushButton {\n"
+        self.btn_start_copy.setFont(font)
+        self.btn_start_copy.setCursor(QCursor(Qt.CursorShape.PointingHandCursor))
+        self.btn_start_copy.setStyleSheet(u"QPushButton {\n"
 "    background-color: #3A3F44; /* Dark gray background */\n"
 "    color: white; /* White text color */\n"
-"    border: 2px solid #4D9EFF; /* Blue border */\n"
+"    border: 2px solid #D43D41; /* Blue border */\n"
 "    border-radius: 5px;\n"
 "    padding: 8px 16px; /* Padding for the button size */\n"
 "    font-size: 14px;\n"
@@ -760,7 +900,7 @@ class Ui_userProfile(object):
 "}\n"
 "")
 
-        self.verticalLayout_6.addWidget(self.login_btn, 0, Qt.AlignHCenter)
+        self.verticalLayout_6.addWidget(self.btn_start_copy, 0, Qt.AlignHCenter)
 
         self.lbl_msg = QLabel(self.frame_4)
         self.lbl_msg.setObjectName(u"lbl_msg")
@@ -828,18 +968,19 @@ class Ui_userProfile(object):
         self.label_2.setText(QCoreApplication.translate("userProfile", u"Export Window", None))
         self.close_btn.setText("")
         self.label.setText(QCoreApplication.translate("userProfile", u"Train Name :", None))
-        self.combo_train_name.setItemText(0, QCoreApplication.translate("userProfile", u"Role", None))
-
+        self.lbl_train_name.setText(QCoreApplication.translate("userProfile", u"-", None))
+        self.label_9.setText(QCoreApplication.translate("userProfile", u"Date :", None))
+        self.lbl_date.setText(QCoreApplication.translate("userProfile", u"-", None))
         self.label_3.setText(QCoreApplication.translate("userProfile", u"Start :", None))
-        self.lbl_start_date.setPlaceholderText(QCoreApplication.translate("userProfile", u"1403/01/01", None))
-        self.btn_start_calendar.setText("")
+        self.label_6.setText(QCoreApplication.translate("userProfile", u":", None))
         self.label_4.setText(QCoreApplication.translate("userProfile", u"End  :", None))
-        self.lbl_end_date.setPlaceholderText(QCoreApplication.translate("userProfile", u"1403/01/01", None))
-        self.btn_end_calendar.setText("")
+        self.label_7.setText(QCoreApplication.translate("userProfile", u":", None))
         self.label_5.setText(QCoreApplication.translate("userProfile", u"Destination Path :", None))
-        self.lbl_start_date_2.setPlaceholderText(QCoreApplication.translate("userProfile", u"C:/...", None))
+        self.lbl_selected_folder.setPlaceholderText(QCoreApplication.translate("userProfile", u"C:/...", None))
         self.btn_dst_path.setText("")
-        self.login_btn.setText(QCoreApplication.translate("userProfile", u"Start Copy", None))
+        self.radioButton_mp4.setText(QCoreApplication.translate("userProfile", u"MP4", None))
+        self.radioButton_mkv.setText(QCoreApplication.translate("userProfile", u"Mkv_x265", None))
+        self.btn_start_copy.setText(QCoreApplication.translate("userProfile", u"Start Copy", None))
         self.lbl_msg.setText("")
     # retranslateUi
 

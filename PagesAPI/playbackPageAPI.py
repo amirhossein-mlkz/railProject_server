@@ -259,5 +259,18 @@ class playbackPageAPI:
 
     def show_export(self):
 
-        self.export_obj = UIExport()
-        self.export_obj.show()
+        if self.archiveManager is not None and self.selected_date is not None and self.selected_camera is not None and self.selected_train is not None:
+            self.export_obj = UIExport(archive_manager = self.archiveManager, date=self.selected_date,train_name=self.selected_train,selected_camera=self.selected_camera)
+            self.export_obj.ui.close_btn.clicked.connect(self.close_export)
+            self.uiHandler.set_export_btn_mode(mode=True)
+            self.export_window_is_open = True
+            self.export_obj.show()
+        
+        else:
+            self.uiHandler.show_message('Check Selected Date/Camera')
+
+    def close_export(self):
+
+
+        self.uiHandler.set_export_btn_mode(mode=False)
+        self.export_window_is_open = False

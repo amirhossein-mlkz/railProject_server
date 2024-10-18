@@ -1646,6 +1646,26 @@ QPushButton:pressed {
                         </spacer>
                        </item>
                        <item>
+                        <spacer name="horizontalSpacer_8">
+                         <property name="orientation">
+                          <enum>Qt::Horizontal</enum>
+                         </property>
+                         <property name="sizeHint" stdset="0">
+                          <size>
+                           <width>40</width>
+                           <height>20</height>
+                          </size>
+                         </property>
+                        </spacer>
+                       </item>
+                       <item>
+                        <widget class="QLabel" name="lbl_playback_msg">
+                         <property name="text">
+                          <string/>
+                         </property>
+                        </widget>
+                       </item>
+                       <item>
                         <spacer name="horizontalSpacer_2">
                          <property name="orientation">
                           <enum>Qt::Horizontal</enum>
@@ -1660,6 +1680,9 @@ QPushButton:pressed {
                        </item>
                        <item>
                         <widget class="QPushButton" name="btn_export">
+                         <property name="enabled">
+                          <bool>true</bool>
+                         </property>
                          <property name="minimumSize">
                           <size>
                            <width>129</width>
@@ -1688,6 +1711,11 @@ QPushButton:hover {
 
 QPushButton:pressed {
     background-color: #1F1B2C; /* Darker version of the top bar color on press */
+}
+QPushButton:disabled {
+
+	background-color: rgb(118, 118, 118);
+	color: rgb(59, 59, 59);
 }
 </string>
                          </property>

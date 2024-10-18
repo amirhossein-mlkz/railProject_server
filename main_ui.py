@@ -17,6 +17,7 @@ if export_directory not in sys.path:
     sys.path.append(export_directory)
 if login_directory not in sys.path:
     sys.path.append(login_directory)
+    from Export import assets_rc
 
 
 ##############################################################################################################################

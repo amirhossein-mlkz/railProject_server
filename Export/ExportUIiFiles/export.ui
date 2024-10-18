@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>431</width>
-    <height>534</height>
+    <height>545</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -229,6 +229,15 @@ QScrollBar::left-arrow:horizontal, QScrollBar::right-arrow:horizontal {
 QScrollBar::add-page:horizontal, QScrollBar::sub-page:horizontal {
     background: none;
 }
+
+
+
+
+
+
+
+
+
 </string>
      </property>
      <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -266,7 +275,7 @@ QScrollBar::add-page:horizontal, QScrollBar::sub-page:horizontal {
 
 *[styleSheet=&quot;PmainFrameStyle&quot;]
 {
-	border-image: url(:/icons/icons/export.png);
+	border-image: url(:/icons/icons/back2.png);
 	border-radius: 20px;
 }
 
@@ -274,7 +283,7 @@ QScrollBar::add-page:horizontal, QScrollBar::sub-page:horizontal {
 
 *[styleSheet=&quot;PinnerFrameStyle&quot;]
 {
-	background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:0, 			y2:0.715909, stop:0 rgba(0, 0, 0, 9), stop:0.375 rgba(0, 0, 0, 200), stop:0.835227 rgba(0, 0, 0, 150));	
+	background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:0, 			y2:0.715909, stop:0 rgba(0, 0, 0, 9), stop:0.375 rgba(0, 0, 0,100), stop:0.835227 rgba(0, 0, 0, 200));	
 	border-radius: 20px;
 }
 
@@ -466,7 +475,7 @@ QScrollBar::add-page:horizontal, QScrollBar::sub-page:horizontal {
                      </size>
                     </property>
                     <property name="frameShape">
-                     <enum>QFrame::StyledPanel</enum>
+                     <enum>QFrame::NoFrame</enum>
                     </property>
                     <property name="frameShadow">
                      <enum>QFrame::Raised</enum>
@@ -529,6 +538,9 @@ QScrollBar::add-page:horizontal, QScrollBar::sub-page:horizontal {
                          <height>16777215</height>
                         </size>
                        </property>
+                       <property name="cursor">
+                        <cursorShape>PointingHandCursor</cursorShape>
+                       </property>
                        <property name="styleSheet">
                         <string notr="true">
 background-color:transparent;</string>
@@ -570,7 +582,7 @@ background-color:transparent;</string>
                      </size>
                     </property>
                     <property name="frameShape">
-                     <enum>QFrame::StyledPanel</enum>
+                     <enum>QFrame::NoFrame</enum>
                     </property>
                     <property name="frameShadow">
                      <enum>QFrame::Raised</enum>
@@ -584,30 +596,49 @@ background-color:transparent;</string>
                       </widget>
                      </item>
                      <item>
-                      <widget class="QComboBox" name="combo_train_name">
-                       <property name="enabled">
-                        <bool>true</bool>
+                      <widget class="QLabel" name="lbl_train_name">
+                       <property name="text">
+                        <string>-</string>
                        </property>
-                       <property name="minimumSize">
-                        <size>
-                         <width>0</width>
-                         <height>35</height>
-                        </size>
+                      </widget>
+                     </item>
+                    </layout>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="Line" name="line_4">
+                    <property name="orientation">
+                     <enum>Qt::Horizontal</enum>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QFrame" name="frame_10">
+                    <property name="maximumSize">
+                     <size>
+                      <width>16777215</width>
+                      <height>50</height>
+                     </size>
+                    </property>
+                    <property name="frameShape">
+                     <enum>QFrame::NoFrame</enum>
+                    </property>
+                    <property name="frameShadow">
+                     <enum>QFrame::Raised</enum>
+                    </property>
+                    <layout class="QHBoxLayout" name="horizontalLayout_9">
+                     <item>
+                      <widget class="QLabel" name="label_9">
+                       <property name="text">
+                        <string>Date :</string>
                        </property>
-                       <property name="maximumSize">
-                        <size>
-                         <width>290</width>
-                         <height>16777215</height>
-                        </size>
+                      </widget>
+                     </item>
+                     <item>
+                      <widget class="QLabel" name="lbl_date">
+                       <property name="text">
+                        <string>-</string>
                        </property>
-                       <property name="currentText">
-                        <string>None</string>
-                       </property>
-                       <item>
-                        <property name="text">
-                         <string>None</string>
-                        </property>
-                       </item>
                       </widget>
                      </item>
                     </layout>
@@ -629,12 +660,18 @@ background-color:transparent;</string>
                      </size>
                     </property>
                     <property name="frameShape">
-                     <enum>QFrame::StyledPanel</enum>
+                     <enum>QFrame::NoFrame</enum>
                     </property>
                     <property name="frameShadow">
                      <enum>QFrame::Raised</enum>
                     </property>
                     <layout class="QHBoxLayout" name="horizontalLayout_3">
+                     <property name="topMargin">
+                      <number>0</number>
+                     </property>
+                     <property name="bottomMargin">
+                      <number>0</number>
+                     </property>
                      <item>
                       <widget class="QLabel" name="label_3">
                        <property name="text">
@@ -643,24 +680,39 @@ background-color:transparent;</string>
                       </widget>
                      </item>
                      <item>
-                      <widget class="QTimeEdit" name="timeEdit_start">
-                       <property name="styleSheet">
-                        <string notr="true">QTimeEdit {
+                      <widget class="QFrame" name="frame_8">
+                       <property name="frameShape">
+                        <enum>QFrame::NoFrame</enum>
+                       </property>
+                       <property name="frameShadow">
+                        <enum>QFrame::Raised</enum>
+                       </property>
+                       <layout class="QHBoxLayout" name="horizontalLayout_6">
+                        <item>
+                         <widget class="QSpinBox" name="spinBox_hour_start">
+                          <property name="minimumSize">
+                           <size>
+                            <width>60</width>
+                            <height>30</height>
+                           </size>
+                          </property>
+                          <property name="maximumSize">
+                           <size>
+                            <width>60</width>
+                            <height>30</height>
+                           </size>
+                          </property>
+                          <property name="styleSheet">
+                           <string notr="true">QSpinBox {
     background-color: #2E2A3D; /* Background similar to top bar */
     color: white; /* Text color */
     font-size: 14px;
-    padding: 5px;
+    padding: 0px;
     border: 2px solid #D43D41; /* Border with red color */
     border-radius: 5px;
 }
 
-QTimeEdit::drop-down {
-    background-color: #D43D41; /* Red dropdown background */
-    border: none;
-    width: 20px;
-}
-
-QTimeEdit::up-button {
+QSpinBox::up-button {
     subcontrol-origin: border;
     subcontrol-position: top right;
     width: 20px;
@@ -668,7 +720,7 @@ QTimeEdit::up-button {
     background-color: #D43D41; /* Red background for the up button */
 }
 
-QTimeEdit::down-button {
+QSpinBox::down-button {
     subcontrol-origin: border;
     subcontrol-position: bottom right;
     width: 20px;
@@ -676,76 +728,108 @@ QTimeEdit::down-button {
     background-color: #D43D41; /* Red background for the down button */
 }
 
-QTimeEdit::up-button:hover, QTimeEdit::down-button:hover {
+QSpinBox::up-button:hover, QSpinBox::down-button:hover {
     background-color: #A93226; /* Darker red on hover */
 }
 
-QTimeEdit::up-arrow {
+QSpinBox::up-arrow {
     border: none;
     width: 15px;
     height: 15px;
     image: url(:/icons/icons/next_gray.png); /* Path to custom up arrow image */
 }
 
-QTimeEdit::down-arrow {
+QSpinBox::down-arrow {
     border: none;
     width: 15px;
     height: 15px;
     image: url(:/icons/icons/prev_gray.png); /* Path to custom down arrow image */
 }
 </string>
-                       </property>
-                      </widget>
-                     </item>
-                     <item>
-                      <widget class="QLineEdit" name="lbl_start_date">
-                       <property name="maximumSize">
-                        <size>
-                         <width>120</width>
-                         <height>16777215</height>
-                        </size>
-                       </property>
-                       <property name="placeholderText">
-                        <string>1403/01/01</string>
-                       </property>
-                      </widget>
-                     </item>
-                     <item>
-                      <widget class="QPushButton" name="btn_start_calendar">
-                       <property name="minimumSize">
-                        <size>
-                         <width>0</width>
-                         <height>34</height>
-                        </size>
-                       </property>
-                       <property name="maximumSize">
-                        <size>
-                         <width>34</width>
-                         <height>16777215</height>
-                        </size>
-                       </property>
-                       <property name="cursor">
-                        <cursorShape>PointingHandCursor</cursorShape>
-                       </property>
-                       <property name="styleSheet">
-                        <string notr="true">QPushButton{
-	border-image: url(:/icons/icons/calendar.png);
-	border-radius: 20px;
+                          </property>
+                          <property name="maximum">
+                           <number>23</number>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QLabel" name="label_6">
+                          <property name="maximumSize">
+                           <size>
+                            <width>6</width>
+                            <height>16777215</height>
+                           </size>
+                          </property>
+                          <property name="text">
+                           <string>:</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QSpinBox" name="spinBox_minute_start">
+                          <property name="minimumSize">
+                           <size>
+                            <width>60</width>
+                            <height>30</height>
+                           </size>
+                          </property>
+                          <property name="maximumSize">
+                           <size>
+                            <width>60</width>
+                            <height>30</height>
+                           </size>
+                          </property>
+                          <property name="styleSheet">
+                           <string notr="true">QSpinBox {
+    background-color: #2E2A3D; /* Background similar to top bar */
+    color: white; /* Text color */
+    font-size: 14px;
+    padding: 0px;
+    border: 2px solid #D43D41; /* Border with red color */
+    border-radius: 5px;
 }
-QPushButton:hove{
-	border-image: url(:/icons/icons/calendar-hover.png);
-	border-radius: 20px;
-}</string>
-                       </property>
-                       <property name="text">
-                        <string/>
-                       </property>
-                       <property name="iconSize">
-                        <size>
-                         <width>16</width>
-                         <height>16</height>
-                        </size>
-                       </property>
+
+QSpinBox::up-button {
+    subcontrol-origin: border;
+    subcontrol-position: top right;
+    width: 20px;
+    border-left: 1px solid white;
+    background-color: #D43D41; /* Red background for the up button */
+}
+
+QSpinBox::down-button {
+    subcontrol-origin: border;
+    subcontrol-position: bottom right;
+    width: 20px;
+    border-left: 1px solid white;
+    background-color: #D43D41; /* Red background for the down button */
+}
+
+QSpinBox::up-button:hover, QSpinBox::down-button:hover {
+    background-color: #A93226; /* Darker red on hover */
+}
+
+QSpinBox::up-arrow {
+    border: none;
+    width: 15px;
+    height: 15px;
+    image: url(:/icons/icons/next_gray.png); /* Path to custom up arrow image */
+}
+
+QSpinBox::down-arrow {
+    border: none;
+    width: 15px;
+    height: 15px;
+    image: url(:/icons/icons/prev_gray.png); /* Path to custom down arrow image */
+}
+</string>
+                          </property>
+                          <property name="maximum">
+                           <number>59</number>
+                          </property>
+                         </widget>
+                        </item>
+                       </layout>
                       </widget>
                      </item>
                     </layout>
@@ -760,12 +844,18 @@ QPushButton:hove{
                      </size>
                     </property>
                     <property name="frameShape">
-                     <enum>QFrame::StyledPanel</enum>
+                     <enum>QFrame::NoFrame</enum>
                     </property>
                     <property name="frameShadow">
                      <enum>QFrame::Raised</enum>
                     </property>
                     <layout class="QHBoxLayout" name="horizontalLayout_4">
+                     <property name="topMargin">
+                      <number>0</number>
+                     </property>
+                     <property name="bottomMargin">
+                      <number>0</number>
+                     </property>
                      <item>
                       <widget class="QLabel" name="label_4">
                        <property name="text">
@@ -774,24 +864,39 @@ QPushButton:hove{
                       </widget>
                      </item>
                      <item>
-                      <widget class="QTimeEdit" name="timeEdit_end">
-                       <property name="styleSheet">
-                        <string notr="true">QTimeEdit {
+                      <widget class="QFrame" name="frame_9">
+                       <property name="frameShape">
+                        <enum>QFrame::NoFrame</enum>
+                       </property>
+                       <property name="frameShadow">
+                        <enum>QFrame::Raised</enum>
+                       </property>
+                       <layout class="QHBoxLayout" name="horizontalLayout_7">
+                        <item>
+                         <widget class="QSpinBox" name="spinBox_hour_end">
+                          <property name="minimumSize">
+                           <size>
+                            <width>60</width>
+                            <height>30</height>
+                           </size>
+                          </property>
+                          <property name="maximumSize">
+                           <size>
+                            <width>60</width>
+                            <height>30</height>
+                           </size>
+                          </property>
+                          <property name="styleSheet">
+                           <string notr="true">QSpinBox {
     background-color: #2E2A3D; /* Background similar to top bar */
     color: white; /* Text color */
     font-size: 14px;
-    padding: 5px;
+    padding: 0px;
     border: 2px solid #D43D41; /* Border with red color */
     border-radius: 5px;
 }
 
-QTimeEdit::drop-down {
-    background-color: #D43D41; /* Red dropdown background */
-    border: none;
-    width: 20px;
-}
-
-QTimeEdit::up-button {
+QSpinBox::up-button {
     subcontrol-origin: border;
     subcontrol-position: top right;
     width: 20px;
@@ -799,7 +904,7 @@ QTimeEdit::up-button {
     background-color: #D43D41; /* Red background for the up button */
 }
 
-QTimeEdit::down-button {
+QSpinBox::down-button {
     subcontrol-origin: border;
     subcontrol-position: bottom right;
     width: 20px;
@@ -807,76 +912,108 @@ QTimeEdit::down-button {
     background-color: #D43D41; /* Red background for the down button */
 }
 
-QTimeEdit::up-button:hover, QTimeEdit::down-button:hover {
+QSpinBox::up-button:hover, QSpinBox::down-button:hover {
     background-color: #A93226; /* Darker red on hover */
 }
 
-QTimeEdit::up-arrow {
+QSpinBox::up-arrow {
     border: none;
     width: 15px;
     height: 15px;
     image: url(:/icons/icons/next_gray.png); /* Path to custom up arrow image */
 }
 
-QTimeEdit::down-arrow {
+QSpinBox::down-arrow {
     border: none;
     width: 15px;
     height: 15px;
     image: url(:/icons/icons/prev_gray.png); /* Path to custom down arrow image */
 }
 </string>
-                       </property>
-                      </widget>
-                     </item>
-                     <item>
-                      <widget class="QLineEdit" name="lbl_end_date">
-                       <property name="maximumSize">
-                        <size>
-                         <width>120</width>
-                         <height>16777215</height>
-                        </size>
-                       </property>
-                       <property name="placeholderText">
-                        <string>1403/01/01</string>
-                       </property>
-                      </widget>
-                     </item>
-                     <item>
-                      <widget class="QPushButton" name="btn_end_calendar">
-                       <property name="minimumSize">
-                        <size>
-                         <width>0</width>
-                         <height>34</height>
-                        </size>
-                       </property>
-                       <property name="maximumSize">
-                        <size>
-                         <width>34</width>
-                         <height>16777215</height>
-                        </size>
-                       </property>
-                       <property name="cursor">
-                        <cursorShape>PointingHandCursor</cursorShape>
-                       </property>
-                       <property name="styleSheet">
-                        <string notr="true">QPushButton{
-	border-image: url(:/icons/icons/calendar.png);
-	border-radius: 20px;
+                          </property>
+                          <property name="maximum">
+                           <number>23</number>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QLabel" name="label_7">
+                          <property name="maximumSize">
+                           <size>
+                            <width>6</width>
+                            <height>16777215</height>
+                           </size>
+                          </property>
+                          <property name="text">
+                           <string>:</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QSpinBox" name="spinBox_minute_end">
+                          <property name="minimumSize">
+                           <size>
+                            <width>60</width>
+                            <height>30</height>
+                           </size>
+                          </property>
+                          <property name="maximumSize">
+                           <size>
+                            <width>60</width>
+                            <height>30</height>
+                           </size>
+                          </property>
+                          <property name="styleSheet">
+                           <string notr="true">QSpinBox {
+    background-color: #2E2A3D; /* Background similar to top bar */
+    color: white; /* Text color */
+    font-size: 14px;
+    padding: 0px;
+    border: 2px solid #D43D41; /* Border with red color */
+    border-radius: 5px;
 }
-QPushButton:hove{
-	border-image: url(:/icons/icons/calendar-hover.png);
-	border-radius: 20px;
-}</string>
-                       </property>
-                       <property name="text">
-                        <string/>
-                       </property>
-                       <property name="iconSize">
-                        <size>
-                         <width>16</width>
-                         <height>16</height>
-                        </size>
-                       </property>
+
+QSpinBox::up-button {
+    subcontrol-origin: border;
+    subcontrol-position: top right;
+    width: 20px;
+    border-left: 1px solid white;
+    background-color: #D43D41; /* Red background for the up button */
+}
+
+QSpinBox::down-button {
+    subcontrol-origin: border;
+    subcontrol-position: bottom right;
+    width: 20px;
+    border-left: 1px solid white;
+    background-color: #D43D41; /* Red background for the down button */
+}
+
+QSpinBox::up-button:hover, QSpinBox::down-button:hover {
+    background-color: #A93226; /* Darker red on hover */
+}
+
+QSpinBox::up-arrow {
+    border: none;
+    width: 15px;
+    height: 15px;
+    image: url(:/icons/icons/next_gray.png); /* Path to custom up arrow image */
+}
+
+QSpinBox::down-arrow {
+    border: none;
+    width: 15px;
+    height: 15px;
+    image: url(:/icons/icons/prev_gray.png); /* Path to custom down arrow image */
+}
+</string>
+                          </property>
+                          <property name="maximum">
+                           <number>59</number>
+                          </property>
+                         </widget>
+                        </item>
+                       </layout>
                       </widget>
                      </item>
                     </layout>
@@ -898,7 +1035,7 @@ QPushButton:hove{
                      </size>
                     </property>
                     <property name="frameShape">
-                     <enum>QFrame::StyledPanel</enum>
+                     <enum>QFrame::NoFrame</enum>
                     </property>
                     <property name="frameShadow">
                      <enum>QFrame::Raised</enum>
@@ -912,7 +1049,7 @@ QPushButton:hove{
                       </widget>
                      </item>
                      <item>
-                      <widget class="QLineEdit" name="lbl_start_date_2">
+                      <widget class="QLineEdit" name="lbl_selected_folder">
                        <property name="maximumSize">
                         <size>
                          <width>16777215</width>
@@ -968,17 +1105,53 @@ QPushButton:hove{
                     </property>
                    </widget>
                   </item>
+                  <item alignment="Qt::AlignHCenter">
+                   <widget class="QFrame" name="frame_2">
+                    <property name="styleSheet">
+                     <string notr="true">font:18px;
+color:#D43D41;</string>
+                    </property>
+                    <property name="frameShape">
+                     <enum>QFrame::NoFrame</enum>
+                    </property>
+                    <property name="frameShadow">
+                     <enum>QFrame::Raised</enum>
+                    </property>
+                    <layout class="QHBoxLayout" name="horizontalLayout_8">
+                     <item>
+                      <widget class="QRadioButton" name="radioButton_mp4">
+                       <property name="text">
+                        <string>MP4</string>
+                       </property>
+                       <property name="checked">
+                        <bool>true</bool>
+                       </property>
+                      </widget>
+                     </item>
+                     <item>
+                      <widget class="QRadioButton" name="radioButton_mkv">
+                       <property name="text">
+                        <string>Mkv_x265</string>
+                       </property>
+                       <property name="checked">
+                        <bool>false</bool>
+                       </property>
+                      </widget>
+                     </item>
+                    </layout>
+                   </widget>
+                  </item>
                   <item>
                    <widget class="QFrame" name="frame_4">
                     <property name="frameShape">
-                     <enum>QFrame::StyledPanel</enum>
+                     <enum>QFrame::NoFrame</enum>
                     </property>
                     <property name="frameShadow">
                      <enum>QFrame::Raised</enum>
                     </property>
                     <layout class="QVBoxLayout" name="verticalLayout_6">
                      <item alignment="Qt::AlignHCenter">
-                      <widget class="QPushButton" name="login_btn">
+                      <widget class="QPushButton" name="btn_start_copy">
                        <property name="minimumSize">
                         <size>
                          <width>200</width>
@@ -1005,7 +1178,7 @@ QPushButton:hove{
                         <string notr="true">QPushButton {
     background-color: #3A3F44; /* Dark gray background */
     color: white; /* White text color */
-    border: 2px solid #4D9EFF; /* Blue border */
+    border: 2px solid #D43D41; /* Blue border */
     border-radius: 5px;
     padding: 8px 16px; /* Padding for the button size */
     font-size: 14px;

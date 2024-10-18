@@ -1,5 +1,6 @@
 <RCC>
   <qresource prefix="icons">
+    <file>icons/back2.png</file>
     <file>icons/icons8-browse-folder-100.png</file>
     <file>icons/next_gray.png</file>
     <file>icons/prev_gray.png</file>

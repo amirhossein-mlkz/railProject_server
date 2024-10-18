@@ -937,12 +937,22 @@ class Ui_MainWindow(object):
 
         self.horizontalLayout_32.addItem(self.horizontalSpacer_4)
 
+        self.horizontalSpacer_8 = QSpacerItem(40, 20, QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Minimum)
+
+        self.horizontalLayout_32.addItem(self.horizontalSpacer_8)
+
+        self.lbl_playback_msg = QLabel(self.frame_58)
+        self.lbl_playback_msg.setObjectName(u"lbl_playback_msg")
+
+        self.horizontalLayout_32.addWidget(self.lbl_playback_msg)
+
         self.horizontalSpacer_2 = QSpacerItem(40, 20, QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Minimum)
 
         self.horizontalLayout_32.addItem(self.horizontalSpacer_2)
 
         self.btn_export = QPushButton(self.frame_58)
         self.btn_export.setObjectName(u"btn_export")
+        self.btn_export.setEnabled(True)
         self.btn_export.setMinimumSize(QSize(129, 31))
         self.btn_export.setCursor(QCursor(Qt.CursorShape.PointingHandCursor))
         self.btn_export.setStyleSheet(u"QPushButton {\n"
@@ -963,6 +973,11 @@ class Ui_MainWindow(object):
 "\n"
 "QPushButton:pressed {\n"
 "    background-color: #1F1B2C; /* Darker version of the top bar color on press */\n"
+"}\n"
+"QPushButton:disabled {\n"
+"\n"
+"	background-color: rgb(118, 118, 118);\n"
+"	color: rgb(59, 59, 59);\n"
 "}\n"
 "")
 
@@ -1685,6 +1700,7 @@ class Ui_MainWindow(object):
         self.speed_btn.setToolTip(QCoreApplication.translate("MainWindow", u"Stop Live", None))
 #endif // QT_CONFIG(tooltip)
         self.speed_btn.setText(QCoreApplication.translate("MainWindow", u"1x", None))
+        self.lbl_playback_msg.setText("")
         self.btn_export.setText(QCoreApplication.translate("MainWindow", u"Export", None))
         self.label.setText(QCoreApplication.translate("MainWindow", u"Time : ", None))
         self.playback_time_label.setText(QCoreApplication.translate("MainWindow", u"-", None))

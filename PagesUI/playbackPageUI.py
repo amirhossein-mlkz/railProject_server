@@ -46,3 +46,13 @@ class playbackPageUI:
     def get_current_camera(self,)->str:
         return GUIBackend.get_combobox_selected(self.ui.playback_camera_combo)
         
+    
+    def set_export_btn_mode(self,mode=True):
+        
+        self.ui.btn_export.setDisabled(mode)
+
+    
+
+    def show_message(self,message):
+
+        self.ui.lbl_playback_msg.setText(message)
