@@ -18,12 +18,16 @@ from PySide6.QtWidgets import QApplication, QMainWindow, QWidget, QVBoxLayout, Q
 from PySide6.QtCore import Qt, QTimer
 
 
+
+
 class MediaPlayer:
     def __init__(self, video_widget):
 
         self.playback_speed = 1  # Initial playback speed
         # Create VLC instance and media player
-        self.instance = vlc.Instance()
+        self.instance = vlc.Instance('--no-xlib', '--quiet')  # Use quiet mode to suppress logs
+
+
         self.media_player:vlc.MediaPlayer = self.instance.media_player_new()
 
         # Set VLC to render in the widget
@@ -31,6 +35,9 @@ class MediaPlayer:
             self.media_player.set_xwindow(video_widget.winId())
         elif sys.platform == "win32":
             self.media_player.set_hwnd(video_widget.winId())
+
+
+
 
 
         # Load the video

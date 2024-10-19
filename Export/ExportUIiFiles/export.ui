@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>431</width>
-    <height>545</height>
+    <height>548</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -542,8 +542,7 @@ QScrollBar::add-page:horizontal, QScrollBar::sub-page:horizontal {
                         <cursorShape>PointingHandCursor</cursorShape>
                        </property>
                        <property name="styleSheet">
-                        <string notr="true">
-background-color:transparent;</string>
+                        <string notr="true">background-color:transparent;</string>
                        </property>
                        <property name="text">
                         <string/>

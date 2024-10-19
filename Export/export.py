@@ -80,6 +80,14 @@ class UIExport(QWidget):
         self.selected_camera = selected_camera
 
 
+        # Connect signals
+        self.ui.spinBox_hour_start.valueChanged.connect(self.adjust_end_time)
+        self.ui.spinBox_minute_start.valueChanged.connect(self.adjust_end_time)
+        self.ui.spinBox_hour_end.valueChanged.connect(self.validate_end_time)
+        self.ui.spinBox_minute_end.valueChanged.connect(self.validate_end_time)
+
+
+
 
 
         self.set_init_details()
@@ -205,6 +213,44 @@ class UIExport(QWidget):
                                             cameras=[self.selected_camera],
                                             finish_func=self.prepare_copy, 
                                             progress_func=self.date_ranges_progress)
+            
+
+
+    def filter_hour(self,pathes,start_time:list,end_time:list):
+
+        filter_pathes = []
+
+        for path in pathes:
+
+            minute = int(path.split('\\')[-2])
+            hour = int(path.split('\\')[-3])
+
+            if start_time[0]<=hour<=end_time[0]:
+
+                if start_time[0] == hour :
+                    if minute< start_time[1]:
+                        continue
+                    else:
+                        filter_pathes.append(path)
+
+                
+                elif end_time[0] == hour:
+                    if minute> end_time[1]:
+                        continue
+                    else:
+                        filter_pathes.append(path)        
+
+                else:
+
+                    filter_pathes.append(path)
+        
+        return filter_pathes
+
+
+
+
+
+
 
     def prepare_copy(self, date_ranges:dict[str, list]):
         try:
@@ -215,8 +261,20 @@ class UIExport(QWidget):
             self.date_ranges = date_ranges
             self.input_videos = date_ranges[self.selected_camera]['paths']
 
+            start_time = [self.ui.spinBox_hour_start.value(),self.ui.spinBox_minute_start.value()]
+            end_time = [self.ui.spinBox_hour_end.value(),self.ui.spinBox_minute_end.value()]
+
             if self.input_videos is not None:
-                self.start_copy(self.input_videos,self.dst_path)
+
+                self.input_videos = self.filter_hour(pathes=self.input_videos,start_time=start_time,end_time=end_time)
+                if len(self.input_videos)>0:
+
+                    self.start_copy(self.input_videos,self.dst_path)
+                else:
+                    self.show_message(1,'No Video in This Filter')
+                    self.finish_export()
+
+
 
             else:
                 self.show_message(1,'Error in Read Videos')
@@ -277,6 +335,42 @@ class UIExport(QWidget):
     def finish_export(self):
 
         self.ui.btn_start_copy.setDisabled(False)
+
+
+
+
+
+
+
+
+
+
+
+
+
+    def adjust_end_time(self):
+        start_hour = self.ui.spinBox_hour_start.value()
+        start_minute = self.ui.spinBox_minute_start.value()
+
+        end_hour = self.ui.spinBox_hour_end.value()
+        end_minute = self.ui.spinBox_minute_end.value()
+
+        # If end time is earlier than start time, adjust it
+        if (end_hour < start_hour) or (end_hour == start_hour and end_minute < start_minute):
+            self.ui.spinBox_hour_end.setValue(start_hour)
+            self.ui.spinBox_minute_end.setValue(start_minute)
+
+    def validate_end_time(self):
+        # If end time is earlier than start time, reset end time
+        start_hour = self.ui.spinBox_hour_start.value()
+        start_minute = self.ui.spinBox_minute_start.value()
+
+        end_hour = self.ui.spinBox_hour_end.value()
+        end_minute = self.ui.spinBox_minute_end.value()
+
+        if (end_hour < start_hour) or (end_hour == start_hour and end_minute < start_minute):
+            self.ui.spinBox_hour_end.setValue(start_hour)
+            self.ui.spinBox_minute_end.setValue(start_minute)
 
 
 
