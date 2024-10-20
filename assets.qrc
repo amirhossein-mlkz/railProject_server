@@ -1,5 +1,7 @@
 <RCC>
   <qresource prefix="icons">
+    <file>icons/logo_aryan.png</file>
+    <file>icons/rahahan-logo.png</file>
     <file>icons/icons8-video-100.png</file>
     <file>icons/export.png</file>
     <file>icons/icons8-maximize-100.png</file>

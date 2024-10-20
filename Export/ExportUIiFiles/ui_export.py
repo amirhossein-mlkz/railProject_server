@@ -3,7 +3,7 @@
 ################################################################################
 ## Form generated from reading UI file 'export.ui'
 ##
-## Created by: Qt User Interface Compiler version 6.8.0
+## Created by: Qt User Interface Compiler version 6.7.2
 ##
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
@@ -25,7 +25,7 @@ class Ui_userProfile(object):
     def setupUi(self, userProfile):
         if not userProfile.objectName():
             userProfile.setObjectName(u"userProfile")
-        userProfile.resize(431, 545)
+        userProfile.resize(431, 548)
         self.verticalLayout = QVBoxLayout(userProfile)
         self.verticalLayout.setObjectName(u"verticalLayout")
         self.verticalLayout.setContentsMargins(0, 0, 0, 0)
@@ -449,8 +449,7 @@ class Ui_userProfile(object):
         self.close_btn.setObjectName(u"close_btn")
         self.close_btn.setMaximumSize(QSize(26, 16777215))
         self.close_btn.setCursor(QCursor(Qt.CursorShape.PointingHandCursor))
-        self.close_btn.setStyleSheet(u"\n"
-"background-color:transparent;")
+        self.close_btn.setStyleSheet(u"background-color:transparent;")
         icon = QIcon()
         icon.addFile(u":/icons/icons/icons8-close-80.png", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
         self.close_btn.setIcon(icon)

@@ -3,7 +3,7 @@
 ################################################################################
 ## Form generated from reading UI file 'main_UI.ui'
 ##
-## Created by: Qt User Interface Compiler version 6.8.0
+## Created by: Qt User Interface Compiler version 6.7.2
 ##
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
@@ -224,7 +224,7 @@ class Ui_MainWindow(object):
         self.softeware_top_frame.setMaximumSize(QSize(16777215, 35))
         self.softeware_top_frame.setStyleSheet(u"\n"
 "background-color: #262632")
-        self.softeware_top_frame.setFrameShape(QFrame.NoFrame)
+        self.softeware_top_frame.setFrameShape(QFrame.Shape.NoFrame)
         self.horizontalLayout_22 = QHBoxLayout(self.softeware_top_frame)
         self.horizontalLayout_22.setSpacing(0)
         self.horizontalLayout_22.setObjectName(u"horizontalLayout_22")
@@ -232,8 +232,8 @@ class Ui_MainWindow(object):
         self.frame = QFrame(self.softeware_top_frame)
         self.frame.setObjectName(u"frame")
         self.frame.setMaximumSize(QSize(120, 16777215))
-        self.frame.setFrameShape(QFrame.StyledPanel)
-        self.frame.setFrameShadow(QFrame.Raised)
+        self.frame.setFrameShape(QFrame.Shape.StyledPanel)
+        self.frame.setFrameShadow(QFrame.Shadow.Raised)
 
         self.horizontalLayout_22.addWidget(self.frame)
 
@@ -249,13 +249,13 @@ class Ui_MainWindow(object):
         self.label_32.setStyleSheet(u"color: #f0f0f0;\n"
 "font: 16pt ;")
 
-        self.horizontalLayout_22.addWidget(self.label_32, 0, Qt.AlignHCenter)
+        self.horizontalLayout_22.addWidget(self.label_32, 0, Qt.AlignmentFlag.AlignHCenter)
 
         self.frame_2 = QFrame(self.softeware_top_frame)
         self.frame_2.setObjectName(u"frame_2")
         self.frame_2.setMaximumSize(QSize(120, 16777215))
-        self.frame_2.setFrameShape(QFrame.StyledPanel)
-        self.frame_2.setFrameShadow(QFrame.Raised)
+        self.frame_2.setFrameShape(QFrame.Shape.StyledPanel)
+        self.frame_2.setFrameShadow(QFrame.Shadow.Raised)
         self.horizontalLayout_2 = QHBoxLayout(self.frame_2)
         self.horizontalLayout_2.setObjectName(u"horizontalLayout_2")
         self.minimize_btn = QPushButton(self.frame_2)
@@ -322,7 +322,7 @@ class Ui_MainWindow(object):
         self.middle.setObjectName(u"middle")
         self.middle.setMaximumSize(QSize(16777215, 16777215))
         self.middle.setStyleSheet(u"")
-        self.middle.setFrameShape(QFrame.NoFrame)
+        self.middle.setFrameShape(QFrame.Shape.NoFrame)
         self.horizontalLayout_27 = QHBoxLayout(self.middle)
         self.horizontalLayout_27.setSpacing(0)
         self.horizontalLayout_27.setObjectName(u"horizontalLayout_27")
@@ -365,7 +365,7 @@ class Ui_MainWindow(object):
 "QPushButton:pressed {\n"
 "	background: rgb(0, 0, 0);\n"
 "}")
-        self.toggle_frame.setFrameShape(QFrame.NoFrame)
+        self.toggle_frame.setFrameShape(QFrame.Shape.NoFrame)
         self.toggle_frame.setLineWidth(3)
         self.verticalLayout_36 = QVBoxLayout(self.toggle_frame)
         self.verticalLayout_36.setSpacing(0)
@@ -374,11 +374,18 @@ class Ui_MainWindow(object):
         self.frame_7 = QFrame(self.toggle_frame)
         self.frame_7.setObjectName(u"frame_7")
         self.frame_7.setMinimumSize(QSize(0, 82))
-        self.frame_7.setFrameShape(QFrame.NoFrame)
+        self.frame_7.setFrameShape(QFrame.Shape.NoFrame)
         self.verticalLayout_2 = QVBoxLayout(self.frame_7)
         self.verticalLayout_2.setObjectName(u"verticalLayout_2")
         self.verticalLayout_2.setContentsMargins(0, 0, 0, 0)
-        self.btn_side_playback = QPushButton(self.frame_7)
+        self.side_menu_frame = QFrame(self.frame_7)
+        self.side_menu_frame.setObjectName(u"side_menu_frame")
+        self.side_menu_frame.setFrameShape(QFrame.Shape.StyledPanel)
+        self.side_menu_frame.setFrameShadow(QFrame.Shadow.Raised)
+        self.verticalLayout_20 = QVBoxLayout(self.side_menu_frame)
+        self.verticalLayout_20.setObjectName(u"verticalLayout_20")
+        self.verticalLayout_20.setContentsMargins(0, 0, 0, 0)
+        self.btn_side_playback = QPushButton(self.side_menu_frame)
         self.btn_side_playback.setObjectName(u"btn_side_playback")
         sizePolicy1 = QSizePolicy(QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Fixed)
         sizePolicy1.setHorizontalStretch(0)
@@ -396,9 +403,9 @@ class Ui_MainWindow(object):
         self.btn_side_playback.setIcon(icon3)
         self.btn_side_playback.setIconSize(QSize(28, 28))
 
-        self.verticalLayout_2.addWidget(self.btn_side_playback)
+        self.verticalLayout_20.addWidget(self.btn_side_playback)
 
-        self.btn_side_download = QPushButton(self.frame_7)
+        self.btn_side_download = QPushButton(self.side_menu_frame)
         self.btn_side_download.setObjectName(u"btn_side_download")
         self.btn_side_download.setMinimumSize(QSize(130, 50))
         self.btn_side_download.setMaximumSize(QSize(120, 50))
@@ -411,9 +418,9 @@ class Ui_MainWindow(object):
         self.btn_side_download.setIcon(icon4)
         self.btn_side_download.setIconSize(QSize(28, 28))
 
-        self.verticalLayout_2.addWidget(self.btn_side_download)
+        self.verticalLayout_20.addWidget(self.btn_side_download)
 
-        self.btn_side_settings = QPushButton(self.frame_7)
+        self.btn_side_settings = QPushButton(self.side_menu_frame)
         self.btn_side_settings.setObjectName(u"btn_side_settings")
         sizePolicy2 = QSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Fixed)
         sizePolicy2.setHorizontalStretch(0)
@@ -430,7 +437,10 @@ class Ui_MainWindow(object):
         self.btn_side_settings.setIcon(icon5)
         self.btn_side_settings.setIconSize(QSize(28, 28))
 
-        self.verticalLayout_2.addWidget(self.btn_side_settings)
+        self.verticalLayout_20.addWidget(self.btn_side_settings)
+
+
+        self.verticalLayout_2.addWidget(self.side_menu_frame)
 
 
         self.verticalLayout_36.addWidget(self.frame_7)
@@ -473,7 +483,7 @@ class Ui_MainWindow(object):
 "	background-color:rgb(36, 32, 39);\n"
 "}\n"
 "")
-        self.main_frame.setFrameShape(QFrame.NoFrame)
+        self.main_frame.setFrameShape(QFrame.Shape.NoFrame)
         self.main_frame.setLineWidth(0)
         self.verticalLayout_3 = QVBoxLayout(self.main_frame)
         self.verticalLayout_3.setSpacing(0)
@@ -482,7 +492,7 @@ class Ui_MainWindow(object):
         self.pages_stackwidget = QStackedWidget(self.main_frame)
         self.pages_stackwidget.setObjectName(u"pages_stackwidget")
         self.pages_stackwidget.setStyleSheet(u"")
-        self.pages_stackwidget.setFrameShape(QFrame.NoFrame)
+        self.pages_stackwidget.setFrameShape(QFrame.Shape.NoFrame)
         self.pages_stackwidget.setLineWidth(2)
         self.page_playback = QWidget()
         self.page_playback.setObjectName(u"page_playback")
@@ -499,7 +509,7 @@ class Ui_MainWindow(object):
         self.frame_18.setObjectName(u"frame_18")
         self.frame_18.setMinimumSize(QSize(0, 60))
         self.frame_18.setStyleSheet(u"")
-        self.frame_18.setFrameShape(QFrame.NoFrame)
+        self.frame_18.setFrameShape(QFrame.Shape.NoFrame)
         self.horizontalLayout_12 = QHBoxLayout(self.frame_18)
         self.horizontalLayout_12.setSpacing(0)
         self.horizontalLayout_12.setObjectName(u"horizontalLayout_12")
@@ -514,7 +524,7 @@ class Ui_MainWindow(object):
 "}\n"
 "\n"
 "")
-        self.playback_filter_frame.setFrameShape(QFrame.NoFrame)
+        self.playback_filter_frame.setFrameShape(QFrame.Shape.NoFrame)
         self.verticalLayout_17 = QVBoxLayout(self.playback_filter_frame)
         self.verticalLayout_17.setSpacing(6)
         self.verticalLayout_17.setObjectName(u"verticalLayout_17")
@@ -523,14 +533,14 @@ class Ui_MainWindow(object):
         self.frame_16.setObjectName(u"frame_16")
         self.frame_16.setMinimumSize(QSize(330, 0))
         self.frame_16.setMaximumSize(QSize(330, 16777215))
-        self.frame_16.setFrameShape(QFrame.NoFrame)
+        self.frame_16.setFrameShape(QFrame.Shape.NoFrame)
         self.verticalLayout_6 = QVBoxLayout(self.frame_16)
         self.verticalLayout_6.setSpacing(6)
         self.verticalLayout_6.setObjectName(u"verticalLayout_6")
         self.verticalLayout_6.setContentsMargins(0, 0, 0, 0)
         self.frame_20 = QFrame(self.frame_16)
         self.frame_20.setObjectName(u"frame_20")
-        self.frame_20.setFrameShape(QFrame.NoFrame)
+        self.frame_20.setFrameShape(QFrame.Shape.NoFrame)
         self.verticalLayout_22 = QVBoxLayout(self.frame_20)
         self.verticalLayout_22.setObjectName(u"verticalLayout_22")
         self.verticalSpacer_6 = QSpacerItem(20, 5, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Fixed)
@@ -558,7 +568,7 @@ class Ui_MainWindow(object):
         self.refresh_image_database_log.setObjectName(u"refresh_image_database_log")
         self.refresh_image_database_log.setStyleSheet(u"color: rgb(34, 119, 255);")
 
-        self.verticalLayout_8.addWidget(self.refresh_image_database_log, 0, Qt.AlignHCenter)
+        self.verticalLayout_8.addWidget(self.refresh_image_database_log, 0, Qt.AlignmentFlag.AlignHCenter)
 
 
         self.verticalLayout_22.addLayout(self.verticalLayout_8)
@@ -571,7 +581,7 @@ class Ui_MainWindow(object):
         self.verticalLayout_22.addWidget(self.refresh_image_db_message)
 
 
-        self.verticalLayout_6.addWidget(self.frame_20, 0, Qt.AlignHCenter)
+        self.verticalLayout_6.addWidget(self.frame_20, 0, Qt.AlignmentFlag.AlignHCenter)
 
         self.line_6 = QFrame(self.frame_16)
         self.line_6.setObjectName(u"line_6")
@@ -582,7 +592,7 @@ class Ui_MainWindow(object):
 
         self.frame_17 = QFrame(self.frame_16)
         self.frame_17.setObjectName(u"frame_17")
-        self.frame_17.setFrameShape(QFrame.NoFrame)
+        self.frame_17.setFrameShape(QFrame.Shape.NoFrame)
         self.horizontalLayout_15 = QHBoxLayout(self.frame_17)
         self.horizontalLayout_15.setObjectName(u"horizontalLayout_15")
         self.label_3 = QLabel(self.frame_17)
@@ -622,7 +632,7 @@ class Ui_MainWindow(object):
         self.horizontalLayout_15.addWidget(self.playback_combo_train_id)
 
 
-        self.verticalLayout_6.addWidget(self.frame_17, 0, Qt.AlignHCenter)
+        self.verticalLayout_6.addWidget(self.frame_17, 0, Qt.AlignmentFlag.AlignHCenter)
 
         self.line_7 = QFrame(self.frame_16)
         self.line_7.setObjectName(u"line_7")
@@ -646,7 +656,7 @@ class Ui_MainWindow(object):
 "	border: 1px solid #f0f0f0;\n"
 "	border-radius: 20px;\n"
 "}")
-        self.calender_frame.setFrameShape(QFrame.NoFrame)
+        self.calender_frame.setFrameShape(QFrame.Shape.NoFrame)
         self.verticalLayout_28 = QVBoxLayout(self.calender_frame)
         self.verticalLayout_28.setObjectName(u"verticalLayout_28")
         self.label_7 = QLabel(self.calender_frame)
@@ -658,7 +668,7 @@ class Ui_MainWindow(object):
         self.label_7.setSizePolicy(sizePolicy3)
         self.label_7.setMaximumSize(QSize(16777215, 16777215))
 
-        self.verticalLayout_28.addWidget(self.label_7, 0, Qt.AlignHCenter)
+        self.verticalLayout_28.addWidget(self.label_7, 0, Qt.AlignmentFlag.AlignHCenter)
 
         self.calendar_widget = QWidget(self.calender_frame)
         self.calendar_widget.setObjectName(u"calendar_widget")
@@ -671,7 +681,7 @@ class Ui_MainWindow(object):
         self.frame_57.setObjectName(u"frame_57")
         self.frame_57.setMaximumSize(QSize(16777215, 50))
         self.frame_57.setStyleSheet(u"")
-        self.frame_57.setFrameShape(QFrame.NoFrame)
+        self.frame_57.setFrameShape(QFrame.Shape.NoFrame)
         self.horizontalLayout_31 = QHBoxLayout(self.frame_57)
         self.horizontalLayout_31.setObjectName(u"horizontalLayout_31")
         self.label_date_2 = QLabel(self.frame_57)
@@ -700,13 +710,13 @@ class Ui_MainWindow(object):
         self.horizontalLayout_31.addWidget(self.label_date)
 
 
-        self.verticalLayout_28.addWidget(self.frame_57, 0, Qt.AlignHCenter)
+        self.verticalLayout_28.addWidget(self.frame_57, 0, Qt.AlignmentFlag.AlignHCenter)
 
 
-        self.verticalLayout_6.addWidget(self.calender_frame, 0, Qt.AlignHCenter)
+        self.verticalLayout_6.addWidget(self.calender_frame, 0, Qt.AlignmentFlag.AlignHCenter)
 
 
-        self.verticalLayout_17.addWidget(self.frame_16, 0, Qt.AlignHCenter)
+        self.verticalLayout_17.addWidget(self.frame_16, 0, Qt.AlignmentFlag.AlignHCenter)
 
         self.verticalSpacer_4 = QSpacerItem(20, 40, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Expanding)
 
@@ -727,8 +737,8 @@ class Ui_MainWindow(object):
         self.frame_4 = QFrame(self.frame_18)
         self.frame_4.setObjectName(u"frame_4")
         self.frame_4.setStyleSheet(u"background: #413B47;")
-        self.frame_4.setFrameShape(QFrame.NoFrame)
-        self.frame_4.setFrameShadow(QFrame.Plain)
+        self.frame_4.setFrameShape(QFrame.Shape.NoFrame)
+        self.frame_4.setFrameShadow(QFrame.Shadow.Plain)
         self.frame_4.setLineWidth(6)
         self.verticalLayout_15 = QVBoxLayout(self.frame_4)
         self.verticalLayout_15.setObjectName(u"verticalLayout_15")
@@ -774,7 +784,7 @@ class Ui_MainWindow(object):
 "background-color: rgb(30, 27, 33);\n"
 "\n"
 "}")
-        self.playback_bottom_frame.setFrameShape(QFrame.NoFrame)
+        self.playback_bottom_frame.setFrameShape(QFrame.Shape.NoFrame)
         self.verticalLayout_16 = QVBoxLayout(self.playback_bottom_frame)
         self.verticalLayout_16.setSpacing(0)
         self.verticalLayout_16.setObjectName(u"verticalLayout_16")
@@ -785,7 +795,7 @@ class Ui_MainWindow(object):
         self.time_line_frame.setStyleSheet(u"QFrame{\n"
 "	background-color:transparent;\n"
 "}")
-        self.time_line_frame.setFrameShape(QFrame.NoFrame)
+        self.time_line_frame.setFrameShape(QFrame.Shape.NoFrame)
         self.horizontalLayout_5 = QHBoxLayout(self.time_line_frame)
         self.horizontalLayout_5.setObjectName(u"horizontalLayout_5")
 
@@ -797,7 +807,7 @@ class Ui_MainWindow(object):
         self.frame_13.setMaximumSize(QSize(16777211, 50))
         self.frame_13.setStyleSheet(u"background-color:transparent;\n"
 "")
-        self.frame_13.setFrameShape(QFrame.NoFrame)
+        self.frame_13.setFrameShape(QFrame.Shape.NoFrame)
         self.horizontalLayout_4 = QHBoxLayout(self.frame_13)
         self.horizontalLayout_4.setObjectName(u"horizontalLayout_4")
         self.label_28 = QLabel(self.frame_13)
@@ -894,7 +904,7 @@ class Ui_MainWindow(object):
 
         self.frame_58 = QFrame(self.frame_13)
         self.frame_58.setObjectName(u"frame_58")
-        self.frame_58.setFrameShape(QFrame.NoFrame)
+        self.frame_58.setFrameShape(QFrame.Shape.NoFrame)
         self.horizontalLayout_32 = QHBoxLayout(self.frame_58)
         self.horizontalLayout_32.setObjectName(u"horizontalLayout_32")
         self.horizontalLayout_32.setContentsMargins(0, 0, 0, 0)
@@ -990,7 +1000,7 @@ class Ui_MainWindow(object):
         self.frame_21 = QFrame(self.frame_58)
         self.frame_21.setObjectName(u"frame_21")
         self.frame_21.setMinimumSize(QSize(100, 0))
-        self.frame_21.setFrameShape(QFrame.NoFrame)
+        self.frame_21.setFrameShape(QFrame.Shape.NoFrame)
         self.horizontalLayout_30 = QHBoxLayout(self.frame_21)
         self.horizontalLayout_30.setObjectName(u"horizontalLayout_30")
         self.label = QLabel(self.frame_21)
@@ -1050,7 +1060,7 @@ class Ui_MainWindow(object):
         self.scrollArea_2.setWidgetResizable(True)
         self.scrollAreaWidgetContents_2 = QWidget()
         self.scrollAreaWidgetContents_2.setObjectName(u"scrollAreaWidgetContents_2")
-        self.scrollAreaWidgetContents_2.setGeometry(QRect(0, 0, 263, 588))
+        self.scrollAreaWidgetContents_2.setGeometry(QRect(0, 0, 254, 573))
         self.scrollAreaWidgetContents_2.setStyleSheet(u"")
         self.verticalLayout_7 = QVBoxLayout(self.scrollAreaWidgetContents_2)
         self.verticalLayout_7.setObjectName(u"verticalLayout_7")
@@ -1219,11 +1229,11 @@ class Ui_MainWindow(object):
         self.system_stations_table.setItem(2, 2, __qtablewidgetitem13)
         self.system_stations_table.setObjectName(u"system_stations_table")
         self.system_stations_table.setStyleSheet(u"border:none;")
-        self.system_stations_table.setVerticalScrollBarPolicy(Qt.ScrollBarAsNeeded)
-        self.system_stations_table.setEditTriggers(QAbstractItemView.NoEditTriggers)
+        self.system_stations_table.setVerticalScrollBarPolicy(Qt.ScrollBarPolicy.ScrollBarAsNeeded)
+        self.system_stations_table.setEditTriggers(QAbstractItemView.EditTrigger.NoEditTriggers)
         self.system_stations_table.setAlternatingRowColors(True)
-        self.system_stations_table.setSelectionMode(QAbstractItemView.NoSelection)
-        self.system_stations_table.setSelectionBehavior(QAbstractItemView.SelectItems)
+        self.system_stations_table.setSelectionMode(QAbstractItemView.SelectionMode.NoSelection)
+        self.system_stations_table.setSelectionBehavior(QAbstractItemView.SelectionBehavior.SelectItems)
         self.system_stations_table.horizontalHeader().setStretchLastSection(True)
         self.system_stations_table.verticalHeader().setVisible(False)
 
@@ -1232,12 +1242,12 @@ class Ui_MainWindow(object):
         self.modify_form_frame = QFrame(self.modify)
         self.modify_form_frame.setObjectName(u"modify_form_frame")
         self.modify_form_frame.setMaximumSize(QSize(500, 16777215))
-        self.modify_form_frame.setFrameShape(QFrame.NoFrame)
+        self.modify_form_frame.setFrameShape(QFrame.Shape.NoFrame)
         self.verticalLayout_11 = QVBoxLayout(self.modify_form_frame)
         self.verticalLayout_11.setObjectName(u"verticalLayout_11")
         self.scrollArea = QScrollArea(self.modify_form_frame)
         self.scrollArea.setObjectName(u"scrollArea")
-        self.scrollArea.setVerticalScrollBarPolicy(Qt.ScrollBarAsNeeded)
+        self.scrollArea.setVerticalScrollBarPolicy(Qt.ScrollBarPolicy.ScrollBarAsNeeded)
         self.scrollArea.setWidgetResizable(True)
         self.scrollAreaWidgetContents = QWidget()
         self.scrollAreaWidgetContents.setObjectName(u"scrollAreaWidgetContents")
@@ -1353,14 +1363,14 @@ class Ui_MainWindow(object):
         self.verticalLayout_18.setObjectName(u"verticalLayout_18")
         self.frame_3 = QFrame(self.tab_2)
         self.frame_3.setObjectName(u"frame_3")
-        self.frame_3.setFrameShape(QFrame.StyledPanel)
-        self.frame_3.setFrameShadow(QFrame.Raised)
+        self.frame_3.setFrameShape(QFrame.Shape.StyledPanel)
+        self.frame_3.setFrameShadow(QFrame.Shadow.Raised)
         self.horizontalLayout_3 = QHBoxLayout(self.frame_3)
         self.horizontalLayout_3.setObjectName(u"horizontalLayout_3")
         self.frame_8 = QFrame(self.frame_3)
         self.frame_8.setObjectName(u"frame_8")
-        self.frame_8.setFrameShape(QFrame.StyledPanel)
-        self.frame_8.setFrameShadow(QFrame.Raised)
+        self.frame_8.setFrameShape(QFrame.Shape.StyledPanel)
+        self.frame_8.setFrameShadow(QFrame.Shadow.Raised)
         self.verticalLayout_19 = QVBoxLayout(self.frame_8)
         self.verticalLayout_19.setObjectName(u"verticalLayout_19")
         self.groupBox = QGroupBox(self.frame_8)
@@ -1373,15 +1383,15 @@ class Ui_MainWindow(object):
 
         self.frame_5 = QFrame(self.frame_3)
         self.frame_5.setObjectName(u"frame_5")
-        self.frame_5.setFrameShape(QFrame.StyledPanel)
-        self.frame_5.setFrameShadow(QFrame.Raised)
+        self.frame_5.setFrameShape(QFrame.Shape.StyledPanel)
+        self.frame_5.setFrameShadow(QFrame.Shadow.Raised)
 
         self.horizontalLayout_3.addWidget(self.frame_5)
 
         self.frame_6 = QFrame(self.frame_3)
         self.frame_6.setObjectName(u"frame_6")
-        self.frame_6.setFrameShape(QFrame.StyledPanel)
-        self.frame_6.setFrameShadow(QFrame.Raised)
+        self.frame_6.setFrameShape(QFrame.Shape.StyledPanel)
+        self.frame_6.setFrameShadow(QFrame.Shadow.Raised)
 
         self.horizontalLayout_3.addWidget(self.frame_6)
 
@@ -1396,6 +1406,20 @@ class Ui_MainWindow(object):
         self.verticalLayout_4.addWidget(self.setting_tab_widget)
 
         self.pages_stackwidget.addWidget(self.page_settings)
+        self.empty_page = QWidget()
+        self.empty_page.setObjectName(u"empty_page")
+        self.verticalLayout_23 = QVBoxLayout(self.empty_page)
+        self.verticalLayout_23.setObjectName(u"verticalLayout_23")
+        self.label_33 = QLabel(self.empty_page)
+        self.label_33.setObjectName(u"label_33")
+        self.label_33.setMinimumSize(QSize(0, 37))
+        self.label_33.setFont(font)
+        self.label_33.setStyleSheet(u"color: #f0f0f0;\n"
+"font: 16pt ;")
+
+        self.verticalLayout_23.addWidget(self.label_33, 0, Qt.AlignmentFlag.AlignHCenter)
+
+        self.pages_stackwidget.addWidget(self.empty_page)
         self.page_download = QWidget()
         self.page_download.setObjectName(u"page_download")
         self.page_download.setStyleSheet(u"")
@@ -1432,7 +1456,7 @@ class Ui_MainWindow(object):
                         "\u0631\u0633\u062a\u0648\u0646\u200c\u0647\u0627 */\n"
 "        font-weight: bold;  /* \u0628\u0648\u0644\u062f \u06a9\u0631\u062f\u0646 \u0641\u0648\u0646\u062a \u0633\u0631\u0633\u062a\u0648\u0646\u200c\u0647\u0627 */\n"
 "    }")
-        self.splitter.setOrientation(Qt.Horizontal)
+        self.splitter.setOrientation(Qt.Orientation.Horizontal)
         self.download_filter_frame = QFrame(self.splitter)
         self.download_filter_frame.setObjectName(u"download_filter_frame")
         self.download_filter_frame.setMinimumSize(QSize(316, 0))
@@ -1442,7 +1466,7 @@ class Ui_MainWindow(object):
 "}\n"
 "\n"
 "")
-        self.download_filter_frame.setFrameShape(QFrame.NoFrame)
+        self.download_filter_frame.setFrameShape(QFrame.Shape.NoFrame)
         self.verticalLayout_13 = QVBoxLayout(self.download_filter_frame)
         self.verticalLayout_13.setObjectName(u"verticalLayout_13")
         self.download_filter_stackWidget = QStackedWidget(self.download_filter_frame)
@@ -1546,7 +1570,7 @@ class Ui_MainWindow(object):
         self.download_stations_table.setObjectName(u"download_stations_table")
         self.download_stations_table.setMinimumSize(QSize(100, 100))
         self.download_stations_table.setStyleSheet(u"border:none;")
-        self.download_stations_table.setEditTriggers(QAbstractItemView.NoEditTriggers)
+        self.download_stations_table.setEditTriggers(QAbstractItemView.EditTrigger.NoEditTriggers)
         self.download_stations_table.horizontalHeader().setStretchLastSection(True)
         self.download_stations_table.verticalHeader().setVisible(False)
         self.download_stations_table.verticalHeader().setHighlightSections(True)
@@ -1587,7 +1611,7 @@ class Ui_MainWindow(object):
         self.splitter.addWidget(self.download_filter_frame)
         self.download_results_frame = QFrame(self.splitter)
         self.download_results_frame.setObjectName(u"download_results_frame")
-        self.download_results_frame.setFrameShape(QFrame.NoFrame)
+        self.download_results_frame.setFrameShape(QFrame.Shape.NoFrame)
         self.verticalLayout_26 = QVBoxLayout(self.download_results_frame)
         self.verticalLayout_26.setObjectName(u"verticalLayout_26")
         self.splitter.addWidget(self.download_results_frame)
@@ -1634,15 +1658,12 @@ class Ui_MainWindow(object):
         QWidget.setTabOrder(self.scrollArea_2, self.btn_add_check_connection)
         QWidget.setTabOrder(self.btn_add_check_connection, self.btn_save_add)
         QWidget.setTabOrder(self.btn_save_add, self.textEdit_ping_status)
-        QWidget.setTabOrder(self.textEdit_ping_status, self.btn_side_playback)
-        QWidget.setTabOrder(self.btn_side_playback, self.btn_side_download)
-        QWidget.setTabOrder(self.btn_side_download, self.btn_side_settings)
-        QWidget.setTabOrder(self.btn_side_settings, self.download_filters_train_combobox)
+        QWidget.setTabOrder(self.textEdit_ping_status, self.download_filters_train_combobox)
         QWidget.setTabOrder(self.download_filters_train_combobox, self.download_filter_station_log)
 
         self.retranslateUi(MainWindow)
 
-        self.pages_stackwidget.setCurrentIndex(0)
+        self.pages_stackwidget.setCurrentIndex(2)
         self.setting_tab_widget.setCurrentIndex(1)
         self.system_station_tabwidget.setCurrentIndex(1)
         self.download_filter_stackWidget.setCurrentIndex(1)
@@ -1680,7 +1701,7 @@ class Ui_MainWindow(object):
         self.refresh_btn.setToolTip(QCoreApplication.translate("MainWindow", u"Refresh", None))
 #endif // QT_CONFIG(tooltip)
         self.refresh_btn.setText(QCoreApplication.translate("MainWindow", u"Rshresh Dtabase", None))
-        self.refresh_btn.setProperty(u"styleClass", QCoreApplication.translate("MainWindow", u"fill_gradient_purple_btn", None))
+        self.refresh_btn.setProperty("styleClass", QCoreApplication.translate("MainWindow", u"fill_gradient_purple_btn", None))
         self.refresh_image_database_log.setText(QCoreApplication.translate("MainWindow", u"TextLabel", None))
         self.label_3.setText(QCoreApplication.translate("MainWindow", u"Select Train ID :", None))
         self.label_7.setText(QCoreApplication.translate("MainWindow", u"Calendar", None))
@@ -1694,7 +1715,7 @@ class Ui_MainWindow(object):
         self.play_btn.setToolTip(QCoreApplication.translate("MainWindow", u"Show Live", None))
 #endif // QT_CONFIG(tooltip)
         self.play_btn.setText("")
-        self.play_btn.setProperty(u"status", QCoreApplication.translate("MainWindow", u"stop", None))
+        self.play_btn.setProperty("status", QCoreApplication.translate("MainWindow", u"stop", None))
         self.label_25.setText(QCoreApplication.translate("MainWindow", u"Speed : ", None))
 #if QT_CONFIG(tooltip)
         self.speed_btn.setToolTip(QCoreApplication.translate("MainWindow", u"Stop Live", None))
@@ -1704,11 +1725,11 @@ class Ui_MainWindow(object):
         self.btn_export.setText(QCoreApplication.translate("MainWindow", u"Export", None))
         self.label.setText(QCoreApplication.translate("MainWindow", u"Time : ", None))
         self.playback_time_label.setText(QCoreApplication.translate("MainWindow", u"-", None))
-        self.page_settings.setProperty(u"styleClass", QCoreApplication.translate("MainWindow", u"page", None))
-        self.system_station_tab.setProperty(u"styleClass", QCoreApplication.translate("MainWindow", u"page", None))
-        self.add.setProperty(u"styleClass", QCoreApplication.translate("MainWindow", u"page-light", None))
-        self.scrollArea_2.setProperty(u"styleClass", QCoreApplication.translate("MainWindow", u"hide", None))
-        self.scrollAreaWidgetContents_2.setProperty(u"styleClass", QCoreApplication.translate("MainWindow", u"hide", None))
+        self.page_settings.setProperty("styleClass", QCoreApplication.translate("MainWindow", u"page", None))
+        self.system_station_tab.setProperty("styleClass", QCoreApplication.translate("MainWindow", u"page", None))
+        self.add.setProperty("styleClass", QCoreApplication.translate("MainWindow", u"page-light", None))
+        self.scrollArea_2.setProperty("styleClass", QCoreApplication.translate("MainWindow", u"hide", None))
+        self.scrollAreaWidgetContents_2.setProperty("styleClass", QCoreApplication.translate("MainWindow", u"hide", None))
         self.label_15.setText(QCoreApplication.translate("MainWindow", u"IP Address * :", None))
         self.label_19.setText(QCoreApplication.translate("MainWindow", u"Password : ", None))
         self.label_17.setText(QCoreApplication.translate("MainWindow", u"City * : ", None))
@@ -1718,11 +1739,11 @@ class Ui_MainWindow(object):
         self.label_16.setText(QCoreApplication.translate("MainWindow", u"Name * : ", None))
         self.name_input.setText("")
         self.btn_add_check_connection.setText(QCoreApplication.translate("MainWindow", u"Check Connection", None))
-        self.btn_add_check_connection.setProperty(u"styleClass", QCoreApplication.translate("MainWindow", u"fill_gradient_purple_btn", None))
+        self.btn_add_check_connection.setProperty("styleClass", QCoreApplication.translate("MainWindow", u"fill_gradient_purple_btn", None))
         self.btn_save_add.setText(QCoreApplication.translate("MainWindow", u"Save", None))
-        self.btn_save_add.setProperty(u"styleClass", QCoreApplication.translate("MainWindow", u"fill_gradient_purple_btn", None))
+        self.btn_save_add.setProperty("styleClass", QCoreApplication.translate("MainWindow", u"fill_gradient_purple_btn", None))
         self.system_station_tabwidget.setTabText(self.system_station_tabwidget.indexOf(self.add), QCoreApplication.translate("MainWindow", u"Add", None))
-        self.modify.setProperty(u"styleClass", QCoreApplication.translate("MainWindow", u"page-light", None))
+        self.modify.setProperty("styleClass", QCoreApplication.translate("MainWindow", u"page-light", None))
         ___qtablewidgetitem = self.system_stations_table.horizontalHeaderItem(0)
         ___qtablewidgetitem.setText(QCoreApplication.translate("MainWindow", u"name", None));
         ___qtablewidgetitem1 = self.system_stations_table.horizontalHeaderItem(1)
@@ -1756,37 +1777,39 @@ class Ui_MainWindow(object):
         ___qtablewidgetitem13.setText(QCoreApplication.translate("MainWindow", u"sdfs", None));
         self.system_stations_table.setSortingEnabled(__sortingEnabled)
 
-        self.modify_form_frame.setProperty(u"styleClass", QCoreApplication.translate("MainWindow", u"hide", None))
-        self.scrollArea.setProperty(u"styleClass", QCoreApplication.translate("MainWindow", u"hide", None))
-        self.scrollAreaWidgetContents.setProperty(u"styleClass", QCoreApplication.translate("MainWindow", u"hide", None))
+        self.modify_form_frame.setProperty("styleClass", QCoreApplication.translate("MainWindow", u"hide", None))
+        self.scrollArea.setProperty("styleClass", QCoreApplication.translate("MainWindow", u"hide", None))
+        self.scrollAreaWidgetContents.setProperty("styleClass", QCoreApplication.translate("MainWindow", u"hide", None))
         self.label_26.setText(QCoreApplication.translate("MainWindow", u"IP Address *: ", None))
         self.label_22.setText(QCoreApplication.translate("MainWindow", u"Name * : ", None))
         self.label_20.setText(QCoreApplication.translate("MainWindow", u"City * : ", None))
         self.label_27.setText(QCoreApplication.translate("MainWindow", u"User Name :", None))
         self.label_29.setText(QCoreApplication.translate("MainWindow", u"Password : ", None))
         self.btn_modify_save.setText(QCoreApplication.translate("MainWindow", u"Save", None))
-        self.btn_modify_save.setProperty(u"styleClass", QCoreApplication.translate("MainWindow", u"fill_gradient_purple_btn", None))
+        self.btn_modify_save.setProperty("styleClass", QCoreApplication.translate("MainWindow", u"fill_gradient_purple_btn", None))
         self.btn_modify_cancel.setText(QCoreApplication.translate("MainWindow", u"Cancel", None))
-        self.btn_modify_cancel.setProperty(u"styleClass", QCoreApplication.translate("MainWindow", u"border_gradient_purple_btn", None))
+        self.btn_modify_cancel.setProperty("styleClass", QCoreApplication.translate("MainWindow", u"border_gradient_purple_btn", None))
         self.system_station_tabwidget.setTabText(self.system_station_tabwidget.indexOf(self.modify), QCoreApplication.translate("MainWindow", u"Modify", None))
         self.setting_tab_widget.setTabText(self.setting_tab_widget.indexOf(self.system_station_tab), QCoreApplication.translate("MainWindow", u"system Stations", None))
         self.groupBox.setTitle(QCoreApplication.translate("MainWindow", u"User Management", None))
         self.setting_tab_widget.setTabText(self.setting_tab_widget.indexOf(self.tab_2), QCoreApplication.translate("MainWindow", u"General", None))
         self.setting_tab_widget.setTabText(self.setting_tab_widget.indexOf(self.tab), QCoreApplication.translate("MainWindow", u"Logs", None))
-        self.page_download.setProperty(u"styleClass", QCoreApplication.translate("MainWindow", u"page", None))
-        self.download_filter_frame.setProperty(u"styleClass", "")
-        self.step1.setProperty(u"styleClass", QCoreApplication.translate("MainWindow", u"hide", None))
+        self.empty_page.setProperty("styleClass", QCoreApplication.translate("MainWindow", u"page", None))
+        self.label_33.setText(QCoreApplication.translate("MainWindow", u"Welcom, Please Login First", None))
+        self.page_download.setProperty("styleClass", QCoreApplication.translate("MainWindow", u"page", None))
+        self.download_filter_frame.setProperty("styleClass", "")
+        self.step1.setProperty("styleClass", QCoreApplication.translate("MainWindow", u"hide", None))
         self.label_8.setText(QCoreApplication.translate("MainWindow", u"Trains:", None))
-        self.label_8.setProperty(u"styleClass", QCoreApplication.translate("MainWindow", u"h3", None))
+        self.label_8.setProperty("styleClass", QCoreApplication.translate("MainWindow", u"h3", None))
         ___qtablewidgetitem14 = self.download_filter_station_log.horizontalHeaderItem(0)
         ___qtablewidgetitem14.setText(QCoreApplication.translate("MainWindow", u"New Column", None));
         ___qtablewidgetitem15 = self.download_filter_station_log.horizontalHeaderItem(1)
         ___qtablewidgetitem15.setText(QCoreApplication.translate("MainWindow", u"New Column", None));
         ___qtablewidgetitem16 = self.download_filter_station_log.verticalHeaderItem(0)
         ___qtablewidgetitem16.setText(QCoreApplication.translate("MainWindow", u"New Row", None));
-        self.step0.setProperty(u"styleClass", QCoreApplication.translate("MainWindow", u"hide", None))
+        self.step0.setProperty("styleClass", QCoreApplication.translate("MainWindow", u"hide", None))
         self.label_4.setText(QCoreApplication.translate("MainWindow", u"Select Stations:", None))
-        self.label_4.setProperty(u"styleClass", QCoreApplication.translate("MainWindow", u"h3", None))
+        self.label_4.setProperty("styleClass", QCoreApplication.translate("MainWindow", u"h3", None))
         self.download_all_stations_checkbox.setText(QCoreApplication.translate("MainWindow", u"All", None))
         self.download_search_station.setPlaceholderText(QCoreApplication.translate("MainWindow", u"Search name", None))
         ___qtablewidgetitem17 = self.download_stations_table.horizontalHeaderItem(0)
@@ -1800,8 +1823,8 @@ class Ui_MainWindow(object):
         ___qtablewidgetitem21 = self.download_stations_table.verticalHeaderItem(2)
         ___qtablewidgetitem21.setText(QCoreApplication.translate("MainWindow", u"New Row", None));
         self.download_filter_prev_btn.setText(QCoreApplication.translate("MainWindow", u"Previous", None))
-        self.download_filter_prev_btn.setProperty(u"styleClass", QCoreApplication.translate("MainWindow", u"fill_gradient_purple_btn", None))
+        self.download_filter_prev_btn.setProperty("styleClass", QCoreApplication.translate("MainWindow", u"fill_gradient_purple_btn", None))
         self.download_filter_next_btn.setText(QCoreApplication.translate("MainWindow", u"Next", None))
-        self.download_filter_next_btn.setProperty(u"styleClass", QCoreApplication.translate("MainWindow", u"fill_gradient_purple_btn", None))
+        self.download_filter_next_btn.setProperty("styleClass", QCoreApplication.translate("MainWindow", u"fill_gradient_purple_btn", None))
     # retranslateUi
 

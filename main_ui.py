@@ -125,7 +125,6 @@ class UI_main_window_org(sQMainWindow):
 
 
 
-        self.preview_login = False
         self.login_obj = LoginPage()
 
 
@@ -226,7 +225,6 @@ class UI_main_window_org(sQMainWindow):
         self.ui.btn_side_playback.clicked.connect(self.set_stack_widget)
         self.ui.btn_side_download.clicked.connect(self.set_stack_widget)
         self.ui.btn_side_settings.clicked.connect(self.set_stack_widget)
-        self.ui.btn_side_login.clicked.connect(self.check_user_loggedin)
 
         
         # self.ui.btn_side_aboutus.clicked.connect(self.set_stack_widget)
@@ -239,42 +237,11 @@ class UI_main_window_org(sQMainWindow):
 
 
 
-    def check_user_loggedin(self):
-
-        loggedin_user = self.login_obj.login_API.get_logined_user()
-        if loggedin_user is None:
-            self.show_login()
-        else:
-            self.show_user_managment_page(loggedin_user)
-
-    def show_login(self):
-        if not  self.preview_login:
-            self.applyBlurEffect()
-            self.login_obj.show_page()
-            self.preview_login = False
-            loggedin_user = self.login_obj.login_API.get_logined_user()
-            if loggedin_user is not None:
-                loggedin_username = loggedin_user['username']
-                self.set_user(is_login=True,user_name= loggedin_username)
-
-            else:
-                loggedin_username = False
-            print(loggedin_username)
+    
 
 
-    def show_user_managment_page(self,loggedin_user):
-        role = loggedin_user['role']
-        if role == 'Admin':
-            accessibity = [1,2,3,4,5]
-        else:
-            accessibity = [1,2]
 
-        if self.login_obj.login_API.get_logined_user() is not None:
-            ret= self.login_obj.show_page(UIPages.MENU,accessibity)
-            
-            if self.login_obj.login_API.get_logined_user() is None:
-
-                self.set_user(is_login=False)
+    
 
 
 
@@ -283,8 +250,7 @@ class UI_main_window_org(sQMainWindow):
         if is_login:
             self.ui.btn_side_login.setText('User : '+user_name)
             self.ui.btn_side_login.setStyleSheet('icon: url(:/icons/icons/username.png);')
-        else:
-                
+        else:             
             self.ui.btn_side_login.setText('  Login')
             self.ui.btn_side_login.setStyleSheet('icon: url(:/icons/icons/icons8-login-100 (3).png);')
 
