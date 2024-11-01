@@ -43,6 +43,14 @@ class transormUtils:
         duration = frame_count / fps
         return duration
     
+    @staticmethod
+    def pass_extra_arg_event(event_func, extra_args):
+        def res_func(*args):
+            args = args + extra_args
+            event_func(*args)
+        return res_func
+
+    
     # @staticmethod
     # def dateTimeRanges(date_times:list[JalaliDateTime], step_lenght_sec:int, max_gap_sec=1):
     #     date_times.sort()

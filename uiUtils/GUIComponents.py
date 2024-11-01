@@ -1,4 +1,4 @@
-from PySide6.QtWidgets import QWidget, QFrame, QLabel, QHBoxLayout, QVBoxLayout, QSizePolicy,QPushButton, QMessageBox,QCheckBox
+from PySide6.QtWidgets import QWidget, QFrame, QLabel, QHBoxLayout, QVBoxLayout, QSizePolicy,QPushButton, QMessageBox,QCheckBox, QSpinBox
 from PySide6.QtWidgets import QSlider, QProgressBar
 from PySide6.QtCore import QTimer, Qt, Signal, QRect, QLine, QPoint
 from PySide6.QtGui import QPixmap, QIcon, QColor, QPen, QPainter, QPalette
@@ -242,7 +242,10 @@ class tabelCheckbox(QCheckBox):
         #self.setMaximumWidth(h+5)
         #self.setMaximumWidth(w+5)
 
-
+class timeSpinBox(QSpinBox):
+    def textFromValue(self, value):
+        # این تابع اعداد را همیشه با دو رقم نمایش می‌دهد
+        return f"{value:02d}"  # دو رقم با پر کردن صفر
 
 
 

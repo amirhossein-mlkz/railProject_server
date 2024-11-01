@@ -1,15 +1,42 @@
-from PySide6.QtWidgets import QLabel
-from PySide6.QtGui import QPixmap, QIcon
+from datetime import time
 
+from PySide6.QtWidgets import QLabel
+from PySide6.QtGui import QPixmap, QIcon, QColor
+from PySide6.QtCore import Qt
 
 from UIFiles.main_UI import Ui_MainWindow
 from uiUtils.guiBackend import GUIBackend
+from uiUtils.Calendar import  JalaliCalendarDialog
+from uiUtils.Clock import ClockWidget
 from uiUtils import GUIComponents
 
 class downloadPageUI:
 
     def __init__(self, ui:Ui_MainWindow):
         self.ui = ui
+        self.calendar_dialog = JalaliCalendarDialog(self.ui.download_filter_label_date)
+        self.calendar_dialog.setParent(self.ui.download_filter_calendar_widget)
+
+        self.Clocks:dict[str, ClockWidget] = {'pm':None, 'am':None}
+        for key in self.Clocks.keys():
+            self.Clocks[key] = ClockWidget(is_am=(key=='am'), 
+                                           show_all_hours=False,
+                                           outline_color=QColor('#fff'),
+                                           guide_line_color=QColor('#fff'),
+                                           avaiable_color=QColor(99, 39, 232),
+                                           )
+            
+        
+
+        
+        self.ui.download_filter_am_lock_wgt.layout().addWidget(self.Clocks['am'],  alignment=Qt.AlignCenter)
+        self.ui.download_filter_pm_lock_wgt.layout().addWidget(self.Clocks['pm'],  alignment=Qt.AlignCenter)
+
+        time_ranges = [
+        (time(3, 0), time(5, 30)),
+        (time(9, 15), time(10, 45)),
+    ]
+        self.Clocks['am'].set_time_ranges(time_ranges)
 
 
     def set_download_stations_list(self, datas:list[dict], event_func, selected_ids:list):
@@ -39,7 +66,7 @@ class downloadPageUI:
                 GUIBackend.set_checkbox_value(checkbox, True, block_signal=True)
             else:
                 GUIBackend.set_checkbox_value(checkbox, False, block_signal=False)
-
+    
     
     def handle_filter_navigation_btns(self, curent_step, final_step):
         if curent_step == 0:
@@ -56,6 +83,9 @@ class downloadPageUI:
         steps_page= {
             0:self.ui.step0,
             1:self.ui.step1,
+            2:self.ui.step2,
+            3:self.ui.step3,
+
         }
 
         GUIBackend.set_stack_widget_page(self.ui.download_filter_stackWidget, steps_page[step])
@@ -63,6 +93,19 @@ class downloadPageUI:
     
     def set_filter_trains(self, trains:list[str]):
         GUIBackend.set_combobox_items(self.ui.download_filters_train_combobox, trains, block_signal=True)
+
+    def get_selected_train(self,):
+        return GUIBackend.get_combobox_selected(self.ui.download_filters_train_combobox)
+
+    def train_filter_change_connector(self, func):
+        GUIBackend.combobox_changeg_connector(self.ui.download_filters_train_combobox, func)
+
+    def set_filter_cameras(self, cameras:list[str]):
+        GUIBackend.set_combobox_items(self.ui.download_filters_cameras_combobox, cameras, block_signal=True)
+
+    def get_selected_camera(self,):
+        return GUIBackend.get_combobox_selected(self.ui.download_filters_cameras_combobox)
+
 
     def set_filter_stations_logs(self, logs:list[dict]):
         headers = ['status', 'name', 'message']
@@ -92,7 +135,7 @@ class downloadPageUI:
             
             GUIBackend.set_table_cell_value(self.ui.download_filter_station_log,
                                              index=(row_idx, headers.index('name')),
-                                             value=log['name'])
+                                             value=log['info']['name'])
             
         
       
@@ -100,5 +143,4 @@ class downloadPageUI:
         confirmbox = GUIComponents.confirmMessageBox(title, text, buttons)
         return confirmbox.render()
     
-    def get_selected_train(self,):
-        return GUIBackend.get_combobox_selected(self.ui.download_filters_train_combobox)
+    

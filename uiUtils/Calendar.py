@@ -61,11 +61,17 @@ QPushButton:hover{
 
 
 
-DAY_BUTTON_SELECTED_EXIST_STYLE ="""
+DAY_BUTTON_SELECTED_STYLE ="""
 QPushButton {
-    background-color: #299028;
-    border:1px solid rgb(0,64,64);
-    border-radius:3px;
+    background-color: #2b8c67;
+    max-width:20px;
+    max-height:20px;
+    min-width:20px;
+    min-height:20px;
+    border-radius:12px;
+    font-weight:bold;
+    color:#fff;
+    padding:2px;
 }
 
 """
@@ -199,6 +205,7 @@ class JalaliCalendarDialog(QWidget):
 
 
         self.date:datetime = date
+        self.select_day_btn = None
 
         # Set up the layout
         layout = QVBoxLayout()
@@ -284,6 +291,7 @@ class JalaliCalendarDialog(QWidget):
         days_in_month = self.days_in_jalali_month(year, month)
 
         self.btns_status = []
+        
 
         day = 1
         for week in range(6):
@@ -297,13 +305,17 @@ class JalaliCalendarDialog(QWidget):
                 else:
                     day_btn = QPushButton(str(day))
                     date_of_btn = JalaliDateTime(year=year, month=month, day=day).jdate()
-                    GUIBackend.button_connector_argument_pass(day_btn, self.date_click, args=(date_of_btn,))
+                    GUIBackend.button_connector_argument_pass(day_btn, self.date_click, args=(date_of_btn, day_btn))
 
                     if date_of_btn in self.avaiable_dates:
                         GUIBackend.set_style(day_btn, DAY_BUTTON_EXIST_STYLE)
                     else:
                         GUIBackend.set_style(day_btn, DAY_BUTTON_STYLE)
                         day_btn.setDisabled(True)
+                    
+                    if date_of_btn == self.date:
+                        GUIBackend.set_style(day_btn, DAY_BUTTON_SELECTED_STYLE)
+
 
                     self.calendarGrid.addWidget(day_btn, week, weekday)
                     day += 1
@@ -313,8 +325,13 @@ class JalaliCalendarDialog(QWidget):
     def set_calender_event(self, func):
         self.external_calender_event_func = func
 
-    def date_click(self, date):
+    def date_click(self, date, btn):
+        if self.select_day_btn :
+            GUIBackend.set_style(self.select_day_btn , DAY_BUTTON_EXIST_STYLE)
+        
         self.date = date
+        self.select_day_btn = btn
+        GUIBackend.set_style(self.select_day_btn , DAY_BUTTON_SELECTED_STYLE)
         self.__set_date_into_field()
         self.external_calender_event_func(date)
         
@@ -347,7 +364,7 @@ class JalaliCalendarDialog(QWidget):
 
         self.selected_button = self.sender()
         self.selected_day = int(self.selected_button.text())
-        GUIBackend.set_style(self.selected_button, DAY_BUTTON_SELECTED_EXIST_STYLE)
+        GUIBackend.set_style(self.selected_button, DAY_BUTTON_EXIST_STYLE)
 
 
 
