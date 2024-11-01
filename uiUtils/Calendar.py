@@ -199,8 +199,8 @@ class JalaliCalendarDialog(QWidget):
         self.parent_func = None
         self.external_calender_event_func = None
 
-        if date is None:
-            date = JalaliDateTime.now()
+        # if date is None:
+            # date = JalaliDateTime.now()
         
 
 
@@ -313,8 +313,9 @@ class JalaliCalendarDialog(QWidget):
                         GUIBackend.set_style(day_btn, DAY_BUTTON_STYLE)
                         day_btn.setDisabled(True)
                     
-                    if date_of_btn == self.date:
-                        GUIBackend.set_style(day_btn, DAY_BUTTON_SELECTED_STYLE)
+                    if self.date:
+                        if date_of_btn == self.date:
+                            GUIBackend.set_style(day_btn, DAY_BUTTON_SELECTED_STYLE)
 
 
                     self.calendarGrid.addWidget(day_btn, week, weekday)
@@ -327,14 +328,21 @@ class JalaliCalendarDialog(QWidget):
 
     def date_click(self, date, btn):
         if self.select_day_btn :
-            GUIBackend.set_style(self.select_day_btn , DAY_BUTTON_EXIST_STYLE)
+            try:
+                GUIBackend.set_style(self.select_day_btn , DAY_BUTTON_EXIST_STYLE)
+            except:
+                pass
         
         self.date = date
         self.select_day_btn = btn
         GUIBackend.set_style(self.select_day_btn , DAY_BUTTON_SELECTED_STYLE)
         self.__set_date_into_field()
         self.external_calender_event_func(date)
-        
+    
+    def set_date(self, date):
+        self.date = date
+        self.updateCalendar()
+        self.__set_date_into_field()
 
     @staticmethod
     def days_in_jalali_month(year, month):
@@ -375,12 +383,15 @@ class JalaliCalendarDialog(QWidget):
 
     
     def __set_date_into_field(self,):
-        str_date = self.date.strftime("%Y/%m/%d")
-        self.str_date = str_date
-        self.input_field.setText(str_date)
+        if self.date:
+            str_date = self.date.strftime("%Y/%m/%d")
+            self.str_date = str_date
+            self.input_field.setText(str_date)
 
-        if self.parent_func is not None:
-            self.parent_func(self.date)
+            if self.parent_func is not None:
+                self.parent_func(self.date)
+        else:
+            self.input_field.setText('-')
 
         # GUIBackend.set_input(self.input_field, str_date)
 

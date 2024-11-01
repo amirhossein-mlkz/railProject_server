@@ -1,14 +1,14 @@
-from PySide6.QtCore import Qt, QRectF, QPointF
-from PySide6.QtGui import QPainter, QColor, QMouseEvent
-from PySide6.QtWidgets import QWidget, QVBoxLayout, QMainWindow, QApplication
 import math
-from datetime import time
+from datetime import time, datetime
+from persiantools.jdatetime import JalaliDateTime
 
 from PySide6.QtCore import Qt, QRectF, QPointF
 from PySide6.QtGui import QPainter, QColor, QMouseEvent
+from PySide6.QtWidgets import QWidget, QVBoxLayout, QMainWindow, QApplication
+from PySide6.QtCore import Qt, QRectF, QPointF
+from PySide6.QtGui import QPainter, QColor, QMouseEvent
 from PySide6.QtWidgets import QWidget
-import math
-from datetime import time
+
 
 class ClockWidget(QWidget):
     def __init__(self, 
@@ -28,12 +28,29 @@ class ClockWidget(QWidget):
         self.guide_line_color = guide_line_color
         self.outline_color = outline_color
         self.avaiable_color = avaiable_color
+        self.external_click_event_func = None
         self.setMinimumSize(200, 200)
         self.setMouseTracking(True)  # Enable tracking for mouseMoveEvent
         self.setFocusPolicy(Qt.StrongFocus)  # Ensure widget can receive focus for events
 
     def set_time_ranges(self, time_ranges):
-        self.time_ranges = time_ranges
+        self.time_ranges = []
+        for start, end in time_ranges:
+            if isinstance(start, datetime) or isinstance(start, JalaliDateTime):
+                start = start.time()
+                end = end.time()
+
+            if self.is_am:
+                if time(0,0) <= start < time(12,0) or time(0,0) <= end < time(12,0):
+                    self.time_ranges.append((start, end))
+                else:
+                    continue
+            else:
+                if time(0,0) <= start < time(12,0) or time(0,0) <= end < time(12,0):
+                    continue
+                else:
+                    self.time_ranges.append((start, end))
+
         self.update()
 
     def paintEvent(self, event):
@@ -87,17 +104,32 @@ class ClockWidget(QWidget):
         start_angle = self.from_clockwise_angle(start_angle)
         end_angle = self.from_clockwise_angle(end_angle)
 
-        span_angle = end_angle - start_angle
+        if start_angle * end_angle <0:
+            if start_angle > 0:
+                span_angle = start_angle + abs(end_angle)
+            else:
+                span_angle = (180 - end_angle) + (180 + start_angle)
+            
+            span_angle  = span_angle * -1
+   
+        else:
+            span_angle = end_angle - start_angle
+
         painter.drawPie(rect, start_angle * 16, span_angle * 16)
         painter.setBrush(Qt.NoBrush)
         painter.setPen(self.outline_color)
+
+    def connect_click(self, func):
+        self.external_click_event_func = func
 
     def mousePressEvent(self, event: QMouseEvent):
         clicked_angle = self.get_angle_from_position(event.position().toPoint())
         for start, end in self.time_ranges:
             start_angle, end_angle = self.time_range2angle(start, end)
             if start_angle <= clicked_angle <= end_angle:
-                print(f"Clicked Time Range: {start.strftime('%H:%M')} - {end.strftime('%H:%M')}")
+                # print(f"Clicked Time Range: {start.strftime('%H:%M')} - {end.strftime('%H:%M')}")
+                if self.external_click_event_func:
+                    self.external_click_event_func(start, end)
                 break
 
     def mouseMoveEvent(self, event: QMouseEvent):

@@ -1,4 +1,4 @@
-from datetime import time
+from datetime import time as dtime
 
 from PySide6.QtWidgets import QLabel
 from PySide6.QtGui import QPixmap, QIcon, QColor
@@ -25,18 +25,27 @@ class downloadPageUI:
                                            guide_line_color=QColor('#fff'),
                                            avaiable_color=QColor(99, 39, 232),
                                            )
-            
-        
+            self.Clocks[key].connect_click(self.clock_click_event)
 
         
         self.ui.download_filter_am_lock_wgt.layout().addWidget(self.Clocks['am'],  alignment=Qt.AlignCenter)
         self.ui.download_filter_pm_lock_wgt.layout().addWidget(self.Clocks['pm'],  alignment=Qt.AlignCenter)
+        
 
-        time_ranges = [
-        (time(3, 0), time(5, 30)),
-        (time(9, 15), time(10, 45)),
-    ]
-        self.Clocks['am'].set_time_ranges(time_ranges)
+    #     time_ranges = [
+    #     (dtime(2, 0), dtime(5, 30)),
+    #     (dtime(9, 15), dtime(10, 45)),
+    #     (dtime(18, 15), dtime(22, 0)),
+    # ]
+    #     self.Clocks['pm'].set_time_ranges(time_ranges)
+    #     self.Clocks['am'].set_time_ranges(time_ranges)
+
+    def clock_click_event(self, start:dtime, end:dtime):
+        GUIBackend.set_spinbox_value(self.ui.download_filter_to_h, end.hour)
+        GUIBackend.set_spinbox_value(self.ui.download_filter_to_m, end.minute)
+        #------------------------------------------------------------------------
+        GUIBackend.set_spinbox_value(self.ui.download_filter_from_h, start.hour)
+        GUIBackend.set_spinbox_value(self.ui.download_filter_from_m, start.minute)
 
 
     def set_download_stations_list(self, datas:list[dict], event_func, selected_ids:list):

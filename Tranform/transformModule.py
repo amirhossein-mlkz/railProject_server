@@ -3,8 +3,8 @@ import pickle
 import time
 import threading
 import os
-
-
+from datetime import time as dtime
+from datetime import datetime
 
 from persiantools.jdatetime import JalaliDateTime, timedelta
 # from PySide6.QtCore import Signal, QObject
@@ -185,6 +185,17 @@ class archiveManager:
         self.time_range_worker.progress_signal.connect(progress_func)
         self.time_range_thread = threading.Thread(target=self.time_range_worker.run, daemon=True)
         self.time_range_thread.start()
+
+    
+    def get_day_times(self, train_id, date:JalaliDateTime, camera) -> list[JalaliDateTime]:
+        times_str = self.archive[train_id][camera][date.strftime('%Y-%m-%d')].keys()
+        times = []
+        date_str = date.strftime('%Y-%m-%d')
+        for t_str in times_str:
+            t_str = date_str + '_' + t_str
+            dt = JalaliDateTime.strptime(t_str, "%Y-%m-%d_%H-%M-%S")
+            times.append(dt)
+        return times
 
     
     def get_available_trains(self,):

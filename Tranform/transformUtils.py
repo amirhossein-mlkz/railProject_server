@@ -51,31 +51,30 @@ class transormUtils:
         return res_func
 
     
-    # @staticmethod
-    # def dateTimeRanges(date_times:list[JalaliDateTime], step_lenght_sec:int, max_gap_sec=1):
-    #     date_times.sort()
+    @staticmethod
+    def times2ranges(date_times:list[JalaliDateTime], step_lenght_sec:int, max_gap_sec=1):
+        date_times.sort()
 
+        start = date_times[0]
+        end = date_times[0]
+        res = []
+        for i in range(1, len(date_times)):
+            dif:timedelta = date_times[i] - end
 
-    #     start = date_times[0]
-    #     end = date_times[0]
-    #     res = []
-    #     for i in range(1, len(date_times)):
-    #         dif:timedelta = date_times[i] - end
-
-    #         #check if next video distance is more than each video lengh, than means thay arent continues
-    #         if dif.total_seconds() > (step_lenght_sec + max_gap_sec):
-    #             end = timedelta(seconds=step_lenght_sec) + end
-    #             res.append((start, end))
+            #check if next video distance is more than each video lengh, than means thay arent continues
+            if dif.total_seconds() > (step_lenght_sec + max_gap_sec):
+                end = timedelta(seconds=step_lenght_sec) + end
+                res.append((start, end))
                 
-    #             start = date_times[i]
-    #             end = date_times[i]
-    #         else:
-    #             end = date_times[i]
-    #             if i==len(date_times)-1:
-    #                 end = timedelta(seconds=step_lenght_sec) + end
-    #                 res.append((start, end))
+                start = date_times[i]
+                end = date_times[i]
+            else:
+                end = date_times[i]
+                if i==len(date_times)-1:
+                    end = timedelta(seconds=step_lenght_sec) + end
+                    res.append((start, end))
 
-    #     return res
+        return res
 
 
             

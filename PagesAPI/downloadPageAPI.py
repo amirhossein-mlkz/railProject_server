@@ -22,7 +22,7 @@ class downloadPageAPI:
         self.db = db
         self.mediator = Mediator()
 
-        self.filter_step = 3
+        self.filter_step = 0
 
         self.mediator.add_event_listener(event_name=eventNames.MODIFY_SYSTEM_STATIONS, 
                                          priority=5,
@@ -32,6 +32,7 @@ class downloadPageAPI:
         self.selected_stations_id_for_download = []
         self.selected_train = None
         self.selected_camera = None
+        self.selected_date = None
         self.station_logs  = []
         self.stations_archives:dict[str, archiveManager] = {}
         self.stations_passed_train_filter = []
@@ -146,6 +147,7 @@ class downloadPageAPI:
             pass
         
         #check if result of all station got
+        print(station_system)
         self.check_for_finish()
 
     def check_for_finish(self,):
@@ -181,7 +183,7 @@ class downloadPageAPI:
         if len(all_trains) == 0:
             self.uiHandler.ui.download_filter_message.show_message("No Trains Found", msg_type='error', display_time=4000)
 
-        self.filter_step +=1
+        self.filter_step =1
         self.uiHandler.set_filter_form_step(self.filter_step, self.FILTER_STEP_FINAL)
 
 
@@ -213,21 +215,44 @@ class downloadPageAPI:
         available_dates = list(set(available_dates))
         self.uiHandler.calendar_dialog.set_avaiable_date_ranges(available_dates)
 
-        self.filter_step +=1
+        self.selected_date = None
+        self.uiHandler.calendar_dialog.set_date(self.selected_date)
+
+        self.filter_step =2
         self.uiHandler.set_filter_form_step(self.filter_step, self.FILTER_STEP_FINAL)
 
+
+    
     def step2_filter(self,):
-        print(self.uiHandler.calendar_dialog)
+        #select date
+        if not self.selected_date:
+            self.uiHandler.ui.download_filter_message.show_message("Please Select A Date", msg_type='error', display_time=4000)
+        
+        self.station_passed_date_filter = []
+        all_times = []
+
+        for name in self.stations_passed_train_filter:
+            arcihve = self.stations_archives[name]
+            avaialbe_dates = arcihve.get_avaiable_dates(self.selected_train)
+
+            #check date exist in archive
+            if self.selected_date in avaialbe_dates[self.selected_camera]:
+                self.station_passed_date_filter.append(name)
+                times = arcihve.get_day_times(self.selected_train, self.selected_date, self.selected_camera)
+                all_times.extend(times)
+        
+        times_ranges = transormUtils.times2ranges(all_times, step_lenght_sec=600)
+        for clock in self.uiHandler.Clocks.values():
+            clock.set_time_ranges(times_ranges)
+
+        self.filter_step = 3
+        self.uiHandler.set_filter_form_step(self.filter_step, self.FILTER_STEP_FINAL)
 
     def date_select_event(self, date:JalaliDateTime):
         self.selected_date = date
 
-        self.station_passed_date_filter = []
-        for name in self.stations_passed_train_filter:
-            arcihve = self.stations_archives[name]
-            avaialbe_dates = arcihve.get_avaiable_dates(self.selected_date)
-            if self.selected_date in avaialbe_dates[self.selected_camera]:
-                self.station_passed_date_filter.append(name)
-        
+    
+    def step3_filter(self,):
+        pass
 
         
