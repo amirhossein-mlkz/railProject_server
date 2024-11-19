@@ -31,7 +31,7 @@ class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         if not MainWindow.objectName():
             MainWindow.setObjectName(u"MainWindow")
-        MainWindow.resize(1153, 749)
+        MainWindow.resize(1153, 750)
         MainWindow.setStyleSheet(u"")
         self.centralwidget = QWidget(MainWindow)
         self.centralwidget.setObjectName(u"centralwidget")
@@ -251,11 +251,11 @@ class Ui_MainWindow(object):
 "\n"
 "    text-align:centre;\n"
 "        \n"
-"	color: : rgb(83, 83, 83);\n"
-"        border: 1px solid #444444;  /* \u062d\u0627\u0634\u06cc\u0647 \u062f\u0648\u0631"
-                        " \u062c\u062f\u0648\u0644 */\n"
-"        gridline-color: #555555;  /* \u0631\u0646\u06af \u062e\u0637\u0648\u0637 \u0634\u0628\u06a9\u0647 \u0628\u06cc\u0646 \u0633\u0644\u0648\u0644\u200c\u0647\u0627 */\n"
-"        font-size: 14px;  /* \u0627\u0646\u062f\u0627\u0632\u0647 \u0641\u0648\u0646\u062a */\n"
+"	color: rgb(220, 220, 220);\n"
+"	border: 1px solid #444444;  /* \u062d\u0627\u0634\u06cc\u0647 \u062f\u0648\u0631 \u062c"
+                        "\u062f\u0648\u0644 */\n"
+"	gridline-color: #555555;  /* \u0631\u0646\u06af \u062e\u0637\u0648\u0637 \u0634\u0628\u06a9\u0647 \u0628\u06cc\u0646 \u0633\u0644\u0648\u0644\u200c\u0647\u0627 */\n"
+"	font-size: 14px;  /* \u0627\u0646\u062f\u0627\u0632\u0647 \u0641\u0648\u0646\u062a */\n"
 "    }\n"
 "\n"
 "    QHeaderView {\n"
@@ -266,8 +266,8 @@ class Ui_MainWindow(object):
 "    }\n"
 "\n"
 "    QHeaderView::section {\n"
-"        background-color: transparent;  /* \u0631\u0646\u06af \u067e\u0633"
-                        "\u200c\u0632\u0645\u06cc\u0646\u0647 \u0633\u0631\u0633\u062a\u0648\u0646\u200c\u0647\u0627 */\n"
+"        background-color: transparent;  /* \u0631\u0646\u06af \u067e\u0633\u200c\u0632\u0645"
+                        "\u06cc\u0646\u0647 \u0633\u0631\u0633\u062a\u0648\u0646\u200c\u0647\u0627 */\n"
 "        color: #ffffff;  /* \u0631\u0646\u06af \u0645\u062a\u0646 \u0633\u0631\u0633\u062a\u0648\u0646\u200c\u0647\u0627 */\n"
 "        padding: 5px;  /* \u0641\u0636\u0627\u06cc \u062f\u0627\u062e\u0644\u06cc \u0633\u0631\u0633\u062a\u0648\u0646\u200c\u0647\u0627 */\n"
 "        border: none;  /* \u062d\u0630\u0641 \u062d\u0627\u0634\u06cc\u0647 \u0633\u0631\u0633\u062a\u0648\u0646\u200c\u0647\u0627 */\n"
@@ -279,8 +279,8 @@ class Ui_MainWindow(object):
 "\n"
 "QCheckBox {\n"
 "        spacing: 5px;  /* \u0641\u0627\u0635\u0644\u0647 \u0628\u06cc\u0646 \u062a\u06cc\u06a9 \u0648 \u0645\u062a\u0646 */\n"
-"        font-size:"
-                        " 16px;  /* \u0627\u0646\u062f\u0627\u0632\u0647 \u0641\u0648\u0646\u062a */\n"
+"        font-size: 16px;  /* \u0627\u0646"
+                        "\u062f\u0627\u0632\u0647 \u0641\u0648\u0646\u062a */\n"
 "        color: #ffffff;  /* \u0631\u0646\u06af \u0645\u062a\u0646 */\n"
 "    }\n"
 "\n"
@@ -293,8 +293,8 @@ class Ui_MainWindow(object):
 "    }\n"
 "\n"
 "    QCheckBox::indicator:checked {\n"
-"        background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0 rgba(39, 83, 237, 255), stop:0.516484 rgba(118, 22, 228, 255));  /* \u0631\u0646\u06af"
-                        " \u067e\u0633\u200c\u0632\u0645\u06cc\u0646\u0647 \u0686\u06a9 \u0628\u0627\u06a9\u0633 \u062f\u0631 \u062d\u0627\u0644\u062a \u062a\u06cc\u06a9 \u062e\u0648\u0631\u062f\u0647 */\n"
+"        background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0 rgba(39, 83, 237, 255), stop:0.516484 rgba(118, 22, 228, 255));  /* \u0631\u0646\u06af \u067e\u0633\u200c"
+                        "\u0632\u0645\u06cc\u0646\u0647 \u0686\u06a9 \u0628\u0627\u06a9\u0633 \u062f\u0631 \u062d\u0627\u0644\u062a \u062a\u06cc\u06a9 \u062e\u0648\u0631\u062f\u0647 */\n"
 "        border: 2px solid rgb(192, 197, 217);  /* \u062d\u0627\u0634\u06cc\u0647 \u0686\u06a9 \u0628\u0627\u06a9\u0633 \u062f\u0631 \u062d\u0627\u0644\u062a \u062a\u06cc\u06a9 \u062e\u0648\u0631\u062f\u0647 */\n"
 "\n"
 "		background-image: url(:/icons/icons/check-wight-24.png);  /* \u0645\u0633\u06cc\u0631 \u0622\u06cc\u06a9\u0648\u0646 \u0686\u06a9 */\n"
@@ -302,9 +302,9 @@ class Ui_MainWindow(object):
 "        background-position: center;  /* \u062a\u0631\u0627\u0632 \u06a9\u0631\u062f\u0646 \u0622\u06cc\u06a9\u0648\u0646 \u062f\u0631 \u0648\u0633\u0637 */\n"
 "		border: 2px solid qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0 rgba(39, 83, 237, 255), stop:0.516484 rgba(118, 22, 228, 255));\n"
 "    }\n"
-""
-                        "\n"
-"    QCheckBox::indicator:unchecked:hover {\n"
+"\n"
+"    QCheckBox"
+                        "::indicator:unchecked:hover {\n"
 "        border: 2px solid rgb(99, 39, 232);  /* \u062d\u0627\u0634\u06cc\u0647 \u0686\u06a9 \u0628\u0627\u06a9\u0633 \u062f\u0631 \u062d\u0627\u0644\u062a \u063a\u06cc\u0631\u0641\u0639\u0627\u0644 \u0648 \u0647\u0646\u06af\u0627\u0645\u06cc \u06a9\u0647 \u0645\u0627\u0648\u0633 \u0631\u0648\u06cc \u0622\u0646 \u0627\u0633\u062a */\n"
 "    }\n"
 "\n"
@@ -1184,7 +1184,7 @@ class Ui_MainWindow(object):
         self.scrollArea_2.setWidgetResizable(True)
         self.scrollAreaWidgetContents_2 = QWidget()
         self.scrollAreaWidgetContents_2.setObjectName(u"scrollAreaWidgetContents_2")
-        self.scrollAreaWidgetContents_2.setGeometry(QRect(0, 0, 254, 573))
+        self.scrollAreaWidgetContents_2.setGeometry(QRect(0, 0, 486, 573))
         self.scrollAreaWidgetContents_2.setStyleSheet(u"")
         self.verticalLayout_7 = QVBoxLayout(self.scrollAreaWidgetContents_2)
         self.verticalLayout_7.setObjectName(u"verticalLayout_7")
@@ -1327,35 +1327,11 @@ class Ui_MainWindow(object):
         self.system_stations_table.setHorizontalHeaderItem(1, __qtablewidgetitem1)
         __qtablewidgetitem2 = QTableWidgetItem()
         self.system_stations_table.setHorizontalHeaderItem(2, __qtablewidgetitem2)
-        if (self.system_stations_table.rowCount() < 3):
-            self.system_stations_table.setRowCount(3)
-        __qtablewidgetitem3 = QTableWidgetItem()
-        self.system_stations_table.setVerticalHeaderItem(0, __qtablewidgetitem3)
-        __qtablewidgetitem4 = QTableWidgetItem()
-        self.system_stations_table.setVerticalHeaderItem(1, __qtablewidgetitem4)
-        __qtablewidgetitem5 = QTableWidgetItem()
-        self.system_stations_table.setVerticalHeaderItem(2, __qtablewidgetitem5)
-        __qtablewidgetitem6 = QTableWidgetItem()
-        self.system_stations_table.setItem(0, 0, __qtablewidgetitem6)
-        __qtablewidgetitem7 = QTableWidgetItem()
-        self.system_stations_table.setItem(0, 1, __qtablewidgetitem7)
-        __qtablewidgetitem8 = QTableWidgetItem()
-        self.system_stations_table.setItem(0, 2, __qtablewidgetitem8)
-        __qtablewidgetitem9 = QTableWidgetItem()
-        self.system_stations_table.setItem(1, 0, __qtablewidgetitem9)
-        __qtablewidgetitem10 = QTableWidgetItem()
-        self.system_stations_table.setItem(1, 1, __qtablewidgetitem10)
-        __qtablewidgetitem11 = QTableWidgetItem()
-        self.system_stations_table.setItem(1, 2, __qtablewidgetitem11)
-        __qtablewidgetitem12 = QTableWidgetItem()
-        self.system_stations_table.setItem(2, 0, __qtablewidgetitem12)
-        __qtablewidgetitem13 = QTableWidgetItem()
-        self.system_stations_table.setItem(2, 2, __qtablewidgetitem13)
         self.system_stations_table.setObjectName(u"system_stations_table")
-        self.system_stations_table.setStyleSheet(u"border:none;")
+        self.system_stations_table.setStyleSheet(u"")
         self.system_stations_table.setVerticalScrollBarPolicy(Qt.ScrollBarPolicy.ScrollBarAsNeeded)
         self.system_stations_table.setEditTriggers(QAbstractItemView.EditTrigger.NoEditTriggers)
-        self.system_stations_table.setAlternatingRowColors(True)
+        self.system_stations_table.setAlternatingRowColors(False)
         self.system_stations_table.setSelectionMode(QAbstractItemView.SelectionMode.NoSelection)
         self.system_stations_table.setSelectionBehavior(QAbstractItemView.SelectionBehavior.SelectItems)
         self.system_stations_table.horizontalHeader().setStretchLastSection(True)
@@ -1375,7 +1351,7 @@ class Ui_MainWindow(object):
         self.scrollArea.setWidgetResizable(True)
         self.scrollAreaWidgetContents = QWidget()
         self.scrollAreaWidgetContents.setObjectName(u"scrollAreaWidgetContents")
-        self.scrollAreaWidgetContents.setGeometry(QRect(0, 0, 218, 402))
+        self.scrollAreaWidgetContents.setGeometry(QRect(0, 0, 468, 548))
         self.verticalLayout_5 = QVBoxLayout(self.scrollAreaWidgetContents)
         self.verticalLayout_5.setObjectName(u"verticalLayout_5")
         self.gridLayout_2 = QGridLayout()
@@ -1640,14 +1616,14 @@ class Ui_MainWindow(object):
         self.download_filter_station_log = QTableWidget(self.step1)
         if (self.download_filter_station_log.columnCount() < 2):
             self.download_filter_station_log.setColumnCount(2)
-        __qtablewidgetitem14 = QTableWidgetItem()
-        self.download_filter_station_log.setHorizontalHeaderItem(0, __qtablewidgetitem14)
-        __qtablewidgetitem15 = QTableWidgetItem()
-        self.download_filter_station_log.setHorizontalHeaderItem(1, __qtablewidgetitem15)
+        __qtablewidgetitem3 = QTableWidgetItem()
+        self.download_filter_station_log.setHorizontalHeaderItem(0, __qtablewidgetitem3)
+        __qtablewidgetitem4 = QTableWidgetItem()
+        self.download_filter_station_log.setHorizontalHeaderItem(1, __qtablewidgetitem4)
         if (self.download_filter_station_log.rowCount() < 1):
             self.download_filter_station_log.setRowCount(1)
-        __qtablewidgetitem16 = QTableWidgetItem()
-        self.download_filter_station_log.setVerticalHeaderItem(0, __qtablewidgetitem16)
+        __qtablewidgetitem5 = QTableWidgetItem()
+        self.download_filter_station_log.setVerticalHeaderItem(0, __qtablewidgetitem5)
         self.download_filter_station_log.setObjectName(u"download_filter_station_log")
         self.download_filter_station_log.horizontalHeader().setCascadingSectionResizes(False)
         self.download_filter_station_log.horizontalHeader().setStretchLastSection(True)
@@ -1877,18 +1853,18 @@ class Ui_MainWindow(object):
         self.download_stations_table = QTableWidget(self.step0)
         if (self.download_stations_table.columnCount() < 2):
             self.download_stations_table.setColumnCount(2)
-        __qtablewidgetitem17 = QTableWidgetItem()
-        self.download_stations_table.setHorizontalHeaderItem(0, __qtablewidgetitem17)
-        __qtablewidgetitem18 = QTableWidgetItem()
-        self.download_stations_table.setHorizontalHeaderItem(1, __qtablewidgetitem18)
+        __qtablewidgetitem6 = QTableWidgetItem()
+        self.download_stations_table.setHorizontalHeaderItem(0, __qtablewidgetitem6)
+        __qtablewidgetitem7 = QTableWidgetItem()
+        self.download_stations_table.setHorizontalHeaderItem(1, __qtablewidgetitem7)
         if (self.download_stations_table.rowCount() < 3):
             self.download_stations_table.setRowCount(3)
-        __qtablewidgetitem19 = QTableWidgetItem()
-        self.download_stations_table.setVerticalHeaderItem(0, __qtablewidgetitem19)
-        __qtablewidgetitem20 = QTableWidgetItem()
-        self.download_stations_table.setVerticalHeaderItem(1, __qtablewidgetitem20)
-        __qtablewidgetitem21 = QTableWidgetItem()
-        self.download_stations_table.setVerticalHeaderItem(2, __qtablewidgetitem21)
+        __qtablewidgetitem8 = QTableWidgetItem()
+        self.download_stations_table.setVerticalHeaderItem(0, __qtablewidgetitem8)
+        __qtablewidgetitem9 = QTableWidgetItem()
+        self.download_stations_table.setVerticalHeaderItem(1, __qtablewidgetitem9)
+        __qtablewidgetitem10 = QTableWidgetItem()
+        self.download_stations_table.setVerticalHeaderItem(2, __qtablewidgetitem10)
         self.download_stations_table.setObjectName(u"download_stations_table")
         self.download_stations_table.setMinimumSize(QSize(100, 100))
         self.download_stations_table.setStyleSheet(u"border:none;")
@@ -1936,6 +1912,23 @@ class Ui_MainWindow(object):
         self.download_results_frame.setFrameShape(QFrame.Shape.NoFrame)
         self.verticalLayout_26 = QVBoxLayout(self.download_results_frame)
         self.verticalLayout_26.setObjectName(u"verticalLayout_26")
+        self.downloadsSectionsscrollArea = QScrollArea(self.download_results_frame)
+        self.downloadsSectionsscrollArea.setObjectName(u"downloadsSectionsscrollArea")
+        self.downloadsSectionsscrollArea.setWidgetResizable(True)
+        self.downloadsSectionsscrollContents = QWidget()
+        self.downloadsSectionsscrollContents.setObjectName(u"downloadsSectionsscrollContents")
+        self.downloadsSectionsscrollContents.setGeometry(QRect(0, 0, 497, 664))
+        self.verticalLayout_29 = QVBoxLayout(self.downloadsSectionsscrollContents)
+        self.verticalLayout_29.setSpacing(30)
+        self.verticalLayout_29.setObjectName(u"verticalLayout_29")
+        self.verticalSpacer_11 = QSpacerItem(20, 40, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Expanding)
+
+        self.verticalLayout_29.addItem(self.verticalSpacer_11)
+
+        self.downloadsSectionsscrollArea.setWidget(self.downloadsSectionsscrollContents)
+
+        self.verticalLayout_26.addWidget(self.downloadsSectionsscrollArea)
+
         self.splitter.addWidget(self.download_results_frame)
 
         self.horizontalLayout_6.addWidget(self.splitter)
@@ -1985,9 +1978,9 @@ class Ui_MainWindow(object):
         self.retranslateUi(MainWindow)
 
         self.pages_stackwidget.setCurrentIndex(3)
-        self.setting_tab_widget.setCurrentIndex(1)
+        self.setting_tab_widget.setCurrentIndex(0)
         self.system_station_tabwidget.setCurrentIndex(1)
-        self.download_filter_stackWidget.setCurrentIndex(2)
+        self.download_filter_stackWidget.setCurrentIndex(3)
 
 
         QMetaObject.connectSlotsByName(MainWindow)
@@ -2073,33 +2066,6 @@ class Ui_MainWindow(object):
         ___qtablewidgetitem1.setText(QCoreApplication.translate("MainWindow", u"city", None));
         ___qtablewidgetitem2 = self.system_stations_table.horizontalHeaderItem(2)
         ___qtablewidgetitem2.setText(QCoreApplication.translate("MainWindow", u"ip", None));
-        ___qtablewidgetitem3 = self.system_stations_table.verticalHeaderItem(0)
-        ___qtablewidgetitem3.setText(QCoreApplication.translate("MainWindow", u"fdsf", None));
-        ___qtablewidgetitem4 = self.system_stations_table.verticalHeaderItem(1)
-        ___qtablewidgetitem4.setText(QCoreApplication.translate("MainWindow", u"sdfsf", None));
-        ___qtablewidgetitem5 = self.system_stations_table.verticalHeaderItem(2)
-        ___qtablewidgetitem5.setText(QCoreApplication.translate("MainWindow", u"New Row", None));
-
-        __sortingEnabled = self.system_stations_table.isSortingEnabled()
-        self.system_stations_table.setSortingEnabled(False)
-        ___qtablewidgetitem6 = self.system_stations_table.item(0, 0)
-        ___qtablewidgetitem6.setText(QCoreApplication.translate("MainWindow", u"dsfs", None));
-        ___qtablewidgetitem7 = self.system_stations_table.item(0, 1)
-        ___qtablewidgetitem7.setText(QCoreApplication.translate("MainWindow", u"dfsfsdf", None));
-        ___qtablewidgetitem8 = self.system_stations_table.item(0, 2)
-        ___qtablewidgetitem8.setText(QCoreApplication.translate("MainWindow", u"sdfsf", None));
-        ___qtablewidgetitem9 = self.system_stations_table.item(1, 0)
-        ___qtablewidgetitem9.setText(QCoreApplication.translate("MainWindow", u"dfsf", None));
-        ___qtablewidgetitem10 = self.system_stations_table.item(1, 1)
-        ___qtablewidgetitem10.setText(QCoreApplication.translate("MainWindow", u"sfs", None));
-        ___qtablewidgetitem11 = self.system_stations_table.item(1, 2)
-        ___qtablewidgetitem11.setText(QCoreApplication.translate("MainWindow", u"sfsf", None));
-        ___qtablewidgetitem12 = self.system_stations_table.item(2, 0)
-        ___qtablewidgetitem12.setText(QCoreApplication.translate("MainWindow", u"sf", None));
-        ___qtablewidgetitem13 = self.system_stations_table.item(2, 2)
-        ___qtablewidgetitem13.setText(QCoreApplication.translate("MainWindow", u"sdfs", None));
-        self.system_stations_table.setSortingEnabled(__sortingEnabled)
-
         self.modify_form_frame.setProperty("styleClass", QCoreApplication.translate("MainWindow", u"hide", None))
         self.scrollArea.setProperty("styleClass", QCoreApplication.translate("MainWindow", u"hide", None))
         self.scrollAreaWidgetContents.setProperty("styleClass", QCoreApplication.translate("MainWindow", u"hide", None))
@@ -2127,12 +2093,12 @@ class Ui_MainWindow(object):
         self.label_9.setProperty("styleClass", QCoreApplication.translate("MainWindow", u"h3", None))
         self.label_8.setText(QCoreApplication.translate("MainWindow", u"Trains:", None))
         self.label_8.setProperty("styleClass", QCoreApplication.translate("MainWindow", u"h3", None))
-        ___qtablewidgetitem14 = self.download_filter_station_log.horizontalHeaderItem(0)
-        ___qtablewidgetitem14.setText(QCoreApplication.translate("MainWindow", u"New Column", None));
-        ___qtablewidgetitem15 = self.download_filter_station_log.horizontalHeaderItem(1)
-        ___qtablewidgetitem15.setText(QCoreApplication.translate("MainWindow", u"New Column", None));
-        ___qtablewidgetitem16 = self.download_filter_station_log.verticalHeaderItem(0)
-        ___qtablewidgetitem16.setText(QCoreApplication.translate("MainWindow", u"New Row", None));
+        ___qtablewidgetitem3 = self.download_filter_station_log.horizontalHeaderItem(0)
+        ___qtablewidgetitem3.setText(QCoreApplication.translate("MainWindow", u"New Column", None));
+        ___qtablewidgetitem4 = self.download_filter_station_log.horizontalHeaderItem(1)
+        ___qtablewidgetitem4.setText(QCoreApplication.translate("MainWindow", u"New Column", None));
+        ___qtablewidgetitem5 = self.download_filter_station_log.verticalHeaderItem(0)
+        ___qtablewidgetitem5.setText(QCoreApplication.translate("MainWindow", u"New Row", None));
         self.step2.setProperty("styleClass", QCoreApplication.translate("MainWindow", u"hide", None))
         self.label_6.setText(QCoreApplication.translate("MainWindow", u"Please Select Date:", None))
         self.label_11.setText(QCoreApplication.translate("MainWindow", u"Calendar", None))
@@ -2150,19 +2116,21 @@ class Ui_MainWindow(object):
         self.label_4.setProperty("styleClass", QCoreApplication.translate("MainWindow", u"h3", None))
         self.download_all_stations_checkbox.setText(QCoreApplication.translate("MainWindow", u"All", None))
         self.download_search_station.setPlaceholderText(QCoreApplication.translate("MainWindow", u"Search name", None))
-        ___qtablewidgetitem17 = self.download_stations_table.horizontalHeaderItem(0)
-        ___qtablewidgetitem17.setText(QCoreApplication.translate("MainWindow", u"New Column", None));
-        ___qtablewidgetitem18 = self.download_stations_table.horizontalHeaderItem(1)
-        ___qtablewidgetitem18.setText(QCoreApplication.translate("MainWindow", u"New Column", None));
-        ___qtablewidgetitem19 = self.download_stations_table.verticalHeaderItem(0)
-        ___qtablewidgetitem19.setText(QCoreApplication.translate("MainWindow", u"New Row", None));
-        ___qtablewidgetitem20 = self.download_stations_table.verticalHeaderItem(1)
-        ___qtablewidgetitem20.setText(QCoreApplication.translate("MainWindow", u"New Row", None));
-        ___qtablewidgetitem21 = self.download_stations_table.verticalHeaderItem(2)
-        ___qtablewidgetitem21.setText(QCoreApplication.translate("MainWindow", u"New Row", None));
+        ___qtablewidgetitem6 = self.download_stations_table.horizontalHeaderItem(0)
+        ___qtablewidgetitem6.setText(QCoreApplication.translate("MainWindow", u"New Column", None));
+        ___qtablewidgetitem7 = self.download_stations_table.horizontalHeaderItem(1)
+        ___qtablewidgetitem7.setText(QCoreApplication.translate("MainWindow", u"New Column", None));
+        ___qtablewidgetitem8 = self.download_stations_table.verticalHeaderItem(0)
+        ___qtablewidgetitem8.setText(QCoreApplication.translate("MainWindow", u"New Row", None));
+        ___qtablewidgetitem9 = self.download_stations_table.verticalHeaderItem(1)
+        ___qtablewidgetitem9.setText(QCoreApplication.translate("MainWindow", u"New Row", None));
+        ___qtablewidgetitem10 = self.download_stations_table.verticalHeaderItem(2)
+        ___qtablewidgetitem10.setText(QCoreApplication.translate("MainWindow", u"New Row", None));
         self.download_filter_prev_btn.setText(QCoreApplication.translate("MainWindow", u"Previous", None))
         self.download_filter_prev_btn.setProperty("styleClass", QCoreApplication.translate("MainWindow", u"fill_gradient_purple_btn", None))
         self.download_filter_next_btn.setText(QCoreApplication.translate("MainWindow", u"Next", None))
         self.download_filter_next_btn.setProperty("styleClass", QCoreApplication.translate("MainWindow", u"fill_gradient_purple_btn", None))
+        self.downloadsSectionsscrollArea.setProperty("styleClass", QCoreApplication.translate("MainWindow", u"hide", None))
+        self.downloadsSectionsscrollContents.setProperty("styleClass", QCoreApplication.translate("MainWindow", u"hide", None))
     # retranslateUi
 

@@ -92,11 +92,14 @@ class downloadPageAPI:
         if self.filter_step == 0:
             self.step0_filter()
         
-        if self.filter_step == 1:
+        elif self.filter_step == 1:
             self.step1_filter()
 
-        if self.filter_step == 2:
+        elif self.filter_step == 2:
             self.step2_filter()
+
+        elif self.filter_step == 3:
+            self.step3_filter()
 
     def prev_filter_step(self,):
         self.filter_step = max(self.filter_step-1, 0)
@@ -227,6 +230,7 @@ class downloadPageAPI:
         #select date
         if not self.selected_date:
             self.uiHandler.ui.download_filter_message.show_message("Please Select A Date", msg_type='error', display_time=4000)
+            return
         
         self.station_passed_date_filter = []
         all_times = []
@@ -241,9 +245,9 @@ class downloadPageAPI:
                 times = arcihve.get_day_times(self.selected_train, self.selected_date, self.selected_camera)
                 all_times.extend(times)
         
-        times_ranges = transormUtils.times2ranges(all_times, step_lenght_sec=600)
+        self.times_ranges = transormUtils.times2ranges(all_times, step_lenght_sec=600)
         for clock in self.uiHandler.Clocks.values():
-            clock.set_time_ranges(times_ranges)
+            clock.set_time_ranges(self.times_ranges)
 
         self.filter_step = 3
         self.uiHandler.set_filter_form_step(self.filter_step, self.FILTER_STEP_FINAL)
@@ -253,6 +257,8 @@ class downloadPageAPI:
 
     
     def step3_filter(self,):
-        pass
+        start_time , end_time = self.uiHandler.get_selected_time_range()
+        start_datetime = JalaliDateTime.combine(self.selected_date, start_time)
+        end_datetime   = JalaliDateTime.combine(self.selected_date, end_time)
 
         

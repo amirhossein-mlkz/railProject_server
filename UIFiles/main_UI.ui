@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1153</width>
-    <height>749</height>
+    <height>750</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -230,10 +230,10 @@ QLineEdit:disabled{
 
     text-align:centre;
         
-	color: : rgb(83, 83, 83);
-        border: 1px solid #444444;  /* حاشیه دور جدول */
-        gridline-color: #555555;  /* رنگ خطوط شبکه بین سلول‌ها */
-        font-size: 14px;  /* اندازه فونت */
+	color: rgb(220, 220, 220);
+	border: 1px solid #444444;  /* حاشیه دور جدول */
+	gridline-color: #555555;  /* رنگ خطوط شبکه بین سلول‌ها */
+	font-size: 14px;  /* اندازه فونت */
     }
 
     QHeaderView {
@@ -2017,7 +2017,7 @@ QPushButton:disabled {
                  <string notr="true"/>
                 </property>
                 <property name="currentIndex">
-                 <number>1</number>
+                 <number>0</number>
                 </property>
                 <widget class="QWidget" name="system_station_tab">
                  <property name="styleClass" stdset="0">
@@ -2071,7 +2071,7 @@ QPushButton:disabled {
                           <rect>
                            <x>0</x>
                            <y>0</y>
-                           <width>254</width>
+                           <width>486</width>
                            <height>573</height>
                           </rect>
                          </property>
@@ -2361,7 +2361,7 @@ QPushButton:disabled {
                       <item>
                        <widget class="QTableWidget" name="system_stations_table">
                         <property name="styleSheet">
-                         <string notr="true">border:none;</string>
+                         <string notr="true"/>
                         </property>
                         <property name="verticalScrollBarPolicy">
                          <enum>Qt::ScrollBarPolicy::ScrollBarAsNeeded</enum>
@@ -2370,7 +2370,7 @@ QPushButton:disabled {
                          <set>QAbstractItemView::EditTrigger::NoEditTriggers</set>
                         </property>
                         <property name="alternatingRowColors">
-                         <bool>true</bool>
+                         <bool>false</bool>
                         </property>
                         <property name="selectionMode">
                          <enum>QAbstractItemView::SelectionMode::NoSelection</enum>
@@ -2384,21 +2384,6 @@ QPushButton:disabled {
                         <attribute name="verticalHeaderVisible">
                          <bool>false</bool>
                         </attribute>
-                        <row>
-                         <property name="text">
-                          <string>fdsf</string>
-                         </property>
-                        </row>
-                        <row>
-                         <property name="text">
-                          <string>sdfsf</string>
-                         </property>
-                        </row>
-                        <row>
-                         <property name="text">
-                          <string>New Row</string>
-                         </property>
-                        </row>
                         <column>
                          <property name="text">
                           <string>name</string>
@@ -2414,46 +2399,6 @@ QPushButton:disabled {
                           <string>ip</string>
                          </property>
                         </column>
-                        <item row="0" column="0">
-                         <property name="text">
-                          <string>dsfs</string>
-                         </property>
-                        </item>
-                        <item row="0" column="1">
-                         <property name="text">
-                          <string>dfsfsdf</string>
-                         </property>
-                        </item>
-                        <item row="0" column="2">
-                         <property name="text">
-                          <string>sdfsf</string>
-                         </property>
-                        </item>
-                        <item row="1" column="0">
-                         <property name="text">
-                          <string>dfsf</string>
-                         </property>
-                        </item>
-                        <item row="1" column="1">
-                         <property name="text">
-                          <string>sfs</string>
-                         </property>
-                        </item>
-                        <item row="1" column="2">
-                         <property name="text">
-                          <string>sfsf</string>
-                         </property>
-                        </item>
-                        <item row="2" column="0">
-                         <property name="text">
-                          <string>sf</string>
-                         </property>
-                        </item>
-                        <item row="2" column="2">
-                         <property name="text">
-                          <string>sdfs</string>
-                         </property>
-                        </item>
                        </widget>
                       </item>
                       <item>
@@ -2487,8 +2432,8 @@ QPushButton:disabled {
                              <rect>
                               <x>0</x>
                               <y>0</y>
-                              <width>218</width>
-                              <height>402</height>
+                              <width>468</width>
+                              <height>548</height>
                              </rect>
                             </property>
                             <property name="styleClass" stdset="0">
@@ -2862,7 +2807,7 @@ background-color:rgb(49, 44, 53);
                      <string notr="true"/>
                     </property>
                     <property name="currentIndex">
-                     <number>2</number>
+                     <number>3</number>
                     </property>
                     <property name="styleClass" stdset="0">
                      <string/>
@@ -3486,7 +3431,49 @@ font-weight:bold;</string>
                  <property name="frameShape">
                   <enum>QFrame::Shape::NoFrame</enum>
                  </property>
-                 <layout class="QVBoxLayout" name="verticalLayout_26"/>
+                 <layout class="QVBoxLayout" name="verticalLayout_26">
+                  <item>
+                   <widget class="QScrollArea" name="downloadsSectionsscrollArea">
+                    <property name="widgetResizable">
+                     <bool>true</bool>
+                    </property>
+                    <property name="styleClass" stdset="0">
+                     <string>hide</string>
+                    </property>
+                    <widget class="QWidget" name="downloadsSectionsscrollContents">
+                     <property name="geometry">
+                      <rect>
+                       <x>0</x>
+                       <y>0</y>
+                       <width>497</width>
+                       <height>664</height>
+                      </rect>
+                     </property>
+                     <property name="styleClass" stdset="0">
+                      <string>hide</string>
+                     </property>
+                     <layout class="QVBoxLayout" name="verticalLayout_29">
+                      <property name="spacing">
+                       <number>30</number>
+                      </property>
+                      <item>
+                       <spacer name="verticalSpacer_11">
+                        <property name="orientation">
+                         <enum>Qt::Orientation::Vertical</enum>
+                        </property>
+                        <property name="sizeHint" stdset="0">
+                         <size>
+                          <width>20</width>
+                          <height>40</height>
+                         </size>
+                        </property>
+                       </spacer>
+                      </item>
+                     </layout>
+                    </widget>
+                   </widget>
+                  </item>
+                 </layout>
                 </widget>
                </widget>
               </item>

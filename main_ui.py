@@ -3,6 +3,8 @@ import os,sys
 from login_qt.Constants.Constants import UIPages
 os.system('pyside6-uic {} -o {}'.format(os.path.join('UIFiles', 'calendar.ui'), os.path.join('UIFiles', 'calendar.py')))
 os.system('pyside6-uic {} -o {}'.format(os.path.join('UIFiles', 'main_UI.ui'), os.path.join('UIFiles', 'main_UI.py')))
+os.system('pyside6-uic {} -o {}'.format(os.path.join('UIFiles', 'stationDownloadUI.ui'), os.path.join('UIFiles', 'stationDownload_UI.py')))
+
 
 os.system('CMD /C pyside6-rcc assets.qrc -o assets.py')#PySide
 os.system('pyside6-rcc {} -o {}'.format(os.path.join(r'login_qt\uiFiles\resources', 'resource.qrc'), os.path.join(r'', 'resource_rc.py')))
@@ -21,26 +23,26 @@ if login_directory not in sys.path:
 
 
 ##############################################################################################################################
+import sys,os,platform,time,subprocess,threading
 
 from PySide6.QtUiTools import loadUiType
 from PySide6 import QtCore as sQtCore
 from PySide6.QtWidgets import QMainWindow as sQMainWindow
 from PySide6.QtWidgets import QApplication as sQApplication
 from PySide6.QtWidgets import QVBoxLayout, QWidget, QComboBox, QGridLayout, QLabel, QDialog,QDialogButtonBox,QPushButton,QFrame , QStatusBar
-import sys,os,platform,time,subprocess,threading
 from copy_ping import ShareCopyWorker
 from persiantools.jdatetime import JalaliDateTime
-from uiUtils.guiBackend import GUIBackend
 from PySide6.QtCore import QTimer
 from PySide6.QtCore import Qt
-from UIFiles.main_UI import Ui_MainWindow
-
+from PySide6.QtWidgets import QStyleFactory
 from PySide6.QtWidgets import QGraphicsBlurEffect
 from PySide6.QtGui import QFont,QIcon
-# from timeLine import TimelineSlider
+
 from PagesUI.settingPageUI import settingPageUI
 from PagesUI.downloadPageUI import downloadPageUI
 from PagesUI.playbackPageUI import playbackPageUI
+from UIFiles.main_UI import Ui_MainWindow
+from uiUtils.guiBackend import GUIBackend
 import assets
 
 from PySide6.QtCore import Qt, QPropertyAnimation, QEasingCurve, QRect, QEvent
@@ -52,7 +54,7 @@ from backend.utils.ShowQuestion import show_question
 from backend.utils import texts
 from login import LoginPage
 from Export.export import UIExport
-from PySide6.QtWidgets import QStyleFactory
+
 
 # ui class
 class UI_main_window_org(sQMainWindow):
@@ -242,8 +244,6 @@ class UI_main_window_org(sQMainWindow):
 
 
     
-
-
 
     def set_user(self,is_login=True,user_name = ''):
 
@@ -549,19 +549,6 @@ class UI_main_window_org(sQMainWindow):
     
 
     
-
-
-    
-            
-
-    
-
-
-
-
-
-
-
 
 
 

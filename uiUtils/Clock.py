@@ -15,21 +15,25 @@ class ClockWidget(QWidget):
                  is_am=True, 
                  time_ranges=None, 
                  show_all_hours=False, 
+                 show_main_hours = True,
                  hour_text_color=QColor("black"),
                  guide_line_color=QColor("gray"),
                  outline_color=QColor("black"),
                  avaiable_color=QColor("green"),
+                 w=200,
+                 h=200,
                  parent=None):
         super().__init__(parent)
         self.is_am = is_am
         self.time_ranges = time_ranges if time_ranges else []
         self.show_all_hours = show_all_hours
+        self.show_main_hours = show_main_hours
         self.hour_text_color = hour_text_color
         self.guide_line_color = guide_line_color
         self.outline_color = outline_color
         self.avaiable_color = avaiable_color
         self.external_click_event_func = None
-        self.setMinimumSize(200, 200)
+        self.setMinimumSize(w,h)
         self.setMouseTracking(True)  # Enable tracking for mouseMoveEvent
         self.setFocusPolicy(Qt.StrongFocus)  # Ensure widget can receive focus for events
 
@@ -41,12 +45,16 @@ class ClockWidget(QWidget):
                 end = end.time()
 
             if self.is_am:
-                if time(0,0) <= start < time(12,0) or time(0,0) <= end < time(12,0):
+                if end >= time(12,0):
+                    end = time(11,59,59)
+                if time(0,0) <= start < time(12,0) and time(0,0) <= end < time(12,0):
                     self.time_ranges.append((start, end))
                 else:
                     continue
             else:
-                if time(0,0) <= start < time(12,0) or time(0,0) <= end < time(12,0):
+                if time(0,0) <= end < time(12,0):
+                    end = time(23,59,59)
+                if time(0,0) <= start < time(12,0) and time(0,0) <= end < time(12,0):
                     continue
                 else:
                     self.time_ranges.append((start, end))
@@ -76,7 +84,7 @@ class ClockWidget(QWidget):
             angle = (hour - 3) * 30
             x = center.x() + (rect.width() / 2 - 30) * math.cos(math.radians(angle))
             y = center.y() + (rect.height() / 2 - 30) * math.sin(math.radians(angle))
-            if self.show_all_hours or hour in {3, 6, 9, 12}:
+            if self.show_all_hours or ( hour in {3, 6, 9, 12} and self.show_main_hours):
                 painter.drawText(x - 10, y + 10, f"{hour}{' AM' if self.is_am else ' PM'}")
 
             # Draw small guide lines next to each hour

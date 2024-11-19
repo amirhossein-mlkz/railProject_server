@@ -97,12 +97,14 @@ class settingPageUI:
 
             GUIBackend.set_table_cell_widget(table=self.ui.system_stations_table,
                                              index=(row_idx, headers.index('delete')),
-                                             widget=del_btn
+                                             widget=del_btn,
+                                             layout=True,
                                              )
             
             GUIBackend.set_table_cell_widget(table=self.ui.system_stations_table,
                                              index=(row_idx, headers.index('edit')),
-                                             widget=edit_btn
+                                             widget=edit_btn,
+                                             layout=True,
                                             )
     def show_confirmbox(self, title:str, text:str, buttons:list[str]):
         confirmbox = GUIComponents.confirmMessageBox(title, text, buttons)

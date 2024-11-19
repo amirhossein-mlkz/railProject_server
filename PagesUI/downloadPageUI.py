@@ -3,12 +3,15 @@ from datetime import time as dtime
 from PySide6.QtWidgets import QLabel
 from PySide6.QtGui import QPixmap, QIcon, QColor
 from PySide6.QtCore import Qt
+from persiantools.jdatetime import JalaliDateTime, timedelta
+from datetime import time as dt_time
 
 from UIFiles.main_UI import Ui_MainWindow
 from uiUtils.guiBackend import GUIBackend
 from uiUtils.Calendar import  JalaliCalendarDialog
 from uiUtils.Clock import ClockWidget
 from uiUtils import GUIComponents
+from downloadSectionUI import downloadSection
 
 class downloadPageUI:
 
@@ -30,6 +33,19 @@ class downloadPageUI:
         
         self.ui.download_filter_am_lock_wgt.layout().addWidget(self.Clocks['am'],  alignment=Qt.AlignCenter)
         self.ui.download_filter_pm_lock_wgt.layout().addWidget(self.Clocks['pm'],  alignment=Qt.AlignCenter)
+
+        sec1 = downloadSection(123,'Esfahan', JalaliDateTime.now())
+        sec2 = downloadSection(452,'Yazd', JalaliDateTime.now())
+        sec3 = downloadSection(651, 'Tehran', JalaliDateTime.now())
+        sec1.Clocks['pm'].set_time_ranges([(JalaliDateTime.now() - timedelta(minutes=250) , JalaliDateTime.now())])
+        sec2.Clocks['am'].set_time_ranges([(JalaliDateTime.now().replace(hour=8, minute=24), JalaliDateTime.now().replace(hour=14, minute=24) )])
+        self.add_download_section(sec1)
+        self.add_download_section(sec2)
+        self.add_download_section(sec3)
+
+        sec3.set_progess_value(63)
+
+
         
 
     #     time_ranges = [
@@ -152,4 +168,27 @@ class downloadPageUI:
         confirmbox = GUIComponents.confirmMessageBox(title, text, buttons)
         return confirmbox.render()
     
+
+    def add_download_section(self, section:downloadSection):   
+        GUIBackend.insert_widget(self.ui.downloadsSectionsscrollContents,
+                                 section,
+                                 pos=-1)
+
+    def remove_download_section(self, section:downloadSection):
+        layout = self.ui.downloadsSectionsscrollContents.layout()
+        layout.removeWidget(section)
+        section.deleteLater()
+
     
+    def get_selected_time_range(self, )-> tuple[JalaliDateTime, JalaliDateTime]:
+        s_h = GUIBackend.get_input_spinbox_value(self.ui.download_filter_from_h)
+        s_m = GUIBackend.get_input_spinbox_value(self.ui.download_filter_from_m)
+
+        e_h = GUIBackend.get_input_spinbox_value(self.ui.download_filter_to_h)
+        e_m = GUIBackend.get_input_spinbox_value(self.ui.download_filter_to_m)
+
+        start = dt_time(s_h, s_m, 0)
+        end = dt_time(e_h, e_m, 59)
+
+        return start, end
+        

@@ -6,7 +6,7 @@ from persiantools.jdatetime import JalaliDateTime, timedelta
 
 TABEL_BUTTON_STYLE = """
     QPushButton{ 
-        background-color: rgba(255,255,255,0);
+        background-color: transparent;
         min-height:0px; min-width:0px; 
         width:auto;
         qproperty-iconSize: 24px;

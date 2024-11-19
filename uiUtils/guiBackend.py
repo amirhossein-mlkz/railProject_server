@@ -58,6 +58,18 @@ class GUIBackend:
     @staticmethod
     def get_dynalic_property(wgt:QtWidgets.QWidget, name:str):
         return wgt.property(name)
+    
+    @staticmethod
+    def insert_widget(container:QtWidgets.QWidget, wgt:QtWidgets.QWidget, pos=None):
+        layout = container.layout()
+    
+        if pos is None:
+            layout.addWidget(wgt)
+        else:
+            if pos >= 0:
+                layout.insertWidget(pos, wgt)
+            else:
+                layout.insertWidget(layout.count() + pos, wgt)
 
     @staticmethod
     def set_max_size(wgt:QtWidgets.QWidget, h=None, w=None):
