@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>userProfile</class>
- <widget class="QWidget" name="userProfile">
+ <class>ExportDialog</class>
+ <widget class="QWidget" name="ExportDialog">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -688,7 +688,7 @@ QScrollBar::add-page:horizontal, QScrollBar::sub-page:horizontal {
                        </property>
                        <layout class="QHBoxLayout" name="horizontalLayout_6">
                         <item>
-                         <widget class="QSpinBox" name="spinBox_hour_start">
+                         <widget class="timeSpinBox" name="spinBox_hour_start">
                           <property name="minimumSize">
                            <size>
                             <width>60</width>
@@ -765,7 +765,7 @@ QSpinBox::down-arrow {
                          </widget>
                         </item>
                         <item>
-                         <widget class="QSpinBox" name="spinBox_minute_start">
+                         <widget class="timeSpinBox" name="spinBox_minute_start">
                           <property name="minimumSize">
                            <size>
                             <width>60</width>
@@ -872,7 +872,7 @@ QSpinBox::down-arrow {
                        </property>
                        <layout class="QHBoxLayout" name="horizontalLayout_7">
                         <item>
-                         <widget class="QSpinBox" name="spinBox_hour_end">
+                         <widget class="timeSpinBox" name="spinBox_hour_end">
                           <property name="minimumSize">
                            <size>
                             <width>60</width>
@@ -949,7 +949,7 @@ QSpinBox::down-arrow {
                          </widget>
                         </item>
                         <item>
-                         <widget class="QSpinBox" name="spinBox_minute_end">
+                         <widget class="timeSpinBox" name="spinBox_minute_end">
                           <property name="minimumSize">
                            <size>
                             <width>60</width>
@@ -1150,7 +1150,7 @@ color:#D43D41;</string>
                     </property>
                     <layout class="QVBoxLayout" name="verticalLayout_6">
                      <item alignment="Qt::AlignmentFlag::AlignHCenter">
-                      <widget class="QPushButton" name="btn_start_copy">
+                      <widget class="QPushButton" name="start_export_btn">
                        <property name="minimumSize">
                         <size>
                          <width>200</width>
@@ -1272,6 +1272,13 @@ QProgressBar:vertical {
    </item>
   </layout>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>timeSpinBox</class>
+   <extends>QSpinBox</extends>
+   <header>uiUtils.GUIComponents.h</header>
+  </customwidget>
+ </customwidgets>
  <resources>
   <include location="../resources/assets.qrc"/>
  </resources>

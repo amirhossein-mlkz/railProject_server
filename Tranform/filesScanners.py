@@ -20,11 +20,13 @@ class filesFinderWorker(QObject):
                  main_path:str, 
                  struct:list[str],
                  trains:list[str] = None, 
+                 status = None,
                  date_ranges:tuple[JalaliDateTime] = None,
                  log_search = False) -> None:
         super().__init__()    
         self.trains = trains
         self.date_ranges = date_ranges
+        self.status = status 
         self.temp_date_ranges = None
         if date_ranges is not None:
             self.temp_date_ranges = date_ranges[0], date_ranges[1]
@@ -251,11 +253,15 @@ class filesFinderWorker(QObject):
         #------------------------------check FILE-------------------------
          
         elif step_name == STRUCT_PARTS.FILE:
-            if self.date_ranges is None and self.trains is None:
+            if self.date_ranges is None and self.trains is None and self.status is None:
                 return True, date
             
-            date, train_id, camera = transormUtils.extract_file_name_info(sub)            
+            date, train_id, camera, status, extention = transormUtils.extract_file_name_info(sub)  
+                      
 
+            if self.status is not None:
+                if status.lower()!=self.status.lower():
+                    return False, date
             
             if self.trains is not None:
                 if not self.is_train_checked:
@@ -271,12 +277,12 @@ class filesFinderWorker(QObject):
                     if not( self.date_ranges[0] <= date <= self.date_ranges[1] ):
                         return False, date
             
+            
+            
             return True, date
         
         else:
             return True, date
-        
-
 
 
 
@@ -356,7 +362,8 @@ class updateArchiveWorker(QObject):
     
 
     def append_to_avaiability(self, path:str, fname:str):
-        date_time, train_id, camera = transormUtils.extract_file_name_info(fname)
+        date_time, train_id, camera, status, extention = transormUtils.extract_file_name_info(fname)
+        
         date_str = date_time.strftime('%Y-%m-%d')
         time_str = date_time.strftime('%H-%M-%S')
         

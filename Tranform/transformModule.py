@@ -6,7 +6,7 @@ import os
 from datetime import time as dtime
 from datetime import datetime
 
-from persiantools.jdatetime import JalaliDateTime, timedelta
+from persiantools.jdatetime import JalaliDateTime, timedelta, JalaliDate
 # from PySide6.QtCore import Signal, QObject
 
 try:
@@ -96,12 +96,13 @@ class transformModule:
         
 
 
-    def find_files(self, trains, dates_tange, finish_event_func, log_event_func=None,log_search=False):
+    def find_files(self, trains, dates_tange, status, finish_event_func, log_event_func=None,log_search=False):
         
         
         self.searcher_worker = filesFinderWorker(self.src_path,
                                                  trains=trains,
                                                  date_ranges=dates_tange,
+                                                 status = status,
                                                  struct=DIRECTORY_TREE,
                                                  log_search=log_search)
         if log_event_func is not None:
@@ -122,8 +123,9 @@ class transformModule:
         
         self.copy_worker.log_signal.connect(msg_callback)
         self.copy_worker.progress_signal.connect(progress_func)
-        self.copy_worker.speed_singnal.connect(speed_func)
         self.copy_worker.finish_signal.connect(finish_func)
+        if speed_func:
+            self.copy_worker.speed_singnal.connect(speed_func)
         self.copy_thread = threading.Thread( target=self.copy_worker.run, daemon=True )
         self.copy_thread.start()
         
@@ -198,7 +200,12 @@ class archiveManager:
             times.append(dt)
         return times
     
-    def filter_files(self, train_id, date:JalaliDateTime, camera:str, start_time:JalaliDateTime, end_time:JalaliDateTime) -> list[dict]:
+    def filter_files(self, 
+                     train_id, 
+                     date:JalaliDateTime, 
+                     camera:str, 
+                     start_time:JalaliDateTime|dtime, 
+                     end_time:JalaliDateTime|dtime) -> list[dict]:
         '''
         reutns files info in a specific day in a time range
         '''

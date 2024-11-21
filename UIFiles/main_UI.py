@@ -1355,7 +1355,7 @@ class Ui_MainWindow(object):
         self.scrollArea.setWidgetResizable(True)
         self.scrollAreaWidgetContents = QWidget()
         self.scrollAreaWidgetContents.setObjectName(u"scrollAreaWidgetContents")
-        self.scrollAreaWidgetContents.setGeometry(QRect(0, 0, 218, 402))
+        self.scrollAreaWidgetContents.setGeometry(QRect(0, 0, 468, 548))
         self.verticalLayout_5 = QVBoxLayout(self.scrollAreaWidgetContents)
         self.verticalLayout_5.setObjectName(u"verticalLayout_5")
         self.gridLayout_2 = QGridLayout()
@@ -1879,6 +1879,48 @@ class Ui_MainWindow(object):
 
         self.verticalLayout_12.addWidget(self.download_stations_table)
 
+        self.stations_progress_frame = QFrame(self.step0)
+        self.stations_progress_frame.setObjectName(u"stations_progress_frame")
+        self.horizontalLayout_9 = QHBoxLayout(self.stations_progress_frame)
+        self.horizontalLayout_9.setObjectName(u"horizontalLayout_9")
+        self.horizontalLayout_9.setContentsMargins(-1, 17, -1, -1)
+        self.label_10 = QLabel(self.stations_progress_frame)
+        self.label_10.setObjectName(u"label_10")
+        self.label_10.setMaximumSize(QSize(16777215, 20))
+        self.label_10.setStyleSheet(u"")
+
+        self.horizontalLayout_9.addWidget(self.label_10)
+
+        self.download_complete_stations_count_lbl = QLabel(self.stations_progress_frame)
+        self.download_complete_stations_count_lbl.setObjectName(u"download_complete_stations_count_lbl")
+        self.download_complete_stations_count_lbl.setMaximumSize(QSize(16777215, 20))
+        self.download_complete_stations_count_lbl.setStyleSheet(u"font-size:24px;\n"
+"font-weight:bold;")
+
+        self.horizontalLayout_9.addWidget(self.download_complete_stations_count_lbl)
+
+        self.label_34 = QLabel(self.stations_progress_frame)
+        self.label_34.setObjectName(u"label_34")
+        self.label_34.setMaximumSize(QSize(16777215, 20))
+        self.label_34.setStyleSheet(u"")
+
+        self.horizontalLayout_9.addWidget(self.label_34)
+
+        self.download_total_stations_count_lbl = QLabel(self.stations_progress_frame)
+        self.download_total_stations_count_lbl.setObjectName(u"download_total_stations_count_lbl")
+        self.download_total_stations_count_lbl.setMaximumSize(QSize(16777215, 20))
+        self.download_total_stations_count_lbl.setStyleSheet(u"font-size:24px;\n"
+"font-weight:bold;")
+
+        self.horizontalLayout_9.addWidget(self.download_total_stations_count_lbl)
+
+        self.horizontalSpacer_11 = QSpacerItem(40, 20, QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Minimum)
+
+        self.horizontalLayout_9.addItem(self.horizontalSpacer_11)
+
+
+        self.verticalLayout_12.addWidget(self.stations_progress_frame)
+
         self.download_filter_stackWidget.addWidget(self.step0)
 
         self.verticalLayout_13.addWidget(self.download_filter_stackWidget)
@@ -1985,7 +2027,7 @@ class Ui_MainWindow(object):
         self.pages_stackwidget.setCurrentIndex(3)
         self.setting_tab_widget.setCurrentIndex(0)
         self.system_station_tabwidget.setCurrentIndex(1)
-        self.download_filter_stackWidget.setCurrentIndex(3)
+        self.download_filter_stackWidget.setCurrentIndex(2)
 
 
         QMetaObject.connectSlotsByName(MainWindow)
@@ -2131,6 +2173,14 @@ class Ui_MainWindow(object):
         ___qtablewidgetitem9.setText(QCoreApplication.translate("MainWindow", u"New Row", None));
         ___qtablewidgetitem10 = self.download_stations_table.verticalHeaderItem(2)
         ___qtablewidgetitem10.setText(QCoreApplication.translate("MainWindow", u"New Row", None));
+        self.label_10.setText(QCoreApplication.translate("MainWindow", u"Stations Archive Updated", None))
+        self.label_10.setProperty("styleClass", QCoreApplication.translate("MainWindow", u"h3", None))
+        self.download_complete_stations_count_lbl.setText(QCoreApplication.translate("MainWindow", u"0", None))
+        self.download_complete_stations_count_lbl.setProperty("styleClass", QCoreApplication.translate("MainWindow", u"h3", None))
+        self.label_34.setText(QCoreApplication.translate("MainWindow", u"Of", None))
+        self.label_34.setProperty("styleClass", QCoreApplication.translate("MainWindow", u"h3", None))
+        self.download_total_stations_count_lbl.setText(QCoreApplication.translate("MainWindow", u"25", None))
+        self.download_total_stations_count_lbl.setProperty("styleClass", QCoreApplication.translate("MainWindow", u"h3", None))
         self.download_filter_prev_btn.setText(QCoreApplication.translate("MainWindow", u"Previous", None))
         self.download_filter_prev_btn.setProperty("styleClass", QCoreApplication.translate("MainWindow", u"fill_gradient_purple_btn", None))
         self.download_filter_next_btn.setText(QCoreApplication.translate("MainWindow", u"Next", None))

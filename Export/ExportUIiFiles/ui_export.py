@@ -17,19 +17,20 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QPalette, QPixmap, QRadialGradient, QTransform)
 from PySide6.QtWidgets import (QApplication, QFrame, QHBoxLayout, QLabel,
     QLineEdit, QProgressBar, QPushButton, QRadioButton,
-    QSizePolicy, QSpacerItem, QSpinBox, QVBoxLayout,
-    QWidget)
+    QSizePolicy, QSpacerItem, QVBoxLayout, QWidget)
+
+from uiUtils.GUIComponents import timeSpinBox
 import assets_rc
 
-class Ui_userProfile(object):
-    def setupUi(self, userProfile):
-        if not userProfile.objectName():
-            userProfile.setObjectName(u"userProfile")
-        userProfile.resize(431, 558)
-        self.verticalLayout = QVBoxLayout(userProfile)
+class Ui_ExportDialog(object):
+    def setupUi(self, ExportDialog):
+        if not ExportDialog.objectName():
+            ExportDialog.setObjectName(u"ExportDialog")
+        ExportDialog.resize(431, 558)
+        self.verticalLayout = QVBoxLayout(ExportDialog)
         self.verticalLayout.setObjectName(u"verticalLayout")
         self.verticalLayout.setContentsMargins(0, 0, 0, 0)
-        self.GlobalStyleSheet = QWidget(userProfile)
+        self.GlobalStyleSheet = QWidget(ExportDialog)
         self.GlobalStyleSheet.setObjectName(u"GlobalStyleSheet")
         self.GlobalStyleSheet.setStyleSheet(u"/**************************QLineEdit***************************/\n"
 "\n"
@@ -536,7 +537,7 @@ class Ui_userProfile(object):
         self.frame_8.setFrameShadow(QFrame.Shadow.Raised)
         self.horizontalLayout_6 = QHBoxLayout(self.frame_8)
         self.horizontalLayout_6.setObjectName(u"horizontalLayout_6")
-        self.spinBox_hour_start = QSpinBox(self.frame_8)
+        self.spinBox_hour_start = timeSpinBox(self.frame_8)
         self.spinBox_hour_start.setObjectName(u"spinBox_hour_start")
         self.spinBox_hour_start.setMinimumSize(QSize(60, 30))
         self.spinBox_hour_start.setMaximumSize(QSize(60, 30))
@@ -594,7 +595,7 @@ class Ui_userProfile(object):
 
         self.horizontalLayout_6.addWidget(self.label_6)
 
-        self.spinBox_minute_start = QSpinBox(self.frame_8)
+        self.spinBox_minute_start = timeSpinBox(self.frame_8)
         self.spinBox_minute_start.setObjectName(u"spinBox_minute_start")
         self.spinBox_minute_start.setMinimumSize(QSize(60, 30))
         self.spinBox_minute_start.setMaximumSize(QSize(60, 30))
@@ -671,7 +672,7 @@ class Ui_userProfile(object):
         self.frame_9.setFrameShadow(QFrame.Shadow.Raised)
         self.horizontalLayout_7 = QHBoxLayout(self.frame_9)
         self.horizontalLayout_7.setObjectName(u"horizontalLayout_7")
-        self.spinBox_hour_end = QSpinBox(self.frame_9)
+        self.spinBox_hour_end = timeSpinBox(self.frame_9)
         self.spinBox_hour_end.setObjectName(u"spinBox_hour_end")
         self.spinBox_hour_end.setMinimumSize(QSize(60, 30))
         self.spinBox_hour_end.setMaximumSize(QSize(60, 30))
@@ -729,7 +730,7 @@ class Ui_userProfile(object):
 
         self.horizontalLayout_7.addWidget(self.label_7)
 
-        self.spinBox_minute_end = QSpinBox(self.frame_9)
+        self.spinBox_minute_end = timeSpinBox(self.frame_9)
         self.spinBox_minute_end.setObjectName(u"spinBox_minute_end")
         self.spinBox_minute_end.setMinimumSize(QSize(60, 30))
         self.spinBox_minute_end.setMaximumSize(QSize(60, 30))
@@ -864,15 +865,15 @@ class Ui_userProfile(object):
         self.frame_4.setFrameShadow(QFrame.Shadow.Raised)
         self.verticalLayout_6 = QVBoxLayout(self.frame_4)
         self.verticalLayout_6.setObjectName(u"verticalLayout_6")
-        self.btn_start_copy = QPushButton(self.frame_4)
-        self.btn_start_copy.setObjectName(u"btn_start_copy")
-        self.btn_start_copy.setMinimumSize(QSize(200, 40))
-        self.btn_start_copy.setMaximumSize(QSize(200, 40))
+        self.start_export_btn = QPushButton(self.frame_4)
+        self.start_export_btn.setObjectName(u"start_export_btn")
+        self.start_export_btn.setMinimumSize(QSize(200, 40))
+        self.start_export_btn.setMaximumSize(QSize(200, 40))
         font = QFont()
         font.setBold(True)
-        self.btn_start_copy.setFont(font)
-        self.btn_start_copy.setCursor(QCursor(Qt.CursorShape.PointingHandCursor))
-        self.btn_start_copy.setStyleSheet(u"QPushButton {\n"
+        self.start_export_btn.setFont(font)
+        self.start_export_btn.setCursor(QCursor(Qt.CursorShape.PointingHandCursor))
+        self.start_export_btn.setStyleSheet(u"QPushButton {\n"
 "    background-color: #3A3F44; /* Dark gray background */\n"
 "    color: white; /* White text color */\n"
 "    border: 2px solid #D43D41; /* Blue border */\n"
@@ -899,7 +900,7 @@ class Ui_userProfile(object):
 "}\n"
 "")
 
-        self.verticalLayout_6.addWidget(self.btn_start_copy, 0, Qt.AlignmentFlag.AlignHCenter)
+        self.verticalLayout_6.addWidget(self.start_export_btn, 0, Qt.AlignmentFlag.AlignHCenter)
 
         self.lbl_msg = QLabel(self.frame_4)
         self.lbl_msg.setObjectName(u"lbl_msg")
@@ -957,29 +958,29 @@ class Ui_userProfile(object):
         self.verticalLayout.addWidget(self.GlobalStyleSheet)
 
 
-        self.retranslateUi(userProfile)
+        self.retranslateUi(ExportDialog)
 
-        QMetaObject.connectSlotsByName(userProfile)
+        QMetaObject.connectSlotsByName(ExportDialog)
     # setupUi
 
-    def retranslateUi(self, userProfile):
-        userProfile.setWindowTitle(QCoreApplication.translate("userProfile", u"Form", None))
-        self.label_2.setText(QCoreApplication.translate("userProfile", u"Export Window", None))
+    def retranslateUi(self, ExportDialog):
+        ExportDialog.setWindowTitle(QCoreApplication.translate("ExportDialog", u"Form", None))
+        self.label_2.setText(QCoreApplication.translate("ExportDialog", u"Export Window", None))
         self.close_btn.setText("")
-        self.label.setText(QCoreApplication.translate("userProfile", u"Train Name :", None))
-        self.lbl_train_name.setText(QCoreApplication.translate("userProfile", u"-", None))
-        self.label_9.setText(QCoreApplication.translate("userProfile", u"Date :", None))
-        self.lbl_date.setText(QCoreApplication.translate("userProfile", u"-", None))
-        self.label_3.setText(QCoreApplication.translate("userProfile", u"Start :", None))
-        self.label_6.setText(QCoreApplication.translate("userProfile", u":", None))
-        self.label_4.setText(QCoreApplication.translate("userProfile", u"End  :", None))
-        self.label_7.setText(QCoreApplication.translate("userProfile", u":", None))
-        self.label_5.setText(QCoreApplication.translate("userProfile", u"Destination Path :", None))
-        self.lbl_selected_folder.setPlaceholderText(QCoreApplication.translate("userProfile", u"C:/...", None))
+        self.label.setText(QCoreApplication.translate("ExportDialog", u"Train Name :", None))
+        self.lbl_train_name.setText(QCoreApplication.translate("ExportDialog", u"-", None))
+        self.label_9.setText(QCoreApplication.translate("ExportDialog", u"Date :", None))
+        self.lbl_date.setText(QCoreApplication.translate("ExportDialog", u"-", None))
+        self.label_3.setText(QCoreApplication.translate("ExportDialog", u"Start :", None))
+        self.label_6.setText(QCoreApplication.translate("ExportDialog", u":", None))
+        self.label_4.setText(QCoreApplication.translate("ExportDialog", u"End  :", None))
+        self.label_7.setText(QCoreApplication.translate("ExportDialog", u":", None))
+        self.label_5.setText(QCoreApplication.translate("ExportDialog", u"Destination Path :", None))
+        self.lbl_selected_folder.setPlaceholderText(QCoreApplication.translate("ExportDialog", u"C:/...", None))
         self.btn_dst_path.setText("")
-        self.radioButton_mp4.setText(QCoreApplication.translate("userProfile", u"MP4", None))
-        self.radioButton_mkv.setText(QCoreApplication.translate("userProfile", u"Mkv_x265", None))
-        self.btn_start_copy.setText(QCoreApplication.translate("userProfile", u"Export Video", None))
+        self.radioButton_mp4.setText(QCoreApplication.translate("ExportDialog", u"MP4", None))
+        self.radioButton_mkv.setText(QCoreApplication.translate("ExportDialog", u"Mkv_x265", None))
+        self.start_export_btn.setText(QCoreApplication.translate("ExportDialog", u"Export Video", None))
         self.lbl_msg.setText("")
     # retranslateUi
 

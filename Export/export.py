@@ -1,4 +1,7 @@
 import os,sys,time
+from datetime import time as dt_time
+
+from persiantools.jdatetime import JalaliDateTime
 
 import Export_Constants
 from PySide6.QtWidgets import QPushButton, QFileDialog, QApplication, QVBoxLayout, QWidget, QLabel, QProgressBar
@@ -34,7 +37,7 @@ from PySide6.QtWidgets import QApplication as sQApplication
 from PySide6.QtCore import Qt, QPoint
 
 
-from ExportUIiFiles.ui_export import Ui_userProfile
+from ExportUIiFiles.ui_export import Ui_ExportDialog
 from Calendar import JalaliCalendarDialog
 from uiUtils.guiBackend import GUIBackend
 from Tranform.transformModule import archiveManager
@@ -52,12 +55,12 @@ MP4_FORMAT = 'mp4'
 # ui class
 class UIExport(QWidget):
 
-    def __init__(self,archive_manager = None,train_name = None,date = None,selected_camera=None):
+    def __init__(self,archive_manager:archiveManager = None,train_name = None,date = None,selected_camera=None):
         super(UIExport, self).__init__()
 
 
 
-        self.ui = Ui_userProfile()
+        self.ui = Ui_ExportDialog()
         self.ui.setupUi(self)
 
         self.setWindowFlags(Qt.WindowFlags(Qt.FramelessWindowHint))
@@ -69,7 +72,7 @@ class UIExport(QWidget):
 
         self.ui.close_btn.clicked.connect(self.close_win)
         self.ui.btn_dst_path.clicked.connect(self.open_folder_dialog)
-        self.ui.btn_start_copy.clicked.connect(self.get_available_files)
+        self.ui.start_export_btn.clicked.connect(self.get_available_files)
         
         self.ui.radioButton_mkv.toggled.connect(self.set_format)
         self.ui.radioButton_mp4.toggled.connect(self.set_format)
@@ -185,14 +188,11 @@ class UIExport(QWidget):
             return None
 
     def create_dst_file(self):
-
-
-        
         self.dst_path = self.creata_file_path()
         # dst_path = 'test.mkv'     ########################### TEMP
 
         if self.dst_path is None:
-            self.show_message(1,'Error in Destination Path')
+            self.show_message(1,'Please Select An Output Directory')
             self.finish_export()
             return None
         
@@ -201,106 +201,57 @@ class UIExport(QWidget):
 
     def get_available_files(self):
 
-        self.ui.btn_start_copy.setDisabled(True)
+        self.ui.start_export_btn.setDisabled(True)
 
         if self.create_dst_file():
 
             self.show_message(0,'Collecting Videos')
 
-
-            self.archive_manager.get_day_time_ranges(train_id=self.train_name, 
-                                            date=self.date, 
-                                            cameras=[self.selected_camera],
-                                            finish_func=self.prepare_copy, 
-                                            progress_func=self.date_ranges_progress)
+            start_time, end_time = self.get_times_input()
             
 
+            files_info = self.archive_manager.filter_files(
+                                train_id=self.train_name,
+                                date=self.date,
+                                camera=self.selected_camera,
+                                start_time=start_time,
+                                end_time=end_time
+                            )
+            
 
-    def filter_hour(self,pathes,start_time:list,end_time:list):
-
-        filter_pathes = []
-
-        for path in pathes:
-
-            minute = int(path.split('\\')[-2])
-            hour = int(path.split('\\')[-3])
-
-            if start_time[0]<=hour<=end_time[0]:
-
-                if start_time[0] == hour :
-                    if minute< start_time[1]:
-                        continue
-                    else:
-                        filter_pathes.append(path)
-
-                
-                elif end_time[0] == hour:
-                    if minute> end_time[1]:
-                        continue
-                    else:
-                        filter_pathes.append(path)        
-
-                else:
-
-                    filter_pathes.append(path)
-        
-        return filter_pathes
-
-
-
-
-
-
-
-    def prepare_copy(self, date_ranges:dict[str, list]):
-        try:
-
-
-
-
-            self.date_ranges = date_ranges
-            self.input_videos = date_ranges[self.selected_camera]['paths']
-
-            start_time = [self.ui.spinBox_hour_start.value(),self.ui.spinBox_minute_start.value()]
-            end_time = [self.ui.spinBox_hour_end.value(),self.ui.spinBox_minute_end.value()]
-
-            if self.input_videos is not None:
-
-                self.input_videos = self.filter_hour(pathes=self.input_videos,start_time=start_time,end_time=end_time)
-                if len(self.input_videos)>0:
-
-                    self.start_copy(self.input_videos,self.dst_path)
-                else:
-                    self.show_message(1,'No Video in This Filter')
-                    self.finish_export()
-
-
-
+            if len(files_info)>0:
+                input_videos = list(map(lambda x:x['path'], files_info))
+                self.start_export(input_videos,self.dst_path)
             else:
-                self.show_message(1,'Error in Read Videos')
+                self.show_message(1,'No Video in This Filter')
                 self.finish_export()
-        except:
-                self.show_message(1,'Error in Read Videos')
-                self.finish_export()
+
+
+            
+
+    def get_times_input(self,)-> tuple[JalaliDateTime, JalaliDateTime]:
+        start_h = self.ui.spinBox_hour_start.value()
+        start_m = self.ui.spinBox_minute_start.value()
+    
+        end_h = self.ui.spinBox_hour_end.value()
+        end_m = self.ui.spinBox_minute_end.value()
+
+        start_time = dt_time(start_h, start_m, 0)
+        end_time = dt_time(end_h, end_m, 59)
+
+        return JalaliDateTime.combine(self.date, start_time), JalaliDateTime.combine(self.date, end_time)
+    
 
     def date_ranges_progress(self, value:float):
         value = int(value * 1000) #denormal
         self.ui.progressBar.setValue(value)
 
 
-
-
-
-    def start_copy(self,input_files,dst_path):
-
-
-
+    def start_export(self,input_files,dst_path):
         if input_files is None:
             self.show_message(1,'Error in Read Videos')
             self.finish_export()
             return
-
-
 
         if dst_path:
             temp_output_file = 'temp_combined.mp4'  # Temporary MP4 file
@@ -309,7 +260,6 @@ class UIExport(QWidget):
     def combine_videos(self, input_videos, temp_output_file, final_output_file):
         self.worker = VideoCombiner(input_videos, temp_output_file, final_output_file,self.convert_mkv)
         self.worker.progress_signal.connect(self.update_progress)
-        self.worker.conversion_progress_signal.connect(self.update_progress)
         self.worker.status_signal.connect(self.show_message)
         self.worker.finish_signal.connect(self.finish_export)
         self.worker.start()
@@ -333,19 +283,7 @@ class UIExport(QWidget):
 
         
     def finish_export(self):
-
-        self.ui.btn_start_copy.setDisabled(False)
-
-
-
-
-
-
-
-
-
-
-
+        self.ui.start_export_btn.setEnabled(True)
 
 
     def adjust_end_time(self):
@@ -378,16 +316,8 @@ class UIExport(QWidget):
 
 if __name__ == "__main__":
 
-
-    # from uiUtils.Calendar import  JalaliCalendarDialog
-    # from Calendar import JalaliCalendarDialog
-
-
     app = sQApplication()
-
     win = UIExport()
-
-    # win.set_calendar_obj(JalaliCalendarDialog)
  
     win.show()
     sys.exit(app.exec())

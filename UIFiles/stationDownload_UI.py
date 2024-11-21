@@ -18,6 +18,8 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
 from PySide6.QtWidgets import (QApplication, QFrame, QGridLayout, QHBoxLayout,
     QLabel, QProgressBar, QPushButton, QSizePolicy,
     QSpacerItem, QVBoxLayout, QWidget)
+
+from uiUtils.GUIComponents import MessageWidget
 import assets_rc
 
 class Ui_stationdownloadMainUI(object):
@@ -150,6 +152,14 @@ class Ui_stationdownloadMainUI(object):
 
 
         self.verticalLayout_4.addWidget(self.frame_2)
+
+        self.download_message = MessageWidget(self.main_frame)
+        self.download_message.setObjectName(u"download_message")
+        self.download_message.setMinimumSize(QSize(0, 60))
+        self.download_message.setMaximumSize(QSize(16777215, 60))
+        self.download_message.setStyleSheet(u"")
+
+        self.verticalLayout_4.addWidget(self.download_message)
 
         self.frame = QFrame(self.main_frame)
         self.frame.setObjectName(u"frame")

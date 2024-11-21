@@ -19,6 +19,12 @@ class mainDatabase():
             return None
         return results[0]
     
+    def load_system_station_by_name(self, name)->list[dict]:
+        results = self.database_manager.fetch_rows_by_col_name('system_config', 'name', name)
+        if len(results) == 0:
+            return None
+        return results[0]
+    
     def remove_system_station_by_id(self, id):
         ret = self.database_manager.remove_row_by_col_name(table_name='system_config',col_name='id',name_value=id)
         return ret

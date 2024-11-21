@@ -94,6 +94,18 @@ class downloadPageUI:
             else:
                 GUIBackend.set_checkbox_value(checkbox, False, block_signal=False)
     
+    def set_station_archive_progress(self, count=None, total=None):
+        if count is not None:
+            GUIBackend.set_label_text(self.ui.download_complete_stations_count_lbl, str(count))
+
+        if total is not None:
+            GUIBackend.set_label_text(self.ui.download_total_stations_count_lbl, str(total))
+
+    def set_station_archive_progress_visible(self, flag):
+        if flag:
+            self.ui.stations_progress_frame.show()
+        else:
+            self.ui.stations_progress_frame.hide()
     
     def handle_filter_navigation_btns(self, curent_step, final_step):
         if curent_step == 0:

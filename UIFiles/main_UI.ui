@@ -2436,8 +2436,8 @@ QPushButton:disabled {
                              <rect>
                               <x>0</x>
                               <y>0</y>
-                              <width>218</width>
-                              <height>402</height>
+                              <width>468</width>
+                              <height>548</height>
                              </rect>
                             </property>
                             <property name="styleClass" stdset="0">
@@ -2811,7 +2811,7 @@ background-color:rgb(49, 44, 53);
                      <string notr="true"/>
                     </property>
                     <property name="currentIndex">
-                     <number>3</number>
+                     <number>2</number>
                     </property>
                     <property name="styleClass" stdset="0">
                      <string/>
@@ -3365,6 +3365,106 @@ font-weight:bold;</string>
                           <string>New Column</string>
                          </property>
                         </column>
+                       </widget>
+                      </item>
+                      <item>
+                       <widget class="QFrame" name="stations_progress_frame">
+                        <layout class="QHBoxLayout" name="horizontalLayout_9">
+                         <property name="topMargin">
+                          <number>17</number>
+                         </property>
+                         <item>
+                          <widget class="QLabel" name="label_10">
+                           <property name="maximumSize">
+                            <size>
+                             <width>16777215</width>
+                             <height>20</height>
+                            </size>
+                           </property>
+                           <property name="styleSheet">
+                            <string notr="true"/>
+                           </property>
+                           <property name="text">
+                            <string>Stations Archive Updated</string>
+                           </property>
+                           <property name="styleClass" stdset="0">
+                            <string>h3</string>
+                           </property>
+                          </widget>
+                         </item>
+                         <item>
+                          <widget class="QLabel" name="download_complete_stations_count_lbl">
+                           <property name="maximumSize">
+                            <size>
+                             <width>16777215</width>
+                             <height>20</height>
+                            </size>
+                           </property>
+                           <property name="styleSheet">
+                            <string notr="true">font-size:24px;
+font-weight:bold;</string>
+                           </property>
+                           <property name="text">
+                            <string>0</string>
+                           </property>
+                           <property name="styleClass" stdset="0">
+                            <string>h3</string>
+                           </property>
+                          </widget>
+                         </item>
+                         <item>
+                          <widget class="QLabel" name="label_34">
+                           <property name="maximumSize">
+                            <size>
+                             <width>16777215</width>
+                             <height>20</height>
+                            </size>
+                           </property>
+                           <property name="styleSheet">
+                            <string notr="true"/>
+                           </property>
+                           <property name="text">
+                            <string>Of</string>
+                           </property>
+                           <property name="styleClass" stdset="0">
+                            <string>h3</string>
+                           </property>
+                          </widget>
+                         </item>
+                         <item>
+                          <widget class="QLabel" name="download_total_stations_count_lbl">
+                           <property name="maximumSize">
+                            <size>
+                             <width>16777215</width>
+                             <height>20</height>
+                            </size>
+                           </property>
+                           <property name="styleSheet">
+                            <string notr="true">font-size:24px;
+font-weight:bold;</string>
+                           </property>
+                           <property name="text">
+                            <string>25</string>
+                           </property>
+                           <property name="styleClass" stdset="0">
+                            <string>h3</string>
+                           </property>
+                          </widget>
+                         </item>
+                         <item>
+                          <spacer name="horizontalSpacer_11">
+                           <property name="orientation">
+                            <enum>Qt::Orientation::Horizontal</enum>
+                           </property>
+                           <property name="sizeHint" stdset="0">
+                            <size>
+                             <width>40</width>
+                             <height>20</height>
+                            </size>
+                           </property>
+                          </spacer>
+                         </item>
+                        </layout>
                        </widget>
                       </item>
                      </layout>

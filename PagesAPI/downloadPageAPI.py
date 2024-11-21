@@ -7,7 +7,7 @@ from backend.database.mainDatabase import mainDatabase
 from uiUtils.GUIComponents import MessageWidget
 from Tranform.Network import pingWorker, pingAndCreateWorker
 from Tranform.transformUtils import transormUtils
-from Tranform.transformModule import archiveManager
+from Tranform.transformModule import archiveManager, transformModule
 from backend.utils.threadWorker import threadWorkers
 from Tranform.sharingConstans import StatusCodes
 from Mediator.mainMediator import Mediator
@@ -35,10 +35,14 @@ class downloadPageAPI:
         self.selected_train = None
         self.selected_camera = None
         self.selected_date = None
+        self.selected_datetime_range = None
         self.station_logs  = []
         self.stations_archives:dict[str, archiveManager] = {}
         self.stations_passed_train_filter = []
         self.station_passed_date_filter = []
+        self.download_sections:dict[str, downloadSection] = {}
+        self.transformers:dict[str, transformModule] = {}
+
 
         self.pingThreadWorker = threadWorkers(None,None)
         
@@ -52,6 +56,7 @@ class downloadPageAPI:
 
 
         self.uiHandler.set_filter_form_step(self.filter_step, self.FILTER_STEP_FINAL)
+        self.uiHandler.set_station_archive_progress_visible(False)
         
 
 
@@ -119,10 +124,15 @@ class downloadPageAPI:
 
         GUIBackend.cursor_changer('wait')
 
+        self.complete_archive_count = 0
+        self.uiHandler.set_station_archive_progress(self.complete_archive_count, 
+                                                    len(self.selected_stations_id_for_download))
+        self.uiHandler.set_station_archive_progress_visible(True)
 
         for id in self.selected_stations_id_for_download:
             system_info = self.db.load_system_station_by_id(id)
             if system_info is None:
+                self.complete_archive_count +=1
                 continue
             
             path = transormUtils.build_share_path(system_info['ip'], pathConstants.OTHER_IMAGES_SHARE_FOLDER)# SHOULD BE CHANGE
@@ -152,7 +162,8 @@ class downloadPageAPI:
             pass
         
         #check if result of all station got
-        print(station_system)
+        self.complete_archive_count +=1
+        self.uiHandler.set_station_archive_progress(self.complete_archive_count)
         self.check_for_finish()
 
     def check_for_finish(self,):
@@ -163,13 +174,16 @@ class downloadPageAPI:
     def step0_finish(self,):
         GUIBackend.cursor_changer(None)
         
+        
         #-----------------------------------------------------------------  
+        #ONLY FOR TEST
         self.stations_archives= {}
         for log in self.station_logs:
             archive = archiveManager(pathConstants.UTILS_DIR)
             archive.load()
             name = log['info']['name']
             self.stations_archives[name] = archive
+        #ONLY FOR TEST
         #-----------------------------------------------------------------
 
                 
@@ -260,10 +274,14 @@ class downloadPageAPI:
     
     def step3_filter(self,):
         self.uiHandler.clear_download_sections()
+        self.download_sections = {}
+        self.transformers = {}
 
         start_time , end_time = self.uiHandler.get_selected_time_range()
         start_datetime = JalaliDateTime.combine(self.selected_date, start_time)
         end_datetime   = JalaliDateTime.combine(self.selected_date, end_time)
+
+        self.selected_datetime_range = (start_datetime, end_datetime)
 
         if start_datetime > end_datetime:
             self.uiHandler.ui.download_filter_message.show_message("Start time Can't be bigger than end time", msg_type='error', display_time=4000)
@@ -280,12 +298,124 @@ class downloadPageAPI:
             if len(results):
                 times = list(map(lambda x:x['datetime'], results))
                 times_rangs =  transormUtils.times2ranges(times, step_lenght_sec=600)
-                sec = downloadSection(  _id=1,
+                sec = downloadSection(  
                                         name=station,
                                         dt=self.selected_date
                                         )
+                sec.download_btn_connector(self.start_download, args=(station, results))
                 
                 sec.set_time_ranges(times_rangs)
                 self.uiHandler.add_download_section(sec)
+                self.download_sections[station] = sec
 
-                                            
+
+    def start_download(self, station_name, files):
+        station_info = self.db.load_system_station_by_id()
+        if station_info is None:
+            self.download_sections[station_name].show_msg(
+                txt='Station not Exist, it removed from your database',
+                msg_type='error',
+                display_time=3000
+            )
+            return
+        
+        self.download_sections[station_name].disable_download_btn()
+            
+        tf = transformModule(station_info['ip'],
+                        src_path=pathConstants.OTHER_IMAGES_SHARE_FOLDER,
+                        dst_path=pathConstants.SELF_IMAGES_FOLDR,
+                        username=station_info['username'],
+                        password=station_info['password']
+                        )
+        
+        self.transformers[station_name] = tf
+        event_func = transormUtils.pass_extra_arg_event(self.station_download_file_check_connection, (station_name,))
+        tf.check_connection_and_create_connection(event_func)
+
+
+    
+    def station_download_file_check_connection(self, status, msg, station_name ):
+        if status == StatusCodes.pingAndConnectionStatusCodes.NOT_CONNECT:
+            self.download_sections[station_name].show_msg(
+                txt=msg,
+                msg_type='error',
+                display_time=4000,
+                )
+            self.download_sections[station_name].reset()
+            return
+    
+        if status == StatusCodes.pingAndConnectionStatusCodes.SUCCESS:
+            finish_func = transormUtils.pass_extra_arg_event(self.find_files_finish, (station_name,))
+            log_func = transormUtils.pass_extra_arg_event(self.find_files_station_log, (station_name,))
+
+            self.transformers[station_name].find_files(
+                trains=[self.selected_train],
+                dates_tange=self.selected_datetime_range,
+                status=None,
+                finish_event_func=finish_func,
+                log_search=False
+            )
+        
+        
+        
+    def find_files_station_log(self, log:str, station_name):
+        txt = f'Searching Files: {log}'
+        self.download_sections[station_name].write_msg(txt)
+
+    def find_files_finish(self, 
+                          status_code, 
+                          paths:list[str], 
+                          sizes:list[int],
+                          station_name,
+                          ):
+        
+        if status_code == StatusCodes.findFilesStatusCodes.DIR_NOT_EXISTS:
+            path = self.transformers[station_name]
+            self.download_sections[station_name].write_msg(f"Path dosen't exists: {path}", )
+            self.download_sections[station_name].reset()
+            return
+        
+
+
+        if len(paths) == 0:
+            self.download_sections[station_name].write_msg(f"No Files Found to Copy", )
+            self.download_sections[station_name].reset()
+            return
+        
+        self.download_sections[station_name].set_progess_value(0)
+        
+        finish_func = transormUtils.pass_extra_arg_event(self.station_download_finish, (station_name,))
+        log_func = transormUtils.pass_extra_arg_event(self.station_download_log, (station_name,))
+        progress_func = transormUtils.pass_extra_arg_event(self.station_download_progress, (station_name,))
+        self.transformers[station_name].start_copy(paths, 
+                                                   sizes, 
+                                                   finish_func=finish_func,
+                                                   speed_func=None,
+                                                   progress_func=progress_func,
+                                                   msg_callback=log_func,
+                                                   rename_src=False,
+                                                   move=False)
+        
+
+    
+
+    def station_download_log(self, msg, station_name):
+        self.download_sections[station_name].write_msg(msg)
+
+
+    def station_download_progress(self,completed:int, total:int, station_name):
+        if total<1:
+            total = 1 
+        percent = int(completed/total * 100)
+        self.download_sections[station_name].set_progess_value(percent)
+
+
+    def station_download_finish(self, status_code, station_name):
+        if status_code == StatusCodes.copyStatusCodes.DISCONNECT:
+            self.download_sections[station_name].write_msg("Dissconnected!")
+            self.download_sections[station_name].reset()
+            return
+        
+        self.download_sections[station_name].write_msg("Download Videos Finish Success")    
+        
+

@@ -1,0 +1,2 @@
+file 'C:\rail_share\images\11BG21\cam1\1403\8\5\0\32\1403-08-05_00-32-35-259880_11BG21_cam1.mp4'
+file 'C:\rail_share\images\11BG21\cam1\1403\8\5\0\42\1403-08-05_00-42-34-105070_11BG21_cam1.mp4'
