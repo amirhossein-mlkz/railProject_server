@@ -14,9 +14,11 @@ from Mediator.mainMediator import Mediator
 from Mediator.mediatorNames import eventNames
 from pathConstans import pathConstants
 from uiUtils.guiBackend import GUIBackend
+from downloadSectionUI import downloadSection
+
 
 class downloadPageAPI:
-    FILTER_STEP_FINAL = 5
+    FILTER_STEP_FINAL = 3
     def __init__(self, uiHandler:downloadPageUI, db:mainDatabase):
         self.uiHandler = uiHandler
         self.db = db
@@ -257,8 +259,33 @@ class downloadPageAPI:
 
     
     def step3_filter(self,):
+        self.uiHandler.clear_download_sections()
+
         start_time , end_time = self.uiHandler.get_selected_time_range()
         start_datetime = JalaliDateTime.combine(self.selected_date, start_time)
         end_datetime   = JalaliDateTime.combine(self.selected_date, end_time)
 
+        if start_datetime > end_datetime:
+            self.uiHandler.ui.download_filter_message.show_message("Start time Can't be bigger than end time", msg_type='error', display_time=4000)
         
+
+        for station in self.stations_archives.keys():
+            results = self.stations_archives[station].filter_files(
+                                                    train_id=self.selected_train,
+                                                    date=self.selected_date,
+                                                    camera=self.selected_camera,
+                                                    start_time=start_datetime,
+                                                    end_time=end_datetime
+                                                )
+            if len(results):
+                times = list(map(lambda x:x['datetime'], results))
+                times_rangs =  transormUtils.times2ranges(times, step_lenght_sec=600)
+                sec = downloadSection(  _id=1,
+                                        name=station,
+                                        dt=self.selected_date
+                                        )
+                
+                sec.set_time_ranges(times_rangs)
+                self.uiHandler.add_download_section(sec)
+
+                                            

@@ -54,3 +54,7 @@ class downloadSection(QWidget):
         GUIBackend.button_connector_argument_pass(self.ui.download_btn, 
                                                   func,
                                                   args=(self.id) )
+        
+    def set_time_ranges(self, time_rangs:list[tuple[JalaliDateTime, JalaliDateTime]]):
+        for clock in self.Clocks.values():
+            clock.set_time_ranges(time_rangs)

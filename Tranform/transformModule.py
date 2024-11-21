@@ -18,6 +18,7 @@ try:
     from Tranform.filesActionWorker import CopyWorker
     from Tranform.sharingConstans import StatusCodes
     
+    
 
 except:
 
@@ -196,6 +197,20 @@ class archiveManager:
             dt = JalaliDateTime.strptime(t_str, "%Y-%m-%d_%H-%M-%S")
             times.append(dt)
         return times
+    
+    def filter_files(self, train_id, date:JalaliDateTime, camera:str, start_time:JalaliDateTime, end_time:JalaliDateTime) -> list[dict]:
+        '''
+        reutns files info in a specific day in a time range
+        '''
+        date_str = date.strftime('%Y-%m-%d')
+        on_day_archive = self.archive[train_id][camera][date_str]
+        result = []
+        for file_info in on_day_archive.values():
+            if start_time <= file_info['datetime'] < end_time:
+                result.append(file_info)
+
+        return result
+        
 
     
     def get_available_trains(self,):

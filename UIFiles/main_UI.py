@@ -172,6 +172,10 @@ class Ui_MainWindow(object):
 "background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0 rgba(39, 83,"
                         " 237, 255), stop:0.516484 rgba(118, 22, 228, 255));\n"
 "}\n"
+"\n"
+"QPushButton[styleClass=\"fill_gradient_purple_btn\"]:disabled{\n"
+"background-color: rgb(170,170,170);\n"
+"}\n"
 "/****************************************************************************/\n"
 "/****************************************************************************/\n"
 "QPushButton[styleClass=\"border_gradient_purple_btn\"]{\n"
@@ -190,11 +194,11 @@ class Ui_MainWindow(object):
 "}\n"
 "\n"
 "/****************************************************************************/\n"
-"/****************************************************************************/\n"
+"/******************************"
+                        "**********************************************/\n"
 "\n"
 " QTabWidget::pane { \n"
-"        border: 1px solid #444; /* \u0631"
-                        "\u0646\u06af \u062d\u0627\u0634\u06cc\u0647 \u062f\u0648\u0631 TabWidget */\n"
+"        border: 1px solid #444; /* \u0631\u0646\u06af \u062d\u0627\u0634\u06cc\u0647 \u062f\u0648\u0631 TabWidget */\n"
 "        background-color: #2b2b2b; /* \u0631\u0646\u06af \u067e\u0633\u200c\u0632\u0645\u06cc\u0646\u0647 \u06a9\u0644 TabWidget */\n"
 "    }\n"
 "\n"
@@ -203,11 +207,11 @@ class Ui_MainWindow(object):
 "        color: #ffffff;  /* \u0631\u0646\u06af \u0645\u062a\u0646 \u062a\u0628\u200c\u0647\u0627 */\n"
 "        padding: 10px;  /* \u0641\u0636\u0627\u06cc \u062f\u0627\u062e\u0644\u06cc \u062a\u0628\u200c\u0647\u0627 */\n"
 "        border: 1px solid #444; /* \u0631\u0646\u06af \u062d\u0627\u0634\u06cc\u0647 \u062f\u0648\u0631 \u062a\u0628\u200c\u0647\u0627 */\n"
-"        border-bottom-color: #2b2b2b; /* \u0647\u0645\u200c\u0631\u0627\u0633\u062a\u0627\u06cc\u06cc \u062a\u0628\u200c\u0647\u0627 \u0628\u0627 \u067e\u0646\u0644 */\n"
+"        border-bottom-color: #2b2b2b; /* \u0647\u0645\u200c\u0631\u0627"
+                        "\u0633\u062a\u0627\u06cc\u06cc \u062a\u0628\u200c\u0647\u0627 \u0628\u0627 \u067e\u0646\u0644 */\n"
 "    }\n"
 "\n"
-"  "
-                        "  QTabBar::tab:selected {\n"
+"    QTabBar::tab:selected {\n"
 "        background-color: #6327E8; /* \u0631\u0646\u06af \u062a\u0628 \u0627\u0646\u062a\u062e\u0627\u0628 \u0634\u062f\u0647 */\n"
 "        color: #ffffff;  /* \u0631\u0646\u06af \u0645\u062a\u0646 \u062a\u0628 \u0627\u0646\u062a\u062e\u0627\u0628 \u0634\u062f\u0647 */\n"
 "        border-bottom-color: #2b2b2b; /* \u0628\u062f\u0648\u0646 \u062d\u0627\u0634\u06cc\u0647 \u062f\u0631 \u067e\u0627\u06cc\u06cc\u0646 \u062a\u0628 \u0627\u0646\u062a\u062e\u0627\u0628 \u0634\u062f\u0647 */\n"
@@ -220,9 +224,9 @@ class Ui_MainWindow(object):
 "    QTabWidget::tab-bar {\n"
 "        left: 5px; /* \u0641\u0627\u0635\u0644\u0647\u200c\u06cc \u062a\u0628\u200c\u0647\u0627 \u0627\u0632 \u067e\u0646\u0644 */\n"
 "    }\n"
+""
+                        "/****************************************************************************/\n"
 "/****************************************************************************/\n"
-"/******************************"
-                        "**********************************************/\n"
 "QLineEdit{\n"
 "	background-color: transparent;\n"
 "	border:1px solid rgba(255, 255, 255, 50);\n"
@@ -251,9 +255,9 @@ class Ui_MainWindow(object):
 "\n"
 "    text-align:centre;\n"
 "        \n"
-"	color: rgb(220, 220, 220);\n"
-"	border: 1px solid #444444;  /* \u062d\u0627\u0634\u06cc\u0647 \u062f\u0648\u0631 \u062c"
-                        "\u062f\u0648\u0644 */\n"
+"	co"
+                        "lor: rgb(220, 220, 220);\n"
+"	border: 1px solid #444444;  /* \u062d\u0627\u0634\u06cc\u0647 \u062f\u0648\u0631 \u062c\u062f\u0648\u0644 */\n"
 "	gridline-color: #555555;  /* \u0631\u0646\u06af \u062e\u0637\u0648\u0637 \u0634\u0628\u06a9\u0647 \u0628\u06cc\u0646 \u0633\u0644\u0648\u0644\u200c\u0647\u0627 */\n"
 "	font-size: 14px;  /* \u0627\u0646\u062f\u0627\u0632\u0647 \u0641\u0648\u0646\u062a */\n"
 "    }\n"
@@ -265,9 +269,9 @@ class Ui_MainWindow(object):
 "        border: none;  /* \u062d\u0627\u0634\u06cc\u0647 \u0647\u062f\u0631 */\n"
 "    }\n"
 "\n"
-"    QHeaderView::section {\n"
-"        background-color: transparent;  /* \u0631\u0646\u06af \u067e\u0633\u200c\u0632\u0645"
-                        "\u06cc\u0646\u0647 \u0633\u0631\u0633\u062a\u0648\u0646\u200c\u0647\u0627 */\n"
+"    QH"
+                        "eaderView::section {\n"
+"        background-color: transparent;  /* \u0631\u0646\u06af \u067e\u0633\u200c\u0632\u0645\u06cc\u0646\u0647 \u0633\u0631\u0633\u062a\u0648\u0646\u200c\u0647\u0627 */\n"
 "        color: #ffffff;  /* \u0631\u0646\u06af \u0645\u062a\u0646 \u0633\u0631\u0633\u062a\u0648\u0646\u200c\u0647\u0627 */\n"
 "        padding: 5px;  /* \u0641\u0636\u0627\u06cc \u062f\u0627\u062e\u0644\u06cc \u0633\u0631\u0633\u062a\u0648\u0646\u200c\u0647\u0627 */\n"
 "        border: none;  /* \u062d\u0630\u0641 \u062d\u0627\u0634\u06cc\u0647 \u0633\u0631\u0633\u062a\u0648\u0646\u200c\u0647\u0627 */\n"
@@ -278,9 +282,9 @@ class Ui_MainWindow(object):
 "/****************************************************************************/\n"
 "\n"
 "QCheckBox {\n"
-"        spacing: 5px;  /* \u0641\u0627\u0635\u0644\u0647 \u0628\u06cc\u0646 \u062a\u06cc\u06a9 \u0648 \u0645\u062a\u0646 */\n"
-"        font-size: 16px;  /* \u0627\u0646"
-                        "\u062f\u0627\u0632\u0647 \u0641\u0648\u0646\u062a */\n"
+"        spacing: 5px;  /* \u0641\u0627\u0635\u0644"
+                        "\u0647 \u0628\u06cc\u0646 \u062a\u06cc\u06a9 \u0648 \u0645\u062a\u0646 */\n"
+"        font-size: 16px;  /* \u0627\u0646\u062f\u0627\u0632\u0647 \u0641\u0648\u0646\u062a */\n"
 "        color: #ffffff;  /* \u0631\u0646\u06af \u0645\u062a\u0646 */\n"
 "    }\n"
 "\n"
@@ -293,18 +297,18 @@ class Ui_MainWindow(object):
 "    }\n"
 "\n"
 "    QCheckBox::indicator:checked {\n"
-"        background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0 rgba(39, 83, 237, 255), stop:0.516484 rgba(118, 22, 228, 255));  /* \u0631\u0646\u06af \u067e\u0633\u200c"
-                        "\u0632\u0645\u06cc\u0646\u0647 \u0686\u06a9 \u0628\u0627\u06a9\u0633 \u062f\u0631 \u062d\u0627\u0644\u062a \u062a\u06cc\u06a9 \u062e\u0648\u0631\u062f\u0647 */\n"
+"        background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1"
+                        ", y2:1, stop:0 rgba(39, 83, 237, 255), stop:0.516484 rgba(118, 22, 228, 255));  /* \u0631\u0646\u06af \u067e\u0633\u200c\u0632\u0645\u06cc\u0646\u0647 \u0686\u06a9 \u0628\u0627\u06a9\u0633 \u062f\u0631 \u062d\u0627\u0644\u062a \u062a\u06cc\u06a9 \u062e\u0648\u0631\u062f\u0647 */\n"
 "        border: 2px solid rgb(192, 197, 217);  /* \u062d\u0627\u0634\u06cc\u0647 \u0686\u06a9 \u0628\u0627\u06a9\u0633 \u062f\u0631 \u062d\u0627\u0644\u062a \u062a\u06cc\u06a9 \u062e\u0648\u0631\u062f\u0647 */\n"
 "\n"
 "		background-image: url(:/icons/icons/check-wight-24.png);  /* \u0645\u0633\u06cc\u0631 \u0622\u06cc\u06a9\u0648\u0646 \u0686\u06a9 */\n"
 "        background-repeat: no-repeat;  /* \u062c\u0644\u0648\u06af\u06cc\u0631\u06cc \u0627\u0632 \u062a\u06a9\u0631\u0627\u0631 \u0622\u06cc\u06a9\u0648\u0646 */\n"
 "        background-position: center;  /* \u062a\u0631\u0627\u0632 \u06a9\u0631\u062f\u0646 \u0622\u06cc\u06a9\u0648\u0646 \u062f\u0631 \u0648\u0633\u0637 */\n"
-"		border: 2px solid qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0 rgba(39, 83, 237, 255), stop:0.516484 rgba(118, 22, 228, 255));\n"
+"		border: 2px solid qlineargradient(spread:pad, x1:0, y"
+                        "1:0, x2:1, y2:1, stop:0 rgba(39, 83, 237, 255), stop:0.516484 rgba(118, 22, 228, 255));\n"
 "    }\n"
 "\n"
-"    QCheckBox"
-                        "::indicator:unchecked:hover {\n"
+"    QCheckBox::indicator:unchecked:hover {\n"
 "        border: 2px solid rgb(99, 39, 232);  /* \u062d\u0627\u0634\u06cc\u0647 \u0686\u06a9 \u0628\u0627\u06a9\u0633 \u062f\u0631 \u062d\u0627\u0644\u062a \u063a\u06cc\u0631\u0641\u0639\u0627\u0644 \u0648 \u0647\u0646\u06af\u0627\u0645\u06cc \u06a9\u0647 \u0645\u0627\u0648\u0633 \u0631\u0648\u06cc \u0622\u0646 \u0627\u0633\u062a */\n"
 "    }\n"
 "\n"
@@ -1184,7 +1188,7 @@ class Ui_MainWindow(object):
         self.scrollArea_2.setWidgetResizable(True)
         self.scrollAreaWidgetContents_2 = QWidget()
         self.scrollAreaWidgetContents_2.setObjectName(u"scrollAreaWidgetContents_2")
-        self.scrollAreaWidgetContents_2.setGeometry(QRect(0, 0, 486, 573))
+        self.scrollAreaWidgetContents_2.setGeometry(QRect(0, 0, 254, 573))
         self.scrollAreaWidgetContents_2.setStyleSheet(u"")
         self.verticalLayout_7 = QVBoxLayout(self.scrollAreaWidgetContents_2)
         self.verticalLayout_7.setObjectName(u"verticalLayout_7")
@@ -1351,7 +1355,7 @@ class Ui_MainWindow(object):
         self.scrollArea.setWidgetResizable(True)
         self.scrollAreaWidgetContents = QWidget()
         self.scrollAreaWidgetContents.setObjectName(u"scrollAreaWidgetContents")
-        self.scrollAreaWidgetContents.setGeometry(QRect(0, 0, 468, 548))
+        self.scrollAreaWidgetContents.setGeometry(QRect(0, 0, 218, 402))
         self.verticalLayout_5 = QVBoxLayout(self.scrollAreaWidgetContents)
         self.verticalLayout_5.setObjectName(u"verticalLayout_5")
         self.gridLayout_2 = QGridLayout()
@@ -1891,6 +1895,7 @@ class Ui_MainWindow(object):
         self.horizontalLayout_41.setContentsMargins(-1, 0, -1, -1)
         self.download_filter_prev_btn = QPushButton(self.download_filter_frame)
         self.download_filter_prev_btn.setObjectName(u"download_filter_prev_btn")
+        self.download_filter_prev_btn.setEnabled(True)
         self.download_filter_prev_btn.setMinimumSize(QSize(0, 30))
         self.download_filter_prev_btn.setStyleSheet(u"")
 

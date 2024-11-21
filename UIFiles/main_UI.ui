@@ -154,6 +154,10 @@ background-color:qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0 rgba
 QPushButton[styleClass=&quot;fill_gradient_purple_btn&quot;]:hover{
 background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0 rgba(39, 83, 237, 255), stop:0.516484 rgba(118, 22, 228, 255));
 }
+
+QPushButton[styleClass=&quot;fill_gradient_purple_btn&quot;]:disabled{
+background-color: rgb(170,170,170);
+}
 /****************************************************************************/
 /****************************************************************************/
 QPushButton[styleClass=&quot;border_gradient_purple_btn&quot;]{
@@ -2071,7 +2075,7 @@ QPushButton:disabled {
                           <rect>
                            <x>0</x>
                            <y>0</y>
-                           <width>486</width>
+                           <width>254</width>
                            <height>573</height>
                           </rect>
                          </property>
@@ -2432,8 +2436,8 @@ QPushButton:disabled {
                              <rect>
                               <x>0</x>
                               <y>0</y>
-                              <width>468</width>
-                              <height>548</height>
+                              <width>218</width>
+                              <height>402</height>
                              </rect>
                             </property>
                             <property name="styleClass" stdset="0">
@@ -3387,6 +3391,9 @@ font-weight:bold;</string>
                     </property>
                     <item>
                      <widget class="QPushButton" name="download_filter_prev_btn">
+                      <property name="enabled">
+                       <bool>true</bool>
+                      </property>
                       <property name="minimumSize">
                        <size>
                         <width>0</width>

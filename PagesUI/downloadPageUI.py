@@ -34,27 +34,29 @@ class downloadPageUI:
         self.ui.download_filter_am_lock_wgt.layout().addWidget(self.Clocks['am'],  alignment=Qt.AlignCenter)
         self.ui.download_filter_pm_lock_wgt.layout().addWidget(self.Clocks['pm'],  alignment=Qt.AlignCenter)
 
-        sec1 = downloadSection(123,'Esfahan', JalaliDateTime.now())
-        sec2 = downloadSection(452,'Yazd', JalaliDateTime.now())
-        sec3 = downloadSection(651, 'Tehran', JalaliDateTime.now())
-        sec1.Clocks['pm'].set_time_ranges([(JalaliDateTime.now() - timedelta(minutes=250) , JalaliDateTime.now())])
-        sec2.Clocks['am'].set_time_ranges([(JalaliDateTime.now().replace(hour=8, minute=24), JalaliDateTime.now().replace(hour=14, minute=24) )])
-        self.add_download_section(sec1)
-        self.add_download_section(sec2)
-        self.add_download_section(sec3)
+        self.download_sections:list[downloadSection] = []
 
-        sec3.set_progess_value(63)
+        # sec1 = downloadSection(123,'Esfahan', JalaliDateTime.now())
+        # sec2 = downloadSection(452,'Yazd', JalaliDateTime.now())
+        # sec3 = downloadSection(651, 'Tehran', JalaliDateTime.now())
+        # sec1.Clocks['pm'].set_time_ranges([(JalaliDateTime.now() - timedelta(minutes=250) , JalaliDateTime.now())])
+        # sec2.Clocks['am'].set_time_ranges([(JalaliDateTime.now().replace(hour=8, minute=24), JalaliDateTime.now().replace(hour=14, minute=24) )])
+        # self.add_download_section(sec1)
+        # self.add_download_section(sec2)
+        # self.add_download_section(sec3)
+
+        # sec3.set_progess_value(63)
 
 
         
 
-    #     time_ranges = [
-    #     (dtime(2, 0), dtime(5, 30)),
-    #     (dtime(9, 15), dtime(10, 45)),
-    #     (dtime(18, 15), dtime(22, 0)),
-    # ]
-    #     self.Clocks['pm'].set_time_ranges(time_ranges)
-    #     self.Clocks['am'].set_time_ranges(time_ranges)
+        time_ranges = [
+        (dtime(2, 0), dtime(5, 30)),
+        (dtime(9, 15), dtime(10, 45)),
+        (dtime(18, 15), dtime(22, 0)),
+    ]
+        self.Clocks['pm'].set_time_ranges(time_ranges)
+        self.Clocks['am'].set_time_ranges(time_ranges)
 
     def clock_click_event(self, start:dtime, end:dtime):
         GUIBackend.set_spinbox_value(self.ui.download_filter_to_h, end.hour)
@@ -170,14 +172,20 @@ class downloadPageUI:
     
 
     def add_download_section(self, section:downloadSection):   
+        self.download_sections.append(section)
         GUIBackend.insert_widget(self.ui.downloadsSectionsscrollContents,
                                  section,
                                  pos=-1)
 
     def remove_download_section(self, section:downloadSection):
+        self.download_sections.remove(section)
         layout = self.ui.downloadsSectionsscrollContents.layout()
         layout.removeWidget(section)
         section.deleteLater()
+
+    def clear_download_sections(self,):
+        while len(self.download_sections):
+            self.remove_download_section(self.download_sections[0])
 
     
     def get_selected_time_range(self, )-> tuple[JalaliDateTime, JalaliDateTime]:
