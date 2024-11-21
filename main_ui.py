@@ -1,40 +1,14 @@
-import os,sys
-
-from login_qt.Constants.Constants import UIPages
-os.system('pyside6-uic {} -o {}'.format(os.path.join('UIFiles', 'calendar.ui'), os.path.join('UIFiles', 'calendar.py')))
-os.system('pyside6-uic {} -o {}'.format(os.path.join('UIFiles', 'main_UI.ui'), os.path.join('UIFiles', 'main_UI.py')))
-os.system('pyside6-uic {} -o {}'.format(os.path.join('UIFiles', 'stationDownloadUI.ui'), os.path.join('UIFiles', 'stationDownload_UI.py')))
-
-
-os.system('CMD /C pyside6-rcc assets.qrc -o assets.py')#PySide
-os.system('pyside6-rcc {} -o {}'.format(os.path.join(r'login_qt\uiFiles\resources', 'resource.qrc'), os.path.join(r'', 'resource_rc.py')))
-
-# Specify the path to the directory you want to add
-login_directory = "login_qt"
-export_directory = "Export"
-# Add the directory to sys.path
-
-
-if export_directory not in sys.path:
-    sys.path.append(export_directory)
-if login_directory not in sys.path:
-    sys.path.append(login_directory)
-    from Export import assets_rc
-
-
 ##############################################################################################################################
 import sys,os,platform,time,subprocess,threading
 
 from PySide6.QtUiTools import loadUiType
 from PySide6 import QtCore as sQtCore
 from PySide6.QtWidgets import QMainWindow as sQMainWindow
-from PySide6.QtWidgets import QApplication as sQApplication
 from PySide6.QtWidgets import QVBoxLayout, QWidget, QComboBox, QGridLayout, QLabel, QDialog,QDialogButtonBox,QPushButton,QFrame , QStatusBar
 from copy_ping import ShareCopyWorker
 from persiantools.jdatetime import JalaliDateTime
 from PySide6.QtCore import QTimer
 from PySide6.QtCore import Qt
-from PySide6.QtWidgets import QStyleFactory
 from PySide6.QtWidgets import QGraphicsBlurEffect
 from PySide6.QtGui import QFont,QIcon
 
@@ -575,17 +549,3 @@ class UI_main_window_org(sQMainWindow):
 
 
 
-if __name__ == "__main__":
-
-
-
-    from api import API
-    app = sQApplication()
-
-    app.setStyle(QStyleFactory.create("Fusion"))  # Enforces a consistent style
-
-
-    win = UI_main_window_org()
-    api = API(win)
-    win.show()
-    sys.exit(app.exec())

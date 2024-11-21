@@ -100,6 +100,7 @@ class playbackPageAPI:
         trains = self.archiveManager.get_available_trains()    
         if trains:        
             self.uiHandler.set_avaiable_trains(trains)
+            self.select_train_event()
         else:
             print('No Train Detect')
     # def merge_dates(self,):

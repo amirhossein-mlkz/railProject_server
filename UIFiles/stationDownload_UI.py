@@ -67,20 +67,20 @@ class Ui_stationdownloadMainUI(object):
         self.info_frame.setSizePolicy(sizePolicy)
         self.gridLayout = QGridLayout(self.info_frame)
         self.gridLayout.setObjectName(u"gridLayout")
-        self.label20 = QLabel(self.info_frame)
-        self.label20.setObjectName(u"label20")
+        self.date_lbl = QLabel(self.info_frame)
+        self.date_lbl.setObjectName(u"date_lbl")
 
-        self.gridLayout.addWidget(self.label20, 0, 3, 1, 1)
+        self.gridLayout.addWidget(self.date_lbl, 0, 4, 1, 1)
 
         self.station_lbl = QLabel(self.info_frame)
         self.station_lbl.setObjectName(u"station_lbl")
 
         self.gridLayout.addWidget(self.station_lbl, 0, 1, 1, 1)
 
-        self.date_lbl = QLabel(self.info_frame)
-        self.date_lbl.setObjectName(u"date_lbl")
+        self.label20 = QLabel(self.info_frame)
+        self.label20.setObjectName(u"label20")
 
-        self.gridLayout.addWidget(self.date_lbl, 0, 4, 1, 1)
+        self.gridLayout.addWidget(self.label20, 0, 3, 1, 1)
 
         self.horizontalSpacer = QSpacerItem(40, 20, QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Minimum)
 
@@ -96,6 +96,12 @@ class Ui_stationdownloadMainUI(object):
         self.label.setSizePolicy(sizePolicy)
 
         self.gridLayout.addWidget(self.label, 0, 0, 1, 1)
+
+        self.refresh_image_database_log_2 = QLabel(self.info_frame)
+        self.refresh_image_database_log_2.setObjectName(u"refresh_image_database_log_2")
+        self.refresh_image_database_log_2.setStyleSheet(u"color: rgb(34, 119, 255);")
+
+        self.gridLayout.addWidget(self.refresh_image_database_log_2, 1, 1, 1, 1)
 
 
         self.verticalLayout_4.addWidget(self.info_frame)
@@ -161,6 +167,12 @@ class Ui_stationdownloadMainUI(object):
 
         self.verticalLayout_4.addWidget(self.download_message)
 
+        self.msg_lbl = QLabel(self.main_frame)
+        self.msg_lbl.setObjectName(u"msg_lbl")
+        self.msg_lbl.setStyleSheet(u"color: rgb(34, 119, 255);")
+
+        self.verticalLayout_4.addWidget(self.msg_lbl)
+
         self.frame = QFrame(self.main_frame)
         self.frame.setObjectName(u"frame")
         self.frame.setMinimumSize(QSize(0, 50))
@@ -225,17 +237,19 @@ class Ui_stationdownloadMainUI(object):
 
     def retranslateUi(self, stationdownloadMainUI):
         stationdownloadMainUI.setWindowTitle(QCoreApplication.translate("stationdownloadMainUI", u"Form", None))
-        self.label20.setText(QCoreApplication.translate("stationdownloadMainUI", u"Date:", None))
-        self.label20.setProperty("styleClass", QCoreApplication.translate("stationdownloadMainUI", u"titleInfo", None))
-        self.station_lbl.setText(QCoreApplication.translate("stationdownloadMainUI", u"TextLabel", None))
-        self.station_lbl.setProperty("styleClass", QCoreApplication.translate("stationdownloadMainUI", u"info", None))
         self.date_lbl.setText(QCoreApplication.translate("stationdownloadMainUI", u"TextLabel", None))
         self.date_lbl.setProperty("styleClass", QCoreApplication.translate("stationdownloadMainUI", u"info", None))
+        self.station_lbl.setText(QCoreApplication.translate("stationdownloadMainUI", u"TextLabel", None))
+        self.station_lbl.setProperty("styleClass", QCoreApplication.translate("stationdownloadMainUI", u"info", None))
+        self.label20.setText(QCoreApplication.translate("stationdownloadMainUI", u"Date:", None))
+        self.label20.setProperty("styleClass", QCoreApplication.translate("stationdownloadMainUI", u"titleInfo", None))
         self.label.setText(QCoreApplication.translate("stationdownloadMainUI", u"Station:", None))
         self.label.setProperty("styleClass", QCoreApplication.translate("stationdownloadMainUI", u"titleInfo", None))
+        self.refresh_image_database_log_2.setText(QCoreApplication.translate("stationdownloadMainUI", u"TextLabel", None))
         self.frame_2.setProperty("styleClass", QCoreApplication.translate("stationdownloadMainUI", u"hide", None))
         self.frame_3.setProperty("styleClass", QCoreApplication.translate("stationdownloadMainUI", u"hide", None))
         self.frame_4.setProperty("styleClass", QCoreApplication.translate("stationdownloadMainUI", u"hide", None))
+        self.msg_lbl.setText(QCoreApplication.translate("stationdownloadMainUI", u"-", None))
         self.frame.setProperty("styleClass", QCoreApplication.translate("stationdownloadMainUI", u"hide", None))
         self.download_btn.setText("")
     # retranslateUi

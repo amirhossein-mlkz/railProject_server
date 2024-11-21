@@ -112,7 +112,7 @@ class transformModule:
         self.searcher_thread = threading.Thread( target=self.searcher_worker.run, daemon=True )
         self.searcher_thread.start()
         
-    def start_copy(self, paths:list[str], sizes:list[int], finish_func, speed_func, progress_func, msg_callback, move=False):
+    def start_copy(self, paths:list[str], sizes:list[int], finish_func, speed_func, progress_func, msg_callback, move=False, rename_src=False):
         # a = transormUtils.dateTimeRanges( avaiabilities['11BG21']['right'], 600 )
         self.copy_worker = CopyWorker(self.src_path,
                                       dst_path=self.dst_path,
@@ -228,7 +228,10 @@ class archiveManager:
         return []
     
     def get_available_cameras(self, train_id:str):
-        return list( self.archive[train_id].keys())
+        if train_id in self.archive:
+            return list( self.archive[train_id].keys())
+        else:
+            return []
     
     def get_avaiable_dates(self, train_id:str):
         res = {}

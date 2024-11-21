@@ -5,7 +5,7 @@ import shutil
 from persiantools.jdatetime import JalaliDateTime, timedelta
 from PySide6.QtCore import Signal, QObject
 from Tranform.sharingConstans import StatusCodes
-
+from Tranform.transformUtils import transormUtils
 
 
 class CopyWorker(QObject):
@@ -15,11 +15,12 @@ class CopyWorker(QObject):
     finish_signal = Signal(int)
     error_signal = Signal(str)
 
-    def __init__(self, src_path, dst_path, files_paths:list[str], sizes:list[int], move = False):
+    def __init__(self, src_path, dst_path, files_paths:list[str], sizes:list[int], move = False, rename_src=False):
         super().__init__()
         self.src_path = src_path
         self.dst_path = dst_path
         self.files_paths = files_paths
+        self.rename_src = rename_src
         self.sizes = sizes
         self.move = move
         self.speeds = []
@@ -54,6 +55,14 @@ class CopyWorker(QObject):
 
                 else:
                     shutil.copy2(file_src_path, file_dst_path)
+                    if self.rename_src:
+                        src_dir, src_fname = os.path.split(file_src_path)
+                        new_fname = transormUtils.change_status(src_fname, to_old=True)
+                        new_src = os.path.join(src_dir, new_fname)
+                        try:
+                            os.rename(file_src_path, new_src)
+                        except Exception as e:
+                            print(e)
 
                 t = time.time() - t
                 self.calc_speed(self.sizes[i], t)

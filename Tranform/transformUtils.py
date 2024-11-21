@@ -1,5 +1,4 @@
 import os
-import subprocess
 
 import cv2
 from PySide6.QtCore import Signal, QObject
@@ -16,6 +15,18 @@ class transormUtils:
         dc_str = date + '_' + clock
         dt = JalaliDateTime.strptime(dc_str,'%Y-%m-%d_%H-%M-%S-%f')
         return dt, train_id, camera_name, status, extention
+    
+    @staticmethod
+    def change_status(name:str, to_old:bool, to_new:bool=False,):
+        dt, train_id, camera_name, status, extention = transormUtils.extract_file_name_info(name)
+        if to_old:
+            status = 'old'
+        elif to_new:
+            status = 'new'
+
+        date_str = dt.strftime('%Y-%m-%d_%H-%M-%S-%f')
+        res_fname = f"{date_str}_{train_id}_{camera_name}_{status}{extention}"
+        return res_fname
     
     @staticmethod
     def build_share_path( ip:str, share_name:str, path:str=''):
@@ -43,12 +54,34 @@ class transormUtils:
         duration = frame_count / fps
         return duration
     
+    
+    
     @staticmethod
     def pass_extra_arg_event(event_func, extra_args):
         def res_func(*args):
             args = args + extra_args
             event_func(*args)
         return res_func
+    
+    @staticmethod
+    def run_with_timeout(func, timeout, *args, **kwargs):
+
+        result = [None]
+        is_completed = [False]
+
+        def wrapper():
+            result[0] = func(*args, **kwargs)
+            is_completed[0] = True
+
+        thread = threading.Thread(target=wrapper)
+        thread.start()
+        thread.join(timeout)
+
+        executed_successfully = is_completed[0]
+        if not executed_successfully:
+            result[0] = "Error: Operation timed out!"
+
+        return executed_successfully, result[0]
 
     
     @staticmethod
@@ -117,6 +150,7 @@ class timeRangeWorker(QObject):
                     count+=1
                     progress = count/total_count
                     self.progress_signal.emit(progress)
+
         self.progress_signal.emit(1)
         self.finish_signal.emit(result)
 
