@@ -508,18 +508,6 @@ class UI_main_window_org(sQMainWindow):
         return name
 
 
-
-    
-
-    def append_ping_result(self, result):
-        """Append the ping result to the QTextEdit."""
-        # print(result)
-        self.ui.textEdit_ping_status.append(result)
-
-
-    def clear_ping_result(self):
-        self.ui.textEdit_ping_status.setText('')
-
     
 
     

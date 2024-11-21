@@ -82,6 +82,8 @@ class settingPageUI:
             for cell_name, cell_value in row_info.items():
                 if cell_name in headers:
                     col_idx = headers.index(cell_name)
+                    if cell_name == 'password':
+                        cell_value = '*'*4
                     GUIBackend.set_table_cell_value(table=self.ui.system_stations_table,
                                                     index=(row_idx, col_idx),
                                                     value=cell_value

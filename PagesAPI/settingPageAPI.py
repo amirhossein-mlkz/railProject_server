@@ -33,7 +33,7 @@ class settingPageAPI:
         self.refresh_system_stations()
 
 
-    def ststem_station_table_event(self, name:str, id:str):
+    def system_station_table_event(self, name:str, id:str):
         if name == 'delete':
             self.remove_system_station(id)
         
@@ -41,13 +41,13 @@ class settingPageAPI:
             self.edit_system_station(id)
         
         else:
-            print("BUG:ststem_station_table_event", name, id)
+            print("BUG:system_station_table_event", name, id)
 
     
     def refresh_system_stations(self,):
         self.systems_stations = self.db.load_all_system_stations()
         self.uiHandler.set_system_stations_table(self.systems_stations, 
-                                              event_func=self.ststem_station_table_event)
+                                              event_func=self.system_station_table_event)
         
         self.mediator.start_event(eventNames.MODIFY_SYSTEM_STATIONS, args=(self.systems_stations,))
 

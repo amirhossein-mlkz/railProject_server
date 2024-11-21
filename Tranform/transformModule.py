@@ -118,7 +118,8 @@ class transformModule:
                                       dst_path=self.dst_path,
                                       files_paths=paths,
                                       sizes=sizes,
-                                      move=move
+                                      move=move,
+                                      rename_src=rename_src
                                       )
         
         self.copy_worker.log_signal.connect(msg_callback)

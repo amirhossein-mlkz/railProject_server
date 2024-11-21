@@ -200,7 +200,7 @@ class downloadPageAPI:
         self.train_changed()
 
         if len(all_trains) == 0:
-            self.uiHandler.ui.download_filter_message.show_message("No Trains Found", msg_type='error', display_time=4000)
+            self.uiHandler.ui.download_filter_message.show_message("No Trains Found", msg_type='error', display_time=8000)
 
         self.filter_step =1
         self.uiHandler.set_filter_form_step(self.filter_step, self.FILTER_STEP_FINAL)
@@ -221,6 +221,14 @@ class downloadPageAPI:
     def step1_filter(self, ):
         self.selected_train = self.uiHandler.get_selected_train()
         self.selected_camera = self.uiHandler.get_selected_camera()
+        if self.selected_train == '':
+            self.uiHandler.ui.download_filter_message.show_message("Train Is Empty", msg_type='error', display_time=4000)
+            return
+
+        if self.selected_camera == '':
+            self.uiHandler.ui.download_filter_message.show_message("Camera Is Empty", msg_type='error', display_time=4000)
+            return
+
 
 
         self.stations_passed_train_filter = []
@@ -312,10 +320,8 @@ class downloadPageAPI:
     def start_download(self, station_name, files):
         station_info = self.db.load_system_station_by_id()
         if station_info is None:
-            self.download_sections[station_name].show_msg(
+            self.download_sections[station_name].write_msg(
                 txt='Station not Exist, it removed from your database',
-                msg_type='error',
-                display_time=3000
             )
             return
         
@@ -336,10 +342,8 @@ class downloadPageAPI:
     
     def station_download_file_check_connection(self, status, msg, station_name ):
         if status == StatusCodes.pingAndConnectionStatusCodes.NOT_CONNECT:
-            self.download_sections[station_name].show_msg(
+            self.download_sections[station_name].write_msg(
                 txt=msg,
-                msg_type='error',
-                display_time=4000,
                 )
             self.download_sections[station_name].reset()
             return

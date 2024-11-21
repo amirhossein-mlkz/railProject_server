@@ -62,8 +62,8 @@ class downloadSection(QWidget):
         for clock in self.Clocks.values():
             clock.set_time_ranges(time_rangs)
 
-    def show_msg(self,txt, msg_type, display_time=3000):
-        self.ui.download_message.show_message(txt, msg_type, display_time )
+    # def show_msg(self,txt, msg_type, display_time=3000):
+    #     self.ui.download_message.show_message(txt, msg_type, display_time )
 
     def write_msg(self, txt):
         GUIBackend.set_label_text(self.ui.msg_lbl, txt)
