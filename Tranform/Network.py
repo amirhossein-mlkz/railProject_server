@@ -35,13 +35,13 @@ class pingWorker(QObject):
             
             # بررسی returncode
             if 'ttl' in output.stdout.lower():
-                return True
+                return True, ''
             else:
-                return False
+                return False,''
 
         except Exception as e:
             print(f"An error occurred: {e}")
-            return False
+            return False,''
         
 
 

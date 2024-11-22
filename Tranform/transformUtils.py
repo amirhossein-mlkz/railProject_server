@@ -85,13 +85,17 @@ class transormUtils:
 
     
     @staticmethod
-    def times2ranges(date_times:list[JalaliDateTime], step_lenght_sec:int, max_gap_sec=1):
+    def times2ranges(date_times:list[JalaliDateTime], step_lenght_sec:int, max_gap_sec=60):
         date_times.sort()
 
         start = date_times[0]
         end = date_times[0]
         res = []
-        for i in range(1, len(date_times)):
+        # if len(date_times) == 1:
+        #     end = timedelta(seconds=step_lenght_sec) + end
+        #     res.append((start, end))
+
+        for i in range(0, len(date_times)):
             dif:timedelta = date_times[i] - end
 
             #check if next video distance is more than each video lengh, than means thay arent continues
@@ -103,9 +107,10 @@ class transormUtils:
                 end = date_times[i]
             else:
                 end = date_times[i]
-                if i==len(date_times)-1:
-                    end = timedelta(seconds=step_lenght_sec) + end
-                    res.append((start, end))
+            
+            if i==len(date_times)-1:
+                end = timedelta(seconds=step_lenght_sec) + end
+                res.append((start, end))
 
         return res
 
@@ -115,57 +120,44 @@ class transormUtils:
 class timeRangeWorker(QObject):
     finish_signal = Signal(dict)
     progress_signal = Signal(float)
-    def __init__(self, arcihve:dict[str,dict[str,dict]], train_id, date:JalaliDateTime, cameras):
+    def __init__(self, arcihve:dict[str,dict[str,dict]], train_id, date:JalaliDateTime, camera):
         super().__init__()
         self.archive = arcihve
         self.train_id = train_id
         self.date = date
         self.date_str =  self.date.strftime("%Y-%m-%d")
-        self.cameras = cameras
+        self.camera = camera
 
     def run(self,):
-        total_count = self.get_total_count()
         count = 0
-        result:dict[str, dict[str, list]] = {}
-        for cam in self.archive[self.train_id].keys():
-            if self.cameras is None or cam in self.cameras:
-                result[cam] = {'ranges':[], 'paths':[]}
+        result = {'ranges':[], 'paths':[]}
+        
+        if (    self.train_id in self.archive
+            and self.camera in self.archive[self.train_id]
+            and self.date_str in self.archive[self.train_id][self.camera]):
 
-                if cam not in self.archive[self.train_id]:
-                    continue
+            total_count = self.get_total_count()
 
-                if self.date_str not in self.archive[self.train_id][cam]:
-                    continue
 
-                for dict_info in self.archive[self.train_id][cam][self.date_str].values():
-                    start_date_time = dict_info['datetime']
-                    path = dict_info['path']
-                    if os.path.exists(path):
-                        
-                        duration = transormUtils.get_video_duration(path)
-                        if duration>0:
-                            end_date_time = timedelta(seconds=duration) + start_date_time
-                            result[cam]['ranges'].append((start_date_time, end_date_time))
-                            result[cam]['paths'].append(path)
-                    count+=1
-                    progress = count/total_count
-                    self.progress_signal.emit(progress)
+            for dict_info in self.archive[self.train_id][self.camera][self.date_str].values():
+                start_date_time = dict_info['datetime']
+                path = dict_info['path']
+                if os.path.exists(path):
+                    duration = transormUtils.get_video_duration(path)
+                    if duration>0:
+                        end_date_time = timedelta(seconds=duration) + start_date_time
+                        result['ranges'].append((start_date_time, end_date_time))
+                        result['paths'].append(path)
+                count+=1
+                progress = count/total_count
+                self.progress_signal.emit(progress)
 
         self.progress_signal.emit(1)
         self.finish_signal.emit(result)
 
     
-    def get_total_count(self,):
-        count = 0
-        for cam in self.archive[self.train_id].keys():
-            if cam not in self.archive[self.train_id]:
-                continue
-            if self.date_str not in self.archive[self.train_id][cam]:
-                continue
-
-            if self.cameras is None or cam in self.cameras:
-                
-                count += len(self.archive[self.train_id][cam][self.date_str])
+    def get_total_count(self,):                
+        count = len(self.archive[self.train_id][self.camera][self.date_str])
         return count
         
     # @staticmethod

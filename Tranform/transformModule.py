@@ -180,11 +180,11 @@ class archiveManager:
         if self.external_update_finish_func is not None:
             self.external_update_finish_func(status_code)
 
-    def get_day_time_ranges(self, train_id, date:JalaliDateTime, cameras, finish_func, progress_func):
+    def get_day_time_ranges(self, train_id, date:JalaliDateTime, camera, finish_func, progress_func):
         if self.time_range_thread is not None and self.time_range_thread.is_alive():
             return
         
-        self.time_range_worker = timeRangeWorker(self.archive, train_id, date, cameras)
+        self.time_range_worker = timeRangeWorker(self.archive, train_id, date, camera)
         self.time_range_worker.finish_signal.connect(finish_func)
         self.time_range_worker.progress_signal.connect(progress_func)
         self.time_range_thread = threading.Thread(target=self.time_range_worker.run, daemon=True)
@@ -234,17 +234,19 @@ class archiveManager:
         else:
             return []
     
-    def get_avaiable_dates(self, train_id:str):
-        res = {}
+    def get_avaiable_dates(self, train_id:str, camera:str):
+        res = []
         if train_id not in self.archive:
-            return {}
+            return []
         
-        for camera in self.archive[train_id].keys():
-            dates = self.archive[train_id][camera].keys()
-            dates = list(
-                map( lambda x:JalaliDateTime.strptime(x, '%Y-%m-%d').jdate(), dates)
-            )
-            res[camera] = dates
+        if camera not in self.archive[train_id]:
+            return []
+        
+
+        dates = self.archive[train_id][camera].keys()
+        res = list(
+            map( lambda x:JalaliDateTime.strptime(x, '%Y-%m-%d').jdate(), dates)
+        )
         return res
 
         

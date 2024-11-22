@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>672</width>
-    <height>338</height>
+    <width>716</width>
+    <height>300</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -57,65 +57,6 @@ QLabel[styleClass=&quot;info&quot;]{
          </sizepolicy>
         </property>
         <layout class="QGridLayout" name="gridLayout">
-         <item row="0" column="4">
-          <widget class="QLabel" name="date_lbl">
-           <property name="text">
-            <string>TextLabel</string>
-           </property>
-           <property name="styleClass" stdset="0">
-            <string>info</string>
-           </property>
-          </widget>
-         </item>
-         <item row="0" column="1">
-          <widget class="QLabel" name="station_lbl">
-           <property name="text">
-            <string>TextLabel</string>
-           </property>
-           <property name="styleClass" stdset="0">
-            <string>info</string>
-           </property>
-          </widget>
-         </item>
-         <item row="0" column="3">
-          <widget class="QLabel" name="label20">
-           <property name="text">
-            <string>Date:</string>
-           </property>
-           <property name="styleClass" stdset="0">
-            <string>titleInfo</string>
-           </property>
-          </widget>
-         </item>
-         <item row="0" column="2">
-          <spacer name="horizontalSpacer">
-           <property name="orientation">
-            <enum>Qt::Orientation::Horizontal</enum>
-           </property>
-           <property name="sizeType">
-            <enum>QSizePolicy::Policy::Fixed</enum>
-           </property>
-           <property name="sizeHint" stdset="0">
-            <size>
-             <width>40</width>
-             <height>20</height>
-            </size>
-           </property>
-          </spacer>
-         </item>
-         <item row="0" column="5">
-          <spacer name="horizontalSpacer_2">
-           <property name="orientation">
-            <enum>Qt::Orientation::Horizontal</enum>
-           </property>
-           <property name="sizeHint" stdset="0">
-            <size>
-             <width>40</width>
-             <height>20</height>
-            </size>
-           </property>
-          </spacer>
-         </item>
          <item row="0" column="0">
           <widget class="QLabel" name="label">
            <property name="sizePolicy">
@@ -132,13 +73,134 @@ QLabel[styleClass=&quot;info&quot;]{
            </property>
           </widget>
          </item>
-         <item row="1" column="1">
-          <widget class="QLabel" name="refresh_image_database_log_2">
-           <property name="styleSheet">
-            <string notr="true">color: rgb(34, 119, 255);</string>
-           </property>
+         <item row="0" column="4">
+          <widget class="QLabel" name="train_lbl">
            <property name="text">
             <string>TextLabel</string>
+           </property>
+           <property name="styleClass" stdset="0">
+            <string>info</string>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="11">
+          <spacer name="horizontalSpacer_2">
+           <property name="orientation">
+            <enum>Qt::Orientation::Horizontal</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>40</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+         <item row="0" column="9">
+          <widget class="QLabel" name="label20">
+           <property name="text">
+            <string>Date:</string>
+           </property>
+           <property name="styleClass" stdset="0">
+            <string>titleInfo</string>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="3">
+          <widget class="QLabel" name="label20_2">
+           <property name="text">
+            <string>Train</string>
+           </property>
+           <property name="styleClass" stdset="0">
+            <string>titleInfo</string>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="10">
+          <widget class="QLabel" name="date_lbl">
+           <property name="text">
+            <string>TextLabel</string>
+           </property>
+           <property name="styleClass" stdset="0">
+            <string>info</string>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="8">
+          <spacer name="horizontalSpacer">
+           <property name="orientation">
+            <enum>Qt::Orientation::Horizontal</enum>
+           </property>
+           <property name="sizeType">
+            <enum>QSizePolicy::Policy::Fixed</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>40</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+         <item row="0" column="1">
+          <widget class="QLabel" name="station_lbl">
+           <property name="text">
+            <string>TextLabel</string>
+           </property>
+           <property name="styleClass" stdset="0">
+            <string>info</string>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="2">
+          <spacer name="horizontalSpacer_5">
+           <property name="orientation">
+            <enum>Qt::Orientation::Horizontal</enum>
+           </property>
+           <property name="sizeType">
+            <enum>QSizePolicy::Policy::Fixed</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>40</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+         <item row="0" column="5">
+          <spacer name="horizontalSpacer_4">
+           <property name="orientation">
+            <enum>Qt::Orientation::Horizontal</enum>
+           </property>
+           <property name="sizeType">
+            <enum>QSizePolicy::Policy::Fixed</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>40</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+         <item row="0" column="7">
+          <widget class="QLabel" name="camera_lbl">
+           <property name="text">
+            <string>TextLabel</string>
+           </property>
+           <property name="styleClass" stdset="0">
+            <string>info</string>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="6">
+          <widget class="QLabel" name="label20_3">
+           <property name="text">
+            <string>Camera:</string>
+           </property>
+           <property name="styleClass" stdset="0">
+            <string>titleInfo</string>
            </property>
           </widget>
          </item>
@@ -233,28 +295,21 @@ QLabel[styleClass=&quot;info&quot;]{
        </widget>
       </item>
       <item>
-       <widget class="MessageWidget" name="download_message" native="true">
+       <widget class="QLabel" name="msg_lbl">
         <property name="minimumSize">
          <size>
           <width>0</width>
-          <height>60</height>
+          <height>0</height>
          </size>
         </property>
         <property name="maximumSize">
          <size>
           <width>16777215</width>
-          <height>60</height>
+          <height>50</height>
          </size>
         </property>
         <property name="styleSheet">
-         <string notr="true"/>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QLabel" name="msg_lbl">
-        <property name="styleSheet">
-         <string notr="true">color: rgb(34, 119, 255);</string>
+         <string notr="true">color: rgb(64, 150, 255);</string>
         </property>
         <property name="text">
          <string>-</string>
@@ -351,14 +406,6 @@ QPushButton:hover{
    </item>
   </layout>
  </widget>
- <customwidgets>
-  <customwidget>
-   <class>MessageWidget</class>
-   <extends>QWidget</extends>
-   <header>uiUtils.GUIComponents.h</header>
-   <container>1</container>
-  </customwidget>
- </customwidgets>
  <resources>
   <include location="../assets.qrc"/>
  </resources>

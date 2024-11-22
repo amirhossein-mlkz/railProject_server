@@ -54,7 +54,7 @@ class playbackPageAPI:
         self.uiHandler.ui.play_btn.clicked.connect(self.play_video)
         self.uiHandler.ui.speed_btn.clicked.connect(self.change_video_speed)
         self.uiHandler.ui.btn_export.clicked.connect(self.show_export)
-        self.uiHandler.ui.playback_camera_combo.currentTextChanged.connect(self.camera_change_event)
+        self.uiHandler.ui.playback_camera_combo.currentTextChanged.connect(self.select_camera_event)
         self.uiHandler.ui.playback_combo_train_id.currentTextChanged.connect(self.select_train_event)
         self.uiHandler.timeLineSlider.timeSelected.connect(self.timline_change_event)
         
@@ -115,30 +115,25 @@ class playbackPageAPI:
             return
         
         self.selected_train = train_id
-        
-        dates = self.archiveManager.get_avaiable_dates(train_id)
+        cameras = self.archiveManager.get_available_cameras(train_id)
+        self.uiHandler.set_cameras(cameras)
+        self.select_camera_event()
 
-        all_dates = []
-
-        for cam in dates.keys():
-            all_dates = all_dates + dates[cam]
+    def select_camera_event(self,):
+        self.selected_camera = self.uiHandler.get_current_camera()
+        if not self.selected_camera:
+            return
         
-        self.uiHandler.calendar_dialog.set_avaiable_date_ranges(all_dates)
+        dates = self.archiveManager.get_avaiable_dates(self.selected_train, self.selected_camera)
+        self.uiHandler.calendar_dialog.set_avaiable_date_ranges(dates)
+
+
     
 
     def date_select_event(self, date:JalaliDateTime):
         self.uiHandler.ui.playback_filter_frame.setDisabled(True)
         self.selected_date = date
 
-        cameras = self.archiveManager.get_available_cameras(self.selected_train)
-        self.uiHandler.set_cameras(cameras)
-
-    
-    def camera_change_event(self,):
-        self.selected_camera = self.uiHandler.get_current_camera()
-        if not self.selected_camera:
-            return
-        
         self.curent_video_idx = 0
 
         # self.uiHandler.set_load_video_progress(0)
@@ -146,9 +141,16 @@ class playbackPageAPI:
         self.uiHandler.trainLoading.show()
         self.archiveManager.get_day_time_ranges(train_id=self.selected_train, 
                                                 date=self.selected_date, 
-                                                cameras=[self.selected_camera],
+                                                camera=self.selected_camera,
                                                 finish_func=self.date_ranges_event, 
                                                 progress_func=self.date_ranges_progress)
+
+
+        
+
+    
+    
+    
 
     def date_ranges_event(self, date_ranges:dict[str, list]):
         self.date_ranges = date_ranges
@@ -156,20 +158,20 @@ class playbackPageAPI:
         start = JalaliDateTime.combine(self.selected_date, Time.min)
         end = start + timedelta(days=1)
 
-        if self.selected_camera in self.date_ranges:
-            self.uiHandler.set_timelines(date_ranges[self.selected_camera]['ranges'], start=start, end=end)
+        
+        self.uiHandler.set_timelines(date_ranges['ranges'], start=start, end=end)
             
-            #check if any video exists
-            if len(date_ranges[self.selected_camera]['paths']):
-                self.Player.load_video(date_ranges[self.selected_camera]['paths'][self.curent_video_idx])
-                self.Player.update_frame()
-                self.refreshing_ui(force=True)
-            else:
-                self.Player.load_video(None)
+        #check if any video exists
+        if len(date_ranges['paths']):
+            self.Player.load_video(date_ranges['paths'][self.curent_video_idx])
+            self.Player.update_frame()
+            self.refreshing_ui(force=True)
+        else:
+            self.Player.load_video(None)
 
-            
-            self.is_playing = False
-            self.uiHandler.setplaying_button(self.is_playing)
+        
+        self.is_playing = False
+        self.uiHandler.setplaying_button(self.is_playing)
         
 
     
@@ -204,17 +206,17 @@ class playbackPageAPI:
         if self.Player.is_finished():
             #move to next video
             self.curent_video_idx+=1
-            if self.curent_video_idx > len(self.date_ranges[self.selected_camera]):
+            if self.curent_video_idx > len(self.date_ranges):
                 self.curent_video_idx = 0
             
             
-            self.Player.load_video(self.date_ranges[self.selected_camera]['paths'][self.curent_video_idx])
+            self.Player.load_video(self.date_ranges['paths'][self.curent_video_idx])
             self.Player.play_video()
 
 
         if self.Player.is_playing() or force:
             sec = self.Player.get_time()
-            start_datetime, end_datetime = self.date_ranges[self.selected_camera]['ranges'][self.curent_video_idx]
+            start_datetime, end_datetime = self.date_ranges['ranges'][self.curent_video_idx]
             current_datetime:JalaliDateTime = start_datetime + timedelta(seconds=sec)
             
             self.uiHandler.timeLineSlider.set_time_by_jdatetime(current_datetime)
@@ -227,8 +229,8 @@ class playbackPageAPI:
 
 
     def timline_change_event(self, date_time:JalaliDateTime):
-        date_ranges = self.date_ranges[self.selected_camera]['ranges']
-        paths = self.date_ranges[self.selected_camera]['paths']
+        date_ranges = self.date_ranges['ranges']
+        paths = self.date_ranges['paths']
 
         prev_video_idx = self.curent_video_idx
         for i,(start, end) in enumerate(date_ranges):

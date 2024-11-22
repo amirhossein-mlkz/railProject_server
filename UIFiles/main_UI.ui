@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1153</width>
-    <height>750</height>
+    <height>725</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -1009,7 +1009,7 @@ icon:url(:/icons/icons/download-white.png);
              <number>2</number>
             </property>
             <property name="currentIndex">
-             <number>1</number>
+             <number>0</number>
             </property>
             <widget class="QWidget" name="page_playback">
              <property name="styleSheet">
@@ -1240,20 +1240,13 @@ background-color:rgb(49, 44, 53);
                           </widget>
                          </item>
                          <item>
-                          <widget class="Line" name="line_6">
-                           <property name="orientation">
-                            <enum>Qt::Orientation::Horizontal</enum>
-                           </property>
-                          </widget>
-                         </item>
-                         <item alignment="Qt::AlignmentFlag::AlignHCenter">
-                          <widget class="QFrame" name="frame_17">
+                          <widget class="QFrame" name="frame_19">
                            <property name="frameShape">
                             <enum>QFrame::Shape::NoFrame</enum>
                            </property>
-                           <layout class="QHBoxLayout" name="horizontalLayout_15">
+                           <layout class="QHBoxLayout" name="horizontalLayout_16">
                             <item>
-                             <widget class="QLabel" name="label_3">
+                             <widget class="QLabel" name="label_30">
                               <property name="maximumSize">
                                <size>
                                 <width>110</width>
@@ -1269,13 +1262,12 @@ background-color:rgb(49, 44, 53);
                              <widget class="QComboBox" name="playback_combo_train_id">
                               <property name="styleSheet">
                                <string notr="true">QComboBox {
-    background-color: #3b4252;
-	background-color: rgb(180, 180, 180);
-    border: 1px solid #4c566a;
+    background-color:  transparent;
+    border: 2px solid white;
     border-radius: 5px;
     padding: 6px 10px;
 
-	color: rgb(0, 0, 0);
+	color: white;
 }
 
 QComboBox:hover {
@@ -1283,7 +1275,12 @@ QComboBox:hover {
 }
 
 QComboBox::drop-down {
-    border: none;
+    background-color: #fff;
+}
+
+QComboBox QAbstractItemView {
+    background-color: #404040;
+    color: white;
 }
 
 QComboBox::down-arrow {
@@ -1305,17 +1302,88 @@ QComboBox::down-arrow {
                           </widget>
                          </item>
                          <item>
-                          <widget class="Line" name="line_7">
-                           <property name="orientation">
-                            <enum>Qt::Orientation::Horizontal</enum>
-                           </property>
-                          </widget>
-                         </item>
-                         <item>
                           <widget class="Line" name="line">
                            <property name="orientation">
                             <enum>Qt::Orientation::Vertical</enum>
                            </property>
+                          </widget>
+                         </item>
+                         <item>
+                          <widget class="QFrame" name="frame_22">
+                           <property name="frameShape">
+                            <enum>QFrame::Shape::NoFrame</enum>
+                           </property>
+                           <layout class="QHBoxLayout" name="horizontalLayout_18">
+                            <item>
+                             <widget class="QLabel" name="label_35">
+                              <property name="maximumSize">
+                               <size>
+                                <width>110</width>
+                                <height>16777215</height>
+                               </size>
+                              </property>
+                              <property name="text">
+                               <string>Camera</string>
+                              </property>
+                             </widget>
+                            </item>
+                            <item>
+                             <widget class="QComboBox" name="playback_camera_combo">
+                              <property name="minimumSize">
+                               <size>
+                                <width>120</width>
+                                <height>0</height>
+                               </size>
+                              </property>
+                              <property name="maximumSize">
+                               <size>
+                                <width>16777215</width>
+                                <height>16777215</height>
+                               </size>
+                              </property>
+                              <property name="styleSheet">
+                               <string notr="true">QComboBox {
+    background-color:  transparent;
+    border: 2px solid white;
+    border-radius: 5px;
+    padding: 6px 10px;
+
+	color: white;
+}
+
+QComboBox:hover {
+    border: 1px solid #5e81ac;
+}
+
+QComboBox::drop-down {
+    background-color: #fff;
+}
+
+QComboBox QAbstractItemView {
+    background-color: #404040;
+    color: white;
+}
+
+QComboBox::down-arrow {
+    image: url(:/icons/icons/icons8-drop-down-80.png);
+
+    width: 12px;
+    height: 12px;
+}</string>
+                              </property>
+                              <item>
+                               <property name="text">
+                                <string>test1</string>
+                               </property>
+                              </item>
+                              <item>
+                               <property name="text">
+                                <string>test2</string>
+                               </property>
+                              </item>
+                             </widget>
+                            </item>
+                           </layout>
                           </widget>
                          </item>
                          <item>
@@ -1610,88 +1678,6 @@ background-color: rgb(30, 27, 33);
                     <enum>QFrame::Shape::NoFrame</enum>
                    </property>
                    <layout class="QHBoxLayout" name="horizontalLayout_4">
-                    <item>
-                     <widget class="QLabel" name="label_28">
-                      <property name="styleSheet">
-                       <string notr="true">	color: white;</string>
-                      </property>
-                      <property name="text">
-                       <string>Camera</string>
-                      </property>
-                     </widget>
-                    </item>
-                    <item>
-                     <widget class="QComboBox" name="playback_camera_combo">
-                      <property name="minimumSize">
-                       <size>
-                        <width>120</width>
-                        <height>0</height>
-                       </size>
-                      </property>
-                      <property name="maximumSize">
-                       <size>
-                        <width>16777215</width>
-                        <height>16777215</height>
-                       </size>
-                      </property>
-                      <property name="styleSheet">
-                       <string notr="true">QComboBox {
-    background-color:  transparent;
-    border: 2px solid white;
-    border-radius: 5px;
-    padding: 6px 10px;
-
-	color: white;
-}
-
-QComboBox:hover {
-    border: 1px solid #5e81ac;
-}
-
-QComboBox::drop-down {
-    background-color: #fff;
-}
-
-QComboBox QAbstractItemView {
-    background-color: #404040;
-    color: white;
-}
-
-QComboBox::down-arrow {
-    image: url(:/icons/icons/icons8-drop-down-80.png);
-
-    width: 12px;
-    height: 12px;
-}</string>
-                      </property>
-                      <item>
-                       <property name="text">
-                        <string>test1</string>
-                       </property>
-                      </item>
-                      <item>
-                       <property name="text">
-                        <string>test2</string>
-                       </property>
-                      </item>
-                     </widget>
-                    </item>
-                    <item>
-                     <spacer name="horizontalSpacer_6">
-                      <property name="orientation">
-                       <enum>Qt::Orientation::Vertical</enum>
-                      </property>
-                      <property name="sizeType">
-                       <enum>QSizePolicy::Policy::Fixed</enum>
-                      </property>
-                      <property name="sizeHint" stdset="0">
-                       <size>
-                        <width>40</width>
-                        <height>20</height>
-                       </size>
-                      </property>
-                     </spacer>
-                    </item>
                     <item>
                      <widget class="QPushButton" name="play_btn">
                       <property name="maximumSize">
@@ -2079,7 +2065,7 @@ QPushButton:disabled {
                            <x>0</x>
                            <y>0</y>
                            <width>498</width>
-                           <height>566</height>
+                           <height>541</height>
                           </rect>
                          </property>
                          <property name="styleSheet">
@@ -2417,8 +2403,8 @@ QPushButton:disabled {
                              <rect>
                               <x>0</x>
                               <y>0</y>
-                              <width>468</width>
-                              <height>548</height>
+                              <width>218</width>
+                              <height>402</height>
                              </rect>
                             </property>
                             <property name="styleClass" stdset="0">
@@ -3533,8 +3519,8 @@ font-weight:bold;</string>
                       <rect>
                        <x>0</x>
                        <y>0</y>
-                       <width>497</width>
-                       <height>664</height>
+                       <width>38</width>
+                       <height>18</height>
                       </rect>
                      </property>
                      <property name="styleClass" stdset="0">
@@ -3603,8 +3589,6 @@ font-weight:bold;</string>
   <tabstop>download_stations_table</tabstop>
   <tabstop>download_filter_prev_btn</tabstop>
   <tabstop>download_filter_next_btn</tabstop>
-  <tabstop>playback_combo_train_id</tabstop>
-  <tabstop>playback_camera_combo</tabstop>
   <tabstop>play_btn</tabstop>
   <tabstop>speed_btn</tabstop>
   <tabstop>setting_tab_widget</tabstop>

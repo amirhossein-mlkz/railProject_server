@@ -405,6 +405,7 @@ class JalaliCalendarDialog(QWidget):
 
     def set_avaiable_date_ranges(self, avaiable_dates:list[ JalaliDateTime]):
         self.avaiable_dates = avaiable_dates
+        self.date = None
         self.updateCalendar()
 
             

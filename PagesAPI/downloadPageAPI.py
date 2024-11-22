@@ -135,7 +135,7 @@ class downloadPageAPI:
                 self.complete_archive_count +=1
                 continue
             
-            path = transormUtils.build_share_path(system_info['ip'], pathConstants.OTHER_IMAGES_SHARE_FOLDER)# SHOULD BE CHANGE
+            path = transormUtils.build_share_path(system_info['ip'], pathConstants.OTHER_IMAGES_SHARE_FOLDER)
             worker = pingAndCreateWorker(system_info['ip'],
                                          src_path=path,
                                          username=system_info['username'],
@@ -159,7 +159,11 @@ class downloadPageAPI:
         
         
         elif status == StatusCodes.pingAndConnectionStatusCodes.SUCCESS:
-            pass
+            self.station_logs.append( { 'info':station_system,
+                                        'status' : True,
+                                        'message':  msg
+                                    }
+                                )
         
         #check if result of all station got
         self.complete_archive_count +=1
@@ -179,10 +183,17 @@ class downloadPageAPI:
         #ONLY FOR TEST
         self.stations_archives= {}
         for log in self.station_logs:
-            archive = archiveManager(pathConstants.UTILS_DIR)
-            archive.load()
-            name = log['info']['name']
-            self.stations_archives[name] = archive
+            archive_path = transormUtils.build_share_path(ip=log['info']['ip'],
+                                                          share_name=pathConstants.OTHER_UTILS_SHARE_FOLDER)
+            
+            archive = archiveManager(archive_path)
+            flag = archive.load()
+            if flag:
+                name = log['info']['name']
+                self.stations_archives[name] = archive
+            else:
+                log['status'] = False
+                log['message'] = f"Couldn't open archive"
         #ONLY FOR TEST
         #-----------------------------------------------------------------
 
@@ -234,11 +245,10 @@ class downloadPageAPI:
         self.stations_passed_train_filter = []
         available_dates = []
         for name, archive in self.stations_archives.items():
-            dates = archive.get_avaiable_dates(train_id=self.selected_train)
+            dates = archive.get_avaiable_dates(train_id=self.selected_train, camera=self.selected_camera)
             if len(dates):
-                if self.selected_camera in dates.keys():
-                    self.stations_passed_train_filter.append(name)
-                    available_dates.extend( dates[self.selected_camera] )
+                self.stations_passed_train_filter.append(name)
+                available_dates.extend( dates )
         available_dates = list(set(available_dates))
         self.uiHandler.calendar_dialog.set_avaiable_date_ranges(available_dates)
 
@@ -261,10 +271,10 @@ class downloadPageAPI:
 
         for name in self.stations_passed_train_filter:
             arcihve = self.stations_archives[name]
-            avaialbe_dates = arcihve.get_avaiable_dates(self.selected_train)
+            avaialbe_dates = arcihve.get_avaiable_dates(self.selected_train, self.selected_camera)
 
             #check date exist in archive
-            if self.selected_date in avaialbe_dates[self.selected_camera]:
+            if self.selected_date in avaialbe_dates:
                 self.station_passed_date_filter.append(name)
                 times = arcihve.get_day_times(self.selected_train, self.selected_date, self.selected_camera)
                 all_times.extend(times)
@@ -295,7 +305,7 @@ class downloadPageAPI:
             self.uiHandler.ui.download_filter_message.show_message("Start time Can't be bigger than end time", msg_type='error', display_time=4000)
         
 
-        for station in self.stations_archives.keys():
+        for station in self.station_passed_date_filter:
             results = self.stations_archives[station].filter_files(
                                                     train_id=self.selected_train,
                                                     date=self.selected_date,
@@ -307,7 +317,10 @@ class downloadPageAPI:
                 times = list(map(lambda x:x['datetime'], results))
                 times_rangs =  transormUtils.times2ranges(times, step_lenght_sec=600)
                 sec = downloadSection(  
+                                        _id=station,
                                         name=station,
+                                        train=self.selected_train,
+                                        camera=self.selected_camera,
                                         dt=self.selected_date
                                         )
                 sec.download_btn_connector(self.start_download, args=(station, results))
@@ -318,7 +331,7 @@ class downloadPageAPI:
 
 
     def start_download(self, station_name, files):
-        station_info = self.db.load_system_station_by_id()
+        station_info = self.db.load_system_station_by_name(station_name)
         if station_info is None:
             self.download_sections[station_name].write_msg(
                 txt='Station not Exist, it removed from your database',
@@ -329,7 +342,7 @@ class downloadPageAPI:
             
         tf = transformModule(station_info['ip'],
                         src_path=pathConstants.OTHER_IMAGES_SHARE_FOLDER,
-                        dst_path=pathConstants.SELF_IMAGES_FOLDR,
+                        dst_path=pathConstants.SELF_IMAGES_DIR,
                         username=station_info['username'],
                         password=station_info['password']
                         )
@@ -357,6 +370,7 @@ class downloadPageAPI:
                 dates_tange=self.selected_datetime_range,
                 status=None,
                 finish_event_func=finish_func,
+                log_event_func=log_func,
                 log_search=False
             )
         
@@ -421,5 +435,7 @@ class downloadPageAPI:
             return
         
         self.download_sections[station_name].write_msg("Download Videos Finish Success")    
+        self.download_sections[station_name].reset()
+
         
 

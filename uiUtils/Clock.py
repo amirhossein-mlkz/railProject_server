@@ -54,6 +54,8 @@ class ClockWidget(QWidget):
             else:
                 if time(0,0) <= end < time(12,0):
                     end = time(23,59,59)
+                if time(0,0) <= start < time(12,0):
+                    start = time(12,0)
                 if time(0,0) <= start < time(12,0) and time(0,0) <= end < time(12,0):
                     continue
                 else:

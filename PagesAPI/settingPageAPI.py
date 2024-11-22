@@ -4,12 +4,13 @@ import threading
 from PagesUI.settingPageUI import settingPageUI
 from backend.database.mainDatabase import mainDatabase
 from uiUtils.GUIComponents import MessageWidget
-from Tranform.Network import pingWorker
+from Tranform.Network import pingAndCreateWorker
+from Tranform.transformUtils import transormUtils
 from backend.utils.threadWorker import threadWorkers
 from Tranform.sharingConstans import StatusCodes
 from Mediator.mainMediator import Mediator
 from Mediator.mediatorNames import eventNames
-
+from pathConstans import pathConstants
 
 
 class settingPageAPI:
@@ -134,6 +135,8 @@ class settingPageAPI:
 
     def check_system_connection(self):
         ip = self.uiHandler.get_add_ip()
+        username = self.uiHandler.get_add_username()
+        password  = self.uiHandler.get_add_password()
         if self.pingThreadWorker.is_alive():
             self.uiHandler.ui.add_station_message.show_message("Please wait for Response", 
                                                                msg_type='info', 
@@ -141,7 +144,12 @@ class settingPageAPI:
             return
 
         if ip:
-            worker = pingWorker(ip)
+            path = transormUtils.build_share_path(ip, pathConstants.OTHER_SHARE_NAME)
+            worker = pingAndCreateWorker(ip=ip,
+                                         src_path=path, 
+                                         username=username,
+                                         password=password
+                                         )
             worker.result_signal.connect(self.ping_result_event)
             thread = threading.Thread(target=worker.run, daemon=True)
             self.pingThreadWorker = threadWorkers(thread=thread, worker=worker)
@@ -152,9 +160,9 @@ class settingPageAPI:
                                                                display_time=3000)
 
 
-    def ping_result_event(self, status):
+    def ping_result_event(self, status, msg):
         if status == StatusCodes.pingAndConnectionStatusCodes.NOT_CONNECT:
-            self.uiHandler.ui.add_station_message.show_message("connection failed", 
+            self.uiHandler.ui.add_station_message.show_message(msg, 
                                                             msg_type='error', 
                                                             display_time=3000)
             return

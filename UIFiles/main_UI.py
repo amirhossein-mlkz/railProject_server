@@ -20,8 +20,7 @@ from PySide6.QtWidgets import (QAbstractItemView, QApplication, QCheckBox, QComb
     QHeaderView, QLabel, QLineEdit, QMainWindow,
     QPushButton, QScrollArea, QSizePolicy, QSpacerItem,
     QSplitter, QStackedWidget, QStatusBar, QTabWidget,
-    QTableWidget, QTableWidgetItem, QTextEdit, QVBoxLayout,
-    QWidget)
+    QTableWidget, QTableWidgetItem, QVBoxLayout, QWidget)
 
 from uiUtils.GUIComponents import (MessageWidget, timeSpinBox)
 import assets_rc
@@ -31,7 +30,7 @@ class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         if not MainWindow.objectName():
             MainWindow.setObjectName(u"MainWindow")
-        MainWindow.resize(1153, 750)
+        MainWindow.resize(1153, 725)
         MainWindow.setStyleSheet(u"")
         self.centralwidget = QWidget(MainWindow)
         self.centralwidget.setObjectName(u"centralwidget")
@@ -715,34 +714,26 @@ class Ui_MainWindow(object):
 
         self.verticalLayout_6.addWidget(self.frame_20, 0, Qt.AlignmentFlag.AlignHCenter)
 
-        self.line_6 = QFrame(self.frame_16)
-        self.line_6.setObjectName(u"line_6")
-        self.line_6.setFrameShape(QFrame.Shape.HLine)
-        self.line_6.setFrameShadow(QFrame.Shadow.Sunken)
+        self.frame_19 = QFrame(self.frame_16)
+        self.frame_19.setObjectName(u"frame_19")
+        self.frame_19.setFrameShape(QFrame.Shape.NoFrame)
+        self.horizontalLayout_16 = QHBoxLayout(self.frame_19)
+        self.horizontalLayout_16.setObjectName(u"horizontalLayout_16")
+        self.label_30 = QLabel(self.frame_19)
+        self.label_30.setObjectName(u"label_30")
+        self.label_30.setMaximumSize(QSize(110, 16777215))
 
-        self.verticalLayout_6.addWidget(self.line_6)
+        self.horizontalLayout_16.addWidget(self.label_30)
 
-        self.frame_17 = QFrame(self.frame_16)
-        self.frame_17.setObjectName(u"frame_17")
-        self.frame_17.setFrameShape(QFrame.Shape.NoFrame)
-        self.horizontalLayout_15 = QHBoxLayout(self.frame_17)
-        self.horizontalLayout_15.setObjectName(u"horizontalLayout_15")
-        self.label_3 = QLabel(self.frame_17)
-        self.label_3.setObjectName(u"label_3")
-        self.label_3.setMaximumSize(QSize(110, 16777215))
-
-        self.horizontalLayout_15.addWidget(self.label_3)
-
-        self.playback_combo_train_id = QComboBox(self.frame_17)
+        self.playback_combo_train_id = QComboBox(self.frame_19)
         self.playback_combo_train_id.setObjectName(u"playback_combo_train_id")
         self.playback_combo_train_id.setStyleSheet(u"QComboBox {\n"
-"    background-color: #3b4252;\n"
-"	background-color: rgb(180, 180, 180);\n"
-"    border: 1px solid #4c566a;\n"
+"    background-color:  transparent;\n"
+"    border: 2px solid white;\n"
 "    border-radius: 5px;\n"
 "    padding: 6px 10px;\n"
 "\n"
-"	color: rgb(0, 0, 0);\n"
+"	color: white;\n"
 "}\n"
 "\n"
 "QComboBox:hover {\n"
@@ -750,7 +741,12 @@ class Ui_MainWindow(object):
 "}\n"
 "\n"
 "QComboBox::drop-down {\n"
-"    border: none;\n"
+"    background-color: #fff;\n"
+"}\n"
+"\n"
+"QComboBox QAbstractItemView {\n"
+"    background-color: #404040;\n"
+"    color: white;\n"
 "}\n"
 "\n"
 "QComboBox::down-arrow {\n"
@@ -761,17 +757,10 @@ class Ui_MainWindow(object):
 "}")
         self.playback_combo_train_id.setIconSize(QSize(41, 45))
 
-        self.horizontalLayout_15.addWidget(self.playback_combo_train_id)
+        self.horizontalLayout_16.addWidget(self.playback_combo_train_id)
 
 
-        self.verticalLayout_6.addWidget(self.frame_17, 0, Qt.AlignmentFlag.AlignHCenter)
-
-        self.line_7 = QFrame(self.frame_16)
-        self.line_7.setObjectName(u"line_7")
-        self.line_7.setFrameShape(QFrame.Shape.HLine)
-        self.line_7.setFrameShadow(QFrame.Shadow.Sunken)
-
-        self.verticalLayout_6.addWidget(self.line_7)
+        self.verticalLayout_6.addWidget(self.frame_19)
 
         self.line = QFrame(self.frame_16)
         self.line.setObjectName(u"line")
@@ -779,6 +768,57 @@ class Ui_MainWindow(object):
         self.line.setFrameShadow(QFrame.Shadow.Sunken)
 
         self.verticalLayout_6.addWidget(self.line)
+
+        self.frame_22 = QFrame(self.frame_16)
+        self.frame_22.setObjectName(u"frame_22")
+        self.frame_22.setFrameShape(QFrame.Shape.NoFrame)
+        self.horizontalLayout_18 = QHBoxLayout(self.frame_22)
+        self.horizontalLayout_18.setObjectName(u"horizontalLayout_18")
+        self.label_35 = QLabel(self.frame_22)
+        self.label_35.setObjectName(u"label_35")
+        self.label_35.setMaximumSize(QSize(110, 16777215))
+
+        self.horizontalLayout_18.addWidget(self.label_35)
+
+        self.playback_camera_combo = QComboBox(self.frame_22)
+        self.playback_camera_combo.addItem("")
+        self.playback_camera_combo.addItem("")
+        self.playback_camera_combo.setObjectName(u"playback_camera_combo")
+        self.playback_camera_combo.setMinimumSize(QSize(120, 0))
+        self.playback_camera_combo.setMaximumSize(QSize(16777215, 16777215))
+        self.playback_camera_combo.setStyleSheet(u"QComboBox {\n"
+"    background-color:  transparent;\n"
+"    border: 2px solid white;\n"
+"    border-radius: 5px;\n"
+"    padding: 6px 10px;\n"
+"\n"
+"	color: white;\n"
+"}\n"
+"\n"
+"QComboBox:hover {\n"
+"    border: 1px solid #5e81ac;\n"
+"}\n"
+"\n"
+"QComboBox::drop-down {\n"
+"    background-color: #fff;\n"
+"}\n"
+"\n"
+"QComboBox QAbstractItemView {\n"
+"    background-color: #404040;\n"
+"    color: white;\n"
+"}\n"
+"\n"
+"QComboBox::down-arrow {\n"
+"    image: url(:/icons/icons/icons8-drop-down-80.png);\n"
+"\n"
+"    width: 12px;\n"
+"    height: 12px;\n"
+"}")
+
+        self.horizontalLayout_18.addWidget(self.playback_camera_combo)
+
+
+        self.verticalLayout_6.addWidget(self.frame_22)
 
         self.calender_frame = QFrame(self.frame_16)
         self.calender_frame.setObjectName(u"calender_frame")
@@ -942,53 +982,6 @@ class Ui_MainWindow(object):
         self.frame_13.setFrameShape(QFrame.Shape.NoFrame)
         self.horizontalLayout_4 = QHBoxLayout(self.frame_13)
         self.horizontalLayout_4.setObjectName(u"horizontalLayout_4")
-        self.label_28 = QLabel(self.frame_13)
-        self.label_28.setObjectName(u"label_28")
-        self.label_28.setStyleSheet(u"	color: white;")
-
-        self.horizontalLayout_4.addWidget(self.label_28)
-
-        self.playback_camera_combo = QComboBox(self.frame_13)
-        self.playback_camera_combo.addItem("")
-        self.playback_camera_combo.addItem("")
-        self.playback_camera_combo.setObjectName(u"playback_camera_combo")
-        self.playback_camera_combo.setMinimumSize(QSize(120, 0))
-        self.playback_camera_combo.setMaximumSize(QSize(16777215, 16777215))
-        self.playback_camera_combo.setStyleSheet(u"QComboBox {\n"
-"    background-color:  transparent;\n"
-"    border: 2px solid white;\n"
-"    border-radius: 5px;\n"
-"    padding: 6px 10px;\n"
-"\n"
-"	color: white;\n"
-"}\n"
-"\n"
-"QComboBox:hover {\n"
-"    border: 1px solid #5e81ac;\n"
-"}\n"
-"\n"
-"QComboBox::drop-down {\n"
-"    background-color: #fff;\n"
-"}\n"
-"\n"
-"QComboBox QAbstractItemView {\n"
-"    background-color: #404040;\n"
-"    color: white;\n"
-"}\n"
-"\n"
-"QComboBox::down-arrow {\n"
-"    image: url(:/icons/icons/icons8-drop-down-80.png);\n"
-"\n"
-"    width: 12px;\n"
-"    height: 12px;\n"
-"}")
-
-        self.horizontalLayout_4.addWidget(self.playback_camera_combo)
-
-        self.horizontalSpacer_6 = QSpacerItem(40, 20, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Fixed)
-
-        self.horizontalLayout_4.addItem(self.horizontalSpacer_6)
-
         self.play_btn = QPushButton(self.frame_13)
         self.play_btn.setObjectName(u"play_btn")
         self.play_btn.setMaximumSize(QSize(70, 30))
@@ -1192,72 +1185,35 @@ class Ui_MainWindow(object):
         self.scrollArea_2.setWidgetResizable(True)
         self.scrollAreaWidgetContents_2 = QWidget()
         self.scrollAreaWidgetContents_2.setObjectName(u"scrollAreaWidgetContents_2")
-        self.scrollAreaWidgetContents_2.setGeometry(QRect(0, 0, 486, 573))
+        self.scrollAreaWidgetContents_2.setGeometry(QRect(0, 0, 498, 541))
         self.scrollAreaWidgetContents_2.setStyleSheet(u"")
         self.verticalLayout_7 = QVBoxLayout(self.scrollAreaWidgetContents_2)
         self.verticalLayout_7.setObjectName(u"verticalLayout_7")
         self.gridLayout = QGridLayout()
         self.gridLayout.setObjectName(u"gridLayout")
         self.gridLayout.setVerticalSpacing(20)
-        self.gridLayout.setContentsMargins(-1, 30, -1, -1)
+        self.gridLayout.setContentsMargins(-1, 0, -1, -1)
         self.label_15 = QLabel(self.scrollAreaWidgetContents_2)
         self.label_15.setObjectName(u"label_15")
 
-        self.gridLayout.addWidget(self.label_15, 2, 1, 1, 1)
+        self.gridLayout.addWidget(self.label_15, 2, 0, 1, 1)
 
         self.password_input = QLineEdit(self.scrollAreaWidgetContents_2)
         self.password_input.setObjectName(u"password_input")
         self.password_input.setMaximumSize(QSize(140, 16777215))
         self.password_input.setStyleSheet(u"")
 
-        self.gridLayout.addWidget(self.password_input, 4, 2, 1, 1)
-
-        self.label_19 = QLabel(self.scrollAreaWidgetContents_2)
-        self.label_19.setObjectName(u"label_19")
-
-        self.gridLayout.addWidget(self.label_19, 4, 1, 1, 1)
-
-        self.username_input = QLineEdit(self.scrollAreaWidgetContents_2)
-        self.username_input.setObjectName(u"username_input")
-        self.username_input.setMaximumSize(QSize(140, 16777215))
-        self.username_input.setStyleSheet(u"")
-
-        self.gridLayout.addWidget(self.username_input, 3, 2, 1, 1)
+        self.gridLayout.addWidget(self.password_input, 4, 1, 1, 1)
 
         self.label_17 = QLabel(self.scrollAreaWidgetContents_2)
         self.label_17.setObjectName(u"label_17")
 
-        self.gridLayout.addWidget(self.label_17, 1, 1, 1, 1)
-
-        self.label_18 = QLabel(self.scrollAreaWidgetContents_2)
-        self.label_18.setObjectName(u"label_18")
-
-        self.gridLayout.addWidget(self.label_18, 3, 1, 1, 1)
-
-        self.horizontalSpacer_3 = QSpacerItem(40, 20, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Expanding)
-
-        self.gridLayout.addItem(self.horizontalSpacer_3, 0, 3, 1, 1)
-
-        self.city_input = QLineEdit(self.scrollAreaWidgetContents_2)
-        self.city_input.setObjectName(u"city_input")
-        self.city_input.setMaximumSize(QSize(140, 16777215))
-        self.city_input.setCursor(QCursor(Qt.CursorShape.IBeamCursor))
-        self.city_input.setStyleSheet(u"")
-
-        self.gridLayout.addWidget(self.city_input, 1, 2, 1, 1)
-
-        self.ip_input = QLineEdit(self.scrollAreaWidgetContents_2)
-        self.ip_input.setObjectName(u"ip_input")
-        self.ip_input.setMaximumSize(QSize(140, 16777215))
-        self.ip_input.setCursor(QCursor(Qt.CursorShape.IBeamCursor))
-        self.ip_input.setStyleSheet(u"")
-
-        self.gridLayout.addWidget(self.ip_input, 2, 2, 1, 1)
+        self.gridLayout.addWidget(self.label_17, 1, 0, 1, 1)
 
         self.label_16 = QLabel(self.scrollAreaWidgetContents_2)
         self.label_16.setObjectName(u"label_16")
 
-        self.gridLayout.addWidget(self.label_16, 0, 1, 1, 1)
+        self.gridLayout.addWidget(self.label_16, 0, 0, 1, 1)
 
         self.name_input = QLineEdit(self.scrollAreaWidgetContents_2)
         self.name_input.setObjectName(u"name_input")
@@ -1266,11 +1222,40 @@ class Ui_MainWindow(object):
         self.name_input.setCursor(QCursor(Qt.CursorShape.IBeamCursor))
         self.name_input.setStyleSheet(u"")
 
-        self.gridLayout.addWidget(self.name_input, 0, 2, 1, 1)
+        self.gridLayout.addWidget(self.name_input, 0, 1, 1, 1)
 
-        self.horizontalSpacer_7 = QSpacerItem(40, 20, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Expanding)
+        self.city_input = QLineEdit(self.scrollAreaWidgetContents_2)
+        self.city_input.setObjectName(u"city_input")
+        self.city_input.setMaximumSize(QSize(140, 16777215))
+        self.city_input.setCursor(QCursor(Qt.CursorShape.IBeamCursor))
+        self.city_input.setStyleSheet(u"")
 
-        self.gridLayout.addItem(self.horizontalSpacer_7, 0, 0, 1, 1)
+        self.gridLayout.addWidget(self.city_input, 1, 1, 1, 1)
+
+        self.username_input = QLineEdit(self.scrollAreaWidgetContents_2)
+        self.username_input.setObjectName(u"username_input")
+        self.username_input.setMaximumSize(QSize(140, 16777215))
+        self.username_input.setStyleSheet(u"")
+
+        self.gridLayout.addWidget(self.username_input, 3, 1, 1, 1)
+
+        self.ip_input = QLineEdit(self.scrollAreaWidgetContents_2)
+        self.ip_input.setObjectName(u"ip_input")
+        self.ip_input.setMaximumSize(QSize(140, 16777215))
+        self.ip_input.setCursor(QCursor(Qt.CursorShape.IBeamCursor))
+        self.ip_input.setStyleSheet(u"")
+
+        self.gridLayout.addWidget(self.ip_input, 2, 1, 1, 1)
+
+        self.label_19 = QLabel(self.scrollAreaWidgetContents_2)
+        self.label_19.setObjectName(u"label_19")
+
+        self.gridLayout.addWidget(self.label_19, 4, 0, 1, 1)
+
+        self.label_18 = QLabel(self.scrollAreaWidgetContents_2)
+        self.label_18.setObjectName(u"label_18")
+
+        self.gridLayout.addWidget(self.label_18, 3, 0, 1, 1)
 
 
         self.verticalLayout_7.addLayout(self.gridLayout)
@@ -1295,7 +1280,7 @@ class Ui_MainWindow(object):
         self.btn_add_check_connection.setMaximumSize(QSize(150, 16777215))
         self.btn_add_check_connection.setStyleSheet(u"")
 
-        self.verticalLayout_21.addWidget(self.btn_add_check_connection)
+        self.verticalLayout_21.addWidget(self.btn_add_check_connection, 0, Qt.AlignmentFlag.AlignHCenter)
 
         self.btn_save_add = QPushButton(self.scrollAreaWidgetContents_2)
         self.btn_save_add.setObjectName(u"btn_save_add")
@@ -1303,19 +1288,14 @@ class Ui_MainWindow(object):
         self.btn_save_add.setMaximumSize(QSize(150, 16777215))
         self.btn_save_add.setStyleSheet(u"")
 
-        self.verticalLayout_21.addWidget(self.btn_save_add)
+        self.verticalLayout_21.addWidget(self.btn_save_add, 0, Qt.AlignmentFlag.AlignHCenter)
 
 
         self.verticalLayout_7.addLayout(self.verticalLayout_21)
 
-        self.verticalSpacer_5 = QSpacerItem(20, 40, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Fixed)
+        self.verticalSpacer_5 = QSpacerItem(20, 40, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Expanding)
 
         self.verticalLayout_7.addItem(self.verticalSpacer_5)
-
-        self.textEdit_ping_status = QTextEdit(self.scrollAreaWidgetContents_2)
-        self.textEdit_ping_status.setObjectName(u"textEdit_ping_status")
-
-        self.verticalLayout_7.addWidget(self.textEdit_ping_status)
 
         self.scrollArea_2.setWidget(self.scrollAreaWidgetContents_2)
 
@@ -1365,7 +1345,7 @@ class Ui_MainWindow(object):
         self.scrollArea.setWidgetResizable(True)
         self.scrollAreaWidgetContents = QWidget()
         self.scrollAreaWidgetContents.setObjectName(u"scrollAreaWidgetContents")
-        self.scrollAreaWidgetContents.setGeometry(QRect(0, 0, 468, 548))
+        self.scrollAreaWidgetContents.setGeometry(QRect(0, 0, 218, 402))
         self.verticalLayout_5 = QVBoxLayout(self.scrollAreaWidgetContents)
         self.verticalLayout_5.setObjectName(u"verticalLayout_5")
         self.gridLayout_2 = QGridLayout()
@@ -1974,7 +1954,7 @@ class Ui_MainWindow(object):
         self.downloadsSectionsscrollArea.setWidgetResizable(True)
         self.downloadsSectionsscrollContents = QWidget()
         self.downloadsSectionsscrollContents.setObjectName(u"downloadsSectionsscrollContents")
-        self.downloadsSectionsscrollContents.setGeometry(QRect(0, 0, 497, 664))
+        self.downloadsSectionsscrollContents.setGeometry(QRect(0, 0, 38, 18))
         self.verticalLayout_29 = QVBoxLayout(self.downloadsSectionsscrollContents)
         self.verticalLayout_29.setSpacing(30)
         self.verticalLayout_29.setObjectName(u"verticalLayout_29")
@@ -2013,9 +1993,7 @@ class Ui_MainWindow(object):
         QWidget.setTabOrder(self.download_search_station, self.download_stations_table)
         QWidget.setTabOrder(self.download_stations_table, self.download_filter_prev_btn)
         QWidget.setTabOrder(self.download_filter_prev_btn, self.download_filter_next_btn)
-        QWidget.setTabOrder(self.download_filter_next_btn, self.playback_combo_train_id)
-        QWidget.setTabOrder(self.playback_combo_train_id, self.playback_camera_combo)
-        QWidget.setTabOrder(self.playback_camera_combo, self.play_btn)
+        QWidget.setTabOrder(self.download_filter_next_btn, self.play_btn)
         QWidget.setTabOrder(self.play_btn, self.speed_btn)
         QWidget.setTabOrder(self.speed_btn, self.setting_tab_widget)
         QWidget.setTabOrder(self.setting_tab_widget, self.system_station_tabwidget)
@@ -2029,14 +2007,13 @@ class Ui_MainWindow(object):
         QWidget.setTabOrder(self.password_input_modify, self.scrollArea_2)
         QWidget.setTabOrder(self.scrollArea_2, self.btn_add_check_connection)
         QWidget.setTabOrder(self.btn_add_check_connection, self.btn_save_add)
-        QWidget.setTabOrder(self.btn_save_add, self.textEdit_ping_status)
-        QWidget.setTabOrder(self.textEdit_ping_status, self.download_filter_station_log)
+        QWidget.setTabOrder(self.btn_save_add, self.download_filter_station_log)
 
         self.retranslateUi(MainWindow)
 
-        self.pages_stackwidget.setCurrentIndex(1)
+        self.pages_stackwidget.setCurrentIndex(0)
         self.setting_tab_widget.setCurrentIndex(0)
-        self.system_station_tabwidget.setCurrentIndex(1)
+        self.system_station_tabwidget.setCurrentIndex(0)
         self.download_filter_stackWidget.setCurrentIndex(2)
 
 
@@ -2076,14 +2053,14 @@ class Ui_MainWindow(object):
         self.refresh_btn.setText(QCoreApplication.translate("MainWindow", u"Rshresh Dtabase", None))
         self.refresh_btn.setProperty("styleClass", QCoreApplication.translate("MainWindow", u"fill_gradient_purple_btn", None))
         self.refresh_image_database_log.setText(QCoreApplication.translate("MainWindow", u"TextLabel", None))
-        self.label_3.setText(QCoreApplication.translate("MainWindow", u"Select Train ID :", None))
-        self.label_7.setText(QCoreApplication.translate("MainWindow", u"Calendar", None))
-        self.label_date_2.setText(QCoreApplication.translate("MainWindow", u"Selected Date :", None))
-        self.label_date.setText(QCoreApplication.translate("MainWindow", u"14/04/02", None))
-        self.label_28.setText(QCoreApplication.translate("MainWindow", u"Camera", None))
+        self.label_30.setText(QCoreApplication.translate("MainWindow", u"Select Train ID :", None))
+        self.label_35.setText(QCoreApplication.translate("MainWindow", u"Camera", None))
         self.playback_camera_combo.setItemText(0, QCoreApplication.translate("MainWindow", u"test1", None))
         self.playback_camera_combo.setItemText(1, QCoreApplication.translate("MainWindow", u"test2", None))
 
+        self.label_7.setText(QCoreApplication.translate("MainWindow", u"Calendar", None))
+        self.label_date_2.setText(QCoreApplication.translate("MainWindow", u"Selected Date :", None))
+        self.label_date.setText(QCoreApplication.translate("MainWindow", u"14/04/02", None))
 #if QT_CONFIG(tooltip)
         self.play_btn.setToolTip(QCoreApplication.translate("MainWindow", u"Show Live", None))
 #endif // QT_CONFIG(tooltip)
@@ -2104,13 +2081,13 @@ class Ui_MainWindow(object):
         self.scrollArea_2.setProperty("styleClass", QCoreApplication.translate("MainWindow", u"hide", None))
         self.scrollAreaWidgetContents_2.setProperty("styleClass", QCoreApplication.translate("MainWindow", u"hide", None))
         self.label_15.setText(QCoreApplication.translate("MainWindow", u"IP Address * :", None))
-        self.label_19.setText(QCoreApplication.translate("MainWindow", u"Password : ", None))
         self.label_17.setText(QCoreApplication.translate("MainWindow", u"City * : ", None))
-        self.label_18.setText(QCoreApplication.translate("MainWindow", u"Username :", None))
-        self.ip_input.setText("")
-        self.ip_input.setPlaceholderText(QCoreApplication.translate("MainWindow", u"ex: 192.168.1.50", None))
         self.label_16.setText(QCoreApplication.translate("MainWindow", u"Name * : ", None))
         self.name_input.setText("")
+        self.ip_input.setText("")
+        self.ip_input.setPlaceholderText(QCoreApplication.translate("MainWindow", u"ex: 192.168.1.50", None))
+        self.label_19.setText(QCoreApplication.translate("MainWindow", u"Password : ", None))
+        self.label_18.setText(QCoreApplication.translate("MainWindow", u"Username :", None))
         self.btn_add_check_connection.setText(QCoreApplication.translate("MainWindow", u"Check Connection", None))
         self.btn_add_check_connection.setProperty("styleClass", QCoreApplication.translate("MainWindow", u"fill_gradient_purple_btn", None))
         self.btn_save_add.setText(QCoreApplication.translate("MainWindow", u"Save", None))

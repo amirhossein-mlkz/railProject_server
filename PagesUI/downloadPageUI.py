@@ -36,17 +36,6 @@ class downloadPageUI:
 
         self.download_sections:list[downloadSection] = []
 
-        # sec1 = downloadSection(123,'Esfahan', JalaliDateTime.now())
-        # sec2 = downloadSection(452,'Yazd', JalaliDateTime.now())
-        # sec3 = downloadSection(651, 'Tehran', JalaliDateTime.now())
-        # sec1.Clocks['pm'].set_time_ranges([(JalaliDateTime.now() - timedelta(minutes=250) , JalaliDateTime.now())])
-        # sec2.Clocks['am'].set_time_ranges([(JalaliDateTime.now().replace(hour=8, minute=24), JalaliDateTime.now().replace(hour=14, minute=24) )])
-        # self.add_download_section(sec1)
-        # self.add_download_section(sec2)
-        # self.add_download_section(sec3)
-
-        # sec3.set_progess_value(63)
-
 
         
 

@@ -26,6 +26,12 @@ class settingPageUI:
     def get_add_ip(self):
         return GUIBackend.get_input_text(self.ui.ip_input)
     
+    def get_add_username(self):
+        return GUIBackend.get_input_text(self.ui.username_input)
+    
+    def get_add_password(self):
+        return GUIBackend.get_input_text(self.ui.password_input)
+    
     def get_add_system_station(self):
         input_fields = {}
         for field_name,(field, require) in self.new_system_station_fields.items():

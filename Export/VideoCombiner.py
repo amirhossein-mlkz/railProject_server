@@ -4,7 +4,7 @@ import subprocess
 import re
 from PySide6.QtWidgets import QApplication, QVBoxLayout, QWidget, QPushButton, QLabel, QProgressBar, QFileDialog
 from PySide6.QtCore import QThread, Signal
-
+from Tranform.transformUtils import transormUtils
 
 class VideoCombiner(QThread):
     progress_signal = Signal(int)
@@ -49,7 +49,9 @@ class VideoCombiner(QThread):
         
         with open(output_file, "w", encoding="utf-8") as file:
             for path in video_paths:
-                file.write(f"file '{path}'\n")
+                duration = transormUtils.get_video_duration(path)
+                if duration > 0:
+                    file.write(f"file '{path}'\n")
         
         return True
 
@@ -60,16 +62,17 @@ class VideoCombiner(QThread):
         # First, calculate the total number of frames across all videos
         self.create_file_list(self.input_videos, self.FILES_LIST)
 
-        try:
+        #try:
+        if True:
             file_list = self.FILES_LIST  # فایل لیست ویدیوها
             output_file = self.final_output_file  # فایل خروجی
-
+            file_list_path = os.path.join(os.getcwd(), file_list)
             if not self.convert_mkv:
                 command = [
                     "ffmpeg",
                     "-f", "concat",
                     "-safe", "0",
-                    "-i", file_list,
+                    "-i", file_list_path,
                     "-c", "copy",
                     '-y',  # Overwrite the output file if it exists
                     output_file
@@ -96,6 +99,7 @@ class VideoCombiner(QThread):
 
             for line in process.stdout:
                 # استخراج مدت زمان کل از خروجی FFmpeg
+                continue
                 if "Duration" in line:
                     parts = line.split(",")[0].split("Duration:")[-1].strip()
                     h, m, s = map(float, parts.replace(":", " ").split())
@@ -115,9 +119,9 @@ class VideoCombiner(QThread):
             self.status_signal.emit(0,'Progress Completed')
             self.finish_signal.emit(1)
 
-        except Exception as e:
-            self.status_signal.emit(1,'Error in Converting to mkv x265')
-            self.finish_signal.emit(1)
+        #except Exception as e:
+            #self.status_signal.emit(1,'Error in Converting to mkv x265')
+            #self.finish_signal.emit(1)
 
 
 

@@ -10,7 +10,7 @@ from uiUtils.Clock import ClockWidget
 
 class downloadSection(QWidget):
 
-    def __init__(self, _id, name:str, dt:JalaliDateTime) -> None:
+    def __init__(self, _id, name:str, train:str, camera:str, dt:JalaliDateTime) -> None:
         super().__init__()
         self.ui = Ui_stationdownloadMainUI()
         self.ui.setupUi(self)
@@ -38,6 +38,10 @@ class downloadSection(QWidget):
 
         if name:
             self.set_station_name(name)
+        if train:
+            self.set_train(train)
+        if camera:
+            self.set_camera_name(camera)
         if dt:
             self.set_date(dt)
 
@@ -49,6 +53,12 @@ class downloadSection(QWidget):
     def set_date(self, dt:JalaliDateTime):
         txt = dt.strftime('%Y/%d/%m')
         GUIBackend.set_label_text(self.ui.date_lbl, txt)
+    
+    def set_train(self, train:str):
+        GUIBackend.set_label_text(self.ui.train_lbl, train)
+
+    def set_camera_name(self, camera:str):
+        GUIBackend.set_label_text(self.ui.camera_lbl, camera)
     
     def set_progess_value(self, value):
         GUIBackend.set_progressbar_value(self.ui.prograssbar, value)
