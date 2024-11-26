@@ -6,3 +6,5 @@ COLUMN_DESTINATION = 'destination_folder'
 
 ONE_HOUR = 86400000
 
+IS_STATION_APP = True
+

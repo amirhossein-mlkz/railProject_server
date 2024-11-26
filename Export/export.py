@@ -7,7 +7,7 @@ import Export_Constants
 from PySide6.QtWidgets import QPushButton, QFileDialog, QApplication, QVBoxLayout, QWidget, QLabel, QProgressBar
 import threading
 from VideoCombiner import VideoCombiner
-from pathConstans import pathConstants
+from pathsConstans import pathConstants
 
 
 os.system('pyside6-uic {} -o {}'.format(os.path.join('Export/ExportUIiFiles', 'export.ui'), os.path.join('Export/ExportUIiFiles', 'ui_export.py')))

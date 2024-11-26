@@ -38,3 +38,25 @@ class mainDatabase():
         return ret
     
     
+
+
+    def save_storage_settings(self,data:dict,id=0):
+
+
+        ret = self.database_manager.update_row_by_col_name('storage_settings', 'id', id, data)
+        return ret
+
+        # ret = self.database_manager.update_row_by_col_name('storage_settings','id',0,)
+
+
+    def load_storage_settings(self,id=0):
+
+        results = self.database_manager.fetch_rows_by_col_name('storage_settings', 'id', id)
+        
+        if len(results)>0:
+            results = results[0]
+            results['auto_clean'] = bool(results['auto_clean'])
+        else:
+            results = {}
+        return results
+

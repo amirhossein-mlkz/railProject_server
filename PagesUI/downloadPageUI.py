@@ -184,9 +184,14 @@ class downloadPageUI:
         layout.removeWidget(section)
         section.deleteLater()
 
-    def clear_download_sections(self,):
-        while len(self.download_sections):
-            self.remove_download_section(self.download_sections[0])
+    def clear_download_sections(self, only_passive=True):
+        i  = 0
+        while i < len(self.download_sections):
+            if only_passive and self.download_sections[i].is_during_download: 
+                i+=1
+                continue
+
+            self.remove_download_section(self.download_sections[i])
 
     
     def get_selected_time_range(self, )-> tuple[JalaliDateTime, JalaliDateTime]:

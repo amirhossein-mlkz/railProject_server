@@ -27,7 +27,7 @@ if __name__ == "__main__":
 
 
 
-    from api import API
+    from main_api import API
     app = sQApplication()
 
     app.setStyle(QStyleFactory.create("Fusion"))  # Enforces a consistent style

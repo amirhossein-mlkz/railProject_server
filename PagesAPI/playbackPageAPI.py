@@ -20,7 +20,7 @@ from Tranform.transformModule import archiveManager
 from Tranform.sharingConstans import DIRECTORY_TREE
 from Tranform.transformUtils import transormUtils
 from backend.mediaPlayer.player import MediaPlayer
-from pathConstans import pathConstants
+from pathsConstans import pathConstants
 from uiUtils.Calendar import  JalaliCalendarDialog
 
 
@@ -54,11 +54,17 @@ class playbackPageAPI:
         self.uiHandler.ui.play_btn.clicked.connect(self.play_video)
         self.uiHandler.ui.speed_btn.clicked.connect(self.change_video_speed)
         self.uiHandler.ui.btn_export.clicked.connect(self.show_export)
+        self.uiHandler.ui.left_rotate_btn.clicked.connect(lambda : self.rotate_video(-1))
+        self.uiHandler.ui.right_rotate_btn.clicked.connect(lambda : self.rotate_video(+1))
+        self.uiHandler.ui.flip_horizontal_btn.clicked.connect(self.flip_h)
+        self.uiHandler.ui.flip_vertical_btn.clicked.connect(self.flip_v)
+
+
         self.uiHandler.ui.playback_camera_combo.currentTextChanged.connect(self.select_camera_event)
         self.uiHandler.ui.playback_combo_train_id.currentTextChanged.connect(self.select_train_event)
         self.uiHandler.timeLineSlider.timeSelected.connect(self.timline_change_event)
         
-        self.archiveManager = archiveManager(pathConstants.UTILS_DIR)
+        self.archiveManager = archiveManager(pathConstants.SELF_UTILS_DIR)
         self.archiveManager.load()
         self.load_archive()
         
@@ -198,6 +204,15 @@ class playbackPageAPI:
     def change_video_speed(self, ):
         speed = self.Player.change_speed()
         self.uiHandler.ui.speed_btn.setText(f'{speed}x')
+
+    def rotate_video(self, direction):
+        self.Player.rotate_video(90)
+    
+    def flip_h(self,):
+        self.Player.toggle_flip_horizontal()
+
+    def flip_v(self,):
+        self.Player.toggle_flip_vertical()
     
     def refreshing_ui(self, force=False):
         if not self.date_ranges:

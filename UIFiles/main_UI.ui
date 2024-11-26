@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1153</width>
-    <height>725</height>
+    <height>672</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -64,7 +64,7 @@ QDoubleSpinBox:disabled
 QSpinBox::up-arrow, 
 QDoubleSpinBox::up-arrow
 {   
-	image: url(:/icons/icons/plus_icon_black.png);
+	image: url(:/icons/icons/icons8-plus-36.png);
 	width: 16px;
 	height: 16px;
 }
@@ -72,10 +72,28 @@ QDoubleSpinBox::up-arrow
 QSpinBox::down-arrow,  
 QDoubleSpinBox::down-arrow
 {   
-	image: url(:/icons/icons/minus_icon_black.png);
+	image: url(:/icons/icons/icons8-minus-36.png);
 	width: 16px;
 	height: 16px;
 }
+
+QSpinBox::up-arrow:hover, 
+QDoubleSpinBox::up-arrow:hover
+{   
+	image: url(:/icons/icons/icons8-plus-36-hover.png);
+	width: 16px;
+	height: 16px;
+}
+
+QSpinBox::down-arrow:hover,  
+QDoubleSpinBox::down-arrow:hover
+{   
+	image: url(:/icons/icons/icons8-minus-36-hover.png);
+	width: 16px;
+	height: 16px;
+}
+
+
 
 QSpinBox::up-arrow:disabled, 
 QDoubleSpinBox::up-arrow:disabled
@@ -139,7 +157,36 @@ QSpinBox:focus, QDoubleSpinBox:focus
 
 /****************************************************************************/
 /****************************************************************************/
+QComboBox {
+    background-color:  transparent;
+    border: 2px solid white;
+    border-radius: 5px;
+    padding: 6px 10px;
 
+	color: white;
+}
+
+QComboBox:hover {
+    border: 1px solid #5e81ac;
+}
+
+QComboBox::drop-down {
+    background-color: #fff;
+}
+
+QComboBox QAbstractItemView {
+    background-color: #404040;
+    color: white;
+}
+
+QComboBox::down-arrow {
+    image: url(:/icons/icons/icons8-drop-down-80.png);
+
+    width: 12px;
+    height: 12px;
+}
+/****************************************************************************/
+/****************************************************************************/
 QPushButton[styleClass=&quot;fill_gradient_purple_btn&quot;]{
 border-radius:15px;
 padding:5px 10px;
@@ -1009,7 +1056,7 @@ icon:url(:/icons/icons/download-white.png);
              <number>2</number>
             </property>
             <property name="currentIndex">
-             <number>0</number>
+             <number>1</number>
             </property>
             <widget class="QWidget" name="page_playback">
              <property name="styleSheet">
@@ -1261,34 +1308,7 @@ background-color:rgb(49, 44, 53);
                             <item>
                              <widget class="QComboBox" name="playback_combo_train_id">
                               <property name="styleSheet">
-                               <string notr="true">QComboBox {
-    background-color:  transparent;
-    border: 2px solid white;
-    border-radius: 5px;
-    padding: 6px 10px;
-
-	color: white;
-}
-
-QComboBox:hover {
-    border: 1px solid #5e81ac;
-}
-
-QComboBox::drop-down {
-    background-color: #fff;
-}
-
-QComboBox QAbstractItemView {
-    background-color: #404040;
-    color: white;
-}
-
-QComboBox::down-arrow {
-    image: url(:/icons/icons/icons8-drop-down-80.png);
-
-    width: 12px;
-    height: 12px;
-}</string>
+                               <string notr="true"/>
                               </property>
                               <property name="iconSize">
                                <size>
@@ -1342,34 +1362,7 @@ QComboBox::down-arrow {
                                </size>
                               </property>
                               <property name="styleSheet">
-                               <string notr="true">QComboBox {
-    background-color:  transparent;
-    border: 2px solid white;
-    border-radius: 5px;
-    padding: 6px 10px;
-
-	color: white;
-}
-
-QComboBox:hover {
-    border: 1px solid #5e81ac;
-}
-
-QComboBox::drop-down {
-    background-color: #fff;
-}
-
-QComboBox QAbstractItemView {
-    background-color: #404040;
-    color: white;
-}
-
-QComboBox::down-arrow {
-    image: url(:/icons/icons/icons8-drop-down-80.png);
-
-    width: 12px;
-    height: 12px;
-}</string>
+                               <string notr="true"/>
                               </property>
                               <item>
                                <property name="text">
@@ -1697,22 +1690,26 @@ background-color: rgb(30, 27, 33);
 QPushButton[status=&quot;play&quot;]{
 	icon: url(:/icons/icons/play-white.png);
 	background-color:transparent;
+	border:none;
 }
 
 QPushButton[status=&quot;play&quot;]:hover{
 	icon: url(:/icons/icons/play_purple.png);
 	background-color:transparent;
+	border:none;
 }
 
 
 QPushButton[status=&quot;stop&quot;]{
 	icon: url(:/icons/icons/stop-white.png);
 	background-color:transparent;
+	border:none;
 }
 
 QPushButton[status=&quot;stop&quot;]:hover{
 	icon: url(:/icons/icons/stop-purple.png);
 	background-color:transparent;
+	border:none;
 }</string>
                       </property>
                       <property name="text">
@@ -1733,6 +1730,34 @@ QPushButton[status=&quot;stop&quot;]:hover{
                      <widget class="Line" name="line_4">
                       <property name="orientation">
                        <enum>Qt::Orientation::Vertical</enum>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <widget class="QPushButton" name="left_rotate_btn">
+                      <property name="text">
+                       <string>L</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <widget class="QPushButton" name="right_rotate_btn">
+                      <property name="text">
+                       <string>R</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <widget class="QPushButton" name="flip_horizontal_btn">
+                      <property name="text">
+                       <string>flip_h</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <widget class="QPushButton" name="flip_vertical_btn">
+                      <property name="text">
+                       <string>flip_w</string>
                       </property>
                      </widget>
                     </item>
@@ -2010,7 +2035,7 @@ QPushButton:disabled {
                  <string notr="true"/>
                 </property>
                 <property name="currentIndex">
-                 <number>0</number>
+                 <number>1</number>
                 </property>
                 <widget class="QWidget" name="system_station_tab">
                  <property name="styleClass" stdset="0">
@@ -2065,7 +2090,7 @@ QPushButton:disabled {
                            <x>0</x>
                            <y>0</y>
                            <width>498</width>
-                           <height>541</height>
+                           <height>488</height>
                           </rect>
                          </property>
                          <property name="styleSheet">
@@ -2594,68 +2619,303 @@ QPushButton:disabled {
                   </item>
                  </layout>
                 </widget>
-                <widget class="QWidget" name="tab_2">
+                <widget class="QWidget" name="general_setting">
+                 <property name="styleClass" stdset="0">
+                  <string>page</string>
+                 </property>
                  <attribute name="title">
                   <string>General</string>
                  </attribute>
                  <layout class="QVBoxLayout" name="verticalLayout_18">
                   <item>
-                   <widget class="QFrame" name="frame_3">
+                   <widget class="QFrame" name="storage_manager_setting_frame">
+                    <property name="styleSheet">
+                     <string notr="true">#storage_manager_setting_frame{
+border: 1px solid rgb(164, 168, 185);
+}</string>
+                    </property>
                     <property name="frameShape">
                      <enum>QFrame::Shape::StyledPanel</enum>
                     </property>
                     <property name="frameShadow">
                      <enum>QFrame::Shadow::Raised</enum>
                     </property>
-                    <layout class="QHBoxLayout" name="horizontalLayout_3">
+                    <property name="styleClass" stdset="0">
+                     <string>hide</string>
+                    </property>
+                    <layout class="QVBoxLayout" name="verticalLayout_19">
                      <item>
-                      <widget class="QFrame" name="frame_8">
-                       <property name="frameShape">
-                        <enum>QFrame::Shape::StyledPanel</enum>
+                      <widget class="QLabel" name="label_3">
+                       <property name="sizePolicy">
+                        <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
+                         <horstretch>0</horstretch>
+                         <verstretch>0</verstretch>
+                        </sizepolicy>
                        </property>
-                       <property name="frameShadow">
-                        <enum>QFrame::Shadow::Raised</enum>
+                       <property name="styleSheet">
+                        <string notr="true">font-weight:bold;
+font-size: 22px;</string>
                        </property>
-                       <layout class="QVBoxLayout" name="verticalLayout_19">
-                        <item>
-                         <widget class="QGroupBox" name="groupBox">
-                          <property name="title">
-                           <string>User Management</string>
-                          </property>
-                         </widget>
-                        </item>
-                       </layout>
-                      </widget>
-                     </item>
-                     <item>
-                      <widget class="QFrame" name="frame_5">
-                       <property name="frameShape">
-                        <enum>QFrame::Shape::StyledPanel</enum>
-                       </property>
-                       <property name="frameShadow">
-                        <enum>QFrame::Shadow::Raised</enum>
+                       <property name="text">
+                        <string>Storage Manger</string>
                        </property>
                       </widget>
                      </item>
                      <item>
-                      <widget class="QFrame" name="frame_6">
-                       <property name="frameShape">
-                        <enum>QFrame::Shape::StyledPanel</enum>
+                      <layout class="QGridLayout" name="gridLayout_5">
+                       <property name="verticalSpacing">
+                        <number>25</number>
                        </property>
-                       <property name="frameShadow">
-                        <enum>QFrame::Shadow::Raised</enum>
+                       <item row="1" column="0">
+                        <widget class="QLabel" name="label_38">
+                         <property name="sizePolicy">
+                          <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
+                           <horstretch>0</horstretch>
+                           <verstretch>0</verstretch>
+                          </sizepolicy>
+                         </property>
+                         <property name="text">
+                          <string>Cleaning Mode</string>
+                         </property>
+                        </widget>
+                       </item>
+                       <item row="2" column="0">
+                        <widget class="QLabel" name="label_37">
+                         <property name="sizePolicy">
+                          <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
+                           <horstretch>0</horstretch>
+                           <verstretch>0</verstretch>
+                          </sizepolicy>
+                         </property>
+                         <property name="text">
+                          <string>Max Usage Percent(%): </string>
+                         </property>
+                        </widget>
+                       </item>
+                       <item row="1" column="1">
+                        <widget class="QComboBox" name="storage_clean_mode"/>
+                       </item>
+                       <item row="0" column="2">
+                        <spacer name="horizontalSpacer_3">
+                         <property name="orientation">
+                          <enum>Qt::Orientation::Horizontal</enum>
+                         </property>
+                         <property name="sizeHint" stdset="0">
+                          <size>
+                           <width>40</width>
+                           <height>20</height>
+                          </size>
+                         </property>
+                        </spacer>
+                       </item>
+                       <item row="3" column="1">
+                        <layout class="QHBoxLayout" name="horizontalLayout_3">
+                         <property name="spacing">
+                          <number>15</number>
+                         </property>
+                         <item>
+                          <widget class="timeSpinBox" name="storage_clean_alarm_h">
+                           <property name="maximum">
+                            <number>23</number>
+                           </property>
+                          </widget>
+                         </item>
+                         <item>
+                          <widget class="QLabel" name="label_36">
+                           <property name="sizePolicy">
+                            <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
+                             <horstretch>0</horstretch>
+                             <verstretch>0</verstretch>
+                            </sizepolicy>
+                           </property>
+                           <property name="styleSheet">
+                            <string notr="true">font-size: 28px;
+</string>
+                           </property>
+                           <property name="text">
+                            <string>:</string>
+                           </property>
+                          </widget>
+                         </item>
+                         <item>
+                          <widget class="timeSpinBox" name="storage_clean_alarm_m">
+                           <property name="maximum">
+                            <number>59</number>
+                           </property>
+                          </widget>
+                         </item>
+                        </layout>
+                       </item>
+                       <item row="3" column="0">
+                        <widget class="QLabel" name="label_31">
+                         <property name="sizePolicy">
+                          <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
+                           <horstretch>0</horstretch>
+                           <verstretch>0</verstretch>
+                          </sizepolicy>
+                         </property>
+                         <property name="text">
+                          <string>Start Cleaning At:</string>
+                         </property>
+                        </widget>
+                       </item>
+                       <item row="0" column="1">
+                        <widget class="QCheckBox" name="auto_clean_checkbox">
+                         <property name="text">
+                          <string/>
+                         </property>
+                        </widget>
+                       </item>
+                       <item row="0" column="0">
+                        <widget class="QLabel" name="label_28">
+                         <property name="text">
+                          <string>Enable : </string>
+                         </property>
+                        </widget>
+                       </item>
+                       <item row="2" column="1">
+                        <widget class="QSpinBox" name="storage_clean_max_usage">
+                         <property name="maximumSize">
+                          <size>
+                           <width>120</width>
+                           <height>16777215</height>
+                          </size>
+                         </property>
+                         <property name="styleSheet">
+                          <string notr="true"/>
+                         </property>
+                         <property name="maximum">
+                          <number>95</number>
+                         </property>
+                        </widget>
+                       </item>
+                      </layout>
+                     </item>
+                     <item>
+                      <layout class="QHBoxLayout" name="horizontalLayout_13">
+                       <property name="topMargin">
+                        <number>0</number>
                        </property>
-                      </widget>
+                       <item>
+                        <spacer name="horizontalSpacer_12">
+                         <property name="orientation">
+                          <enum>Qt::Orientation::Horizontal</enum>
+                         </property>
+                         <property name="sizeHint" stdset="0">
+                          <size>
+                           <width>40</width>
+                           <height>20</height>
+                          </size>
+                         </property>
+                        </spacer>
+                       </item>
+                       <item>
+                        <widget class="QPushButton" name="storage_clean_save_btn">
+                         <property name="minimumSize">
+                          <size>
+                           <width>150</width>
+                           <height>0</height>
+                          </size>
+                         </property>
+                         <property name="maximumSize">
+                          <size>
+                           <width>200</width>
+                           <height>16777215</height>
+                          </size>
+                         </property>
+                         <property name="sizeIncrement">
+                          <size>
+                           <width>0</width>
+                           <height>0</height>
+                          </size>
+                         </property>
+                         <property name="text">
+                          <string>Save</string>
+                         </property>
+                         <property name="styleClass" stdset="0">
+                          <string>fill_gradient_purple_btn</string>
+                         </property>
+                        </widget>
+                       </item>
+                       <item>
+                        <spacer name="horizontalSpacer_7">
+                         <property name="orientation">
+                          <enum>Qt::Orientation::Horizontal</enum>
+                         </property>
+                         <property name="sizeType">
+                          <enum>QSizePolicy::Policy::Fixed</enum>
+                         </property>
+                         <property name="sizeHint" stdset="0">
+                          <size>
+                           <width>10</width>
+                           <height>20</height>
+                          </size>
+                         </property>
+                        </spacer>
+                       </item>
+                       <item>
+                        <widget class="QPushButton" name="storage_clean_cancel_btn">
+                         <property name="minimumSize">
+                          <size>
+                           <width>150</width>
+                           <height>0</height>
+                          </size>
+                         </property>
+                         <property name="maximumSize">
+                          <size>
+                           <width>200</width>
+                           <height>16777215</height>
+                          </size>
+                         </property>
+                         <property name="sizeIncrement">
+                          <size>
+                           <width>0</width>
+                           <height>0</height>
+                          </size>
+                         </property>
+                         <property name="text">
+                          <string>Cancel</string>
+                         </property>
+                         <property name="styleClass" stdset="0">
+                          <string>fill_gradient_purple_btn</string>
+                         </property>
+                        </widget>
+                       </item>
+                       <item>
+                        <spacer name="horizontalSpacer_6">
+                         <property name="orientation">
+                          <enum>Qt::Orientation::Horizontal</enum>
+                         </property>
+                         <property name="sizeHint" stdset="0">
+                          <size>
+                           <width>40</width>
+                           <height>20</height>
+                          </size>
+                         </property>
+                        </spacer>
+                       </item>
+                      </layout>
                      </item>
                     </layout>
                    </widget>
                   </item>
+                  <item>
+                   <widget class="QFrame" name="frame_5">
+                    <property name="styleSheet">
+                     <string notr="true"/>
+                    </property>
+                    <property name="frameShape">
+                     <enum>QFrame::Shape::StyledPanel</enum>
+                    </property>
+                    <property name="frameShadow">
+                     <enum>QFrame::Shadow::Raised</enum>
+                    </property>
+                    <property name="styleClass" stdset="0">
+                     <string>hide</string>
+                    </property>
+                   </widget>
+                  </item>
                  </layout>
-                </widget>
-                <widget class="QWidget" name="tab">
-                 <attribute name="title">
-                  <string>Logs</string>
-                 </attribute>
                 </widget>
                </widget>
               </item>
@@ -3607,7 +3867,6 @@ font-weight:bold;</string>
  </tabstops>
  <resources>
   <include location="../assets.qrc"/>
-  <include location="../../railProject_imageCopy/UIFiles/Assets/assets.qrc"/>
  </resources>
  <connections/>
 </ui>

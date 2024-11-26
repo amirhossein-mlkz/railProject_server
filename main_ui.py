@@ -29,7 +29,6 @@ from backend.utils import texts
 from login import LoginPage
 from Export.export import UIExport
 
-
 # ui class
 class UI_main_window_org(sQMainWindow):
 
@@ -121,6 +120,8 @@ class UI_main_window_org(sQMainWindow):
 
         self.ui.btn_side_playback.click()
 
+
+    
 
 
     def mousePressEvent(self, event):

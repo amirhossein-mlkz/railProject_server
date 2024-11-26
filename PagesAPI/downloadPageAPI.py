@@ -12,7 +12,7 @@ from backend.utils.threadWorker import threadWorkers
 from Tranform.sharingConstans import StatusCodes
 from Mediator.mainMediator import Mediator
 from Mediator.mediatorNames import eventNames
-from pathConstans import pathConstants
+from pathsConstans import pathConstants
 from uiUtils.guiBackend import GUIBackend
 from downloadSectionUI import downloadSection
 
@@ -324,6 +324,7 @@ class downloadPageAPI:
                                         dt=self.selected_date
                                         )
                 sec.download_btn_connector(self.start_download, args=(station, results))
+                sec.close_btn_connector(self.close_download_section, args=(station,))
                 
                 sec.set_time_ranges(times_rangs)
                 self.uiHandler.add_download_section(sec)
@@ -338,7 +339,7 @@ class downloadPageAPI:
             )
             return
         
-        self.download_sections[station_name].disable_download_btn()
+        self.download_sections[station_name].set_during_download(True)
             
         tf = transformModule(station_info['ip'],
                         src_path=pathConstants.OTHER_IMAGES_SHARE_FOLDER,
@@ -439,3 +440,5 @@ class downloadPageAPI:
 
         
 
+    def close_download_section(self, station_name):
+        self.uiHandler.remove_download_section(section=self.download_sections[station_name ])

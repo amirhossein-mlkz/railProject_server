@@ -16,21 +16,20 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QImage, QKeySequence, QLinearGradient, QPainter,
     QPalette, QPixmap, QRadialGradient, QTransform)
 from PySide6.QtWidgets import (QAbstractItemView, QApplication, QCheckBox, QComboBox,
-    QFrame, QGridLayout, QGroupBox, QHBoxLayout,
-    QHeaderView, QLabel, QLineEdit, QMainWindow,
-    QPushButton, QScrollArea, QSizePolicy, QSpacerItem,
+    QFrame, QGridLayout, QHBoxLayout, QHeaderView,
+    QLabel, QLineEdit, QMainWindow, QPushButton,
+    QScrollArea, QSizePolicy, QSpacerItem, QSpinBox,
     QSplitter, QStackedWidget, QStatusBar, QTabWidget,
     QTableWidget, QTableWidgetItem, QVBoxLayout, QWidget)
 
 from uiUtils.GUIComponents import (MessageWidget, timeSpinBox)
-import assets_rc
 import assets_rc
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         if not MainWindow.objectName():
             MainWindow.setObjectName(u"MainWindow")
-        MainWindow.resize(1153, 725)
+        MainWindow.resize(1153, 672)
         MainWindow.setStyleSheet(u"")
         self.centralwidget = QWidget(MainWindow)
         self.centralwidget.setObjectName(u"centralwidget")
@@ -78,7 +77,7 @@ class Ui_MainWindow(object):
 "QSpinBox::up-arrow, \n"
 "QDoubleSpinBox::up-arrow\n"
 "{   \n"
-"	image: url(:/icons/icons/plus_icon_black.png);\n"
+"	image: url(:/icons/icons/icons8-plus-36.png);\n"
 "	width: 16px;\n"
 "	height: 16px;\n"
 "}\n"
@@ -86,11 +85,29 @@ class Ui_MainWindow(object):
 "QSpinBox::down-arrow,  \n"
 "QDoubleSpinBox::down-arrow\n"
 "{   \n"
-"	"
-                        "image: url(:/icons/icons/minus_icon_black.png);\n"
+"	i"
+                        "mage: url(:/icons/icons/icons8-minus-36.png);\n"
 "	width: 16px;\n"
 "	height: 16px;\n"
 "}\n"
+"\n"
+"QSpinBox::up-arrow:hover, \n"
+"QDoubleSpinBox::up-arrow:hover\n"
+"{   \n"
+"	image: url(:/icons/icons/icons8-plus-36-hover.png);\n"
+"	width: 16px;\n"
+"	height: 16px;\n"
+"}\n"
+"\n"
+"QSpinBox::down-arrow:hover,  \n"
+"QDoubleSpinBox::down-arrow:hover\n"
+"{   \n"
+"	image: url(:/icons/icons/icons8-minus-36-hover.png);\n"
+"	width: 16px;\n"
+"	height: 16px;\n"
+"}\n"
+"\n"
+"\n"
 "\n"
 "QSpinBox::up-arrow:disabled, \n"
 "QDoubleSpinBox::up-arrow:disabled\n"
@@ -115,7 +132,8 @@ class Ui_MainWindow(object):
 "    min-width:30px;\n"
 "    min-height: 29px;\n"
 "    subcontrol-origin: margin;\n"
-"    subcontrol-position: right;\n"
+"    subcontrol-posit"
+                        "ion: right;\n"
 "    top: 0px;\n"
 "    right: 0px;\n"
 "}\n"
@@ -133,8 +151,7 @@ class Ui_MainWindow(object):
 "\n"
 "QSpinBox::up-button,\n"
 "QSpinBox::down-button,\n"
-"QDoubleSpinBox::up-butt"
-                        "on,\n"
+"QDoubleSpinBox::up-button,\n"
 "QDoubleSpinBox::down-button\n"
 "{\n"
 "	background-color: transparent;\n"
@@ -155,7 +172,37 @@ class Ui_MainWindow(object):
 "\n"
 "/****************************************************************************/\n"
 "/****************************************************************************/\n"
+"QComboBox {\n"
+"    background-color:  transparent;\n"
+"    border: 2px solid white;\n"
+""
+                        "    border-radius: 5px;\n"
+"    padding: 6px 10px;\n"
 "\n"
+"	color: white;\n"
+"}\n"
+"\n"
+"QComboBox:hover {\n"
+"    border: 1px solid #5e81ac;\n"
+"}\n"
+"\n"
+"QComboBox::drop-down {\n"
+"    background-color: #fff;\n"
+"}\n"
+"\n"
+"QComboBox QAbstractItemView {\n"
+"    background-color: #404040;\n"
+"    color: white;\n"
+"}\n"
+"\n"
+"QComboBox::down-arrow {\n"
+"    image: url(:/icons/icons/icons8-drop-down-80.png);\n"
+"\n"
+"    width: 12px;\n"
+"    height: 12px;\n"
+"}\n"
+"/****************************************************************************/\n"
+"/****************************************************************************/\n"
 "QPushButton[styleClass=\"fill_gradient_purple_btn\"]{\n"
 "border-radius:15px;\n"
 "padding:5px 10px;\n"
@@ -168,8 +215,8 @@ class Ui_MainWindow(object):
 "}\n"
 "\n"
 "QPushButton[styleClass=\"fill_gradient_purple_btn\"]:hover{\n"
-"background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0 rgba(39, 83,"
-                        " 237, 255), stop:0.516484 rgba(118, 22, 228, 255));\n"
+"background-color: q"
+                        "lineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0 rgba(39, 83, 237, 255), stop:0.516484 rgba(118, 22, 228, 255));\n"
 "}\n"
 "\n"
 "QPushButton[styleClass=\"fill_gradient_purple_btn\"]:disabled{\n"
@@ -192,9 +239,9 @@ class Ui_MainWindow(object):
 "border: 3px solid rgba(118, 22, 228, 255);\n"
 "}\n"
 "\n"
+"/*******************************************"
+                        "*********************************/\n"
 "/****************************************************************************/\n"
-"/******************************"
-                        "**********************************************/\n"
 "\n"
 " QTabWidget::pane { \n"
 "        border: 1px solid #444; /* \u0631\u0646\u06af \u062d\u0627\u0634\u06cc\u0647 \u062f\u0648\u0631 TabWidget */\n"
@@ -206,8 +253,8 @@ class Ui_MainWindow(object):
 "        color: #ffffff;  /* \u0631\u0646\u06af \u0645\u062a\u0646 \u062a\u0628\u200c\u0647\u0627 */\n"
 "        padding: 10px;  /* \u0641\u0636\u0627\u06cc \u062f\u0627\u062e\u0644\u06cc \u062a\u0628\u200c\u0647\u0627 */\n"
 "        border: 1px solid #444; /* \u0631\u0646\u06af \u062d\u0627\u0634\u06cc\u0647 \u062f\u0648\u0631 \u062a\u0628\u200c\u0647\u0627 */\n"
-"        border-bottom-color: #2b2b2b; /* \u0647\u0645\u200c\u0631\u0627"
-                        "\u0633\u062a\u0627\u06cc\u06cc \u062a\u0628\u200c\u0647\u0627 \u0628\u0627 \u067e\u0646\u0644 */\n"
+""
+                        "        border-bottom-color: #2b2b2b; /* \u0647\u0645\u200c\u0631\u0627\u0633\u062a\u0627\u06cc\u06cc \u062a\u0628\u200c\u0647\u0627 \u0628\u0627 \u067e\u0646\u0644 */\n"
 "    }\n"
 "\n"
 "    QTabBar::tab:selected {\n"
@@ -221,10 +268,10 @@ class Ui_MainWindow(object):
 "    }\n"
 "\n"
 "    QTabWidget::tab-bar {\n"
-"        left: 5px; /* \u0641\u0627\u0635\u0644\u0647\u200c\u06cc \u062a\u0628\u200c\u0647\u0627 \u0627\u0632 \u067e\u0646\u0644 */\n"
+"        left: 5px; /* \u0641\u0627\u0635\u0644\u0647\u200c\u06cc \u062a"
+                        "\u0628\u200c\u0647\u0627 \u0627\u0632 \u067e\u0646\u0644 */\n"
 "    }\n"
-""
-                        "/****************************************************************************/\n"
+"/****************************************************************************/\n"
 "/****************************************************************************/\n"
 "QLineEdit{\n"
 "	background-color: transparent;\n"
@@ -250,12 +297,12 @@ class Ui_MainWindow(object):
 "/****************************************************************************/\n"
 "   QTableWidget, QTableView {\n"
 "       \n"
-"	background-color: rgba(74, 74, 74, 50);\n"
+"	background-color: "
+                        "rgba(74, 74, 74, 50);\n"
 "\n"
 "    text-align:centre;\n"
 "        \n"
-"	co"
-                        "lor: rgb(220, 220, 220);\n"
+"	color: rgb(220, 220, 220);\n"
 "	border: 1px solid #444444;  /* \u062d\u0627\u0634\u06cc\u0647 \u062f\u0648\u0631 \u062c\u062f\u0648\u0644 */\n"
 "	gridline-color: #555555;  /* \u0631\u0646\u06af \u062e\u0637\u0648\u0637 \u0634\u0628\u06a9\u0647 \u0628\u06cc\u0646 \u0633\u0644\u0648\u0644\u200c\u0647\u0627 */\n"
 "	font-size: 14px;  /* \u0627\u0646\u062f\u0627\u0632\u0647 \u0641\u0648\u0646\u062a */\n"
@@ -265,11 +312,11 @@ class Ui_MainWindow(object):
 "        background-color: qlineargradient(spread:pad, x1:0.454, y1:0, x2:0.514495, y2:1, stop:0 rgba(77, 77, 104, 255), stop:1 rgba(77, 77, 104, 128));\n"
 "        border-top-left-radius: 10px;   /* \u0634\u0639\u0627\u0639 \u06af\u0648\u0634\u0647 \u0628\u0627\u0644\u0627 \u0633\u0645\u062a \u0686\u067e */\n"
 "        border-top-right-radius: 10px;  /* \u0634\u0639\u0627\u0639 \u06af\u0648\u0634\u0647 \u0628\u0627\u0644\u0627 \u0633\u0645\u062a \u0631\u0627\u0633\u062a */\n"
-"        border: none;  /* \u062d\u0627\u0634\u06cc\u0647 \u0647\u062f\u0631 */\n"
+"        border: none;  /* \u062d"
+                        "\u0627\u0634\u06cc\u0647 \u0647\u062f\u0631 */\n"
 "    }\n"
 "\n"
-"    QH"
-                        "eaderView::section {\n"
+"    QHeaderView::section {\n"
 "        background-color: transparent;  /* \u0631\u0646\u06af \u067e\u0633\u200c\u0632\u0645\u06cc\u0646\u0647 \u0633\u0631\u0633\u062a\u0648\u0646\u200c\u0647\u0627 */\n"
 "        color: #ffffff;  /* \u0631\u0646\u06af \u0645\u062a\u0646 \u0633\u0631\u0633\u062a\u0648\u0646\u200c\u0647\u0627 */\n"
 "        padding: 5px;  /* \u0641\u0636\u0627\u06cc \u062f\u0627\u062e\u0644\u06cc \u0633\u0631\u0633\u062a\u0648\u0646\u200c\u0647\u0627 */\n"
@@ -280,9 +327,9 @@ class Ui_MainWindow(object):
 "QTableView::item:alternate {\n"
 "        background-color: rgba(83, 83, 105,50)\n"
 "    }\n"
+"/*******************************************************************"
+                        "*********/\n"
 "/****************************************************************************/\n"
-"/********************************************************"
-                        "********************/\n"
 "\n"
 "QCheckBox {\n"
 "        spacing: 5px;  /* \u0641\u0627\u0635\u0644\u0647 \u0628\u06cc\u0646 \u062a\u06cc\u06a9 \u0648 \u0645\u062a\u0646 */\n"
@@ -295,18 +342,18 @@ class Ui_MainWindow(object):
 "        height: 18px;  /* \u0627\u0631\u062a\u0641\u0627\u0639 \u0686\u06a9 \u0628\u0627\u06a9\u0633 */\n"
 "        border: 2px solid rgb(192, 197, 217);  /* \u062d\u0627\u0634\u06cc\u0647 \u0686\u06a9 \u0628\u0627\u06a9\u0633 */\n"
 "        border-radius: 0px;  /* \u0634\u0639\u0627\u0639 \u06af\u0648\u0634\u0647 \u0686\u06a9 \u0628\u0627\u06a9\u0633 */\n"
-"        background-color: transparent;  /* \u0631\u0646\u06af \u067e\u0633\u200c\u0632\u0645\u06cc\u0646\u0647 \u0686\u06a9 \u0628\u0627\u06a9\u0633 */\n"
+"        background-color: transparent;  /* \u0631\u0646\u06af \u067e\u0633\u200c\u0632\u0645\u06cc\u0646\u0647 "
+                        "\u0686\u06a9 \u0628\u0627\u06a9\u0633 */\n"
 "    }\n"
 "\n"
-"    QCheckBo"
-                        "x::indicator:checked {\n"
+"    QCheckBox::indicator:checked {\n"
 "        background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0 rgba(39, 83, 237, 255), stop:0.516484 rgba(118, 22, 228, 255));  /* \u0631\u0646\u06af \u067e\u0633\u200c\u0632\u0645\u06cc\u0646\u0647 \u0686\u06a9 \u0628\u0627\u06a9\u0633 \u062f\u0631 \u062d\u0627\u0644\u062a \u062a\u06cc\u06a9 \u062e\u0648\u0631\u062f\u0647 */\n"
 "        border: 2px solid rgb(192, 197, 217);  /* \u062d\u0627\u0634\u06cc\u0647 \u0686\u06a9 \u0628\u0627\u06a9\u0633 \u062f\u0631 \u062d\u0627\u0644\u062a \u062a\u06cc\u06a9 \u062e\u0648\u0631\u062f\u0647 */\n"
 "\n"
 "		background-image: url(:/icons/icons/check-wight-24.png);  /* \u0645\u0633\u06cc\u0631 \u0622\u06cc\u06a9\u0648\u0646 \u0686\u06a9 */\n"
 "        background-repeat: no-repeat;  /* \u062c\u0644\u0648\u06af\u06cc\u0631\u06cc \u0627\u0632 \u062a\u06a9\u0631\u0627\u0631 \u0622\u06cc\u06a9\u0648\u0646 */\n"
-"        background-position: center;  /* \u062a\u0631\u0627\u0632 \u06a9\u0631\u062f\u0646 \u0622\u06cc\u06a9\u0648\u0646"
-                        " \u062f\u0631 \u0648\u0633\u0637 */\n"
+"        background-position: center;  /* \u062a"
+                        "\u0631\u0627\u0632 \u06a9\u0631\u062f\u0646 \u0622\u06cc\u06a9\u0648\u0646 \u062f\u0631 \u0648\u0633\u0637 */\n"
 "		border: 2px solid qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0 rgba(39, 83, 237, 255), stop:0.516484 rgba(118, 22, 228, 255));\n"
 "    }\n"
 "\n"
@@ -317,9 +364,9 @@ class Ui_MainWindow(object):
 "    QCheckBox::indicator:checked:hover {\n"
 "          /* \u0631\u0646\u06af \u067e\u0633\u200c\u0632\u0645\u06cc\u0646\u0647 \u0686\u06a9 \u0628\u0627\u06a9\u0633 \u062f\u0631 \u062d\u0627\u0644\u062a \u062a\u06cc\u06a9 \u062e\u0648\u0631\u062f\u0647 \u0648 \u0645\u0627\u0648\u0633 \u0631\u0648\u06cc \u0622\u0646 \u0627\u0633\u062a */\n"
 "    }\n"
-"\n"
-"/*****************************************************************"
-                        "***********/\n"
+""
+                        "\n"
+"/****************************************************************************/\n"
 "/****************************************************************************/")
         self.verticalLayout = QVBoxLayout(self.centralwidget)
         self.verticalLayout.setSpacing(0)
@@ -727,34 +774,7 @@ class Ui_MainWindow(object):
 
         self.playback_combo_train_id = QComboBox(self.frame_19)
         self.playback_combo_train_id.setObjectName(u"playback_combo_train_id")
-        self.playback_combo_train_id.setStyleSheet(u"QComboBox {\n"
-"    background-color:  transparent;\n"
-"    border: 2px solid white;\n"
-"    border-radius: 5px;\n"
-"    padding: 6px 10px;\n"
-"\n"
-"	color: white;\n"
-"}\n"
-"\n"
-"QComboBox:hover {\n"
-"    border: 1px solid #5e81ac;\n"
-"}\n"
-"\n"
-"QComboBox::drop-down {\n"
-"    background-color: #fff;\n"
-"}\n"
-"\n"
-"QComboBox QAbstractItemView {\n"
-"    background-color: #404040;\n"
-"    color: white;\n"
-"}\n"
-"\n"
-"QComboBox::down-arrow {\n"
-"    image: url(:/icons/icons/icons8-drop-down-80.png);\n"
-"\n"
-"    width: 12px;\n"
-"    height: 12px;\n"
-"}")
+        self.playback_combo_train_id.setStyleSheet(u"")
         self.playback_combo_train_id.setIconSize(QSize(41, 45))
 
         self.horizontalLayout_16.addWidget(self.playback_combo_train_id)
@@ -786,34 +806,7 @@ class Ui_MainWindow(object):
         self.playback_camera_combo.setObjectName(u"playback_camera_combo")
         self.playback_camera_combo.setMinimumSize(QSize(120, 0))
         self.playback_camera_combo.setMaximumSize(QSize(16777215, 16777215))
-        self.playback_camera_combo.setStyleSheet(u"QComboBox {\n"
-"    background-color:  transparent;\n"
-"    border: 2px solid white;\n"
-"    border-radius: 5px;\n"
-"    padding: 6px 10px;\n"
-"\n"
-"	color: white;\n"
-"}\n"
-"\n"
-"QComboBox:hover {\n"
-"    border: 1px solid #5e81ac;\n"
-"}\n"
-"\n"
-"QComboBox::drop-down {\n"
-"    background-color: #fff;\n"
-"}\n"
-"\n"
-"QComboBox QAbstractItemView {\n"
-"    background-color: #404040;\n"
-"    color: white;\n"
-"}\n"
-"\n"
-"QComboBox::down-arrow {\n"
-"    image: url(:/icons/icons/icons8-drop-down-80.png);\n"
-"\n"
-"    width: 12px;\n"
-"    height: 12px;\n"
-"}")
+        self.playback_camera_combo.setStyleSheet(u"")
 
         self.horizontalLayout_18.addWidget(self.playback_camera_combo)
 
@@ -990,22 +983,26 @@ class Ui_MainWindow(object):
 "QPushButton[status=\"play\"]{\n"
 "	icon: url(:/icons/icons/play-white.png);\n"
 "	background-color:transparent;\n"
+"	border:none;\n"
 "}\n"
 "\n"
 "QPushButton[status=\"play\"]:hover{\n"
 "	icon: url(:/icons/icons/play_purple.png);\n"
 "	background-color:transparent;\n"
+"	border:none;\n"
 "}\n"
 "\n"
 "\n"
 "QPushButton[status=\"stop\"]{\n"
 "	icon: url(:/icons/icons/stop-white.png);\n"
 "	background-color:transparent;\n"
+"	border:none;\n"
 "}\n"
 "\n"
 "QPushButton[status=\"stop\"]:hover{\n"
 "	icon: url(:/icons/icons/stop-purple.png);\n"
 "	background-color:transparent;\n"
+"	border:none;\n"
 "}")
         self.play_btn.setIconSize(QSize(40, 40))
 
@@ -1017,6 +1014,26 @@ class Ui_MainWindow(object):
         self.line_4.setFrameShadow(QFrame.Shadow.Sunken)
 
         self.horizontalLayout_4.addWidget(self.line_4)
+
+        self.left_rotate_btn = QPushButton(self.frame_13)
+        self.left_rotate_btn.setObjectName(u"left_rotate_btn")
+
+        self.horizontalLayout_4.addWidget(self.left_rotate_btn)
+
+        self.right_rotate_btn = QPushButton(self.frame_13)
+        self.right_rotate_btn.setObjectName(u"right_rotate_btn")
+
+        self.horizontalLayout_4.addWidget(self.right_rotate_btn)
+
+        self.flip_horizontal_btn = QPushButton(self.frame_13)
+        self.flip_horizontal_btn.setObjectName(u"flip_horizontal_btn")
+
+        self.horizontalLayout_4.addWidget(self.flip_horizontal_btn)
+
+        self.flip_vertical_btn = QPushButton(self.frame_13)
+        self.flip_vertical_btn.setObjectName(u"flip_vertical_btn")
+
+        self.horizontalLayout_4.addWidget(self.flip_vertical_btn)
 
         self.line_2 = QFrame(self.frame_13)
         self.line_2.setObjectName(u"line_2")
@@ -1185,7 +1202,7 @@ class Ui_MainWindow(object):
         self.scrollArea_2.setWidgetResizable(True)
         self.scrollAreaWidgetContents_2 = QWidget()
         self.scrollAreaWidgetContents_2.setObjectName(u"scrollAreaWidgetContents_2")
-        self.scrollAreaWidgetContents_2.setGeometry(QRect(0, 0, 498, 541))
+        self.scrollAreaWidgetContents_2.setGeometry(QRect(0, 0, 498, 488))
         self.scrollAreaWidgetContents_2.setStyleSheet(u"")
         self.verticalLayout_7 = QVBoxLayout(self.scrollAreaWidgetContents_2)
         self.verticalLayout_7.setObjectName(u"verticalLayout_7")
@@ -1451,51 +1468,158 @@ class Ui_MainWindow(object):
         self.verticalLayout_10.addWidget(self.system_station_tabwidget)
 
         self.setting_tab_widget.addTab(self.system_station_tab, "")
-        self.tab_2 = QWidget()
-        self.tab_2.setObjectName(u"tab_2")
-        self.verticalLayout_18 = QVBoxLayout(self.tab_2)
+        self.general_setting = QWidget()
+        self.general_setting.setObjectName(u"general_setting")
+        self.verticalLayout_18 = QVBoxLayout(self.general_setting)
         self.verticalLayout_18.setObjectName(u"verticalLayout_18")
-        self.frame_3 = QFrame(self.tab_2)
-        self.frame_3.setObjectName(u"frame_3")
-        self.frame_3.setFrameShape(QFrame.Shape.StyledPanel)
-        self.frame_3.setFrameShadow(QFrame.Shadow.Raised)
-        self.horizontalLayout_3 = QHBoxLayout(self.frame_3)
-        self.horizontalLayout_3.setObjectName(u"horizontalLayout_3")
-        self.frame_8 = QFrame(self.frame_3)
-        self.frame_8.setObjectName(u"frame_8")
-        self.frame_8.setFrameShape(QFrame.Shape.StyledPanel)
-        self.frame_8.setFrameShadow(QFrame.Shadow.Raised)
-        self.verticalLayout_19 = QVBoxLayout(self.frame_8)
+        self.storage_manager_setting_frame = QFrame(self.general_setting)
+        self.storage_manager_setting_frame.setObjectName(u"storage_manager_setting_frame")
+        self.storage_manager_setting_frame.setStyleSheet(u"#storage_manager_setting_frame{\n"
+"border: 1px solid rgb(164, 168, 185);\n"
+"}")
+        self.storage_manager_setting_frame.setFrameShape(QFrame.Shape.StyledPanel)
+        self.storage_manager_setting_frame.setFrameShadow(QFrame.Shadow.Raised)
+        self.verticalLayout_19 = QVBoxLayout(self.storage_manager_setting_frame)
         self.verticalLayout_19.setObjectName(u"verticalLayout_19")
-        self.groupBox = QGroupBox(self.frame_8)
-        self.groupBox.setObjectName(u"groupBox")
+        self.label_3 = QLabel(self.storage_manager_setting_frame)
+        self.label_3.setObjectName(u"label_3")
+        sizePolicy5 = QSizePolicy(QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Maximum)
+        sizePolicy5.setHorizontalStretch(0)
+        sizePolicy5.setVerticalStretch(0)
+        sizePolicy5.setHeightForWidth(self.label_3.sizePolicy().hasHeightForWidth())
+        self.label_3.setSizePolicy(sizePolicy5)
+        self.label_3.setStyleSheet(u"font-weight:bold;\n"
+"font-size: 22px;")
 
-        self.verticalLayout_19.addWidget(self.groupBox)
+        self.verticalLayout_19.addWidget(self.label_3)
+
+        self.gridLayout_5 = QGridLayout()
+        self.gridLayout_5.setObjectName(u"gridLayout_5")
+        self.gridLayout_5.setVerticalSpacing(25)
+        self.label_38 = QLabel(self.storage_manager_setting_frame)
+        self.label_38.setObjectName(u"label_38")
+        sizePolicy5.setHeightForWidth(self.label_38.sizePolicy().hasHeightForWidth())
+        self.label_38.setSizePolicy(sizePolicy5)
+
+        self.gridLayout_5.addWidget(self.label_38, 1, 0, 1, 1)
+
+        self.label_37 = QLabel(self.storage_manager_setting_frame)
+        self.label_37.setObjectName(u"label_37")
+        sizePolicy5.setHeightForWidth(self.label_37.sizePolicy().hasHeightForWidth())
+        self.label_37.setSizePolicy(sizePolicy5)
+
+        self.gridLayout_5.addWidget(self.label_37, 2, 0, 1, 1)
+
+        self.storage_clean_mode = QComboBox(self.storage_manager_setting_frame)
+        self.storage_clean_mode.setObjectName(u"storage_clean_mode")
+
+        self.gridLayout_5.addWidget(self.storage_clean_mode, 1, 1, 1, 1)
+
+        self.horizontalSpacer_3 = QSpacerItem(40, 20, QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Minimum)
+
+        self.gridLayout_5.addItem(self.horizontalSpacer_3, 0, 2, 1, 1)
+
+        self.horizontalLayout_3 = QHBoxLayout()
+        self.horizontalLayout_3.setSpacing(15)
+        self.horizontalLayout_3.setObjectName(u"horizontalLayout_3")
+        self.storage_clean_alarm_h = timeSpinBox(self.storage_manager_setting_frame)
+        self.storage_clean_alarm_h.setObjectName(u"storage_clean_alarm_h")
+        self.storage_clean_alarm_h.setMaximum(23)
+
+        self.horizontalLayout_3.addWidget(self.storage_clean_alarm_h)
+
+        self.label_36 = QLabel(self.storage_manager_setting_frame)
+        self.label_36.setObjectName(u"label_36")
+        sizePolicy5.setHeightForWidth(self.label_36.sizePolicy().hasHeightForWidth())
+        self.label_36.setSizePolicy(sizePolicy5)
+        self.label_36.setStyleSheet(u"font-size: 28px;\n"
+"")
+
+        self.horizontalLayout_3.addWidget(self.label_36)
+
+        self.storage_clean_alarm_m = timeSpinBox(self.storage_manager_setting_frame)
+        self.storage_clean_alarm_m.setObjectName(u"storage_clean_alarm_m")
+        self.storage_clean_alarm_m.setMaximum(59)
+
+        self.horizontalLayout_3.addWidget(self.storage_clean_alarm_m)
 
 
-        self.horizontalLayout_3.addWidget(self.frame_8)
+        self.gridLayout_5.addLayout(self.horizontalLayout_3, 3, 1, 1, 1)
 
-        self.frame_5 = QFrame(self.frame_3)
+        self.label_31 = QLabel(self.storage_manager_setting_frame)
+        self.label_31.setObjectName(u"label_31")
+        sizePolicy5.setHeightForWidth(self.label_31.sizePolicy().hasHeightForWidth())
+        self.label_31.setSizePolicy(sizePolicy5)
+
+        self.gridLayout_5.addWidget(self.label_31, 3, 0, 1, 1)
+
+        self.auto_clean_checkbox = QCheckBox(self.storage_manager_setting_frame)
+        self.auto_clean_checkbox.setObjectName(u"auto_clean_checkbox")
+
+        self.gridLayout_5.addWidget(self.auto_clean_checkbox, 0, 1, 1, 1)
+
+        self.label_28 = QLabel(self.storage_manager_setting_frame)
+        self.label_28.setObjectName(u"label_28")
+
+        self.gridLayout_5.addWidget(self.label_28, 0, 0, 1, 1)
+
+        self.storage_clean_max_usage = QSpinBox(self.storage_manager_setting_frame)
+        self.storage_clean_max_usage.setObjectName(u"storage_clean_max_usage")
+        self.storage_clean_max_usage.setMaximumSize(QSize(120, 16777215))
+        self.storage_clean_max_usage.setStyleSheet(u"")
+        self.storage_clean_max_usage.setMaximum(95)
+
+        self.gridLayout_5.addWidget(self.storage_clean_max_usage, 2, 1, 1, 1)
+
+
+        self.verticalLayout_19.addLayout(self.gridLayout_5)
+
+        self.horizontalLayout_13 = QHBoxLayout()
+        self.horizontalLayout_13.setObjectName(u"horizontalLayout_13")
+        self.horizontalLayout_13.setContentsMargins(-1, 0, -1, -1)
+        self.horizontalSpacer_12 = QSpacerItem(40, 20, QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Minimum)
+
+        self.horizontalLayout_13.addItem(self.horizontalSpacer_12)
+
+        self.storage_clean_save_btn = QPushButton(self.storage_manager_setting_frame)
+        self.storage_clean_save_btn.setObjectName(u"storage_clean_save_btn")
+        self.storage_clean_save_btn.setMinimumSize(QSize(150, 0))
+        self.storage_clean_save_btn.setMaximumSize(QSize(200, 16777215))
+        self.storage_clean_save_btn.setSizeIncrement(QSize(0, 0))
+
+        self.horizontalLayout_13.addWidget(self.storage_clean_save_btn)
+
+        self.horizontalSpacer_7 = QSpacerItem(10, 20, QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Minimum)
+
+        self.horizontalLayout_13.addItem(self.horizontalSpacer_7)
+
+        self.storage_clean_cancel_btn = QPushButton(self.storage_manager_setting_frame)
+        self.storage_clean_cancel_btn.setObjectName(u"storage_clean_cancel_btn")
+        self.storage_clean_cancel_btn.setMinimumSize(QSize(150, 0))
+        self.storage_clean_cancel_btn.setMaximumSize(QSize(200, 16777215))
+        self.storage_clean_cancel_btn.setSizeIncrement(QSize(0, 0))
+
+        self.horizontalLayout_13.addWidget(self.storage_clean_cancel_btn)
+
+        self.horizontalSpacer_6 = QSpacerItem(40, 20, QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Minimum)
+
+        self.horizontalLayout_13.addItem(self.horizontalSpacer_6)
+
+
+        self.verticalLayout_19.addLayout(self.horizontalLayout_13)
+
+
+        self.verticalLayout_18.addWidget(self.storage_manager_setting_frame)
+
+        self.frame_5 = QFrame(self.general_setting)
         self.frame_5.setObjectName(u"frame_5")
+        self.frame_5.setStyleSheet(u"")
         self.frame_5.setFrameShape(QFrame.Shape.StyledPanel)
         self.frame_5.setFrameShadow(QFrame.Shadow.Raised)
 
-        self.horizontalLayout_3.addWidget(self.frame_5)
+        self.verticalLayout_18.addWidget(self.frame_5)
 
-        self.frame_6 = QFrame(self.frame_3)
-        self.frame_6.setObjectName(u"frame_6")
-        self.frame_6.setFrameShape(QFrame.Shape.StyledPanel)
-        self.frame_6.setFrameShadow(QFrame.Shadow.Raised)
-
-        self.horizontalLayout_3.addWidget(self.frame_6)
-
-
-        self.verticalLayout_18.addWidget(self.frame_3)
-
-        self.setting_tab_widget.addTab(self.tab_2, "")
-        self.tab = QWidget()
-        self.tab.setObjectName(u"tab")
-        self.setting_tab_widget.addTab(self.tab, "")
+        self.setting_tab_widget.addTab(self.general_setting, "")
 
         self.verticalLayout_4.addWidget(self.setting_tab_widget)
 
@@ -1710,9 +1834,6 @@ class Ui_MainWindow(object):
         self.verticalLayout_25.setObjectName(u"verticalLayout_25")
         self.label_24 = QLabel(self.step3)
         self.label_24.setObjectName(u"label_24")
-        sizePolicy5 = QSizePolicy(QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Maximum)
-        sizePolicy5.setHorizontalStretch(0)
-        sizePolicy5.setVerticalStretch(0)
         sizePolicy5.setHeightForWidth(self.label_24.sizePolicy().hasHeightForWidth())
         self.label_24.setSizePolicy(sizePolicy5)
 
@@ -2011,8 +2132,8 @@ class Ui_MainWindow(object):
 
         self.retranslateUi(MainWindow)
 
-        self.pages_stackwidget.setCurrentIndex(0)
-        self.setting_tab_widget.setCurrentIndex(0)
+        self.pages_stackwidget.setCurrentIndex(1)
+        self.setting_tab_widget.setCurrentIndex(1)
         self.system_station_tabwidget.setCurrentIndex(0)
         self.download_filter_stackWidget.setCurrentIndex(2)
 
@@ -2066,6 +2187,10 @@ class Ui_MainWindow(object):
 #endif // QT_CONFIG(tooltip)
         self.play_btn.setText("")
         self.play_btn.setProperty("status", QCoreApplication.translate("MainWindow", u"stop", None))
+        self.left_rotate_btn.setText(QCoreApplication.translate("MainWindow", u"L", None))
+        self.right_rotate_btn.setText(QCoreApplication.translate("MainWindow", u"R", None))
+        self.flip_horizontal_btn.setText(QCoreApplication.translate("MainWindow", u"flip_h", None))
+        self.flip_vertical_btn.setText(QCoreApplication.translate("MainWindow", u"flip_w", None))
         self.label_25.setText(QCoreApplication.translate("MainWindow", u"Speed : ", None))
 #if QT_CONFIG(tooltip)
         self.speed_btn.setToolTip(QCoreApplication.translate("MainWindow", u"Stop Live", None))
@@ -2118,9 +2243,21 @@ class Ui_MainWindow(object):
         self.btn_modify_cancel.setProperty("styleClass", QCoreApplication.translate("MainWindow", u"border_gradient_purple_btn", None))
         self.system_station_tabwidget.setTabText(self.system_station_tabwidget.indexOf(self.modify), QCoreApplication.translate("MainWindow", u"Modify", None))
         self.setting_tab_widget.setTabText(self.setting_tab_widget.indexOf(self.system_station_tab), QCoreApplication.translate("MainWindow", u"system Stations", None))
-        self.groupBox.setTitle(QCoreApplication.translate("MainWindow", u"User Management", None))
-        self.setting_tab_widget.setTabText(self.setting_tab_widget.indexOf(self.tab_2), QCoreApplication.translate("MainWindow", u"General", None))
-        self.setting_tab_widget.setTabText(self.setting_tab_widget.indexOf(self.tab), QCoreApplication.translate("MainWindow", u"Logs", None))
+        self.general_setting.setProperty("styleClass", QCoreApplication.translate("MainWindow", u"page", None))
+        self.storage_manager_setting_frame.setProperty("styleClass", QCoreApplication.translate("MainWindow", u"hide", None))
+        self.label_3.setText(QCoreApplication.translate("MainWindow", u"Storage Manger", None))
+        self.label_38.setText(QCoreApplication.translate("MainWindow", u"Cleaning Mode", None))
+        self.label_37.setText(QCoreApplication.translate("MainWindow", u"Max Usage Percent(%): ", None))
+        self.label_36.setText(QCoreApplication.translate("MainWindow", u":", None))
+        self.label_31.setText(QCoreApplication.translate("MainWindow", u"Start Cleaning At:", None))
+        self.auto_clean_checkbox.setText("")
+        self.label_28.setText(QCoreApplication.translate("MainWindow", u"Enable : ", None))
+        self.storage_clean_save_btn.setText(QCoreApplication.translate("MainWindow", u"Save", None))
+        self.storage_clean_save_btn.setProperty("styleClass", QCoreApplication.translate("MainWindow", u"fill_gradient_purple_btn", None))
+        self.storage_clean_cancel_btn.setText(QCoreApplication.translate("MainWindow", u"Cancel", None))
+        self.storage_clean_cancel_btn.setProperty("styleClass", QCoreApplication.translate("MainWindow", u"fill_gradient_purple_btn", None))
+        self.frame_5.setProperty("styleClass", QCoreApplication.translate("MainWindow", u"hide", None))
+        self.setting_tab_widget.setTabText(self.setting_tab_widget.indexOf(self.general_setting), QCoreApplication.translate("MainWindow", u"General", None))
         self.empty_page.setProperty("styleClass", QCoreApplication.translate("MainWindow", u"page", None))
         self.label_33.setText(QCoreApplication.translate("MainWindow", u"Welcome, Please Login First", None))
         self.page_download.setProperty("styleClass", QCoreApplication.translate("MainWindow", u"page", None))

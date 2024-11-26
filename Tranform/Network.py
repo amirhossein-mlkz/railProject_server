@@ -3,9 +3,70 @@ import subprocess
 import os
 
 from PySide6.QtCore import Signal, QObject
+import win32net #pip install pywin32
+import win32netcon
+import win32security
 
 from Tranform.sharingConstans import StatusCodes
 
+
+
+class Sharing:
+
+    @staticmethod
+    def create_and_share_folder(folder_path, share_name, description="", permissions=None):
+        # Create the folder if it doesn't exist
+        if not os.path.exists(folder_path):
+            os.makedirs(folder_path)
+        
+        # Define the share info
+        share_info = {
+            'netname': share_name,
+            'type': win32netcon.STYPE_DISKTREE,
+            'remark': description,
+            'permissions': 0,
+            'max_uses': -1,
+            'current_uses': 0,
+            'path': folder_path,
+            'passwd': ''
+        }
+        
+        # Add the share
+        win32net.NetShareAdd(None, 2, share_info)
+        
+        # Set folder permissions
+        if permissions:
+            Sharing.set_folder_permissions(folder_path, permissions)
+
+    @staticmethod
+    def remove_share(share_name):
+        try:
+            # Remove the share
+            win32net.NetShareDel(None, share_name)
+            print(f"Share '{share_name}' removed successfully.")
+        except Exception as e:
+            print(f"Error: {e}")
+
+    @staticmethod
+    def set_folder_permissions(folder_path, permissions):
+        
+        
+        # Get the security descriptor for the folder
+        sd = win32security.GetFileSecurity(folder_path, win32security.DACL_SECURITY_INFORMATION)
+        dacl = sd.GetSecurityDescriptorDacl()
+        
+        # Add the specified permissions
+        for user, access in permissions.items():
+            user, domain, type = win32security.LookupAccountName("", user)
+            dacl.AddAccessAllowedAce(win32security.ACL_REVISION, access, user)
+        
+        # Set the new DACL
+        sd.SetSecurityDescriptorDacl(1, dacl, 0)
+        win32security.SetFileSecurity(folder_path, win32security.DACL_SECURITY_INFORMATION, sd)
+
+#--------------------------------------------------------------------------------------------
+#
+#--------------------------------------------------------------------------------------------
 
 class pingWorker(QObject):
     result_signal = Signal(int)
@@ -44,6 +105,10 @@ class pingWorker(QObject):
             return False,''
         
 
+
+#--------------------------------------------------------------------------------------------
+#
+#--------------------------------------------------------------------------------------------
 
 
 class pingAndCreateWorker(QObject):

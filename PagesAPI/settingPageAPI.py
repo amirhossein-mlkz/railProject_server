@@ -10,7 +10,7 @@ from backend.utils.threadWorker import threadWorkers
 from Tranform.sharingConstans import StatusCodes
 from Mediator.mainMediator import Mediator
 from Mediator.mediatorNames import eventNames
-from pathConstans import pathConstants
+from pathsConstans import pathConstants
 
 
 class settingPageAPI:
@@ -26,12 +26,18 @@ class settingPageAPI:
 
         self.uiHandler.ui.btn_modify_cancel.clicked.connect(self.cancel_editing_systems_station)
         self.uiHandler.ui.btn_modify_save.clicked.connect(self.save_systems_station_change)
+        self.uiHandler.ui.storage_clean_save_btn.clicked.connect(self.save_storage_setting)
+        self.uiHandler.ui.storage_clean_cancel_btn.clicked.connect(self.load_storage_setting)
+
+
 
         self.uiHandler.ui.btn_save_add.clicked.connect(self.add_system_station)
         self.uiHandler.ui.btn_add_check_connection.clicked.connect(self.check_system_connection)
 
         self.uiHandler.show_modify_system_station_form(False)
         self.refresh_system_stations()
+
+        self.load_storage_setting()
 
 
     def system_station_table_event(self, name:str, id:str):
@@ -172,5 +178,15 @@ class settingPageAPI:
                                                                msg_type='success', 
                                                                display_time=3000)
             return
+
+    def save_storage_setting(self, ):
+        parms = self.uiHandler.get_storage_setting()
+        ret = self.db.save_storage_settings(data=parms)
+
+    def load_storage_setting(self):
+        parms = self.db.load_storage_settings()
+        self.uiHandler.set_storage_setting(parms)
+
+
 
     

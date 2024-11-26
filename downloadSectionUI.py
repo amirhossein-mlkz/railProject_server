@@ -36,6 +36,8 @@ class downloadSection(QWidget):
         else:
             self.id = _id
 
+        self.is_during_download = False
+
         if name:
             self.set_station_name(name)
         if train:
@@ -64,9 +66,20 @@ class downloadSection(QWidget):
         GUIBackend.set_progressbar_value(self.ui.prograssbar, value)
 
     def download_btn_connector(self, func, args):
-        GUIBackend.button_connector_argument_pass(self.ui.download_btn, 
+        
+        GUIBackend.button_connector_argument_pass(self.ui.download_btn,  
                                                   func,
                                                   args=args )
+        
+    def close_btn_connector(self, func, args):
+        GUIBackend.button_connector_argument_pass(self.ui.close_btn, 
+                                                  func,
+                                                  args=args )
+        
+    def set_during_download(self, flag):
+        self.is_during_download = flag
+        GUIBackend.set_disable_enable(self.ui.download_btn, not(self.is_during_download))
+        GUIBackend.set_disable_enable(self.ui.close_btn, not(self.is_during_download) )
         
     def set_time_ranges(self, time_rangs:list[tuple[JalaliDateTime, JalaliDateTime]]):
         for clock in self.Clocks.values():
@@ -78,9 +91,8 @@ class downloadSection(QWidget):
     def write_msg(self, txt):
         GUIBackend.set_label_text(self.ui.msg_lbl, txt)
 
-    def disable_download_btn(self,):
-        GUIBackend.set_disable_enable(self.ui.download_btn, False)
 
     def reset(self,):
+        self.set_during_download(False)
         self.set_progess_value(0)
         GUIBackend.set_disable_enable(self.ui.download_btn, True)

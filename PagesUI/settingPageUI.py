@@ -1,6 +1,7 @@
 from UIFiles.main_UI import Ui_MainWindow
 from uiUtils.guiBackend import GUIBackend
 from uiUtils import GUIComponents
+from backend.utils.mapDictionary import mapDictionary
 
 class settingPageUI:
 
@@ -22,6 +23,22 @@ class settingPageUI:
             'username': (self.ui.username_input_modify, False),
             'password': (self.ui.password_input_modify, False),
         }
+
+        self.storage_settings = {
+            'auto_clean':self.ui.auto_clean_checkbox,
+            'max_usage': self.ui.storage_clean_max_usage,
+            'start_cleaning_hour':self.ui.storage_clean_alarm_h,
+            'start_cleaning_minute':self.ui.storage_clean_alarm_m,
+            'start_cleaning_mode': self.ui.storage_clean_mode,
+        }
+
+        self.mapDict = mapDictionary( {
+            'start_cleaning_mode': {
+                'time': 'On Time',
+            }
+        })
+
+        GUIBackend.set_combobox_items(self.ui.storage_clean_mode, self.mapDict.get_values('start_cleaning_mode') )
 
     def get_add_ip(self):
         return GUIBackend.get_input_text(self.ui.ip_input)
@@ -117,3 +134,23 @@ class settingPageUI:
     def show_confirmbox(self, title:str, text:str, buttons:list[str]):
         confirmbox = GUIComponents.confirmMessageBox(title, text, buttons)
         return confirmbox.render()
+    
+
+    def get_storage_setting(self, ) -> dict:
+        res = {}
+        for name , field in self.storage_settings.items():
+            value = GUIBackend.get_input(field)
+
+            if name == 'start_cleaning_mode':
+                value = self.mapDict.value2key('start_cleaning_mode', value)
+            res[name] = value
+
+        return res
+    
+    def set_storage_setting(self, data:dict):
+        for name , value in data.items():
+            if name in self.storage_settings:
+                if name == 'start_cleaning_mode':
+                    value = self.mapDict.key2value('start_cleaning_mode', value)
+                    
+                GUIBackend.set_input(self.storage_settings[name], value)

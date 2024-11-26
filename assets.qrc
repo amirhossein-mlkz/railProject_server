@@ -1,5 +1,11 @@
 <RCC>
   <qresource prefix="icons">
+    <file>icons/icons8-minus-36.png</file>
+    <file>icons/icons8-minus-36-hover.png</file>
+    <file>icons/icons8-plus-36.png</file>
+    <file>icons/icons8-plus-36-hover.png</file>
+    <file>icons/icons8-close-48.png</file>
+    <file>icons/icons8-close-48-hover.png</file>
     <file>icons/download2.png</file>
     <file>icons/download2_disable.png</file>
     <file>icons/download2_hover.png</file>
