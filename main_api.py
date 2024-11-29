@@ -9,12 +9,9 @@ from backend.database.databaseManager import DataBaseManager
 from backend.database.mainDatabase import mainDatabase
 from main_ui import UI_main_window_org
 from constanst import MAX_SPEED,COLUMN_DESTINATION,TABLE_PATHES
-from backend.utils.threadWorker import threadWorkers
 from Tranform.Network import pingWorker, Sharing
 from Tranform.sharingConstans import StatusCodes
 from Tranform.storgeManager import storageManager, Space
-from Tranform.threadTimer import clockThread
-from uiUtils.GUIComponents import MessageWidget
 from PagesAPI.settingPageAPI import settingPageAPI
 from PagesAPI.downloadPageAPI import downloadPageAPI
 from PagesAPI.playbackPageAPI import playbackPageAPI
@@ -52,6 +49,7 @@ class API:
 
         self.Mediator = Mediator()
         self.Mediator.register_events(eventNames.MODIFY_SYSTEM_STATIONS)
+  
 
         self.settingPageAPI = settingPageAPI(self.uiHandler.settingPageUI, self.db)
         self.downloadPageAPI = downloadPageAPI(self.uiHandler.downloadPageUI, self.db)
@@ -62,14 +60,11 @@ class API:
 
         self.settingPageAPI.refresh_system_stations()
 
-        #------------------------
-        self.clockTimer = clockThread()
-        self.clockTimer_thread = None
-
-        self.storageManager = None
-        self.storageManager_thread = None
-        self.storageCleaningDialog = storageCleaningDialog()
-        #-----------------------
+        # #------------------------
+        # self.storageManager = None
+        # self.storageManager_thread = None
+        # self.storageCleaningDialog = storageCleaningDialog()
+        # #-----------------------
 
         
 
@@ -214,63 +209,7 @@ class API:
             self.uiHandler.set_item_combo_box(self.uiHandler.combo_train_id,trains)
 
 
-    def storage_setting_change_event(self,):
-        
-        storage_setting = {
-            'auto_clean':self.uiHandler.auto,
-            'max_usage': 0.7,
-            'start_cleaning_hour':12,
-            'start_cleaning_minute':30,
-            'start_cleaning_mode': 'time'
-        }
-        
-        if self.clockTimer_thread is not None and self.clockTimer_thread.is_alive():
-            if storage_setting['start_cleaning_mode'] == 'time':
-                h = storage_setting['start_cleaning_hour']
-                m = storage_setting['start_cleaning_minute']
-                self.clockTimer.add_alarm(h, m, 'storage_clean')
-            
-            else:
-                self.clockTimer.stop()
-        else:
-            if storage_setting['start_cleaning_mode'] == 'time':
-                # create thread
-                h = storage_setting['start_cleaning_hour']
-                m = storage_setting['start_cleaning_minute']
-                self.clockTimer.add_alarm(h, m, 'storage_clean')
-                self.clockTimer.alarm_signal.connect(self.alarm_event)
-                self.clockTimer_thread = threading.Thread(target=self.clockTimer.run, daemon=True)
-                self.clockTimer_thread.start()
-            else:
-                # on restart or btn
-                pass
-
-    def alarm_event(self, alarm_name:str):
-        if alarm_name == 'storage_clean':
-            # storage_setting = self.db.setting_db.storage_db.load()
-            storage_setting = {
-            'auto_clean':1,
-            'max_usage': 0.7,
-            'start_cleaning_hour':12,
-            'start_cleaning_minute':30,
-            'start_cleaning_mode': 'time'
-            }
-            if storage_setting['auto_clean'] and storage_setting['start_cleaning_mode'] == 'time':
-                    self.storageManager = storageManager(path=pathConstants.SELF_IMAGES_DIR, 
-                                             logs_path=None,
-                                             max_usage=storage_setting['max_usage'],
-                                             max_log_count=100,
-                                             cleaning_evry_sec=2000,
-                                             logger= None)
-                    
-                    
-                    
-                    self.storageManager.finish_cleaning_signal.connect(self.storage_cleaning_finish_event)
-                    self.storageManager.progress_signal.connect(self.storage_cleaning_progress_event)
-                    self.storageManager_thread = threading.Thread(target=self.storageManager.run,
-                                                                  daemon=True)
-                    self.storageManager_thread.start()
-                    self.storageCleaningDialog.show_win()
+    
 
     def storage_cleaning_progress_event(self, deleted:Space, total:Space):
         percent = deleted.bytes / total.bytes * 100

@@ -37,10 +37,21 @@ class ClockWidget(QWidget):
         self.setMouseTracking(True)  # Enable tracking for mouseMoveEvent
         self.setFocusPolicy(Qt.StrongFocus)  # Ensure widget can receive focus for events
 
-    def set_time_ranges(self, time_ranges):
+    def set_time_ranges(self, time_ranges, date:JalaliDateTime):
         self.time_ranges = []
+        if isinstance(date, datetime) or isinstance(date, JalaliDateTime):
+            date = date.date()
+
+            
         for start, end in time_ranges:
             if isinstance(start, datetime) or isinstance(start, JalaliDateTime):
+                end:JalaliDateTime
+                if start.date() < date:
+                    start = JalaliDateTime(date.year, date.month, date.year, hour=0, minute=0, second=0)
+                
+                if end.date() > date:
+                    end = JalaliDateTime(date.year, date.month, date.day, hour=23, minute=59, second=59)
+
                 start = start.time()
                 end = end.time()
 
@@ -52,8 +63,6 @@ class ClockWidget(QWidget):
                 else:
                     continue
             else:
-                if time(0,0) <= end < time(12,0):
-                    end = time(23,59,59)
                 if time(0,0) <= start < time(12,0):
                     start = time(12,0)
                 if time(0,0) <= start < time(12,0) and time(0,0) <= end < time(12,0):
@@ -114,16 +123,70 @@ class ClockWidget(QWidget):
         start_angle = self.from_clockwise_angle(start_angle)
         end_angle = self.from_clockwise_angle(end_angle)
 
-        if start_angle * end_angle <0:
-            if start_angle > 0:
-                span_angle = start_angle + abs(end_angle)
-            else:
-                span_angle = (180 - end_angle) + (180 + start_angle)
-            
-            span_angle  = span_angle * -1
-   
-        else:
+        #start in region 1
+        if 0<=start_angle<=90 and 0<=end_angle<=90:
             span_angle = end_angle - start_angle
+        
+        elif 0<=start_angle<=90 and -90<=end_angle<0:
+            span_angle = abs(end_angle) + start_angle 
+            span_angle *= -1
+
+        elif 0<=start_angle<=90 and -180<=end_angle<-90:
+            span_angle = abs(end_angle) + start_angle 
+            span_angle *= -1
+
+        elif 0<=start_angle<=90 and 90<end_angle<=180:
+            span_angle = 360 - (end_angle - start_angle) 
+            span_angle *= -1
+        #----------------------------------
+        #start in region 2
+        elif -90<=start_angle<0 and 0<=end_angle<=90:
+            return
+        
+        elif -90<=start_angle<0 and -90<=end_angle<0:
+            span_angle = abs(end_angle) - abs(start_angle )
+            span_angle *= -1
+        
+        elif -90<=start_angle<0 and -180<=end_angle<-90:
+            span_angle = abs(end_angle) - abs(start_angle )
+            span_angle *= -1
+
+        elif -90<=start_angle<0 and 90<end_angle<=180:
+            span_angle = abs(180 + start_angle)  + abs(180 - end_angle)
+            span_angle *= -1
+        #----------------------------------
+        #start in region 3
+        elif -180<=start_angle<-90 and 0<=end_angle<=90:
+            return
+        
+        elif -180<=start_angle<-90 and -90<=end_angle<0:
+            return
+        
+        elif -180<=start_angle<-90 and -180<=end_angle<-90:
+            span_angle = abs(end_angle) - abs(start_angle )
+            span_angle *= -1
+
+        elif -180<=start_angle<-90 and 90<end_angle<=180:
+            span_angle = abs(180 + start_angle)  + abs(180 - end_angle)
+            span_angle *= -1
+
+        #----------------------------------
+        #start in region 4
+        elif 90<start_angle<=180 and 0<=end_angle<=90:
+            return
+        
+        elif 90<start_angle<=180 and -90<=end_angle<0:
+            return
+        
+        elif 90<start_angle<=180 and -180<=end_angle<-90:
+            return
+
+        elif 90<start_angle<=180 and 90<end_angle<=180:
+            span_angle = start_angle - end_angle
+            span_angle *= -1
+            
+            
+
 
         painter.drawPie(rect, start_angle * 16, span_angle * 16)
         painter.setBrush(Qt.NoBrush)
@@ -175,9 +238,9 @@ class MainWindow(QMainWindow):
         super().__init__()
         self.setWindowTitle("Centered Clock Widget")
 
-        clock_widget = ClockWidget(is_am=True, show_all_hours=False)
-        time_ranges = [(time(3, 0), time(5, 30)), (time(9, 15), time(10, 45))]
-        clock_widget.set_time_ranges(time_ranges)
+        clock_widget = ClockWidget(is_am=False, show_all_hours=False)
+        time_ranges = [(time(21,0), time(22,58)), ]
+        clock_widget.set_time_ranges(time_ranges, None)
 
         layout = QVBoxLayout()
         layout.addWidget(clock_widget, alignment=Qt.AlignCenter)  # Center the clock in layout

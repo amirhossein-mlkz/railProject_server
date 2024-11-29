@@ -34,18 +34,10 @@ class downloadPageUI:
         self.ui.download_filter_am_lock_wgt.layout().addWidget(self.Clocks['am'],  alignment=Qt.AlignCenter)
         self.ui.download_filter_pm_lock_wgt.layout().addWidget(self.Clocks['pm'],  alignment=Qt.AlignCenter)
 
-        self.download_sections:list[downloadSection] = []
-
 
         
 
-        time_ranges = [
-        (dtime(2, 0), dtime(5, 30)),
-        (dtime(9, 15), dtime(10, 45)),
-        (dtime(18, 15), dtime(22, 0)),
-    ]
-        self.Clocks['pm'].set_time_ranges(time_ranges)
-        self.Clocks['am'].set_time_ranges(time_ranges)
+
 
     def clock_click_event(self, start:dtime, end:dtime):
         GUIBackend.set_spinbox_value(self.ui.download_filter_to_h, end.hour)
@@ -53,6 +45,13 @@ class downloadPageUI:
         #------------------------------------------------------------------------
         GUIBackend.set_spinbox_value(self.ui.download_filter_from_h, start.hour)
         GUIBackend.set_spinbox_value(self.ui.download_filter_from_m, start.minute)
+
+    def show_confirmbox(self, title, text, buttons):
+        respose = GUIComponents.confirmMessageBox(title=title,
+                                                  text=text,
+                                                  buttons=buttons)
+        return respose
+
 
 
     def set_download_stations_list(self, datas:list[dict], event_func, selected_ids:list):
@@ -173,25 +172,15 @@ class downloadPageUI:
     
 
     def add_download_section(self, section:downloadSection):   
-        self.download_sections.append(section)
         GUIBackend.insert_widget(self.ui.downloadsSectionsscrollContents,
                                  section,
                                  pos=-1)
 
     def remove_download_section(self, section:downloadSection):
-        self.download_sections.remove(section)
         layout = self.ui.downloadsSectionsscrollContents.layout()
         layout.removeWidget(section)
         section.deleteLater()
 
-    def clear_download_sections(self, only_passive=True):
-        i  = 0
-        while i < len(self.download_sections):
-            if only_passive and self.download_sections[i].is_during_download: 
-                i+=1
-                continue
-
-            self.remove_download_section(self.download_sections[i])
 
     
     def get_selected_time_range(self, )-> tuple[JalaliDateTime, JalaliDateTime]:

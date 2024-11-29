@@ -8,7 +8,6 @@ from PySide6 import QtWidgets, QtCore, QtGui
 from PySide6.QtCore import Qt
 from PySide6.QtUiTools import QUiLoader
 from PySide6.QtWidgets import QApplication
-#from PyQt5 import uic
 
 class GUIBackend:
 

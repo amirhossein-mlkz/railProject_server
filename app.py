@@ -30,7 +30,7 @@ if __name__ == "__main__":
     from main_api import API
     app = sQApplication()
 
-    app.setStyle(QStyleFactory.create("Fusion"))  # Enforces a consistent style
+    app.setStyle(QStyleFactory.create("windows"))  # Enforces a consistent style
 
 
     win = UI_main_window_org()

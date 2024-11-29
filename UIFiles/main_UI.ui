@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1153</width>
-    <height>672</height>
+    <width>963</width>
+    <height>654</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -155,6 +155,7 @@ QSpinBox:focus, QDoubleSpinBox:focus
 	border-bottom: 2px solid #7892DF;
 }
 
+
 /****************************************************************************/
 /****************************************************************************/
 QComboBox {
@@ -162,7 +163,6 @@ QComboBox {
     border: 2px solid white;
     border-radius: 5px;
     padding: 6px 10px;
-
 	color: white;
 }
 
@@ -170,14 +170,27 @@ QComboBox:hover {
     border: 1px solid #5e81ac;
 }
 
-QComboBox::drop-down {
+QComboBox::drop-down { /*دکمه فلش*/
     background-color: #fff;
 }
 
 QComboBox QAbstractItemView {
-    background-color: #404040;
-    color: white;
+        background-color: rgb(65, 59, 71);
+        color: #fff;
+        /*selection-background-color: #ff5722; /* رنگ آیتم انتخاب‌شده */
+    }
+QComboBox QAbstractItemView::item {
+        min-height: 25px; /* ارتفاع هر آیتم */
+        padding: 7px; /* فاصله داخلی آیتم‌ها */
+
+ }
+QComboBox QAbstractItemView::item:hover {
+        background-color: rgb(96, 99, 234);
+        color: #ffffff; 
 }
+
+
+
 
 QComboBox::down-arrow {
     image: url(:/icons/icons/icons8-drop-down-80.png);
@@ -341,7 +354,16 @@ QCheckBox {
     }
 
 /****************************************************************************/
-/****************************************************************************/</string>
+/****************************************************************************/
+
+#playback_bottom_frame{
+	
+background-color: rgb(30, 27, 33);
+}
+
+#playback_filter_frame{
+background-color:rgb(49, 44, 53);
+}</string>
    </property>
    <layout class="QVBoxLayout" name="verticalLayout">
     <property name="spacing">
@@ -1014,10 +1036,7 @@ icon:url(:/icons/icons/download-white.png);
           </size>
          </property>
          <property name="styleSheet">
-          <string notr="true">*[styleClass=&quot;page&quot;]{
-	background-color:rgb(36, 32, 39);
-}
-</string>
+          <string notr="true"/>
          </property>
          <property name="frameShape">
           <enum>QFrame::Shape::NoFrame</enum>
@@ -1056,7 +1075,7 @@ icon:url(:/icons/icons/download-white.png);
              <number>2</number>
             </property>
             <property name="currentIndex">
-             <number>1</number>
+             <number>3</number>
             </property>
             <widget class="QWidget" name="page_playback">
              <property name="styleSheet">
@@ -1131,10 +1150,8 @@ icon:url(:/icons/icons/download-white.png);
                       </size>
                      </property>
                      <property name="styleSheet">
-                      <string notr="true">/*#playback_filter_frame{*/
-QFrame{
-background-color:rgb(49, 44, 53);
-}
+                      <string notr="true">
+/*#playback_filter_frame{*/
 
 </string>
                      </property>
@@ -1171,8 +1188,14 @@ background-color:rgb(49, 44, 53);
                           <height>16777215</height>
                          </size>
                         </property>
+                        <property name="styleSheet">
+                         <string notr="true"/>
+                        </property>
                         <property name="frameShape">
                          <enum>QFrame::Shape::NoFrame</enum>
+                        </property>
+                        <property name="styleClass" stdset="0">
+                         <string>hide</string>
                         </property>
                         <layout class="QVBoxLayout" name="verticalLayout_6">
                          <property name="spacing">
@@ -1291,6 +1314,9 @@ background-color:rgb(49, 44, 53);
                            <property name="frameShape">
                             <enum>QFrame::Shape::NoFrame</enum>
                            </property>
+                           <property name="styleClass" stdset="0">
+                            <string>hide</string>
+                           </property>
                            <layout class="QHBoxLayout" name="horizontalLayout_16">
                             <item>
                              <widget class="QLabel" name="label_30">
@@ -1309,12 +1335,6 @@ background-color:rgb(49, 44, 53);
                              <widget class="QComboBox" name="playback_combo_train_id">
                               <property name="styleSheet">
                                <string notr="true"/>
-                              </property>
-                              <property name="iconSize">
-                               <size>
-                                <width>41</width>
-                                <height>45</height>
-                               </size>
                               </property>
                              </widget>
                             </item>
@@ -1605,11 +1625,7 @@ background-color:rgb(49, 44, 53);
                  </size>
                 </property>
                 <property name="styleSheet">
-                 <string notr="true">#playback_bottom_frame{
-	
-background-color: rgb(30, 27, 33);
-
-}</string>
+                 <string notr="true"/>
                 </property>
                 <property name="frameShape">
                  <enum>QFrame::Shape::NoFrame</enum>
@@ -2089,8 +2105,8 @@ QPushButton:disabled {
                           <rect>
                            <x>0</x>
                            <y>0</y>
-                           <width>498</width>
-                           <height>488</height>
+                           <width>170</width>
+                           <height>442</height>
                           </rect>
                          </property>
                          <property name="styleSheet">
@@ -2629,6 +2645,18 @@ QPushButton:disabled {
                  <layout class="QVBoxLayout" name="verticalLayout_18">
                   <item>
                    <widget class="QFrame" name="storage_manager_setting_frame">
+                    <property name="minimumSize">
+                     <size>
+                      <width>0</width>
+                      <height>150</height>
+                     </size>
+                    </property>
+                    <property name="maximumSize">
+                     <size>
+                      <width>16777215</width>
+                      <height>150</height>
+                     </size>
+                    </property>
                     <property name="styleSheet">
                      <string notr="true">#storage_manager_setting_frame{
 border: 1px solid rgb(164, 168, 185);
@@ -2663,23 +2691,7 @@ font-size: 22px;</string>
                      </item>
                      <item>
                       <layout class="QGridLayout" name="gridLayout_5">
-                       <property name="verticalSpacing">
-                        <number>25</number>
-                       </property>
-                       <item row="1" column="0">
-                        <widget class="QLabel" name="label_38">
-                         <property name="sizePolicy">
-                          <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
-                           <horstretch>0</horstretch>
-                           <verstretch>0</verstretch>
-                          </sizepolicy>
-                         </property>
-                         <property name="text">
-                          <string>Cleaning Mode</string>
-                         </property>
-                        </widget>
-                       </item>
-                       <item row="2" column="0">
+                       <item row="0" column="0">
                         <widget class="QLabel" name="label_37">
                          <property name="sizePolicy">
                           <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
@@ -2692,8 +2704,8 @@ font-size: 22px;</string>
                          </property>
                         </widget>
                        </item>
-                       <item row="1" column="1">
-                        <widget class="QComboBox" name="storage_clean_mode"/>
+                       <item row="0" column="1">
+                        <widget class="QSpinBox" name="storage_clean_max_usage"/>
                        </item>
                        <item row="0" column="2">
                         <spacer name="horizontalSpacer_3">
@@ -2708,193 +2720,126 @@ font-size: 22px;</string>
                          </property>
                         </spacer>
                        </item>
-                       <item row="3" column="1">
-                        <layout class="QHBoxLayout" name="horizontalLayout_3">
-                         <property name="spacing">
-                          <number>15</number>
-                         </property>
-                         <item>
-                          <widget class="timeSpinBox" name="storage_clean_alarm_h">
-                           <property name="maximum">
-                            <number>23</number>
-                           </property>
-                          </widget>
-                         </item>
-                         <item>
-                          <widget class="QLabel" name="label_36">
-                           <property name="sizePolicy">
-                            <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
-                             <horstretch>0</horstretch>
-                             <verstretch>0</verstretch>
-                            </sizepolicy>
-                           </property>
-                           <property name="styleSheet">
-                            <string notr="true">font-size: 28px;
-</string>
-                           </property>
-                           <property name="text">
-                            <string>:</string>
-                           </property>
-                          </widget>
-                         </item>
-                         <item>
-                          <widget class="timeSpinBox" name="storage_clean_alarm_m">
-                           <property name="maximum">
-                            <number>59</number>
-                           </property>
-                          </widget>
-                         </item>
-                        </layout>
-                       </item>
-                       <item row="3" column="0">
-                        <widget class="QLabel" name="label_31">
-                         <property name="sizePolicy">
-                          <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
-                           <horstretch>0</horstretch>
-                           <verstretch>0</verstretch>
-                          </sizepolicy>
-                         </property>
-                         <property name="text">
-                          <string>Start Cleaning At:</string>
-                         </property>
-                        </widget>
-                       </item>
-                       <item row="0" column="1">
-                        <widget class="QCheckBox" name="auto_clean_checkbox">
-                         <property name="text">
-                          <string/>
-                         </property>
-                        </widget>
-                       </item>
-                       <item row="0" column="0">
-                        <widget class="QLabel" name="label_28">
-                         <property name="text">
-                          <string>Enable : </string>
-                         </property>
-                        </widget>
-                       </item>
-                       <item row="2" column="1">
-                        <widget class="QSpinBox" name="storage_clean_max_usage">
-                         <property name="maximumSize">
-                          <size>
-                           <width>120</width>
-                           <height>16777215</height>
-                          </size>
-                         </property>
-                         <property name="styleSheet">
-                          <string notr="true"/>
-                         </property>
-                         <property name="maximum">
-                          <number>95</number>
-                         </property>
-                        </widget>
-                       </item>
                       </layout>
                      </item>
                      <item>
-                      <layout class="QHBoxLayout" name="horizontalLayout_13">
-                       <property name="topMargin">
-                        <number>0</number>
+                      <widget class="QFrame" name="horizontalFrame_2">
+                       <property name="minimumSize">
+                        <size>
+                         <width>0</width>
+                         <height>30</height>
+                        </size>
                        </property>
-                       <item>
-                        <spacer name="horizontalSpacer_12">
-                         <property name="orientation">
-                          <enum>Qt::Orientation::Horizontal</enum>
-                         </property>
-                         <property name="sizeHint" stdset="0">
-                          <size>
-                           <width>40</width>
-                           <height>20</height>
-                          </size>
-                         </property>
-                        </spacer>
-                       </item>
-                       <item>
-                        <widget class="QPushButton" name="storage_clean_save_btn">
-                         <property name="minimumSize">
-                          <size>
-                           <width>150</width>
-                           <height>0</height>
-                          </size>
-                         </property>
-                         <property name="maximumSize">
-                          <size>
-                           <width>200</width>
-                           <height>16777215</height>
-                          </size>
-                         </property>
-                         <property name="sizeIncrement">
-                          <size>
-                           <width>0</width>
-                           <height>0</height>
-                          </size>
-                         </property>
-                         <property name="text">
-                          <string>Save</string>
-                         </property>
-                         <property name="styleClass" stdset="0">
-                          <string>fill_gradient_purple_btn</string>
-                         </property>
-                        </widget>
-                       </item>
-                       <item>
-                        <spacer name="horizontalSpacer_7">
-                         <property name="orientation">
-                          <enum>Qt::Orientation::Horizontal</enum>
-                         </property>
-                         <property name="sizeType">
-                          <enum>QSizePolicy::Policy::Fixed</enum>
-                         </property>
-                         <property name="sizeHint" stdset="0">
-                          <size>
-                           <width>10</width>
-                           <height>20</height>
-                          </size>
-                         </property>
-                        </spacer>
-                       </item>
-                       <item>
-                        <widget class="QPushButton" name="storage_clean_cancel_btn">
-                         <property name="minimumSize">
-                          <size>
-                           <width>150</width>
-                           <height>0</height>
-                          </size>
-                         </property>
-                         <property name="maximumSize">
-                          <size>
-                           <width>200</width>
-                           <height>16777215</height>
-                          </size>
-                         </property>
-                         <property name="sizeIncrement">
-                          <size>
-                           <width>0</width>
-                           <height>0</height>
-                          </size>
-                         </property>
-                         <property name="text">
-                          <string>Cancel</string>
-                         </property>
-                         <property name="styleClass" stdset="0">
-                          <string>fill_gradient_purple_btn</string>
-                         </property>
-                        </widget>
-                       </item>
-                       <item>
-                        <spacer name="horizontalSpacer_6">
-                         <property name="orientation">
-                          <enum>Qt::Orientation::Horizontal</enum>
-                         </property>
-                         <property name="sizeHint" stdset="0">
-                          <size>
-                           <width>40</width>
-                           <height>20</height>
-                          </size>
-                         </property>
-                        </spacer>
-                       </item>
-                      </layout>
+                       <property name="maximumSize">
+                        <size>
+                         <width>16777215</width>
+                         <height>30</height>
+                        </size>
+                       </property>
+                       <layout class="QHBoxLayout" name="horizontalLayout_13">
+                        <property name="topMargin">
+                         <number>1</number>
+                        </property>
+                        <item>
+                         <spacer name="horizontalSpacer_12">
+                          <property name="orientation">
+                           <enum>Qt::Orientation::Horizontal</enum>
+                          </property>
+                          <property name="sizeHint" stdset="0">
+                           <size>
+                            <width>40</width>
+                            <height>20</height>
+                           </size>
+                          </property>
+                         </spacer>
+                        </item>
+                        <item>
+                         <widget class="QPushButton" name="storage_clean_save_btn">
+                          <property name="minimumSize">
+                           <size>
+                            <width>150</width>
+                            <height>0</height>
+                           </size>
+                          </property>
+                          <property name="maximumSize">
+                           <size>
+                            <width>200</width>
+                            <height>16777215</height>
+                           </size>
+                          </property>
+                          <property name="sizeIncrement">
+                           <size>
+                            <width>0</width>
+                            <height>0</height>
+                           </size>
+                          </property>
+                          <property name="text">
+                           <string>Save</string>
+                          </property>
+                          <property name="styleClass" stdset="0">
+                           <string>fill_gradient_purple_btn</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <spacer name="horizontalSpacer_7">
+                          <property name="orientation">
+                           <enum>Qt::Orientation::Horizontal</enum>
+                          </property>
+                          <property name="sizeType">
+                           <enum>QSizePolicy::Policy::Fixed</enum>
+                          </property>
+                          <property name="sizeHint" stdset="0">
+                           <size>
+                            <width>10</width>
+                            <height>20</height>
+                           </size>
+                          </property>
+                         </spacer>
+                        </item>
+                        <item>
+                         <widget class="QPushButton" name="storage_clean_cancel_btn">
+                          <property name="minimumSize">
+                           <size>
+                            <width>150</width>
+                            <height>0</height>
+                           </size>
+                          </property>
+                          <property name="maximumSize">
+                           <size>
+                            <width>200</width>
+                            <height>16777215</height>
+                           </size>
+                          </property>
+                          <property name="sizeIncrement">
+                           <size>
+                            <width>0</width>
+                            <height>0</height>
+                           </size>
+                          </property>
+                          <property name="text">
+                           <string>Cancel</string>
+                          </property>
+                          <property name="styleClass" stdset="0">
+                           <string>fill_gradient_purple_btn</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <spacer name="horizontalSpacer_6">
+                          <property name="orientation">
+                           <enum>Qt::Orientation::Horizontal</enum>
+                          </property>
+                          <property name="sizeHint" stdset="0">
+                           <size>
+                            <width>40</width>
+                            <height>20</height>
+                           </size>
+                          </property>
+                         </spacer>
+                        </item>
+                       </layout>
+                      </widget>
                      </item>
                     </layout>
                    </widget>
@@ -3038,7 +2983,7 @@ background-color:rgb(49, 44, 53);
                      <string notr="true"/>
                     </property>
                     <property name="currentIndex">
-                     <number>2</number>
+                     <number>3</number>
                     </property>
                     <property name="styleClass" stdset="0">
                      <string/>
@@ -3558,6 +3503,9 @@ font-weight:bold;</string>
                         <property name="editTriggers">
                          <set>QAbstractItemView::EditTrigger::NoEditTriggers</set>
                         </property>
+                        <property name="selectionMode">
+                         <enum>QAbstractItemView::SelectionMode::NoSelection</enum>
+                        </property>
                         <attribute name="horizontalHeaderStretchLastSection">
                          <bool>true</bool>
                         </attribute>
@@ -3779,8 +3727,8 @@ font-weight:bold;</string>
                       <rect>
                        <x>0</x>
                        <y>0</y>
-                       <width>38</width>
-                       <height>18</height>
+                       <width>307</width>
+                       <height>568</height>
                       </rect>
                      </property>
                      <property name="styleClass" stdset="0">

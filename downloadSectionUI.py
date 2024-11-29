@@ -7,10 +7,10 @@ from PySide6.QtCore import Qt
 from UIFiles.stationDownload_UI import Ui_stationdownloadMainUI
 from uiUtils.guiBackend import GUIBackend
 from uiUtils.Clock import ClockWidget
-
+from Tranform.transformModule import transformModule
 class downloadSection(QWidget):
 
-    def __init__(self, _id, name:str, train:str, camera:str, dt:JalaliDateTime) -> None:
+    def __init__(self, station_info:str, train:str, camera:str, dt:JalaliDateTime) -> None:
         super().__init__()
         self.ui = Ui_stationdownloadMainUI()
         self.ui.setupUi(self)
@@ -31,15 +31,17 @@ class downloadSection(QWidget):
         self.ui.download_filter_am_lock_wgt.layout().addWidget(self.Clocks['am'],  alignment=Qt.AlignCenter)
         self.ui.download_filter_pm_lock_wgt.layout().addWidget(self.Clocks['pm'],  alignment=Qt.AlignCenter)
 
-        if _id is None:
-            self.id = name
-        else:
-            self.id = _id
+        self.date_time = dt
+
+        self.id = id(self)
+        self.station_info = station_info
+        self.transformer:transformModule = None
+        self.files_paths:list[str] = []
+        self.files_sizes:list[int] = []
 
         self.is_during_download = False
 
-        if name:
-            self.set_station_name(name)
+        self.set_station_name(station_info['name'])
         if train:
             self.set_train(train)
         if camera:
@@ -65,11 +67,11 @@ class downloadSection(QWidget):
     def set_progess_value(self, value):
         GUIBackend.set_progressbar_value(self.ui.prograssbar, value)
 
-    def download_btn_connector(self, func, args):
+    def download_btn_connector(self, func,):
         
         GUIBackend.button_connector_argument_pass(self.ui.download_btn,  
                                                   func,
-                                                  args=args )
+                                                  args=(self.id,) )
         
     def close_btn_connector(self, func, args):
         GUIBackend.button_connector_argument_pass(self.ui.close_btn, 
@@ -83,10 +85,15 @@ class downloadSection(QWidget):
         
     def set_time_ranges(self, time_rangs:list[tuple[JalaliDateTime, JalaliDateTime]]):
         for clock in self.Clocks.values():
-            clock.set_time_ranges(time_rangs)
+            clock.set_time_ranges(time_rangs, self.date_time)
 
-    # def show_msg(self,txt, msg_type, display_time=3000):
-    #     self.ui.download_message.show_message(txt, msg_type, display_time )
+    def set_transformer(self, transformer:transformModule):
+        self.transformer = transformer
+
+    def set_download_files(self, files:list[str], sizes:list[int]):
+        self.files_paths = files
+        self.files_sizes = sizes
+
 
     def write_msg(self, txt):
         GUIBackend.set_label_text(self.ui.msg_lbl, txt)

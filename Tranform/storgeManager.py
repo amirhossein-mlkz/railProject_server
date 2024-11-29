@@ -53,10 +53,11 @@ class Space:
 
 class storageManager(QObject):
 
-    finish_cleaning_signal = Signal()
-    progress_signal = Signal(Space, Space)
+    finish_cleaning_signal = Signal(str, bool)
+    progress_signal = Signal(str,str, Space, Space)
+    stop_signal = Signal()
 
-    def __init__(self, path, logs_path, max_usage=0.8, max_log_count=100, cleaning_evry_sec=2000, logger:None|dorsa_logger.logger=None) -> None:
+    def __init__(self, path, logs_path, max_usage=0.8,  max_log_count=100, logger:None|dorsa_logger.logger=None) -> None:
         super().__init__()
         """if cleaning_evry_sec be negative, storageMnage run one time
         """
@@ -65,15 +66,11 @@ class storageManager(QObject):
         self.logs_path = logs_path
         self.max_log_count = max_log_count
         self.max_usage = max_usage
-        self.cleaning_evry_sec = cleaning_evry_sec
         self.logger = logger
+        self.__is_running = True
+        self.clean_requsts = []
 
-        self.last_cleaning_time = JalaliDateTime.now()
-        #soon last_cleaning_time occur run storage manager as soon 
-        self.last_cleaning_time = self.last_cleaning_time.replace(year= 1376)
-
-
-
+    
     def get_disk_usage(self, path):
         total, used, free = shutil.disk_usage(path)
         total = Space(total)
@@ -81,6 +78,41 @@ class storageManager(QObject):
         free = Space(free)
         max_allowed = Space( total.toByte() * self.max_usage)
         return total, used, free, max_allowed
+    
+    def has_enough_space_for(self, size:Space):
+        total, used, free, max_allowed = self.get_disk_usage(self.path)
+        final_used = used + size
+        if final_used < max_allowed:
+            return True
+        else:
+            return False
+        
+    def has_enough_space_for_files(self, files_path:list[str], sizes:list[int], src_dir=None, dst_dir=None)-> tuple[bool, Space]:
+        files_path_after_download = files_path.copy()
+        sizes = sizes.copy()
+        if src_dir is not None and dst_dir is not None:
+            files_path_after_download = list(map( lambda x: x.replace(src_dir, dst_dir),
+                                                 files_path_after_download))
+            
+            
+            
+        #check for duplicate files
+        for i, path in enumerate(files_path_after_download):
+            if os.path.exists(path):
+                exist_size = os.path.getsize(path)
+                sizes[i] = sizes[i] - exist_size
+
+        total_need_size = sum(sizes)
+        total_need_size = Space(total_need_size)
+        total, used, free, max_allowed = self.get_disk_usage(self.path)
+        final_used = used + total_need_size
+        if final_used < max_allowed:
+            return True, Space(0)
+        else:
+            return False, total_need_size
+    
+    def send_clean_request(self, name:str, size:Space):
+        self.clean_requsts.append( {'name':name, 'size':size} )
     
 
     def remove_empty_dirs(self, directory, depth):
@@ -173,7 +205,7 @@ class storageManager(QObject):
         return files
 
 
-    def get_oldets_files(self,path, n=1) -> list[list[str]]:
+    def get_oldets_files(self, path, n=1) -> list[list[str]]:
         results = []
         for train in os.listdir(path):
             train_path = os.path.join(self.path, train)
@@ -233,6 +265,9 @@ class storageManager(QObject):
         elif os.path.isfile(path):
             os.remove(path)
 
+    def stop(self,):
+        self.__is_running = False
+
 
     def run(self,):
         #-----------------------------------------------------------
@@ -242,23 +277,18 @@ class storageManager(QObject):
                                             code="SMR000")
             self.logger.create_new_log(message=log_msg)
         #-----------------------------------------------------------
+
         while True:
             try:
-                now = JalaliDateTime.now()
-                delta:timedelta = now - self.last_cleaning_time
-
-                if delta.total_seconds() < self.cleaning_evry_sec and self.cleaning_evry_sec > 0:
-                    time.sleep(1)
-                    continue
-                #-----------------------------------------------------------
-                if self.logger is not None:
-                    log_msg = dorsa_logger.log_message(level=dorsa_logger.log_levels.DEBUG,
-                                                    text=f"start checking storage on {self.path }", 
-                                                    code="SMR001")
-                    self.logger.create_new_log(message=log_msg)
-                #-----------------------------------------------------------
-                self.last_cleaning_time = now
                 total, used, free, max_allowed= self.get_disk_usage(self.path)
+
+                aditional_space = Space(0)
+                name = ''
+                if len(self.clean_requsts):
+                    aditional_space = self.clean_requsts[0]['size']
+                    name = self.clean_requsts[0]['name']
+                
+                used = aditional_space  + used
                 #-----------------------------------------------------------
                 if self.logger is not None:
                     log_msg = dorsa_logger.log_message(level=dorsa_logger.log_levels.DEBUG,
@@ -267,9 +297,8 @@ class storageManager(QObject):
                     self.logger.create_new_log(message=log_msg)
                 #-----------------------------------------------------------
                 total_should_clean = max(used - max_allowed, Space(0))
-                self.progress_signal.emit( Space(0), 
-                                          total_should_clean)
-                while used > max_allowed:
+
+                while used > max_allowed and self.__is_running:
                     #-----------------------------------------------------------
                     if self.logger is not None:
                         log_msg = dorsa_logger.log_message(level=dorsa_logger.log_levels.DEBUG,
@@ -314,6 +343,11 @@ class storageManager(QObject):
                                 #-----------------------------------------------------------
                                 self.remove(path)
                                 
+                                self.progress_signal.emit( name, 
+                                                           path,
+                                                           used - max_allowed, 
+                                                           total_should_clean)
+                                
                                 #-----------------------------------------------------------
                                 if self.logger is not None:
                                     log_msg = dorsa_logger.log_message(level=dorsa_logger.log_levels.DEBUG,
@@ -340,11 +374,14 @@ class storageManager(QObject):
                         #-----------------------------------------------------------
                         break
                     total, used, free, max_allowed= self.get_disk_usage(self.path)
+                    used = used + aditional_space
+                    
+                
                     #end while remove
                 #-------------------------------------------------------------------------------------------
                 total, used, free, max_allowed= self.get_disk_usage(self.path)
-                self.progress_signal.emit( used - max_allowed, 
-                                          total_should_clean)
+                used = used + aditional_space
+
                 
                 #-----------------------------------------------------------
                 if self.logger is not None:
@@ -377,9 +414,7 @@ class storageManager(QObject):
                     #-----------------------------------------------------------
 
                 #-------------------------------------------------------------------------------------------
-
                 self.remove_logs()
-
                 #-------------------------------------------------------------------------------------------
 
 
@@ -391,11 +426,19 @@ class storageManager(QObject):
                                                     code="SMR012")
                     self.logger.create_new_log(message=log_msg)
                 #-----------------------------------------------------------
-            self.last_cleaning_time
-            self.finish_cleaning_signal.emit()
-            if self.cleaning_evry_sec == -1:
-                break
-    
+            total, used, free, max_allowed= self.get_disk_usage(self.path)
+            used = used + aditional_space
+
+            if len(self.clean_requsts) > 0:
+                request = self.clean_requsts.pop()
+                if used.bytes <= max_allowed.bytes:
+                    self.finish_cleaning_signal.emit(request['name'], True)
+                else:
+                    self.finish_cleaning_signal.emit(request['name'], False)
+        
+            time.sleep(1)
+            
+
 
 if __name__ == '__main__':
     sm = storageManager('C:\image_share', max_usage=0.17)

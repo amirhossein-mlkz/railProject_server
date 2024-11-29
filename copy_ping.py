@@ -2,7 +2,7 @@ import sys
 import os
 import shutil
 from PySide6.QtCore import QThread, Signal
-from PyQt5.QtWidgets import QApplication, QWidget, QVBoxLayout, QLineEdit, QPushButton, QProgressBar, QLabel, QFileDialog
+from PySide6.QtWidgets import QApplication, QWidget, QVBoxLayout, QLineEdit, QPushButton, QProgressBar, QLabel, QFileDialog
 import subprocess
 import time
 import platform
