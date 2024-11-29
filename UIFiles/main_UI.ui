@@ -421,7 +421,7 @@ background-color: #262632</string>
           </size>
          </property>
          <property name="frameShape">
-          <enum>QFrame::Shape::StyledPanel</enum>
+          <enum>QFrame::Shape::NoFrame</enum>
          </property>
          <property name="frameShadow">
           <enum>QFrame::Shadow::Raised</enum>
@@ -462,7 +462,7 @@ font: 16pt ;</string>
           </size>
          </property>
          <property name="frameShape">
-          <enum>QFrame::Shape::StyledPanel</enum>
+          <enum>QFrame::Shape::NoFrame</enum>
          </property>
          <property name="frameShadow">
           <enum>QFrame::Shadow::Raised</enum>
@@ -714,7 +714,7 @@ QPushButton:pressed {
              <item>
               <widget class="QFrame" name="side_menu_frame">
                <property name="frameShape">
-                <enum>QFrame::Shape::StyledPanel</enum>
+                <enum>QFrame::Shape::NoFrame</enum>
                </property>
                <property name="frameShadow">
                 <enum>QFrame::Shadow::Raised</enum>
@@ -1075,7 +1075,7 @@ icon:url(:/icons/icons/download-white.png);
              <number>2</number>
             </property>
             <property name="currentIndex">
-             <number>3</number>
+             <number>1</number>
             </property>
             <widget class="QWidget" name="page_playback">
              <property name="styleSheet">
@@ -2105,8 +2105,8 @@ QPushButton:disabled {
                           <rect>
                            <x>0</x>
                            <y>0</y>
-                           <width>170</width>
-                           <height>442</height>
+                           <width>498</width>
+                           <height>470</height>
                           </rect>
                          </property>
                          <property name="styleSheet">
@@ -2654,7 +2654,7 @@ QPushButton:disabled {
                     <property name="maximumSize">
                      <size>
                       <width>16777215</width>
-                      <height>150</height>
+                      <height>200</height>
                      </size>
                     </property>
                     <property name="styleSheet">
@@ -2685,7 +2685,7 @@ border: 1px solid rgb(164, 168, 185);
 font-size: 22px;</string>
                        </property>
                        <property name="text">
-                        <string>Storage Manger</string>
+                        <string>Storage Manager</string>
                        </property>
                       </widget>
                      </item>
@@ -2704,9 +2704,6 @@ font-size: 22px;</string>
                          </property>
                         </widget>
                        </item>
-                       <item row="0" column="1">
-                        <widget class="QSpinBox" name="storage_clean_max_usage"/>
-                       </item>
                        <item row="0" column="2">
                         <spacer name="horizontalSpacer_3">
                          <property name="orientation">
@@ -2719,6 +2716,9 @@ font-size: 22px;</string>
                           </size>
                          </property>
                         </spacer>
+                       </item>
+                       <item row="0" column="1">
+                        <widget class="QSpinBox" name="storage_clean_max_usage"/>
                        </item>
                       </layout>
                      </item>
@@ -2758,7 +2758,7 @@ font-size: 22px;</string>
                           <property name="minimumSize">
                            <size>
                             <width>150</width>
-                            <height>0</height>
+                            <height>30</height>
                            </size>
                           </property>
                           <property name="maximumSize">
@@ -2802,7 +2802,7 @@ font-size: 22px;</string>
                           <property name="minimumSize">
                            <size>
                             <width>150</width>
-                            <height>0</height>
+                            <height>30</height>
                            </size>
                           </property>
                           <property name="maximumSize">
@@ -2839,6 +2839,19 @@ font-size: 22px;</string>
                          </spacer>
                         </item>
                        </layout>
+                      </widget>
+                     </item>
+                     <item>
+                      <widget class="MessageWidget" name="storage_manager_msg" native="true">
+                       <property name="minimumSize">
+                        <size>
+                         <width>0</width>
+                         <height>40</height>
+                        </size>
+                       </property>
+                       <property name="styleSheet">
+                        <string notr="true"/>
+                       </property>
                       </widget>
                      </item>
                     </layout>

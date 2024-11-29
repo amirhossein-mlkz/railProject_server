@@ -73,15 +73,16 @@ class downloadSection(QWidget):
                                                   func,
                                                   args=(self.id,) )
         
-    def close_btn_connector(self, func, args):
+    def close_btn_connector(self, func):
         GUIBackend.button_connector_argument_pass(self.ui.close_btn, 
                                                   func,
-                                                  args=args )
+                                                  args=(self.id,)
+                                                   )
         
     def set_during_download(self, flag):
         self.is_during_download = flag
         GUIBackend.set_disable_enable(self.ui.download_btn, not(self.is_during_download))
-        GUIBackend.set_disable_enable(self.ui.close_btn, not(self.is_during_download) )
+        # GUIBackend.set_disable_enable(self.ui.close_btn, not(self.is_during_download) )
         
     def set_time_ranges(self, time_rangs:list[tuple[JalaliDateTime, JalaliDateTime]]):
         for clock in self.Clocks.values():

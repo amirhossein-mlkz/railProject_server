@@ -55,7 +55,6 @@ class mainDatabase():
         
         if len(results)>0:
             results = results[0]
-            results['auto_clean'] = bool(results['auto_clean'])
         else:
             results = {}
         return results

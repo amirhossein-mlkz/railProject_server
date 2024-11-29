@@ -182,6 +182,15 @@ class settingPageAPI:
     def save_storage_setting(self, ):
         parms = self.uiHandler.get_storage_setting()
         ret = self.db.save_storage_settings(data=parms)
+        if ret:
+            self.uiHandler.ui.storage_manager_msg.show_message('Changes Saved Cusscess', 
+                                                                msg_type='success', 
+                                                                display_time=3000)
+            self.mediator.start_event(eventNames.STORAGE_SETTING_CHANGED, args=())
+        else:
+            self.uiHandler.ui.modify_station_message.show_message('Faild to save in Database', 
+                                                                      msg_type='error', 
+                                                                      display_time=3000)
 
     def load_storage_setting(self):
         parms = self.db.load_storage_settings()

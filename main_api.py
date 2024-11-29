@@ -49,6 +49,8 @@ class API:
 
         self.Mediator = Mediator()
         self.Mediator.register_events(eventNames.MODIFY_SYSTEM_STATIONS)
+        self.Mediator.register_events(eventNames.STORAGE_SETTING_CHANGED)
+
   
 
         self.settingPageAPI = settingPageAPI(self.uiHandler.settingPageUI, self.db)

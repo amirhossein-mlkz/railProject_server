@@ -407,7 +407,7 @@ class Ui_MainWindow(object):
         self.frame = QFrame(self.softeware_top_frame)
         self.frame.setObjectName(u"frame")
         self.frame.setMaximumSize(QSize(120, 16777215))
-        self.frame.setFrameShape(QFrame.Shape.StyledPanel)
+        self.frame.setFrameShape(QFrame.Shape.NoFrame)
         self.frame.setFrameShadow(QFrame.Shadow.Raised)
 
         self.horizontalLayout_22.addWidget(self.frame)
@@ -429,7 +429,7 @@ class Ui_MainWindow(object):
         self.frame_2 = QFrame(self.softeware_top_frame)
         self.frame_2.setObjectName(u"frame_2")
         self.frame_2.setMaximumSize(QSize(120, 16777215))
-        self.frame_2.setFrameShape(QFrame.Shape.StyledPanel)
+        self.frame_2.setFrameShape(QFrame.Shape.NoFrame)
         self.frame_2.setFrameShadow(QFrame.Shadow.Raised)
         self.horizontalLayout_2 = QHBoxLayout(self.frame_2)
         self.horizontalLayout_2.setObjectName(u"horizontalLayout_2")
@@ -555,7 +555,7 @@ class Ui_MainWindow(object):
         self.verticalLayout_2.setContentsMargins(0, 0, 0, 0)
         self.side_menu_frame = QFrame(self.frame_7)
         self.side_menu_frame.setObjectName(u"side_menu_frame")
-        self.side_menu_frame.setFrameShape(QFrame.Shape.StyledPanel)
+        self.side_menu_frame.setFrameShape(QFrame.Shape.NoFrame)
         self.side_menu_frame.setFrameShadow(QFrame.Shadow.Raised)
         self.verticalLayout_20 = QVBoxLayout(self.side_menu_frame)
         self.verticalLayout_20.setObjectName(u"verticalLayout_20")
@@ -1215,7 +1215,7 @@ class Ui_MainWindow(object):
         self.scrollArea_2.setWidgetResizable(True)
         self.scrollAreaWidgetContents_2 = QWidget()
         self.scrollAreaWidgetContents_2.setObjectName(u"scrollAreaWidgetContents_2")
-        self.scrollAreaWidgetContents_2.setGeometry(QRect(0, 0, 170, 442))
+        self.scrollAreaWidgetContents_2.setGeometry(QRect(0, 0, 498, 470))
         self.scrollAreaWidgetContents_2.setStyleSheet(u"")
         self.verticalLayout_7 = QVBoxLayout(self.scrollAreaWidgetContents_2)
         self.verticalLayout_7.setObjectName(u"verticalLayout_7")
@@ -1488,7 +1488,7 @@ class Ui_MainWindow(object):
         self.storage_manager_setting_frame = QFrame(self.general_setting)
         self.storage_manager_setting_frame.setObjectName(u"storage_manager_setting_frame")
         self.storage_manager_setting_frame.setMinimumSize(QSize(0, 150))
-        self.storage_manager_setting_frame.setMaximumSize(QSize(16777215, 150))
+        self.storage_manager_setting_frame.setMaximumSize(QSize(16777215, 200))
         self.storage_manager_setting_frame.setStyleSheet(u"#storage_manager_setting_frame{\n"
 "border: 1px solid rgb(164, 168, 185);\n"
 "}")
@@ -1517,14 +1517,14 @@ class Ui_MainWindow(object):
 
         self.gridLayout_5.addWidget(self.label_37, 0, 0, 1, 1)
 
+        self.horizontalSpacer_3 = QSpacerItem(40, 20, QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Minimum)
+
+        self.gridLayout_5.addItem(self.horizontalSpacer_3, 0, 2, 1, 1)
+
         self.storage_clean_max_usage = QSpinBox(self.storage_manager_setting_frame)
         self.storage_clean_max_usage.setObjectName(u"storage_clean_max_usage")
 
         self.gridLayout_5.addWidget(self.storage_clean_max_usage, 0, 1, 1, 1)
-
-        self.horizontalSpacer_3 = QSpacerItem(40, 20, QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Minimum)
-
-        self.gridLayout_5.addItem(self.horizontalSpacer_3, 0, 2, 1, 1)
 
 
         self.verticalLayout_19.addLayout(self.gridLayout_5)
@@ -1542,7 +1542,7 @@ class Ui_MainWindow(object):
 
         self.storage_clean_save_btn = QPushButton(self.horizontalFrame_2)
         self.storage_clean_save_btn.setObjectName(u"storage_clean_save_btn")
-        self.storage_clean_save_btn.setMinimumSize(QSize(150, 0))
+        self.storage_clean_save_btn.setMinimumSize(QSize(150, 30))
         self.storage_clean_save_btn.setMaximumSize(QSize(200, 16777215))
         self.storage_clean_save_btn.setSizeIncrement(QSize(0, 0))
 
@@ -1554,7 +1554,7 @@ class Ui_MainWindow(object):
 
         self.storage_clean_cancel_btn = QPushButton(self.horizontalFrame_2)
         self.storage_clean_cancel_btn.setObjectName(u"storage_clean_cancel_btn")
-        self.storage_clean_cancel_btn.setMinimumSize(QSize(150, 0))
+        self.storage_clean_cancel_btn.setMinimumSize(QSize(150, 30))
         self.storage_clean_cancel_btn.setMaximumSize(QSize(200, 16777215))
         self.storage_clean_cancel_btn.setSizeIncrement(QSize(0, 0))
 
@@ -1566,6 +1566,13 @@ class Ui_MainWindow(object):
 
 
         self.verticalLayout_19.addWidget(self.horizontalFrame_2)
+
+        self.storage_manager_msg = MessageWidget(self.storage_manager_setting_frame)
+        self.storage_manager_msg.setObjectName(u"storage_manager_msg")
+        self.storage_manager_msg.setMinimumSize(QSize(0, 40))
+        self.storage_manager_msg.setStyleSheet(u"")
+
+        self.verticalLayout_19.addWidget(self.storage_manager_msg)
 
 
         self.verticalLayout_18.addWidget(self.storage_manager_setting_frame)
@@ -2092,7 +2099,7 @@ class Ui_MainWindow(object):
 
         self.retranslateUi(MainWindow)
 
-        self.pages_stackwidget.setCurrentIndex(3)
+        self.pages_stackwidget.setCurrentIndex(1)
         self.setting_tab_widget.setCurrentIndex(1)
         self.system_station_tabwidget.setCurrentIndex(0)
         self.download_filter_stackWidget.setCurrentIndex(3)
@@ -2207,7 +2214,7 @@ class Ui_MainWindow(object):
         self.setting_tab_widget.setTabText(self.setting_tab_widget.indexOf(self.system_station_tab), QCoreApplication.translate("MainWindow", u"system Stations", None))
         self.general_setting.setProperty("styleClass", QCoreApplication.translate("MainWindow", u"page", None))
         self.storage_manager_setting_frame.setProperty("styleClass", QCoreApplication.translate("MainWindow", u"hide", None))
-        self.label_3.setText(QCoreApplication.translate("MainWindow", u"Storage Manger", None))
+        self.label_3.setText(QCoreApplication.translate("MainWindow", u"Storage Manager", None))
         self.label_37.setText(QCoreApplication.translate("MainWindow", u"Max Usage Percent(%): ", None))
         self.storage_clean_save_btn.setText(QCoreApplication.translate("MainWindow", u"Save", None))
         self.storage_clean_save_btn.setProperty("styleClass", QCoreApplication.translate("MainWindow", u"fill_gradient_purple_btn", None))

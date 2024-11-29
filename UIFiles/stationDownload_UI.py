@@ -202,6 +202,7 @@ class Ui_stationdownloadMainUI(object):
         self.msg_lbl.setMinimumSize(QSize(0, 0))
         self.msg_lbl.setMaximumSize(QSize(16777215, 50))
         self.msg_lbl.setStyleSheet(u"color: rgb(64, 150, 255);")
+        self.msg_lbl.setWordWrap(True)
 
         self.verticalLayout_4.addWidget(self.msg_lbl)
 

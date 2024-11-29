@@ -24,13 +24,14 @@ class downloadPageAPI:
         self.uiHandler = uiHandler
         self.db = db
         self.mediator = Mediator()
-
-        self.filter_step = 0
-
         self.mediator.add_event_listener(event_name=eventNames.MODIFY_SYSTEM_STATIONS, 
                                          priority=5,
                                          func=self.update_stations_event)
+        self.mediator.add_event_listener(event_name=eventNames.STORAGE_SETTING_CHANGED,
+                                         priority=2,
+                                         func=self.make_storage_manager)
         
+        self.filter_step = 0
         self.systems_stations = []
         self.selected_stations_id_for_download = []
         self.selected_train = None
@@ -42,14 +43,12 @@ class downloadPageAPI:
         self.stations_passed_train_filter = []
         self.station_passed_date_filter = []
         self.download_sections = idList()
-
+        self.storageManager_worker = None
+        self.storageManager_thread = None
         
-
-
-
+        self.make_storage_manager()
         self.pingThreadWorker = threadWorkers(None,None)
         
-
         self.uiHandler.ui.download_search_station.textChanged.connect(self.update_download_stations_list)
         self.uiHandler.ui.download_all_stations_checkbox.checkStateChanged.connect(self.select_all_staions_for_download)
         self.uiHandler.ui.download_filter_next_btn.clicked.connect(self.next_filter_step)
@@ -62,9 +61,20 @@ class downloadPageAPI:
         self.uiHandler.set_station_archive_progress_visible(False)
 
         #-------------------------
+       
+        #-------------------------
+        
+
+    def make_storage_manager(self,):
+        if self.storageManager_worker is not None:
+            self.storageManager_worker.stop()
+
+
+        parms = self.db.load_storage_settings()
+        max_usage = parms['max_usage'] / 100
         self.storageManager_worker:storageManager = storageManager(path=pathConstants.SELF_IMAGES_DIR,
                                             logs_path=None,
-                                            max_usage=0.9,
+                                            max_usage=max_usage,
                                             logger=None,
                                             )
         self.storageManager_worker.finish_cleaning_signal.connect(self.storage_cleaning_finish)
@@ -72,10 +82,6 @@ class downloadPageAPI:
         self.storageManager_thread:threading.Thread = threading.Thread(target=self.storageManager_worker.run,
                                                                        daemon=True)
         self.storageManager_thread.start()
-        #-------------------------
-        
-
-
 
     def update_stations_event(self, systems_stations:list[dict] ):
         self.systems_stations = systems_stations
@@ -360,7 +366,7 @@ class downloadPageAPI:
 
                 
                 sec.download_btn_connector(self.start_download,)
-                sec.close_btn_connector(self.close_download_section, args=(station,))
+                sec.close_btn_connector(self.close_download_section)
                 
                 sec.set_time_ranges(times_rangs)
                 self.uiHandler.add_download_section(sec)
@@ -449,8 +455,7 @@ class downloadPageAPI:
         
         if not res:
             ans = self.uiHandler.show_confirmbox('Error Memory',
-                                           f'''not enough space for download, {space_need_clean.toMB()} MB should be remove. 
-                                           do you want remove old files automative?''',
+                                           f'not enough space for download, {space_need_clean.toMB()} MB should be remove. do you want remove old files automative?',
                                            buttons=['yes', 'no'])
             if ans == 'no':
                 download_sec.reset()
@@ -501,8 +506,10 @@ class downloadPageAPI:
 
     
 
-    def station_download_log(self, msg, sec_id):
+    def station_download_log(self, msg:str, sec_id):
         download_sec:downloadSection = self.download_sections.get_by_id(sec_id)
+        if 'Copy' in msg:
+            msg.replace('Copy', 'Download')
         download_sec.write_msg(msg)
 
 
@@ -530,4 +537,10 @@ class downloadPageAPI:
 
     def close_download_section(self, sec_id):
         download_sec:downloadSection = self.download_sections.get_by_id(sec_id)
+        if download_sec.is_during_download:
+            self.uiHandler.show_confirmbox('Error',
+                                           'Cant close during download',
+                                           buttons=['ok'])
+            return
+        
         self.uiHandler.remove_download_section(section=download_sec)

@@ -278,7 +278,7 @@ class storageManager(QObject):
             self.logger.create_new_log(message=log_msg)
         #-----------------------------------------------------------
 
-        while True:
+        while self.__is_running:
             try:
                 total, used, free, max_allowed= self.get_disk_usage(self.path)
 
