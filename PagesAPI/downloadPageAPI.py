@@ -199,6 +199,9 @@ class downloadPageAPI:
         #ONLY FOR TEST
         self.stations_archives= {}
         for log in self.station_logs:
+            if log['status'] == False:
+                continue
+
             archive_path = transormUtils.build_share_path(ip=log['info']['ip'],
                                                           share_name=pathConstants.OTHER_UTILS_SHARE_FOLDER)
             

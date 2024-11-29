@@ -92,7 +92,7 @@ class pingWorker(QObject):
         
         try:
             # اجرای دستور پینگ
-            output = subprocess.run(["ping", param, "1", ip], capture_output=True, text=True)
+            output = subprocess.run(["ping", param, "1", ip], capture_output=True, text=True, timeout=4)
             
             # بررسی returncode
             if 'ttl' in output.stdout.lower():
@@ -141,7 +141,7 @@ class pingAndCreateWorker(QObject):
         
         try:
             # اجرای دستور پینگ
-            output = subprocess.run(["ping", param, "1", ip], capture_output=True, text=True)
+            output = subprocess.run(["ping", param, "1", ip], capture_output=True, text=True, timeout=4)
             
             # بررسی returncode
             if 'ttl' in output.stdout.lower():
@@ -161,15 +161,18 @@ class pingAndCreateWorker(QObject):
 
     def create_connection(self):
 
+
         # Construct the command for mapping the network share
         if self.username and self.password:
-            command = f'net use {self.src_path} /user:{self.username} {self.password}'
+            #command = f'net use {self.src_path} /user:{self.username} {self.password}'
+            command = ["net", "use", self.src_path, f"/user:{self.username}", self.password]
         else:
-            command = f'net use {self.src_path}'
+            #command = f'net use {self.src_path}'
+            command = ["net", "use", self.src_path]
 
         try:
             # Execute the command to map the network share
-            result = subprocess.run(command, shell=True, capture_output=True, text=True)
+            result = subprocess.run(command, capture_output=True, text=True, timeout=4)
             if 'completed successfully' in result.stdout:
                 msg = 'connection completed successfully'
                 return True,msg
@@ -187,7 +190,7 @@ class pingAndCreateWorker(QObject):
 
         except Exception as e:
             print(f"Error: {e}")
-            return False
+            return False, ''
 
 
 
