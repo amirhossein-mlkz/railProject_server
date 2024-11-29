@@ -5,6 +5,7 @@ import re
 from PySide6.QtWidgets import QApplication, QVBoxLayout, QWidget, QPushButton, QLabel, QProgressBar, QFileDialog
 from PySide6.QtCore import QThread, Signal
 from Tranform.transformUtils import transormUtils
+from datetime import timedelta
 
 class VideoCombiner(QThread):
     progress_signal = Signal(int)
@@ -12,6 +13,7 @@ class VideoCombiner(QThread):
     finish_signal = Signal(int)
 
     FILES_LIST = "file_list.txt"
+    SUBTITLE_FILE = "subtitles.srt"
 
     def __init__(self, input_videos, temp_output_file, final_output_file,convert_mkv=True):
         super().__init__()
@@ -32,6 +34,24 @@ class VideoCombiner(QThread):
             if self.final_output_file.split('.')[-1] != 'mkv':
 
                 self.temp_output_file = self.final_output_file+'.mkv'
+        
+    def creat_subtitle(self, video_paths, text='test'):
+        path = os.path.join(self.temp_output_file, self.SUBTITLE_FILE)
+        if os.path.exists(path):
+            os.remove(path)
+        
+        with open(path, 'w', encoding='utf-8') as f:
+            for idx, path in enumerate(video_paths):
+                fdir, fname = os.path.split(path)
+                start_time, train_id, camera_name, status, extention = transormUtils.extract_file_name_info(fname)
+                start_time_str = start_time.strftime('%H:%M:%S')  # تبدیل به فرمت ساعت:دقیقه:ثانیه
+                end_time = start_time + timedelta(seconds=5)  # برای هر زیرنویس مدت زمان 5 ثانیه در نظر گرفته شده
+                end_time_str = end_time.strftime('%H:%M:%S')
+                
+                # اضافه کردن زیرنویس
+                f.write(f"{idx + 1}\n")
+                f.write(f"{start_time_str} --> {end_time_str}\n")
+                f.write(f"{text}\n\n")
 
     
     def create_file_list(self, video_paths:list[str], output_file):
@@ -61,6 +81,7 @@ class VideoCombiner(QThread):
         self.status_signal.emit(0,'Get Videos')
         # First, calculate the total number of frames across all videos
         self.create_file_list(self.input_videos, self.FILES_LIST)
+        self.creat_subtitle(self.input_videos)
 
         #try:
         if True:

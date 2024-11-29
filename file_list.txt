@@ -1,3 +1,2 @@
-file 'C:\rail_share\images\11bg21\hares\1403\9\3\20\15\1403-09-03_20-15-55-173120_11bg21_hares_new.mp4'
-file 'C:\rail_share\images\11bg21\hares\1403\9\3\20\33\1403-09-03_20-33-31-790004_11bg21_hares_new.mp4'
-file 'C:\rail_share\images\11bg21\hares\1403\9\3\20\33\1403-09-03_20-33-33-993056_11bg21_hares_new.mp4'
+file 'C:\rail_share\images\11bg21\hares\1403\9\6\18\57\1403-09-06_18-57-10-134851_11bg21_hares_new.mp4'
+file 'C:\rail_share\images\11bg21\hares\1403\9\6\19\7\1403-09-06_19-07-19-042330_11bg21_hares_new.mp4'

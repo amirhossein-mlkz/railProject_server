@@ -248,7 +248,18 @@ class storageManager(QObject):
                                 houre_path = os.path.join(day_path, hour)
                                 if not os.path.isdir(houre_path):
                                     continue
-                                last_hours_paths_per_cam.append(houre_path)
+
+                                minutes = os.listdir(houre_path)
+                                minutes = self.__sort_file_number(minutes)
+
+                                for mint in minutes:
+                                    minute_Path = os.path.join(houre_path, mint)
+                                    if not os.path.isdir(minute_Path):
+                                        continue
+                                    last_hours_paths_per_cam.append(minute_Path)
+                                    if len(last_hours_paths_per_cam) >= n:
+                                        break
+                                    
                                 if len(last_hours_paths_per_cam) >= n:
                                     break
                             if len(last_hours_paths_per_cam) >= n:
