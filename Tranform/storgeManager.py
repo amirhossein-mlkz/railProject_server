@@ -69,6 +69,9 @@ class storageManager(QObject):
         self.logger = logger
         self.__is_running = True
         self.clean_requsts = []
+    
+    def set_max_usage(self, max_usage):
+        self.max_usage = max_usage
 
     
     def get_disk_usage(self, path):

@@ -22,8 +22,24 @@ if login_directory not in sys.path:
 from PySide6.QtWidgets import QApplication as sQApplication
 from PySide6.QtWidgets import QStyleFactory
 from main_ui import UI_main_window_org
+from backend import adminPrivilage
+import ctypes
+
+ADMIN_ACCESS = False
 
 if __name__ == "__main__":
+
+    if ADMIN_ACCESS:
+        if not ctypes.windll.shell32.IsUserAnAdmin():
+            print("Not admin. Requesting access...")
+            if adminPrivilage.run_as_admin():
+                # Don't exit, just let the program continue to the next steps
+                print("Now running as admin! Continuing execution...")
+            else:
+                print("Failed to obtain admin privileges. Exiting.")
+                sys.exit(1)
+        else:
+            print("Running as administrator!")
 
 
 

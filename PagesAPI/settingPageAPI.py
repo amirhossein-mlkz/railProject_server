@@ -187,6 +187,7 @@ class settingPageAPI:
                                                                 msg_type='success', 
                                                                 display_time=3000)
             self.mediator.start_event(eventNames.STORAGE_SETTING_CHANGED, args=())
+            
         else:
             self.uiHandler.ui.modify_station_message.show_message('Faild to save in Database', 
                                                                       msg_type='error', 

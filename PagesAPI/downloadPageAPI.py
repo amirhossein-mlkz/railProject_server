@@ -29,7 +29,7 @@ class downloadPageAPI:
                                          func=self.update_stations_event)
         self.mediator.add_event_listener(event_name=eventNames.STORAGE_SETTING_CHANGED,
                                          priority=2,
-                                         func=self.make_storage_manager)
+                                         func=self.update_storage_setting_event)
         
         self.filter_step = 0
         self.systems_stations = []
@@ -66,10 +66,6 @@ class downloadPageAPI:
         
 
     def make_storage_manager(self,):
-        if self.storageManager_worker is not None:
-            self.storageManager_worker.stop()
-
-
         parms = self.db.load_storage_settings()
         max_usage = parms['max_usage'] / 100
         self.storageManager_worker:storageManager = storageManager(path=pathConstants.SELF_IMAGES_DIR,
@@ -82,6 +78,13 @@ class downloadPageAPI:
         self.storageManager_thread:threading.Thread = threading.Thread(target=self.storageManager_worker.run,
                                                                        daemon=True)
         self.storageManager_thread.start()
+    
+    def update_storage_setting_event(self,):
+        parms = self.db.load_storage_settings()
+        max_usage = parms['max_usage'] / 100
+        self.storageManager_worker.set_max_usage(max_usage)
+
+        
 
     def update_stations_event(self, systems_stations:list[dict] ):
         self.systems_stations = systems_stations

@@ -1,5 +1,6 @@
 import threading
 import time
+import keyboard
 
 from persiantools.jdatetime import JalaliDateTime, timedelta
 from datetime import time as Time
@@ -31,6 +32,7 @@ class playbackPageAPI:
         self.uiHandler = uiHandler
         self.db = db
         self.mediator = Mediator()
+        # self.mediator.add_event_listener(eventNames.NAV_KEY_PRESS_KEYBOARD, 1, self.nav_key_press)
 
         self.filesFinderThreadWorker = threadWorkers(None,None)
         self.videos_avaiabilities:dict[str, dict[str,list]] = {}
@@ -54,8 +56,8 @@ class playbackPageAPI:
         self.uiHandler.ui.play_btn.clicked.connect(self.play_video)
         self.uiHandler.ui.speed_btn.clicked.connect(self.change_video_speed)
         self.uiHandler.ui.btn_export.clicked.connect(self.show_export)
-        self.uiHandler.ui.left_rotate_btn.clicked.connect(lambda : self.rotate_video(-1))
-        self.uiHandler.ui.right_rotate_btn.clicked.connect(lambda : self.rotate_video(+1))
+        self.uiHandler.ui.left_rotate_btn.clicked.connect(lambda : self.rotate_video(1))
+        self.uiHandler.ui.right_rotate_btn.clicked.connect(lambda : self.rotate_video(-1))
         self.uiHandler.ui.flip_horizontal_btn.clicked.connect(self.flip_h)
         self.uiHandler.ui.flip_vertical_btn.clicked.connect(self.flip_v)
 
@@ -70,6 +72,9 @@ class playbackPageAPI:
         
         self.uiHandler.ui.refresh_image_database_log.hide()
         self.uiHandler.setplaying_button(self.is_playing)
+
+        keyboard.on_press(self.key_listener)
+        
 
 
     def update_archive(self,):
@@ -206,13 +211,17 @@ class playbackPageAPI:
         self.uiHandler.ui.speed_btn.setText(f'{speed}x')
 
     def rotate_video(self, direction):
-        self.Player.rotate_video(90)
+        self.uiHandler.ui.left_rotate_btn.setEnabled(False)
+        self.uiHandler.ui.right_rotate_btn.setEnabled(False)
+        self.Player.rotate90_video(direction)
+        self.uiHandler.ui.left_rotate_btn.setEnabled(True)
+        self.uiHandler.ui.right_rotate_btn.setEnabled(True)
     
     def flip_h(self,):
-        self.Player.toggle_flip_horizontal()
+        self.Player.flip_horizontal()
 
     def flip_v(self,):
-        self.Player.toggle_flip_vertical()
+        self.Player.flip_vertical()
     
     def refreshing_ui(self, force=False):
         if not self.date_ranges:
@@ -287,8 +296,40 @@ class playbackPageAPI:
         else:
             self.uiHandler.show_message('Check Selected Date/Camera')
 
+    def key_listener(self, event):
+        t = self.Player.get_time()
+        max_t = self.Player.get_length()
+        step = 15
+
+        if event.name == "right":
+            t+=step
+            
+        elif event.name == "left":
+            t-=step
+        
+        if t<0 or t>max_t:
+            if t < 0:
+                self.curent_video_idx = max(self.curent_video_idx-1,0)
+                self.Player.load_video(self.date_ranges['paths'][self.curent_video_idx])
+                self.Player.update_frame()
+                t = self.Player.get_length() - t
+                
+
+                
+            elif t>max_t:
+                self.curent_video_idx = min(self.curent_video_idx+1, len(self.date_ranges['paths']) )
+                self.Player.load_video(self.date_ranges['paths'][self.curent_video_idx])
+                t = max_t - t
+            
+            if self.is_playing:
+                self.Player.play_video()
+            
+        
+        if self.is_playing:
+            self.Player.set_time(t)
+        else:
+            self.Player.set_start_time(t)
+
     def close_export(self):
-
-
         self.uiHandler.set_export_btn_mode(mode=False)
         self.export_window_is_open = False

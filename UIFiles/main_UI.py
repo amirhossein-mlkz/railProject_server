@@ -29,7 +29,8 @@ class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         if not MainWindow.objectName():
             MainWindow.setObjectName(u"MainWindow")
-        MainWindow.resize(963, 654)
+        MainWindow.resize(1000, 700)
+        MainWindow.setMinimumSize(QSize(1000, 700))
         MainWindow.setStyleSheet(u"")
         self.centralwidget = QWidget(MainWindow)
         self.centralwidget.setObjectName(u"centralwidget")
@@ -948,14 +949,128 @@ class Ui_MainWindow(object):
 
         self.verticalLayout_9.addLayout(self.horizontalLayout)
 
-        self.line_8 = QFrame(self.page_playback)
-        self.line_8.setObjectName(u"line_8")
-        self.line_8.setMaximumSize(QSize(16777215, 1))
-        self.line_8.setStyleSheet(u"background-color: rgb(175, 175, 175);")
-        self.line_8.setFrameShape(QFrame.Shape.HLine)
-        self.line_8.setFrameShadow(QFrame.Shadow.Sunken)
+        self.line_6 = QFrame(self.page_playback)
+        self.line_6.setObjectName(u"line_6")
+        self.line_6.setMinimumSize(QSize(0, 1))
+        self.line_6.setMaximumSize(QSize(16777215, 1))
+        self.line_6.setStyleSheet(u"background-color: rgb(175, 175, 175);")
+        self.line_6.setFrameShape(QFrame.Shape.HLine)
+        self.line_6.setFrameShadow(QFrame.Shadow.Sunken)
 
-        self.verticalLayout_9.addWidget(self.line_8)
+        self.verticalLayout_9.addWidget(self.line_6)
+
+        self.frame_3 = QFrame(self.page_playback)
+        self.frame_3.setObjectName(u"frame_3")
+        sizePolicy5 = QSizePolicy(QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Maximum)
+        sizePolicy5.setHorizontalStretch(0)
+        sizePolicy5.setVerticalStretch(0)
+        sizePolicy5.setHeightForWidth(self.frame_3.sizePolicy().hasHeightForWidth())
+        self.frame_3.setSizePolicy(sizePolicy5)
+        self.frame_3.setMinimumSize(QSize(0, 25))
+        self.frame_3.setStyleSheet(u"background-color:rgb(30, 27, 32);")
+        self.frame_3.setFrameShape(QFrame.Shape.NoFrame)
+        self.frame_3.setFrameShadow(QFrame.Shadow.Raised)
+        self.horizontalLayout_3 = QHBoxLayout(self.frame_3)
+        self.horizontalLayout_3.setSpacing(0)
+        self.horizontalLayout_3.setObjectName(u"horizontalLayout_3")
+        self.horizontalLayout_3.setContentsMargins(10, 0, 10, 0)
+        self.label_28 = QLabel(self.frame_3)
+        self.label_28.setObjectName(u"label_28")
+        sizePolicy5.setHeightForWidth(self.label_28.sizePolicy().hasHeightForWidth())
+        self.label_28.setSizePolicy(sizePolicy5)
+
+        self.horizontalLayout_3.addWidget(self.label_28)
+
+        self.horizontalSpacer_13 = QSpacerItem(40, 20, QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Minimum)
+
+        self.horizontalLayout_3.addItem(self.horizontalSpacer_13)
+
+        self.label_31 = QLabel(self.frame_3)
+        self.label_31.setObjectName(u"label_31")
+        sizePolicy5.setHeightForWidth(self.label_31.sizePolicy().hasHeightForWidth())
+        self.label_31.setSizePolicy(sizePolicy5)
+
+        self.horizontalLayout_3.addWidget(self.label_31)
+
+        self.horizontalSpacer_14 = QSpacerItem(40, 20, QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Minimum)
+
+        self.horizontalLayout_3.addItem(self.horizontalSpacer_14)
+
+        self.label_38 = QLabel(self.frame_3)
+        self.label_38.setObjectName(u"label_38")
+        sizePolicy5.setHeightForWidth(self.label_38.sizePolicy().hasHeightForWidth())
+        self.label_38.setSizePolicy(sizePolicy5)
+
+        self.horizontalLayout_3.addWidget(self.label_38)
+
+        self.horizontalSpacer_15 = QSpacerItem(40, 20, QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Minimum)
+
+        self.horizontalLayout_3.addItem(self.horizontalSpacer_15)
+
+        self.label_39 = QLabel(self.frame_3)
+        self.label_39.setObjectName(u"label_39")
+        sizePolicy5.setHeightForWidth(self.label_39.sizePolicy().hasHeightForWidth())
+        self.label_39.setSizePolicy(sizePolicy5)
+
+        self.horizontalLayout_3.addWidget(self.label_39)
+
+        self.horizontalSpacer_16 = QSpacerItem(40, 20, QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Minimum)
+
+        self.horizontalLayout_3.addItem(self.horizontalSpacer_16)
+
+        self.label_36 = QLabel(self.frame_3)
+        self.label_36.setObjectName(u"label_36")
+        sizePolicy5.setHeightForWidth(self.label_36.sizePolicy().hasHeightForWidth())
+        self.label_36.setSizePolicy(sizePolicy5)
+
+        self.horizontalLayout_3.addWidget(self.label_36)
+
+        self.horizontalSpacer_17 = QSpacerItem(40, 20, QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Minimum)
+
+        self.horizontalLayout_3.addItem(self.horizontalSpacer_17)
+
+        self.label_40 = QLabel(self.frame_3)
+        self.label_40.setObjectName(u"label_40")
+        sizePolicy5.setHeightForWidth(self.label_40.sizePolicy().hasHeightForWidth())
+        self.label_40.setSizePolicy(sizePolicy5)
+
+        self.horizontalLayout_3.addWidget(self.label_40)
+
+        self.horizontalSpacer_18 = QSpacerItem(40, 20, QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Minimum)
+
+        self.horizontalLayout_3.addItem(self.horizontalSpacer_18)
+
+        self.label_42 = QLabel(self.frame_3)
+        self.label_42.setObjectName(u"label_42")
+        sizePolicy5.setHeightForWidth(self.label_42.sizePolicy().hasHeightForWidth())
+        self.label_42.setSizePolicy(sizePolicy5)
+
+        self.horizontalLayout_3.addWidget(self.label_42)
+
+        self.horizontalSpacer_19 = QSpacerItem(40, 20, QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Minimum)
+
+        self.horizontalLayout_3.addItem(self.horizontalSpacer_19)
+
+        self.label_41 = QLabel(self.frame_3)
+        self.label_41.setObjectName(u"label_41")
+        sizePolicy5.setHeightForWidth(self.label_41.sizePolicy().hasHeightForWidth())
+        self.label_41.setSizePolicy(sizePolicy5)
+
+        self.horizontalLayout_3.addWidget(self.label_41)
+
+        self.horizontalSpacer_20 = QSpacerItem(40, 20, QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Minimum)
+
+        self.horizontalLayout_3.addItem(self.horizontalSpacer_20)
+
+        self.label_43 = QLabel(self.frame_3)
+        self.label_43.setObjectName(u"label_43")
+        sizePolicy5.setHeightForWidth(self.label_43.sizePolicy().hasHeightForWidth())
+        self.label_43.setSizePolicy(sizePolicy5)
+
+        self.horizontalLayout_3.addWidget(self.label_43)
+
+
+        self.verticalLayout_9.addWidget(self.frame_3)
 
         self.playback_bottom_frame = QFrame(self.page_playback)
         self.playback_bottom_frame.setObjectName(u"playback_bottom_frame")
@@ -976,8 +1091,9 @@ class Ui_MainWindow(object):
         self.time_line_frame.setFrameShape(QFrame.Shape.NoFrame)
         self.horizontalLayout_5 = QHBoxLayout(self.time_line_frame)
         self.horizontalLayout_5.setObjectName(u"horizontalLayout_5")
+        self.horizontalLayout_5.setContentsMargins(-1, 0, -1, -1)
 
-        self.verticalLayout_16.addWidget(self.time_line_frame)
+        self.verticalLayout_16.addWidget(self.time_line_frame, 0, Qt.AlignmentFlag.AlignTop)
 
         self.frame_13 = QFrame(self.playback_bottom_frame)
         self.frame_13.setObjectName(u"frame_13")
@@ -1030,23 +1146,76 @@ class Ui_MainWindow(object):
 
         self.left_rotate_btn = QPushButton(self.frame_13)
         self.left_rotate_btn.setObjectName(u"left_rotate_btn")
+        self.left_rotate_btn.setMinimumSize(QSize(30, 30))
+        self.left_rotate_btn.setMaximumSize(QSize(30, 30))
+        self.left_rotate_btn.setStyleSheet(u"QPushButton{\n"
+"	icon: url(:/icons/icons/icons8-rotate-left-40.png);\n"
+"	background-color:transparent;\n"
+"	border:none;\n"
+"}\n"
+"\n"
+"QPushButton:hover{\n"
+"	icon: url(:/icons/icons/icons8-rotate-left-40-hover.png);\n"
+"	background-color:transparent;\n"
+"	border:none;\n"
+"}")
+        self.left_rotate_btn.setIconSize(QSize(24, 24))
 
         self.horizontalLayout_4.addWidget(self.left_rotate_btn)
 
         self.right_rotate_btn = QPushButton(self.frame_13)
         self.right_rotate_btn.setObjectName(u"right_rotate_btn")
+        self.right_rotate_btn.setMinimumSize(QSize(30, 30))
+        self.right_rotate_btn.setStyleSheet(u"QPushButton{\n"
+"	icon: url(:/icons/icons/icons8-rotate-right-40.png);\n"
+"	background-color:transparent;\n"
+"	border:none;\n"
+"}\n"
+"\n"
+"QPushButton:hover{\n"
+"	icon: url(:/icons/icons/icons8-rotate-right-40-hover.png);\n"
+"	background-color:transparent;\n"
+"	border:none;\n"
+"}")
+        self.right_rotate_btn.setIconSize(QSize(24, 24))
 
         self.horizontalLayout_4.addWidget(self.right_rotate_btn)
 
-        self.flip_horizontal_btn = QPushButton(self.frame_13)
-        self.flip_horizontal_btn.setObjectName(u"flip_horizontal_btn")
-
-        self.horizontalLayout_4.addWidget(self.flip_horizontal_btn)
-
         self.flip_vertical_btn = QPushButton(self.frame_13)
         self.flip_vertical_btn.setObjectName(u"flip_vertical_btn")
+        self.flip_vertical_btn.setMinimumSize(QSize(30, 30))
+        self.flip_vertical_btn.setStyleSheet(u"QPushButton{\n"
+"	icon: url(:/icons/icons/icons8-flip-horizontal-40.png);\n"
+"	background-color:transparent;\n"
+"	border:none;\n"
+"}\n"
+"\n"
+"QPushButton:hover{\n"
+"	icon: url(:/icons/icons/icons8-flip-horizontal-40-hover.png);\n"
+"	background-color:transparent;\n"
+"	border:none;\n"
+"}")
+        self.flip_vertical_btn.setIconSize(QSize(24, 24))
 
         self.horizontalLayout_4.addWidget(self.flip_vertical_btn)
+
+        self.flip_horizontal_btn = QPushButton(self.frame_13)
+        self.flip_horizontal_btn.setObjectName(u"flip_horizontal_btn")
+        self.flip_horizontal_btn.setSizeIncrement(QSize(30, 30))
+        self.flip_horizontal_btn.setStyleSheet(u"QPushButton{\n"
+"	icon: url(:/icons/icons/icons8-flip-vertical-40.png);\n"
+"	background-color:transparent;\n"
+"	border:none;\n"
+"}\n"
+"\n"
+"QPushButton:hover{\n"
+"	icon: url(:/icons/icons/icons8-flip-vertical-40-hover.png);\n"
+"	background-color:transparent;\n"
+"	border:none;\n"
+"}")
+        self.flip_horizontal_btn.setIconSize(QSize(24, 24))
+
+        self.horizontalLayout_4.addWidget(self.flip_horizontal_btn)
 
         self.line_2 = QFrame(self.frame_13)
         self.line_2.setObjectName(u"line_2")
@@ -1498,9 +1667,6 @@ class Ui_MainWindow(object):
         self.verticalLayout_19.setObjectName(u"verticalLayout_19")
         self.label_3 = QLabel(self.storage_manager_setting_frame)
         self.label_3.setObjectName(u"label_3")
-        sizePolicy5 = QSizePolicy(QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Maximum)
-        sizePolicy5.setHorizontalStretch(0)
-        sizePolicy5.setVerticalStretch(0)
         sizePolicy5.setHeightForWidth(self.label_3.sizePolicy().hasHeightForWidth())
         self.label_3.setSizePolicy(sizePolicy5)
         self.label_3.setStyleSheet(u"font-weight:bold;\n"
@@ -2042,7 +2208,7 @@ class Ui_MainWindow(object):
         self.downloadsSectionsscrollArea.setWidgetResizable(True)
         self.downloadsSectionsscrollContents = QWidget()
         self.downloadsSectionsscrollContents.setObjectName(u"downloadsSectionsscrollContents")
-        self.downloadsSectionsscrollContents.setGeometry(QRect(0, 0, 307, 568))
+        self.downloadsSectionsscrollContents.setGeometry(QRect(0, 0, 359, 694))
         self.verticalLayout_29 = QVBoxLayout(self.downloadsSectionsscrollContents)
         self.verticalLayout_29.setSpacing(30)
         self.verticalLayout_29.setObjectName(u"verticalLayout_29")
@@ -2099,7 +2265,7 @@ class Ui_MainWindow(object):
 
         self.retranslateUi(MainWindow)
 
-        self.pages_stackwidget.setCurrentIndex(1)
+        self.pages_stackwidget.setCurrentIndex(0)
         self.setting_tab_widget.setCurrentIndex(1)
         self.system_station_tabwidget.setCurrentIndex(0)
         self.download_filter_stackWidget.setCurrentIndex(3)
@@ -2151,15 +2317,25 @@ class Ui_MainWindow(object):
         self.label_7.setText(QCoreApplication.translate("MainWindow", u"Calendar", None))
         self.label_date_2.setText(QCoreApplication.translate("MainWindow", u"Selected Date :", None))
         self.label_date.setText(QCoreApplication.translate("MainWindow", u"14/04/02", None))
+        self.frame_3.setProperty("styleClass", QCoreApplication.translate("MainWindow", u"hide", None))
+        self.label_28.setText(QCoreApplication.translate("MainWindow", u"00", None))
+        self.label_31.setText(QCoreApplication.translate("MainWindow", u"03", None))
+        self.label_38.setText(QCoreApplication.translate("MainWindow", u"06", None))
+        self.label_39.setText(QCoreApplication.translate("MainWindow", u"09", None))
+        self.label_36.setText(QCoreApplication.translate("MainWindow", u"12", None))
+        self.label_40.setText(QCoreApplication.translate("MainWindow", u"15", None))
+        self.label_42.setText(QCoreApplication.translate("MainWindow", u"18", None))
+        self.label_41.setText(QCoreApplication.translate("MainWindow", u"21", None))
+        self.label_43.setText(QCoreApplication.translate("MainWindow", u"24", None))
 #if QT_CONFIG(tooltip)
         self.play_btn.setToolTip(QCoreApplication.translate("MainWindow", u"Show Live", None))
 #endif // QT_CONFIG(tooltip)
         self.play_btn.setText("")
         self.play_btn.setProperty("status", QCoreApplication.translate("MainWindow", u"stop", None))
-        self.left_rotate_btn.setText(QCoreApplication.translate("MainWindow", u"L", None))
-        self.right_rotate_btn.setText(QCoreApplication.translate("MainWindow", u"R", None))
-        self.flip_horizontal_btn.setText(QCoreApplication.translate("MainWindow", u"flip_h", None))
-        self.flip_vertical_btn.setText(QCoreApplication.translate("MainWindow", u"flip_w", None))
+        self.left_rotate_btn.setText("")
+        self.right_rotate_btn.setText("")
+        self.flip_vertical_btn.setText("")
+        self.flip_horizontal_btn.setText("")
         self.label_25.setText(QCoreApplication.translate("MainWindow", u"Speed : ", None))
 #if QT_CONFIG(tooltip)
         self.speed_btn.setToolTip(QCoreApplication.translate("MainWindow", u"Stop Live", None))

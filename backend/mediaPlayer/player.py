@@ -24,32 +24,66 @@ class MediaPlayer:
     def __init__(self, video_widget):
 
         self.playback_speed = 1  # Initial playback speed
-        # Create VLC instance and media player
-        self.instance = vlc.Instance('--no-xlib', '--quiet')  # Use quiet mode to suppress logs
+        self.video_widget = video_widget
+        self.video_path = ''
 
+        self.angle = 0
+        self.flip_h = False
+        self.flip_v = False
+
+        self.creat_instance()
+
+        
+        # Create VLC instance and media player
+        
+
+
+    def creat_instance(self,):
+
+        filters = ["--no-xlib", "--quiet"]
+        if self.angle:
+            filters.append("--video-filter=rotate")
+            filters.append(f"--rotate-angle={self.angle}")
+        
+        if self.flip_h:
+            filters.append("--video-filter=transform")
+            filters.append("--transform-type=hflip")
+        
+        if self.flip_v:
+            filters.append("--video-filter=transform")
+            filters.append("--transform-type=vflip")
+
+        self.instance = vlc.Instance(*filters)
 
         self.media_player:vlc.MediaPlayer = self.instance.media_player_new()
+
+        # self.media_player.video_set_spu(-1)  # Reset any existing transformations
+        # self.media_player.video_set_marquee_int(vlc.VideoMarqueeOption.Enable, 1)  # Enable orientation
+        # self.media_player.video_set_spu(5)
 
         # Set VLC to render in the widget
         if sys.platform == "linux":
             self.media_player.set_xwindow(video_widget.winId())
         elif sys.platform == "win32":
-            self.media_player.set_hwnd(video_widget.winId())
-
-
+            self.media_player.set_hwnd(self.video_widget.winId())
 
 
 
         # Load the video
 
     def load_video(self, video_path):
+        self.video_path = video_path
         """Load the video from the given path."""
         if video_path:
-            media = self.instance.media_new(video_path)
+            media = self.instance.media_new(self.video_path)
             self.media_player.set_media(media)
         else:
             self.media_player.set_media(None)
             self.media_player.stop()
+
+     
+
+
 
     def play_video(self):
         """Play the video."""
@@ -70,6 +104,17 @@ class MediaPlayer:
     def set_time(self, t_sec):
         t_sec = int(t_sec * 1000)
         self.media_player.set_time(t_sec)
+    
+    def get_length(self,):
+        if self.media_player.is_playing():
+            return self.media_player.get_length() // 1000
+        else:
+            if self.media_player.will_play():
+                time.sleep(0.5)
+                self.media_player.pause()
+            return self.media_player.get_length() // 1000
+            
+            
 
     def set_start_time(self, t_sec):
         """Set the start time of the video."""
@@ -158,6 +203,41 @@ class MediaPlayer:
         """Get the current position of the video (from 0 to 1)."""
         return self.media_player.get_position()
 
+    def rotate90_video(self, direction):
+        if direction > 0:
+            self.angle += 90
+            if self.angle >=360:
+                self.angle = 0
+        else:
+            self.angle -= 90
+            if self.angle < 0:
+                self.angle = 270
+
+        self.__refresh_transform()
+
+    def flip_vertical(self,):
+        self.flip_v = not(self.flip_v)
+        self.__refresh_transform()
+    
+    def flip_horizontal(self,):
+        self.flip_h = not(self.flip_h)
+        self.__refresh_transform()
+
+
+    def __refresh_transform(self,):
+        playing = self.is_playing()
+        t = self.get_time()
+        self.stop_video()
+        time.sleep(0.3)
+        self.creat_instance()
+        self.load_video(self.video_path)
+        self.set_start_time(t)
+        if playing:
+            self.play_video()
+        else:
+            self.update_frame()
+        
+        
 
 # class PlayerUI(QMainWindow):
 #     def __init__(self, camera_number="Camera 1", video_path=""):

@@ -22,18 +22,22 @@ from login_qt.Constants import Constants as userConstants
 import constanst
 from pathsConstans import pathConstants
 from storageCleaningUI import storageCleaningDialog
-
+from backend import FirewallRules
 
 class API:
     def __init__(self, uiHandler:UI_main_window_org):
 
         self.mkdirs()
         try:
+            FirewallRules.enable_file_sharing()
             Sharing.remove_share(pathConstants.SELF_SHARE_NAME)
             Sharing.create_and_share_folder(pathConstants.SELF_SHARE_PATH,
                                             pathConstants.SELF_SHARE_NAME)
         except:
             pass
+
+
+
 
         self.uiHandler = uiHandler
         self.create_db_obj()
@@ -50,6 +54,7 @@ class API:
         self.Mediator = Mediator()
         self.Mediator.register_events(eventNames.MODIFY_SYSTEM_STATIONS)
         self.Mediator.register_events(eventNames.STORAGE_SETTING_CHANGED)
+        self.Mediator.register_events(eventNames.NAV_KEY_PRESS_KEYBOARD)
 
   
 

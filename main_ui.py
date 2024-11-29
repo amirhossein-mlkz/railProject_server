@@ -21,6 +21,7 @@ import assets
 
 from PySide6.QtCore import Qt, QPropertyAnimation, QEasingCurve, QRect, QEvent
 from Styles import SideBtnsStyle
+from PySide6.QtGui import QKeyEvent
 
 from constanst import ONE_HOUR
 from uiUtils import GUIComponents
@@ -28,6 +29,8 @@ from backend.utils.ShowQuestion import show_question
 from backend.utils import texts
 from login import LoginPage
 from Export.export import UIExport
+from Mediator.mainMediator import Mediator
+from Mediator.mediatorNames import eventNames
 
 # ui class
 class UI_main_window_org(sQMainWindow):
@@ -39,6 +42,8 @@ class UI_main_window_org(sQMainWindow):
         self.ui.setupUi(self)
         self.all_style_repoblish()
         self.language = 'English'
+
+        self.mediator = Mediator()
 
         self.settingPageUI = settingPageUI(self.ui)
         self.downloadPageUI = downloadPageUI(self.ui)
@@ -119,6 +124,7 @@ class UI_main_window_org(sQMainWindow):
 
 
         self.ui.btn_side_playback.click()
+        # self.installEventFilter(self)
 
 
     
@@ -507,10 +513,24 @@ class UI_main_window_org(sQMainWindow):
     def get_combo_values(self,combo_name):
         name = GUIBackend.get_combobox_selected(combo_name)
         return name
+    
+
 
 
     
 
+    # def eventFilter(self, source, event):
+    #     """کنترل کلیدهای کیبورد در سطح پنجره."""
+    #     if event.type() == QKeyEvent.KeyPress:
+    #         if event.key() in (Qt.Key_Left, Qt.Key_Right):
+    #             if event.key() == Qt.Key_Left:
+    #                 self.mediator.start_event(event_name=eventNames.NAV_KEY_PRESS_KEYBOARD, args=('left',))
+    #                 event.accept()
+
+    #             elif event.key() == Qt.Key_Right:
+    #                 self.mediator.start_event(event_name=eventNames.NAV_KEY_PRESS_KEYBOARD, args=('right',))
+    #             return True  # رویداد پردازش شده و ارسال نمی‌شود
+    #     return super().eventFilter(source, event)
     
 
 
