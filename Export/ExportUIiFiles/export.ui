@@ -691,8 +691,8 @@ QScrollBar::add-page:horizontal, QScrollBar::sub-page:horizontal {
                          <widget class="timeSpinBox" name="spinBox_hour_start">
                           <property name="minimumSize">
                            <size>
-                            <width>60</width>
-                            <height>30</height>
+                            <width>0</width>
+                            <height>0</height>
                            </size>
                           </property>
                           <property name="maximumSize">
@@ -758,6 +758,10 @@ QSpinBox::down-arrow {
                             <width>6</width>
                             <height>16777215</height>
                            </size>
+                          </property>
+                          <property name="styleSheet">
+                           <string notr="true">font-weight:bold;
+font-size:22px;</string>
                           </property>
                           <property name="text">
                            <string>:</string>
@@ -942,6 +946,10 @@ QSpinBox::down-arrow {
                             <width>6</width>
                             <height>16777215</height>
                            </size>
+                          </property>
+                          <property name="styleSheet">
+                           <string notr="true">font-weight:bold;
+font-size:22px;</string>
                           </property>
                           <property name="text">
                            <string>:</string>
@@ -1207,6 +1215,18 @@ QPushButton:disabled {
                      </item>
                      <item alignment="Qt::AlignmentFlag::AlignHCenter|Qt::AlignmentFlag::AlignVCenter">
                       <widget class="QLabel" name="lbl_msg">
+                       <property name="sizePolicy">
+                        <sizepolicy hsizetype="MinimumExpanding" vsizetype="Preferred">
+                         <horstretch>0</horstretch>
+                         <verstretch>0</verstretch>
+                        </sizepolicy>
+                       </property>
+                       <property name="minimumSize">
+                        <size>
+                         <width>150</width>
+                         <height>0</height>
+                        </size>
+                       </property>
                        <property name="maximumSize">
                         <size>
                          <width>16777215</width>

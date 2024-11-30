@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1000</width>
-    <height>700</height>
+    <width>1010</width>
+    <height>837</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -1535,6 +1535,16 @@ icon:url(:/icons/icons/download-white.png);
                         </property>
                        </spacer>
                       </item>
+                      <item>
+                       <widget class="QLabel" name="playback_arcive_msg_lbl">
+                        <property name="styleSheet">
+                         <string notr="true">color: rgb(34, 119, 255);</string>
+                        </property>
+                        <property name="text">
+                         <string>-</string>
+                        </property>
+                       </widget>
+                      </item>
                      </layout>
                     </widget>
                    </item>
@@ -2493,8 +2503,8 @@ QPushButton:disabled {
                           <rect>
                            <x>0</x>
                            <y>0</y>
-                           <width>498</width>
-                           <height>470</height>
+                           <width>170</width>
+                           <height>442</height>
                           </rect>
                          </property>
                          <property name="styleSheet">
@@ -4128,8 +4138,8 @@ font-weight:bold;</string>
                       <rect>
                        <x>0</x>
                        <y>0</y>
-                       <width>359</width>
-                       <height>694</height>
+                       <width>38</width>
+                       <height>18</height>
                       </rect>
                      </property>
                      <property name="styleClass" stdset="0">
@@ -4176,15 +4186,15 @@ font-weight:bold;</string>
  </widget>
  <customwidgets>
   <customwidget>
+   <class>timeSpinBox</class>
+   <extends>QSpinBox</extends>
+   <header>uiUtils.GUIComponents.h</header>
+  </customwidget>
+  <customwidget>
    <class>MessageWidget</class>
    <extends>QWidget</extends>
    <header>uiUtils.GUIComponents.h</header>
    <container>1</container>
-  </customwidget>
-  <customwidget>
-   <class>timeSpinBox</class>
-   <extends>QSpinBox</extends>
-   <header>uiUtils.GUIComponents.h</header>
   </customwidget>
  </customwidgets>
  <tabstops>

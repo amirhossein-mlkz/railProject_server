@@ -163,7 +163,12 @@ class playbackPageAPI:
     
     
 
-    def date_ranges_event(self, date_ranges:dict[str, list]):
+    def date_ranges_event(self, date_ranges:dict[str, list], broken_files:list[str]):
+        if len(broken_files):
+            self.uiHandler.ui.playback_arcive_msg_lbl.setText(f"{len(broken_files)} files was broken")
+        else:
+            self.uiHandler.ui.playback_arcive_msg_lbl.setText("")
+            
         self.date_ranges = date_ranges
         self.uiHandler.ui.playback_filter_frame.setDisabled(False)
         start = JalaliDateTime.combine(self.selected_date, Time.min)
@@ -297,6 +302,11 @@ class playbackPageAPI:
             self.uiHandler.show_message('Check Selected Date/Camera')
 
     def key_listener(self, event):
+        if not self.date_ranges:
+            return
+
+        if not self.date_ranges['paths'] == 0:
+            return
         
         if event.name == "right":
             step = 15
@@ -304,6 +314,8 @@ class playbackPageAPI:
             step=-15
         else:
             return
+        
+        
 
         t = self.Player.get_time()
         max_t = self.Player.get_length()

@@ -539,7 +539,7 @@ class Ui_ExportDialog(object):
         self.horizontalLayout_6.setObjectName(u"horizontalLayout_6")
         self.spinBox_hour_start = timeSpinBox(self.frame_8)
         self.spinBox_hour_start.setObjectName(u"spinBox_hour_start")
-        self.spinBox_hour_start.setMinimumSize(QSize(60, 30))
+        self.spinBox_hour_start.setMinimumSize(QSize(0, 0))
         self.spinBox_hour_start.setMaximumSize(QSize(60, 30))
         self.spinBox_hour_start.setStyleSheet(u"QSpinBox {\n"
 "    background-color: #2E2A3D; /* Background similar to top bar */\n"
@@ -592,6 +592,8 @@ class Ui_ExportDialog(object):
         self.label_6 = QLabel(self.frame_8)
         self.label_6.setObjectName(u"label_6")
         self.label_6.setMaximumSize(QSize(6, 16777215))
+        self.label_6.setStyleSheet(u"font-weight:bold;\n"
+"font-size:22px;")
 
         self.horizontalLayout_6.addWidget(self.label_6)
 
@@ -727,6 +729,8 @@ class Ui_ExportDialog(object):
         self.label_7 = QLabel(self.frame_9)
         self.label_7.setObjectName(u"label_7")
         self.label_7.setMaximumSize(QSize(6, 16777215))
+        self.label_7.setStyleSheet(u"font-weight:bold;\n"
+"font-size:22px;")
 
         self.horizontalLayout_7.addWidget(self.label_7)
 
@@ -904,6 +908,12 @@ class Ui_ExportDialog(object):
 
         self.lbl_msg = QLabel(self.frame_4)
         self.lbl_msg.setObjectName(u"lbl_msg")
+        sizePolicy = QSizePolicy(QSizePolicy.Policy.MinimumExpanding, QSizePolicy.Policy.Preferred)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.lbl_msg.sizePolicy().hasHeightForWidth())
+        self.lbl_msg.setSizePolicy(sizePolicy)
+        self.lbl_msg.setMinimumSize(QSize(150, 0))
         self.lbl_msg.setMaximumSize(QSize(16777215, 50))
 
         self.verticalLayout_6.addWidget(self.lbl_msg, 0, Qt.AlignmentFlag.AlignHCenter|Qt.AlignmentFlag.AlignVCenter)

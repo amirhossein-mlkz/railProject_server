@@ -29,7 +29,7 @@ class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         if not MainWindow.objectName():
             MainWindow.setObjectName(u"MainWindow")
-        MainWindow.resize(1000, 700)
+        MainWindow.resize(1010, 837)
         MainWindow.setMinimumSize(QSize(1000, 700))
         MainWindow.setStyleSheet(u"")
         self.centralwidget = QWidget(MainWindow)
@@ -905,6 +905,12 @@ class Ui_MainWindow(object):
 
         self.verticalLayout_17.addItem(self.verticalSpacer_4)
 
+        self.playback_arcive_msg_lbl = QLabel(self.playback_filter_frame)
+        self.playback_arcive_msg_lbl.setObjectName(u"playback_arcive_msg_lbl")
+        self.playback_arcive_msg_lbl.setStyleSheet(u"color: rgb(34, 119, 255);")
+
+        self.verticalLayout_17.addWidget(self.playback_arcive_msg_lbl)
+
 
         self.horizontalLayout_12.addWidget(self.playback_filter_frame)
 
@@ -1384,7 +1390,7 @@ class Ui_MainWindow(object):
         self.scrollArea_2.setWidgetResizable(True)
         self.scrollAreaWidgetContents_2 = QWidget()
         self.scrollAreaWidgetContents_2.setObjectName(u"scrollAreaWidgetContents_2")
-        self.scrollAreaWidgetContents_2.setGeometry(QRect(0, 0, 498, 470))
+        self.scrollAreaWidgetContents_2.setGeometry(QRect(0, 0, 170, 442))
         self.scrollAreaWidgetContents_2.setStyleSheet(u"")
         self.verticalLayout_7 = QVBoxLayout(self.scrollAreaWidgetContents_2)
         self.verticalLayout_7.setObjectName(u"verticalLayout_7")
@@ -2208,7 +2214,7 @@ class Ui_MainWindow(object):
         self.downloadsSectionsscrollArea.setWidgetResizable(True)
         self.downloadsSectionsscrollContents = QWidget()
         self.downloadsSectionsscrollContents.setObjectName(u"downloadsSectionsscrollContents")
-        self.downloadsSectionsscrollContents.setGeometry(QRect(0, 0, 359, 694))
+        self.downloadsSectionsscrollContents.setGeometry(QRect(0, 0, 38, 18))
         self.verticalLayout_29 = QVBoxLayout(self.downloadsSectionsscrollContents)
         self.verticalLayout_29.setSpacing(30)
         self.verticalLayout_29.setObjectName(u"verticalLayout_29")
@@ -2317,6 +2323,7 @@ class Ui_MainWindow(object):
         self.label_7.setText(QCoreApplication.translate("MainWindow", u"Calendar", None))
         self.label_date_2.setText(QCoreApplication.translate("MainWindow", u"Selected Date :", None))
         self.label_date.setText(QCoreApplication.translate("MainWindow", u"14/04/02", None))
+        self.playback_arcive_msg_lbl.setText(QCoreApplication.translate("MainWindow", u"-", None))
         self.frame_3.setProperty("styleClass", QCoreApplication.translate("MainWindow", u"hide", None))
         self.label_28.setText(QCoreApplication.translate("MainWindow", u"00", None))
         self.label_31.setText(QCoreApplication.translate("MainWindow", u"03", None))

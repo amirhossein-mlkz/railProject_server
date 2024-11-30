@@ -125,7 +125,7 @@ class transormUtils:
             
 
 class timeRangeWorker(QObject):
-    finish_signal = Signal(dict)
+    finish_signal = Signal(dict, list)
     progress_signal = Signal(float)
     def __init__(self, arcihve:dict[str,dict[str,dict]], train_id, date:JalaliDateTime, camera):
         super().__init__()
@@ -137,8 +137,8 @@ class timeRangeWorker(QObject):
 
     def run(self,):
         count = 0
-        result = {'ranges':[], 'paths':[]}
-        
+        result = {'ranges':[], 'paths':[]}     
+        broken_files = []   
         if (    self.train_id in self.archive
             and self.camera in self.archive[self.train_id]
             and self.date_str in self.archive[self.train_id][self.camera]):
@@ -155,12 +155,15 @@ class timeRangeWorker(QObject):
                         end_date_time = timedelta(seconds=duration) + start_date_time
                         result['ranges'].append((start_date_time, end_date_time))
                         result['paths'].append(path)
+                    else:
+                        broken_files.append(path)
+
                 count+=1
                 progress = count/total_count
                 self.progress_signal.emit(progress)
 
         self.progress_signal.emit(1)
-        self.finish_signal.emit(result)
+        self.finish_signal.emit(result, broken_files)
 
     
     def get_total_count(self,):                
