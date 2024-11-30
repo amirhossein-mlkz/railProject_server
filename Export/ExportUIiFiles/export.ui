@@ -1118,9 +1118,9 @@ color:#D43D41;</string>
                     </property>
                     <layout class="QHBoxLayout" name="horizontalLayout_8">
                      <item>
-                      <widget class="QRadioButton" name="radioButton_mp4">
+                      <widget class="QRadioButton" name="radioButton_fasters">
                        <property name="text">
-                        <string>MP4</string>
+                        <string>Best Speed</string>
                        </property>
                        <property name="checked">
                         <bool>true</bool>
@@ -1128,9 +1128,9 @@ color:#D43D41;</string>
                       </widget>
                      </item>
                      <item>
-                      <widget class="QRadioButton" name="radioButton_mkv">
+                      <widget class="QRadioButton" name="radioButton_best_compression">
                        <property name="text">
-                        <string>Mkv_x265</string>
+                        <string>Best Compression</string>
                        </property>
                        <property name="checked">
                         <bool>false</bool>

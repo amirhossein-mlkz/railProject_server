@@ -297,15 +297,18 @@ class playbackPageAPI:
             self.uiHandler.show_message('Check Selected Date/Camera')
 
     def key_listener(self, event):
+        
+        if event.name == "right":
+            step = 15
+        elif event.name == "left":
+            step=-15
+        else:
+            return
+
         t = self.Player.get_time()
         max_t = self.Player.get_length()
-        step = 15
+        t+= step
 
-        if event.name == "right":
-            t+=step
-            
-        elif event.name == "left":
-            t-=step
         
         if t<0 or t>max_t:
             if t < 0:

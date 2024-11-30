@@ -54,6 +54,13 @@ class transormUtils:
         duration = frame_count / fps
         return duration
     
+    @staticmethod
+    def get_video_frames_count(path):
+        video = cv2.VideoCapture(path)
+        fps = video.get(cv2.CAP_PROP_FPS)  # Frames per second
+        frame_count = int(video.get(cv2.CAP_PROP_FRAME_COUNT))  # Total number of frames
+        return frame_count, fps
+    
     
     
     @staticmethod

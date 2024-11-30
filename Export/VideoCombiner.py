@@ -2,10 +2,12 @@ import cv2
 import os
 import subprocess
 import re
+
 from PySide6.QtWidgets import QApplication, QVBoxLayout, QWidget, QPushButton, QLabel, QProgressBar, QFileDialog
 from PySide6.QtCore import QThread, Signal
 from Tranform.transformUtils import transormUtils
 from datetime import timedelta
+from persiantools.jdatetime import JalaliDateTime
 
 class VideoCombiner(QThread):
     progress_signal = Signal(int)
@@ -13,45 +15,71 @@ class VideoCombiner(QThread):
     finish_signal = Signal(int)
 
     FILES_LIST = "file_list.txt"
-    SUBTITLE_FILE = "subtitles.srt"
+    SUBTITLE_EXTENTION = ".srt"
+    VIDEO_EXTENTION = '.mp4'
 
-    def __init__(self, input_videos, temp_output_file, final_output_file,convert_mkv=True):
+    def __init__(self, input_videos, export_dir, export_fname,compression=True):
         super().__init__()
-        convert_mkv = False
-
         self.input_videos = input_videos
-        self.temp_output_file = temp_output_file  # Temporary MP4 file from OpenCV
-        self.final_output_file = final_output_file  # Final MKV file with H.265 codec
+        self.export_dir = export_dir
+        self.export_fname = export_fname
         self.total_frames = 0
-        self.convert_mkv=convert_mkv
+        self.compression=compression
 
-        if not self.convert_mkv:
-            if self.final_output_file.split('.')[-1] != 'mp4':
-                self.temp_output_file = self.final_output_file+'.mp4'
-            else:
-                self.temp_output_file = self.final_output_file
-        if self.convert_mkv:
-            if self.final_output_file.split('.')[-1] != 'mkv':
+        # #-----------------------------------------------------------
+        # dir_path = 'C:\\Users\\amirh\\Downloads\\test'
+        # self.input_videos = os.listdir(dir_path)
+        # self.input_videos = list(map( lambda x:os.path.join(dir_path,x), self.input_videos))
+        # #-----------------------------------------------------------
 
-                self.temp_output_file = self.final_output_file+'.mkv'
+
         
-    def creat_subtitle(self, video_paths, text='test'):
-        path = os.path.join(self.temp_output_file, self.SUBTITLE_FILE)
-        if os.path.exists(path):
-            os.remove(path)
+    def create_subtitle(self, video_paths):
+        subtitle_path = os.path.join(self.export_dir, self.export_fname + self.SUBTITLE_EXTENTION)
+        if os.path.exists(subtitle_path):
+            os.remove(subtitle_path)
+
+        subtitle_time = JalaliDateTime.now().replace(hour=0,minute=0,second=0, microsecond=0)
+        videos_duration = list(map(lambda x:transormUtils.get_video_duration(x), video_paths))
+        total_duration = sum(videos_duration)
+        complete_duration = 0
+
+        with open(subtitle_path, 'w', encoding='utf-8') as f:
         
-        with open(path, 'w', encoding='utf-8') as f:
             for idx, path in enumerate(video_paths):
                 fdir, fname = os.path.split(path)
-                start_time, train_id, camera_name, status, extention = transormUtils.extract_file_name_info(fname)
-                start_time_str = start_time.strftime('%H:%M:%S')  # تبدیل به فرمت ساعت:دقیقه:ثانیه
-                end_time = start_time + timedelta(seconds=5)  # برای هر زیرنویس مدت زمان 5 ثانیه در نظر گرفته شده
-                end_time_str = end_time.strftime('%H:%M:%S')
+                video_datetime, train_id, camera_name, status, extention = transormUtils.extract_file_name_info(fname)
+                durarion = videos_duration[idx]
                 
-                # اضافه کردن زیرنویس
-                f.write(f"{idx + 1}\n")
-                f.write(f"{start_time_str} --> {end_time_str}\n")
-                f.write(f"{text}\n\n")
+                date_str = video_datetime.strftime('%Y/%m/%d')
+                subtitle_file_text = ""
+                for i in range(int(durarion)):
+                    start_time = subtitle_time
+                    end_time = start_time + timedelta(seconds=1)
+                    subtitle_time = subtitle_time + timedelta(seconds=1)
+
+                    start_time_str = start_time.strftime('%H:%M:%S')
+                    end_time_str = end_time.strftime('%H:%M:%S')
+
+                    current_real_time = video_datetime + timedelta(seconds=i)
+                    current_real_time_str = current_real_time.strftime('%H:%M:%S')
+                    text = f"Train: {train_id}  Camera:{camera_name}  {date_str}  {current_real_time_str}"
+
+                    subtitle_file_text = subtitle_file_text + f"{i + 1}\n"
+                    subtitle_file_text = subtitle_file_text + f"{start_time_str},000 --> {end_time_str},000\n"
+                    subtitle_file_text = subtitle_file_text + f"{text}\n\n"
+
+                    #---------------progressbar-------------------
+                    complete_duration+=1
+                    if complete_duration%10 == 0:
+                        progress = (complete_duration/total_duration)*100
+                        progress = int(progress)
+                        self.progress_signal.emit(progress)
+
+                f.write(subtitle_file_text)
+                    
+                
+        return subtitle_path
 
     
     def create_file_list(self, video_paths:list[str], output_file):
@@ -67,28 +95,39 @@ class VideoCombiner(QThread):
             except:
                 return False
         
+        res = []
         with open(output_file, "w", encoding="utf-8") as file:
             for path in video_paths:
                 duration = transormUtils.get_video_duration(path)
                 if duration > 0:
+                    res.append(path)
                     file.write(f"file '{path}'\n")
         
-        return True
+        return True, res
 
 
 
     def run(self):
         self.status_signal.emit(0,'Get Videos')
         # First, calculate the total number of frames across all videos
-        self.create_file_list(self.input_videos, self.FILES_LIST)
-        self.creat_subtitle(self.input_videos)
+        
 
-        #try:
-        if True:
+        try:
+            ret, good_files_Path = self.create_file_list(self.input_videos, self.FILES_LIST)
+
+            self.status_signal.emit(0,'Generate Subtitle')
+            subtitle_path = self.create_subtitle(self.input_videos)
+            
             file_list = self.FILES_LIST  # فایل لیست ویدیوها
-            output_file = self.final_output_file  # فایل خروجی
+            output_file = os.path.join(self.export_dir, self.export_fname + self.VIDEO_EXTENTION)  # فایل خروجی
             file_list_path = os.path.join(os.getcwd(), file_list)
-            if not self.convert_mkv:
+
+            total_frame_count = 0
+            for path in good_files_Path:
+                count, fps = transormUtils.get_video_frames_count(path)
+                total_frame_count += count
+
+            if not self.compression:
                 command = [
                     "ffmpeg",
                     "-f", "concat",
@@ -99,6 +138,19 @@ class VideoCombiner(QThread):
                     output_file
                 ]
 
+                # command = [
+                #     "ffmpeg",
+                #     "-f", "concat",
+                #     "-safe", "0",
+                #     "-i", file_list_path,  # List of input files
+                #     "-i", subtitle_path,  # Input subtitle file
+                #     "-c", "copy",  # Copy streams without re-encoding
+                #     "-map", "0",  # Map all streams from the video input
+                #     "-map", "1",  # Map the subtitle stream
+                #     "-y",  # Overwrite the output file if it exists
+                #     output_file  # Output file with subtitle included
+                # ]
+
             else:
                 command = [
                     'ffmpeg', 
@@ -107,98 +159,42 @@ class VideoCombiner(QThread):
                     '-i', file_list,  # Input temporary MP4 file
                     '-c:v', 'libx265',  # Use H.265 codec
                     '-preset', 'medium',  # Medium encoding speed
-                    #'-crf', '28',  # Quality setting
                     '-y',  # Overwrite the output file if it exists
                     output_file  # Output file in MKV format
                 ]
 
+                # command = [
+                #     'ffmpeg',
+                #     '-f', 'concat',
+                #     '-safe', '0',
+                #     '-i', file_list,  # Input temporary MP4 file
+                #     '-c:v', 'libx265',  # Use H.265 codec
+                #     '-preset', 'medium',  # Medium encoding speed
+                #     '-scodec', 'mov_text',  # Subtitle codec for soft subtitles
+                #     '-i', subtitle_path,  # Input subtitle file
+                #     '-map', '0',  # Map all streams from the video
+                #     '-map', '1',  # Map the subtitle stream
+                #     '-y',  # Overwrite the output file if it exists
+                #     output_file  # Output file in MKV format
+                # ]
+
             process = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True)
             self.status_signal.emit(0,'Merge Videos')
 
-            total_duration = 0
             current_progress = 0
-
+            frame_pattern = r'frame=\s*(\d+)'
             for line in process.stdout:
-                # استخراج مدت زمان کل از خروجی FFmpeg
-                continue
-                if "Duration" in line:
-                    parts = line.split(",")[0].split("Duration:")[-1].strip()
-                    h, m, s = map(float, parts.replace(":", " ").split())
-                    total_duration = h * 3600 + m * 60 + s
-
-                # استخراج زمان فعلی از پیشرفت
-                if "time=" in line:
-                    time_part = line.split("time=")[-1].split(" ")[0]
-                    h, m, s = map(float, time_part.replace(":", " ").split())
-                    current_time = h * 3600 + m * 60 + s
-
-                    # محاسبه درصد پیشرفت
-                    current_progress = int((current_time / total_duration) * 100)
+                match = re.search(frame_pattern, line)
+                if match:
+                    frame_count = int(match.group(1))
+                    current_progress = int(frame_count / total_frame_count * 100)
                     self.progress_signal.emit(current_progress)
 
             process.wait()
             self.status_signal.emit(0,'Progress Completed')
             self.finish_signal.emit(1)
-
-        #except Exception as e:
-            #self.status_signal.emit(1,'Error in Converting to mkv x265')
-            #self.finish_signal.emit(1)
-
-
-
-
-            
-
-class VideoCombinerUI(QWidget):
-    def __init__(self):
-        super().__init__()
-        self.init_ui()
-
-    def init_ui(self):
-        self.layout = QVBoxLayout()
-
-        # Add widgets to layout
-        self.progress = QProgressBar(self)
-        self.progress.setMaximum(100)
-        self.layout.addWidget(self.progress)
-
-        self.conversion_progress = QProgressBar(self)
-        self.conversion_progress.setMaximum(100)
-        self.layout.addWidget(self.conversion_progress)
-
-        self.label = QLabel('Video combining progress:', self)
-        self.layout.addWidget(self.label)
-
-        self.button = QPushButton('Select Videos and Combine', self)
-        self.button.clicked.connect(self.select_videos)
-        self.layout.addWidget(self.button)
-
-        self.setLayout(self.layout)
-        self.setWindowTitle('Video Combiner')
-        self.show()
-
-    def select_videos(self):
-        # Open file dialog to select multiple video files
-        options = QFileDialog.Options()
-        files, _ = QFileDialog.getOpenFileNames(self, 'Select Video Files', '', 'Video Files (*.mp4 *.avi *.mkv)', options=options)
-        if files:
-            output_file, _ = QFileDialog.getSaveFileName(self, 'Save Combined Video', '', 'MKV Files (*.mkv)')
-            if output_file:
-                temp_output_file = 'temp_combined.mp4'  # Temporary MP4 file
-                # Start combining videos in the background
-                self.combine_videos(files, temp_output_file, output_file)
-
-    def combine_videos(self, input_videos, temp_output_file, final_output_file):
-        self.worker = VideoCombiner(input_videos, temp_output_file, final_output_file)
-        self.worker.progress_signal.connect(self.update_progress)
-        self.worker.start()
-
-    def update_progress(self, value):
-        self.progress.setValue(value)
-
-
-
-if __name__ == '__main__':
-    app = QApplication([])
-    window = VideoCombinerUI()
-    app.exec_()
+            os.startfile(self.export_dir)
+        
+        except Exception as e:
+            self.status_signal.emit(0,f'Error:{e}')
+            self.finish_signal.emit(1)

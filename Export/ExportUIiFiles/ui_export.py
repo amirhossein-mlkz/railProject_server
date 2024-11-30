@@ -844,17 +844,17 @@ class Ui_ExportDialog(object):
         self.frame_2.setFrameShadow(QFrame.Shadow.Raised)
         self.horizontalLayout_8 = QHBoxLayout(self.frame_2)
         self.horizontalLayout_8.setObjectName(u"horizontalLayout_8")
-        self.radioButton_mp4 = QRadioButton(self.frame_2)
-        self.radioButton_mp4.setObjectName(u"radioButton_mp4")
-        self.radioButton_mp4.setChecked(True)
+        self.radioButton_fasters = QRadioButton(self.frame_2)
+        self.radioButton_fasters.setObjectName(u"radioButton_fasters")
+        self.radioButton_fasters.setChecked(True)
 
-        self.horizontalLayout_8.addWidget(self.radioButton_mp4)
+        self.horizontalLayout_8.addWidget(self.radioButton_fasters)
 
-        self.radioButton_mkv = QRadioButton(self.frame_2)
-        self.radioButton_mkv.setObjectName(u"radioButton_mkv")
-        self.radioButton_mkv.setChecked(False)
+        self.radioButton_best_compression = QRadioButton(self.frame_2)
+        self.radioButton_best_compression.setObjectName(u"radioButton_best_compression")
+        self.radioButton_best_compression.setChecked(False)
 
-        self.horizontalLayout_8.addWidget(self.radioButton_mkv)
+        self.horizontalLayout_8.addWidget(self.radioButton_best_compression)
 
 
         self.verticalLayout_5.addWidget(self.frame_2, 0, Qt.AlignmentFlag.AlignHCenter)
@@ -978,8 +978,8 @@ class Ui_ExportDialog(object):
         self.label_5.setText(QCoreApplication.translate("ExportDialog", u"Destination Path :", None))
         self.lbl_selected_folder.setPlaceholderText(QCoreApplication.translate("ExportDialog", u"C:/...", None))
         self.btn_dst_path.setText("")
-        self.radioButton_mp4.setText(QCoreApplication.translate("ExportDialog", u"MP4", None))
-        self.radioButton_mkv.setText(QCoreApplication.translate("ExportDialog", u"Mkv_x265", None))
+        self.radioButton_fasters.setText(QCoreApplication.translate("ExportDialog", u"Best Speed", None))
+        self.radioButton_best_compression.setText(QCoreApplication.translate("ExportDialog", u"Best Compression", None))
         self.start_export_btn.setText(QCoreApplication.translate("ExportDialog", u"Export Video", None))
         self.lbl_msg.setText("")
     # retranslateUi

@@ -55,6 +55,8 @@ MP4_FORMAT = 'mp4'
 # ui class
 class UIExport(QWidget):
 
+    
+
     def __init__(self,archive_manager:archiveManager = None,train_name = None,date = None,selected_camera=None):
         super(UIExport, self).__init__()
 
@@ -74,8 +76,8 @@ class UIExport(QWidget):
         self.ui.btn_dst_path.clicked.connect(self.open_folder_dialog)
         self.ui.start_export_btn.clicked.connect(self.get_available_files)
         
-        self.ui.radioButton_mkv.toggled.connect(self.set_format)
-        self.ui.radioButton_mp4.toggled.connect(self.set_format)
+        self.ui.radioButton_fasters.toggled.connect(self.set_format)
+        self.ui.radioButton_best_compression.toggled.connect(self.set_format)
 
         self.archive_manager = archive_manager
         self.train_name = train_name
@@ -90,17 +92,27 @@ class UIExport(QWidget):
         self.ui.spinBox_minute_end.valueChanged.connect(self.validate_end_time)
 
 
-
-
-
         self.set_init_details()
+        defalt_dir = self.generate_default_export_folder()
+        self.ui.lbl_selected_folder.setText(f"{defalt_dir}")
+
+
+
+
+    def generate_default_export_folder(self, folder_name='Radco Export'):
+        documents_path = os.path.join(os.environ['USERPROFILE'], 'Documents')
+        path =  os.path.join(documents_path, folder_name)
+        if not os.path.exists(path):
+            os.makedirs(path)
+        return path
 
 
     def set_init_details(self):
 
         self.ui.lbl_train_name.setText(self.train_name)
         self.ui.lbl_date.setText(self.date.strftime("%Y/%m/%d"))
-
+        self.ui.spinBox_hour_end.setValue(23)
+        self.ui.spinBox_minute_end.setValue(59)
         self.set_format()
 
 
@@ -164,12 +176,10 @@ class UIExport(QWidget):
 
     def set_format(self):
 
-        if self.ui.radioButton_mkv.isChecked():
-            self.convert_mkv = True
-            self.format_name = MKV_FORMAT
-        elif self.ui.radioButton_mp4.isChecked():
-            self.convert_mkv = False
-            self.format_name = MP4_FORMAT
+        if self.ui.radioButton_fasters.isChecked():
+            self.compression = False
+        elif self.ui.radioButton_best_compression.isChecked():
+            self.compression = True
         else:
             print('Error in format')
 
@@ -178,32 +188,31 @@ class UIExport(QWidget):
         try:
             start_time = 's{}_{}'.format(str(self.ui.spinBox_hour_start.value()),str(self.ui.spinBox_minute_start.value()))
             finish_time = 'e{}_{}'.format(str(self.ui.spinBox_hour_end.value()),str(self.ui.spinBox_minute_end.value()))
-            video_name = '{}_{}_{}_{}.{}'.format(self.train_name,self.date,start_time,finish_time,self.format_name)
-            main_path = self.ui.lbl_selected_folder.text()
-            if main_path =='' or main_path == "No folder selected":
+            video_name = '{}_{}_{}_{}'.format(self.train_name,self.date,start_time,finish_time)
+            video_dir = self.ui.lbl_selected_folder.text()
+            if video_dir =='' or video_dir == "No folder selected":
                 return None
-            path = os.path.join(main_path,video_name)
-            return path
+            return video_dir, video_name
         except:
-            return None
+            return None, None
 
     def create_dst_file(self):
-        self.dst_path = self.creata_file_path()
-        # dst_path = 'test.mkv'     ########################### TEMP
+        export_dir, export_fname = self.creata_file_path()
 
-        if self.dst_path is None:
+        if export_dir is None:
             self.show_message(1,'Please Select An Output Directory')
             self.finish_export()
-            return None
+            return None, None
         
         else:
-            return self.dst_path
+            return export_dir, export_fname
 
     def get_available_files(self):
 
         self.ui.start_export_btn.setDisabled(True)
+        export_dir, export_fname = self.create_dst_file()
 
-        if self.create_dst_file():
+        if export_dir is not None and export_fname is not None:
 
             self.show_message(0,'Collecting Videos')
 
@@ -221,7 +230,12 @@ class UIExport(QWidget):
 
             if len(files_info)>0:
                 input_videos = list(map(lambda x:x['path'], files_info))
-                self.start_export(input_videos,self.dst_path)
+                if input_videos is None:
+                    self.show_message(1,'Error in Read Videos')
+                    self.finish_export()
+                    return
+                
+                self.combine_videos(input_videos, export_dir, export_fname)
             else:
                 self.show_message(1,'No Video in This Filter')
                 self.finish_export()
@@ -247,18 +261,8 @@ class UIExport(QWidget):
         self.ui.progressBar.setValue(value)
 
 
-    def start_export(self,input_files,dst_path):
-        if input_files is None:
-            self.show_message(1,'Error in Read Videos')
-            self.finish_export()
-            return
-
-        if dst_path:
-            temp_output_file = 'temp_combined.mp4'  # Temporary MP4 file
-            self.combine_videos(input_files, temp_output_file, dst_path)
-
-    def combine_videos(self, input_videos, temp_output_file, final_output_file):
-        self.worker = VideoCombiner(input_videos, temp_output_file, final_output_file,self.convert_mkv)
+    def combine_videos(self, input_videos, export_dir, export_fname):
+        self.worker = VideoCombiner(input_videos, export_dir, export_fname, self.compression)
         self.worker.progress_signal.connect(self.update_progress)
         self.worker.status_signal.connect(self.show_message)
         self.worker.finish_signal.connect(self.finish_export)
