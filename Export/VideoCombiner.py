@@ -18,6 +18,7 @@ class VideoCombiner(QThread):
     SUBTITLE_EXTENTION = ".srt"
     VIDEO_EXTENTION = '.mp4'
 
+
     def __init__(self, input_videos, export_dir, export_fname,compression=True):
         super().__init__()
         self.input_videos = input_videos
@@ -158,7 +159,7 @@ class VideoCombiner(QThread):
                     "-safe", "0",
                     '-i', file_list,  # Input temporary MP4 file
                     '-c:v', 'libx265',  # Use H.265 codec
-                    '-preset', 'medium',  # Medium encoding speed
+                    '-preset', 'fast',  # Medium encoding speed
                     '-y',  # Overwrite the output file if it exists
                     output_file  # Output file in MKV format
                 ]

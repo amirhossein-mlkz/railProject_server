@@ -63,9 +63,9 @@ class API:
         self.playbackPageAPI = playbackPageAPI(self.uiHandler.playbackPageUI, self.db)
 
         self.accessHandler = accessHandler(self.uiHandler)
-        self.accessHandler.set_role('Admin')
 
         self.settingPageAPI.refresh_system_stations()
+        self.login_logout_evet(None)
 
         # #------------------------
         # self.storageManager = None

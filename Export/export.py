@@ -266,9 +266,9 @@ class UIExport(QWidget):
         self.worker.progress_signal.connect(self.update_progress)
         self.worker.status_signal.connect(self.show_message)
         self.worker.finish_signal.connect(self.finish_export)
-        # self.worker.start()
+        self.worker.start()
 
-        self.worker.run()
+        # bself.worker.run()
 
     def update_progress(self, value):
         self.ui.progressBar.setValue(value)
