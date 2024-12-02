@@ -27,11 +27,11 @@ class VideoCombiner(QThread):
         self.total_frames = 0
         self.compression=compression
 
-        #-----------------------------------------------------------
-        dir_path = 'C:\\Users\\amirh\\Downloads\\test'
-        self.input_videos = os.listdir(dir_path)
-        self.input_videos = list(map( lambda x:os.path.join(dir_path,x), self.input_videos))
-        #-----------------------------------------------------------
+        # #-----------------------------------------------------------
+        # dir_path = 'C:\\Users\\amirh\\Downloads\\test'
+        # self.input_videos = os.listdir(dir_path)
+        # self.input_videos = list(map( lambda x:os.path.join(dir_path,x), self.input_videos))
+        # #-----------------------------------------------------------
 
 
         
@@ -247,7 +247,7 @@ class VideoCombiner(QThread):
                 "-f", "concat",
                 "-safe", "0",
                 '-i', file_list,  # Input temporary MP4 file
-                '-c:v', 'libx265',  # Use H.265 codec
+                '-c:v', 'libx264',  # Use H.265 codec
                 '-preset', 'medium',  # Medium encoding speed
                 '-y',  # Overwrite the output file if it exists
                 output_file  # Output file in MKV format
