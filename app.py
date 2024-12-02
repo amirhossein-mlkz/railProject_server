@@ -24,10 +24,20 @@ from PySide6.QtWidgets import QStyleFactory
 from main_ui import UI_main_window_org
 from backend import adminPrivilage
 import ctypes
+from backend.utils.Trial import TrialManager
+from main_api import API
 
-ADMIN_ACCESS = False
+ADMIN_ACCESS = True
 
-if __name__ == "__main__":
+def main_func():
+    trial_manager = TrialManager(trial_days=30)
+    # trial_manager.reset_trial()
+    if trial_manager.check_trial():
+        print("The software is running in trial mode.")
+    else:
+        print("Trial has expired. Please purchase the software.")
+        return
+    
 
     if ADMIN_ACCESS:
         if not ctypes.windll.shell32.IsUserAnAdmin():
@@ -37,15 +47,13 @@ if __name__ == "__main__":
                 print("Now running as admin! Continuing execution...")
             else:
                 print("Failed to obtain admin privileges. Exiting.")
-                sys.exit(1)
+                return
         else:
             print("Running as administrator!")
 
 
 
-    from main_api import API
     app = sQApplication()
-
     app.setStyle(QStyleFactory.create("windows"))  # Enforces a consistent style
 
 
@@ -53,3 +61,7 @@ if __name__ == "__main__":
     api = API(win)
     win.show()
     sys.exit(app.exec())
+
+if __name__ == "__main__":
+
+    main_func()

@@ -38,6 +38,52 @@ def run_as_admin(command):
     except Exception as e:
         print(f"Failed to run command as admin: {e}")
 
+
+def is_network_discovery_enabled():
+    try:
+        # Check if network discovery is enabled by checking the status of the firewall rule
+        result = subprocess.run(
+            ['powershell', '-Command', 'Get-NetFirewallRule -DisplayGroup "Network Discovery" | Select-Object -ExpandProperty Enabled'],
+            capture_output=True, text=True, check=True
+        )
+        enabled_status = result.stdout.strip().split('\n')
+        return any(status.strip().lower() == 'true' for status in enabled_status)
+
+    except subprocess.CalledProcessError as e:
+        print(f"Error checking network discovery status: {e}")
+        return False
+
+def enable_network_discovery():
+    try:
+        # Enable network discovery via PowerShell command
+        subprocess.run(['powershell', '-Command', 'Enable-NetFirewallRule -DisplayGroup "Network Discovery"'], check=True)
+        
+        # Start the required services for network discovery
+        subprocess.run(['powershell', '-Command', 'Start-Service -Name "FDResPub"'], check=True) # SSDP Discovery
+        subprocess.run(['powershell', '-Command', 'Start-Service -Name "upnphost"'], check=True) # Universal Plug and Play
+
+        print("Network discovery enabled successfully.")
+    except subprocess.CalledProcessError as e:
+        print(f"Error enabling network discovery: {e}")
+
+def ensure_network_discovery_enabled():
+    try:
+        if not is_network_discovery_enabled():
+            msg = "Network discovery is not enabled. Enabling now..."
+            # print(msg)
+            enable_network_discovery()
+
+            return msg
+
+        else:
+            msg = "Network discovery is already enabled."
+            # print(msg)
+            return msg
+    except Exception as e:
+        return e
+
 if __name__ == "__main__":
     # Enable file sharing
     enable_file_sharing()
+
+

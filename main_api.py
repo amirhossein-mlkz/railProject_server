@@ -30,6 +30,11 @@ class API:
         self.mkdirs()
         try:
             FirewallRules.enable_file_sharing()
+            FirewallRules.ensure_network_discovery_enabled()
+        except:
+            pass
+
+        try:
             Sharing.remove_share(pathConstants.SELF_SHARE_NAME)
             Sharing.create_and_share_folder(pathConstants.SELF_SHARE_PATH,
                                             pathConstants.SELF_SHARE_NAME)
