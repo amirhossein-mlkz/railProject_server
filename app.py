@@ -38,7 +38,7 @@ ADMIN_ACCESS = False
 
 def main_func():
     trial_manager = TrialManager(trial_days=30)
-    trial_manager.reset_trial()
+    # trial_manager.reset_trial()
     if trial_manager.check_trial():
         print("The software is running in trial mode.")
     else:
@@ -66,7 +66,7 @@ def main_func():
 
     win = UI_main_window_org()
     api = API(win)
-    win.show()
+    win.showMaximized()
     sys.exit(app.exec())
 
 if __name__ == "__main__":
