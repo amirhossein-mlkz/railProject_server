@@ -97,7 +97,9 @@ class UIExport(QWidget):
         self.ui.lbl_selected_folder.setText(f"{defalt_dir}")
 
 
-
+    def show_win(self,):
+        self.setWindowModality(Qt.ApplicationModal)
+        self.show()
 
     def generate_default_export_folder(self, folder_name='Radco Export'):
         documents_path = os.path.join(os.environ['USERPROFILE'], 'Documents')

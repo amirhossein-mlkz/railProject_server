@@ -296,7 +296,8 @@ class playbackPageAPI:
             self.export_obj.ui.close_btn.clicked.connect(self.close_export)
             self.uiHandler.set_export_btn_mode(mode=True)
             self.export_window_is_open = True
-            self.export_obj.show()
+            self.uiHandler.show_message('')
+            self.export_obj.show_win()
         
         else:
             self.uiHandler.show_message('Check Selected Date/Camera')

@@ -3,7 +3,7 @@ import winreg
 
 
 class TrialManager:
-    def __init__(self, registry_path="Software\\MyTrialApp", trial_days=30):
+    def __init__(self, registry_path="Software\\railwayServer", trial_days=30):
         self.registry_path = registry_path
         self.trial_days = trial_days
 

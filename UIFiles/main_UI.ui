@@ -1081,7 +1081,7 @@ icon:url(:/icons/icons/download-white.png);
              <number>2</number>
             </property>
             <property name="currentIndex">
-             <number>0</number>
+             <number>2</number>
             </property>
             <widget class="QWidget" name="page_playback">
              <property name="styleSheet">
@@ -2285,23 +2285,13 @@ QPushButton:pressed {
                        </item>
                        <item>
                         <widget class="QLabel" name="lbl_playback_msg">
+                         <property name="styleSheet">
+                          <string notr="true">color:rgb(132, 177, 235);</string>
+                         </property>
                          <property name="text">
                           <string/>
                          </property>
                         </widget>
-                       </item>
-                       <item>
-                        <spacer name="horizontalSpacer_2">
-                         <property name="orientation">
-                          <enum>Qt::Orientation::Horizontal</enum>
-                         </property>
-                         <property name="sizeHint" stdset="0">
-                          <size>
-                           <width>40</width>
-                           <height>20</height>
-                          </size>
-                         </property>
-                        </spacer>
                        </item>
                        <item>
                         <widget class="QPushButton" name="btn_export">
@@ -3282,6 +3272,19 @@ font-size: 22px;</string>
               <string>page</string>
              </property>
              <layout class="QVBoxLayout" name="verticalLayout_23">
+              <item>
+               <spacer name="verticalSpacer_13">
+                <property name="orientation">
+                 <enum>Qt::Orientation::Vertical</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>20</width>
+                  <height>40</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
               <item alignment="Qt::AlignmentFlag::AlignHCenter">
                <widget class="QLabel" name="label_33">
                 <property name="minimumSize">
@@ -3293,19 +3296,51 @@ font-size: 22px;</string>
                 <property name="font">
                  <font>
                   <family>Mongolian Baiti</family>
-                  <pointsize>16</pointsize>
+                  <pointsize>26</pointsize>
                   <italic>false</italic>
                   <bold>false</bold>
                  </font>
                 </property>
                 <property name="styleSheet">
                  <string notr="true">color: #f0f0f0;
-font: 16pt ;</string>
+font: 26pt ;</string>
                 </property>
                 <property name="text">
                  <string>Welcome, Please Login First</string>
                 </property>
                </widget>
+              </item>
+              <item alignment="Qt::AlignmentFlag::AlignHCenter">
+               <widget class="QLabel" name="label_44">
+                <property name="maximumSize">
+                 <size>
+                  <width>160</width>
+                  <height>160</height>
+                 </size>
+                </property>
+                <property name="text">
+                 <string/>
+                </property>
+                <property name="pixmap">
+                 <pixmap resource="../assets.qrc">:/icons/icons/rahahan-logo.png</pixmap>
+                </property>
+                <property name="scaledContents">
+                 <bool>true</bool>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <spacer name="verticalSpacer_12">
+                <property name="orientation">
+                 <enum>Qt::Orientation::Vertical</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>20</width>
+                  <height>40</height>
+                 </size>
+                </property>
+               </spacer>
               </item>
              </layout>
             </widget>
@@ -4138,8 +4173,8 @@ font-weight:bold;</string>
                       <rect>
                        <x>0</x>
                        <y>0</y>
-                       <width>38</width>
-                       <height>18</height>
+                       <width>354</width>
+                       <height>751</height>
                       </rect>
                      </property>
                      <property name="styleClass" stdset="0">
