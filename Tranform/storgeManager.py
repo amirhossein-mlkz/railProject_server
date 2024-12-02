@@ -356,6 +356,11 @@ class storageManager(QObject):
                                     self.logger.create_new_log(message=log_msg)
                                 #-----------------------------------------------------------
                                 self.remove(path)
+                                total, used, free, max_allowed= self.get_disk_usage(self.path)
+                                used = used + aditional_space
+                                if used < max_allowed:
+                                    break
+                    
                                 
                                 self.progress_signal.emit( name, 
                                                            path,
@@ -387,8 +392,6 @@ class storageManager(QObject):
                             self.logger.create_new_log(message=log_msg)
                         #-----------------------------------------------------------
                         break
-                    total, used, free, max_allowed= self.get_disk_usage(self.path)
-                    used = used + aditional_space
                     
                 
                     #end while remove

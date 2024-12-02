@@ -18,6 +18,7 @@ class VideoCombiner(QThread):
     SUBTITLE_EXTENTION = ".srt"
     VIDEO_EXTENTION = '.mp4'
 
+
     def __init__(self, input_videos, export_dir, export_fname,compression=True):
         super().__init__()
         self.input_videos = input_videos
@@ -124,6 +125,79 @@ class VideoCombiner(QThread):
             subtitle_path = self.create_subtitle(self.input_videos)
             self.merge(good_files_Path)
             
+            file_list = self.FILES_LIST  # فایل لیست ویدیوها
+            output_file = os.path.join(self.export_dir, self.export_fname + self.VIDEO_EXTENTION)  # فایل خروجی
+            file_list_path = os.path.join(os.getcwd(), file_list)
+
+            total_frame_count = 0
+            for path in good_files_Path:
+                count, fps = transormUtils.get_video_frames_count(path)
+                total_frame_count += count
+
+            if not self.compression:
+                command = [
+                    "ffmpeg",
+                    "-f", "concat",
+                    "-safe", "0",
+                    "-i", file_list_path,
+                    "-c", "copy",
+                    '-y',  # Overwrite the output file if it exists
+                    output_file
+                ]
+
+                # command = [
+                #     "ffmpeg",
+                #     "-f", "concat",
+                #     "-safe", "0",
+                #     "-i", file_list_path,  # List of input files
+                #     "-i", subtitle_path,  # Input subtitle file
+                #     "-c", "copy",  # Copy streams without re-encoding
+                #     "-map", "0",  # Map all streams from the video input
+                #     "-map", "1",  # Map the subtitle stream
+                #     "-y",  # Overwrite the output file if it exists
+                #     output_file  # Output file with subtitle included
+                # ]
+
+            else:
+                command = [
+                    'ffmpeg', 
+                    "-f", "concat",
+                    "-safe", "0",
+                    '-i', file_list,  # Input temporary MP4 file
+                    '-c:v', 'libx265',  # Use H.265 codec
+                    '-preset', 'fast',  # Medium encoding speed
+                    '-y',  # Overwrite the output file if it exists
+                    output_file  # Output file in MKV format
+                ]
+
+                # command = [
+                #     'ffmpeg',
+                #     '-f', 'concat',
+                #     '-safe', '0',
+                #     '-i', file_list,  # Input temporary MP4 file
+                #     '-c:v', 'libx265',  # Use H.265 codec
+                #     '-preset', 'medium',  # Medium encoding speed
+                #     '-scodec', 'mov_text',  # Subtitle codec for soft subtitles
+                #     '-i', subtitle_path,  # Input subtitle file
+                #     '-map', '0',  # Map all streams from the video
+                #     '-map', '1',  # Map the subtitle stream
+                #     '-y',  # Overwrite the output file if it exists
+                #     output_file  # Output file in MKV format
+                # ]
+
+            process = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True)
+            self.status_signal.emit(0,'Merge Videos')
+
+            current_progress = 0
+            frame_pattern = r'frame=\s*(\d+)'
+            for line in process.stdout:
+                match = re.search(frame_pattern, line)
+                if match:
+                    frame_count = int(match.group(1))
+                    current_progress = int(frame_count / total_frame_count * 100)
+                    self.progress_signal.emit(current_progress)
+
+            process.wait()
             self.status_signal.emit(0,'Progress Completed')
             self.finish_signal.emit(1)
             os.startfile(self.export_dir)

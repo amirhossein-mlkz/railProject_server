@@ -80,7 +80,7 @@ class transormUtils:
             result[0] = func(*args, **kwargs)
             is_completed[0] = True
 
-        thread = threading.Thread(target=wrapper)
+        thread = threading.Thread(target=wrapper, daemon=True)
         thread.start()
         thread.join(timeout)
 

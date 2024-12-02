@@ -416,56 +416,6 @@ class UI_main_window_org(sQMainWindow):
             self.dst_path = res['destination_folder']
 
 
-    def start_copy(self):
-        ip = self.ui.ip_input.text()
-        username = self.ui.username_input.text()
-        password = self.ui.password_input.text()
-        src_path = self.src_path
-        dst_path = self.dst_path
-
-        # if ip and username and password and src_path and dst_path:
-        if self.ping_host(ip):
-            conn_details = {
-                'ip': ip,
-                'username': username,
-                'password': password,
-                'share': src_path
-            }
-            self.worker = ShareCopyWorker(src_path, dst_path, conn_details)
-            self.worker.progress.connect(self.update_progress)
-            self.worker.log.connect(self.update_log)
-            self.worker.completed.connect(self.copy_completed)
-            self.worker.error.connect(self.show_error)
-            self.worker.start()
-            # self.worker.run()
-        else:
-            self.show_error("Ping failed. Check the IP address and try again.")
-        # else:
-        #     self.log_label.setText("Please fill all fields.")
-
-    def ping_host(self, ip):
-
-        try:
-            # Determine the ping command based on the OS
-            param = "-n" if platform.system().lower() == "windows" else "-c"
-            command = ["ping", param, "1", ip]
-            
-            # Run the command
-            output = subprocess.run(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
-            if output.returncode == 0:
-                self.update_log('1 packets transmitted, 1 packets received')
-                return True
-            # Display the result
-            # if output.returncode == 0:
-            #     self.result_area.setPlainText(f"Ping to {ip_address} successful!\n{output.stdout}")
-            else:
-                self.update_log(f"Ping to {ip} failed!\n{output.stderr}")
-
-                return False
-        except Exception as e:
-            self.update_log(f"Ping to {ip} failed!\n{output.stderr}")
-
-            return False
 
 
     def update_progress(self, value):
