@@ -1,4 +1,4 @@
-from backend.passwordManager import passwordManager
+from Loginbackend.passwordManager import passwordManager
 if __name__ == '__main__':
     import bcrypt
 

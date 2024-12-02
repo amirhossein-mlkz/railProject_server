@@ -2,7 +2,7 @@ from PySide6.QtWidgets import QPushButton, QSizePolicy
 from PySide6.QtGui import QIcon
 from PySide6.QtCore import Qt
 
-from Constants.IconsPath import IconsPath
+from LoginConstants.IconsPath import IconsPath
 
 class editButton(QPushButton):
     """

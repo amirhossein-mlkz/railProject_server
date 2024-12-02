@@ -1,7 +1,7 @@
 from PySide6.QtWidgets import QPushButton, QLineEdit
 from PySide6.QtGui import QIcon
 
-from Constants.IconsPath import IconsPath
+from LoginConstants.IconsPath import IconsPath
 
 class eyeButtonHandler:
     """

@@ -1,7 +1,7 @@
 # class userRoles
 
 from main_ui import UI_main_window_org
-from login_qt.Constants import Constants as userConstants
+from login_qt.LoginConstants import Constants as userConstants
 from uiUtils.guiBackend import GUIBackend
 
 

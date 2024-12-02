@@ -1,5 +1,5 @@
-from dorsa_database.dorsa_Database import dataBase
-from Constants.Constants import Keys
+from Logindorsa_database.dorsa_Database import dataBase
+from LoginConstants.Constants import Keys
 
 class usersDB:
     """

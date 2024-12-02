@@ -2,7 +2,7 @@ from PySide6.QtWidgets import QMessageBox
 from PySide6.QtCore import Qt
 from PySide6.QtGui import QPixmap
 
-from Constants.IconsPath import IconsPath
+from LoginConstants.IconsPath import IconsPath
 
 # Stylesheets for various QMessageBox components and QPushButton appearances
 CONFIRMBOX_STYLESHEET = """

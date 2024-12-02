@@ -18,7 +18,7 @@ from PagesAPI.playbackPageAPI import playbackPageAPI
 from Mediator.mainMediator import Mediator
 from Mediator.mediatorNames import eventNames
 from accessHandler import accessHandler
-from login_qt.Constants import Constants as userConstants
+from login_qt.LoginConstants import Constants as userConstants
 import constanst
 from pathsConstans import pathConstants
 from storageCleaningUI import storageCleaningDialog

@@ -14,10 +14,10 @@ from PySide6.QtCore import Qt, QPoint
 
 # Append the directory containing resources to system path for easier imports
 sys.path.append(os.path.join('uiFiles', 'resources'))
-from uiFiles.editUser import Ui_editUser
-from Constants import Constants
-from Constants import Messages
-from uiUtils.eyeButtonHandler import eyeButtonHandler
+from LoginUIFiles.editUser import Ui_editUser
+from LoginConstants import Constants
+from LoginConstants import Messages
+from LoginuiUtils.eyeButtonHandler import eyeButtonHandler
 
 class editUser_UI(QDialog):
     """

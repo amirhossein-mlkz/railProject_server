@@ -16,15 +16,14 @@ from PySide6.QtWidgets import (
     QComboBox
 )
 from PySide6.QtCore import Qt, QPoint
-
-from uiFiles.userProfile import Ui_userProfile
-from uiUtils.eyeButtonHandler import eyeButtonHandler
-from uiUtils.editButton import editButton
-from uiUtils.deleteButton import deleteButton
-from uiUtils.messageBox import messageBox
-from uiUtils.editUserUI import editUser_UI
-from Constants import Constants
-from Constants import Messages
+from LoginUIFiles.userProfile import Ui_userProfile
+from LoginuiUtils.eyeButtonHandler import eyeButtonHandler
+from LoginuiUtils.editButton import editButton
+from LoginuiUtils.deleteButton import deleteButton
+from LoginuiUtils.messageBox import messageBox
+from LoginuiUtils.editUserUI import editUser_UI
+from LoginConstants import Constants
+from LoginConstants import Messages
 
 class userProfile_UI(QDialog):
     """

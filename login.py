@@ -2,9 +2,9 @@ import sys
 from PySide6.QtWidgets import QApplication, QWidget, QLabel, QLineEdit, QPushButton, QVBoxLayout, QHBoxLayout
 from PySide6.QtCore import Qt
 from PySide6 import QtCore as sQtCore
-from login_qt.Constants.Constants import UIPages
+from login_qt.LoginConstants.Constants import UIPages
 from login_qt.userProfile_UI import userProfile_UI
-from login_qt.Database.usersDatabase import usersDB
+from login_qt.LoginDatabase.usersDatabase import usersDB
 
 from login_qt.userProfile_API import userProfile_API
 

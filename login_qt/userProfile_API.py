@@ -1,9 +1,9 @@
 from typing import Callable
 
-from backend.usernameManager import usernameManager
-from backend.passwordManager import passwordManager
-from Constants import Constants
-from Constants.Messages import Messages 
+from Loginbackend.usernameManager import usernameManager
+from Loginbackend.passwordManager import passwordManager
+from LoginConstants import Constants
+from LoginConstants.Messages import Messages 
 from userProfile_UI import (
     userProfile_UI,
     pagesUI,
