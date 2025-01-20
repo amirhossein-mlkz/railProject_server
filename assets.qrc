@@ -1,5 +1,7 @@
 <RCC>
   <qresource prefix="icons">
+    <file>icons/snap-shot-hover.png</file>
+    <file>icons/snap-shot.png</file>
     <file>icons/icons8-flip-horizontal-40.png</file>
     <file>icons/icons8-flip-horizontal-40-hover.png</file>
     <file>icons/icons8-flip-vertical-40.png</file>

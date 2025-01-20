@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1010</width>
-    <height>837</height>
+    <height>816</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -1081,7 +1081,7 @@ icon:url(:/icons/icons/download-white.png);
              <number>2</number>
             </property>
             <property name="currentIndex">
-             <number>2</number>
+             <number>0</number>
             </property>
             <widget class="QWidget" name="page_playback">
              <property name="styleSheet">
@@ -2253,6 +2253,50 @@ QPushButton:pressed {
                           <size>
                            <width>29</width>
                            <height>26</height>
+                          </size>
+                         </property>
+                        </widget>
+                       </item>
+                       <item>
+                        <widget class="Line" name="line_7">
+                         <property name="styleSheet">
+                          <string notr="true">color : rgb(255, 255, 255);
+background-color: rgb(255, 255, 255);</string>
+                         </property>
+                         <property name="orientation">
+                          <enum>Qt::Orientation::Vertical</enum>
+                         </property>
+                        </widget>
+                       </item>
+                       <item>
+                        <widget class="QPushButton" name="snapshot_btn">
+                         <property name="minimumSize">
+                          <size>
+                           <width>30</width>
+                           <height>30</height>
+                          </size>
+                         </property>
+                         <property name="styleSheet">
+                          <string notr="true">QPushButton{
+	icon:url(:/icons/icons/snap-shot.png);
+	background-color:transparent;
+	border:none;
+}
+
+QPushButton:hover{
+	icon: url(:/icons/icons/snap-shot-hover.png);
+	background-color:transparent;
+	border:none;
+}
+</string>
+                         </property>
+                         <property name="text">
+                          <string/>
+                         </property>
+                         <property name="iconSize">
+                          <size>
+                           <width>36</width>
+                           <height>36</height>
                           </size>
                          </property>
                         </widget>
@@ -4174,7 +4218,7 @@ font-weight:bold;</string>
                        <x>0</x>
                        <y>0</y>
                        <width>354</width>
-                       <height>751</height>
+                       <height>730</height>
                       </rect>
                      </property>
                      <property name="styleClass" stdset="0">

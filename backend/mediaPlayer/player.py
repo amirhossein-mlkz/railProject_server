@@ -199,6 +199,10 @@ class MediaPlayer:
         """Get the current time in the video in seconds."""
         return self.media_player.get_time() // 1000
 
+    def get_time_ms(self):
+        """Get the current time in the video in seconds."""
+        return self.media_player.get_time()
+    
     def get_position(self):
         """Get the current position of the video (from 0 to 1)."""
         return self.media_player.get_position()

@@ -4,7 +4,7 @@ import os,sys
 
 
 ADMIN_ACCESS = False
-BUILD_UI = False
+BUILD_UI = True
 
 if BUILD_UI:
     os.system('CMD /C pyside6-rcc assets.qrc -o assets.py')#PySide

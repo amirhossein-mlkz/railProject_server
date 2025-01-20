@@ -29,7 +29,7 @@ class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         if not MainWindow.objectName():
             MainWindow.setObjectName(u"MainWindow")
-        MainWindow.resize(1010, 837)
+        MainWindow.resize(1010, 816)
         MainWindow.setMinimumSize(QSize(1000, 700))
         MainWindow.setStyleSheet(u"")
         self.centralwidget = QWidget(MainWindow)
@@ -1273,6 +1273,34 @@ class Ui_MainWindow(object):
 
         self.horizontalLayout_32.addWidget(self.speed_btn)
 
+        self.line_7 = QFrame(self.frame_58)
+        self.line_7.setObjectName(u"line_7")
+        self.line_7.setStyleSheet(u"color : rgb(255, 255, 255);\n"
+"background-color: rgb(255, 255, 255);")
+        self.line_7.setFrameShape(QFrame.Shape.VLine)
+        self.line_7.setFrameShadow(QFrame.Shadow.Sunken)
+
+        self.horizontalLayout_32.addWidget(self.line_7)
+
+        self.snapshot_btn = QPushButton(self.frame_58)
+        self.snapshot_btn.setObjectName(u"snapshot_btn")
+        self.snapshot_btn.setMinimumSize(QSize(30, 30))
+        self.snapshot_btn.setStyleSheet(u"QPushButton{\n"
+"	icon:url(:/icons/icons/snap-shot.png);\n"
+"	background-color:transparent;\n"
+"	border:none;\n"
+"}\n"
+"\n"
+"QPushButton:hover{\n"
+"	icon: url(:/icons/icons/snap-shot-hover.png);\n"
+"	background-color:transparent;\n"
+"	border:none;\n"
+"}\n"
+"")
+        self.snapshot_btn.setIconSize(QSize(36, 36))
+
+        self.horizontalLayout_32.addWidget(self.snapshot_btn)
+
         self.horizontalSpacer_4 = QSpacerItem(40, 20, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Expanding)
 
         self.horizontalLayout_32.addItem(self.horizontalSpacer_4)
@@ -1283,12 +1311,9 @@ class Ui_MainWindow(object):
 
         self.lbl_playback_msg = QLabel(self.frame_58)
         self.lbl_playback_msg.setObjectName(u"lbl_playback_msg")
+        self.lbl_playback_msg.setStyleSheet(u"color:rgb(132, 177, 235);")
 
         self.horizontalLayout_32.addWidget(self.lbl_playback_msg)
-
-        self.horizontalSpacer_2 = QSpacerItem(40, 20, QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Minimum)
-
-        self.horizontalLayout_32.addItem(self.horizontalSpacer_2)
 
         self.btn_export = QPushButton(self.frame_58)
         self.btn_export.setObjectName(u"btn_export")
@@ -1766,14 +1791,35 @@ class Ui_MainWindow(object):
         self.empty_page.setObjectName(u"empty_page")
         self.verticalLayout_23 = QVBoxLayout(self.empty_page)
         self.verticalLayout_23.setObjectName(u"verticalLayout_23")
+        self.verticalSpacer_13 = QSpacerItem(20, 40, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Expanding)
+
+        self.verticalLayout_23.addItem(self.verticalSpacer_13)
+
         self.label_33 = QLabel(self.empty_page)
         self.label_33.setObjectName(u"label_33")
         self.label_33.setMinimumSize(QSize(0, 37))
-        self.label_33.setFont(font)
+        font1 = QFont()
+        font1.setFamilies([u"Mongolian Baiti"])
+        font1.setPointSize(26)
+        font1.setBold(False)
+        font1.setItalic(False)
+        self.label_33.setFont(font1)
         self.label_33.setStyleSheet(u"color: #f0f0f0;\n"
-"font: 16pt ;")
+"font: 26pt ;")
 
         self.verticalLayout_23.addWidget(self.label_33, 0, Qt.AlignmentFlag.AlignHCenter)
+
+        self.label_44 = QLabel(self.empty_page)
+        self.label_44.setObjectName(u"label_44")
+        self.label_44.setMaximumSize(QSize(160, 160))
+        self.label_44.setPixmap(QPixmap(u":/icons/icons/rahahan-logo.png"))
+        self.label_44.setScaledContents(True)
+
+        self.verticalLayout_23.addWidget(self.label_44, 0, Qt.AlignmentFlag.AlignHCenter)
+
+        self.verticalSpacer_12 = QSpacerItem(20, 40, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Expanding)
+
+        self.verticalLayout_23.addItem(self.verticalSpacer_12)
 
         self.pages_stackwidget.addWidget(self.empty_page)
         self.page_download = QWidget()
@@ -2214,7 +2260,7 @@ class Ui_MainWindow(object):
         self.downloadsSectionsscrollArea.setWidgetResizable(True)
         self.downloadsSectionsscrollContents = QWidget()
         self.downloadsSectionsscrollContents.setObjectName(u"downloadsSectionsscrollContents")
-        self.downloadsSectionsscrollContents.setGeometry(QRect(0, 0, 38, 18))
+        self.downloadsSectionsscrollContents.setGeometry(QRect(0, 0, 354, 730))
         self.verticalLayout_29 = QVBoxLayout(self.downloadsSectionsscrollContents)
         self.verticalLayout_29.setSpacing(30)
         self.verticalLayout_29.setObjectName(u"verticalLayout_29")
@@ -2348,6 +2394,7 @@ class Ui_MainWindow(object):
         self.speed_btn.setToolTip(QCoreApplication.translate("MainWindow", u"Stop Live", None))
 #endif // QT_CONFIG(tooltip)
         self.speed_btn.setText(QCoreApplication.translate("MainWindow", u"1x", None))
+        self.snapshot_btn.setText("")
         self.lbl_playback_msg.setText("")
         self.btn_export.setText(QCoreApplication.translate("MainWindow", u"Export", None))
         self.label.setText(QCoreApplication.translate("MainWindow", u"Time : ", None))
@@ -2407,6 +2454,7 @@ class Ui_MainWindow(object):
         self.setting_tab_widget.setTabText(self.setting_tab_widget.indexOf(self.general_setting), QCoreApplication.translate("MainWindow", u"General", None))
         self.empty_page.setProperty("styleClass", QCoreApplication.translate("MainWindow", u"page", None))
         self.label_33.setText(QCoreApplication.translate("MainWindow", u"Welcome, Please Login First", None))
+        self.label_44.setText("")
         self.page_download.setProperty("styleClass", QCoreApplication.translate("MainWindow", u"page", None))
         self.download_filter_frame.setProperty("styleClass", "")
         self.download_filter_stackWidget.setProperty("styleClass", "")

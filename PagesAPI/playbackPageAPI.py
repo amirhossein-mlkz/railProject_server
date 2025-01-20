@@ -1,6 +1,8 @@
 import threading
 import time
 import keyboard
+from pathlib import Path
+import os
 
 from persiantools.jdatetime import JalaliDateTime, timedelta
 from datetime import time as Time
@@ -32,6 +34,7 @@ class playbackPageAPI:
         self.uiHandler = uiHandler
         self.db = db
         self.mediator = Mediator()
+        self.snapshot_path = ''
         # self.mediator.add_event_listener(eventNames.NAV_KEY_PRESS_KEYBOARD, 1, self.nav_key_press)
 
         self.filesFinderThreadWorker = threadWorkers(None,None)
@@ -56,6 +59,7 @@ class playbackPageAPI:
         self.uiHandler.ui.play_btn.clicked.connect(self.play_video)
         self.uiHandler.ui.speed_btn.clicked.connect(self.change_video_speed)
         self.uiHandler.ui.btn_export.clicked.connect(self.show_export)
+        self.uiHandler.ui.snapshot_btn.clicked.connect(self.take_snapshot)
         self.uiHandler.ui.left_rotate_btn.clicked.connect(lambda : self.rotate_video(1))
         self.uiHandler.ui.right_rotate_btn.clicked.connect(lambda : self.rotate_video(-1))
         self.uiHandler.ui.flip_horizontal_btn.clicked.connect(self.flip_h)
@@ -349,3 +353,30 @@ class playbackPageAPI:
     def close_export(self):
         self.uiHandler.set_export_btn_mode(mode=False)
         self.export_window_is_open = False
+
+
+    def take_snapshot(self):
+        home_dir = str(Path.home())
+
+        pictures_dir = os.path.join(home_dir, "Pictures" , "Radco")
+        if not os.path.exists(pictures_dir):
+            os.makedirs(pictures_dir)
+
+        # Generate a unique file name
+        self.Player.get_time()
+        start_datetime, end_datetime = self.date_ranges['ranges'][self.curent_video_idx]
+
+        current_ms = self.Player.get_time_ms()
+        current_time = start_datetime + timedelta(milliseconds=current_ms)
+
+        current_time_str = current_time.strftime('%Y-%m-%d_%H-%M-%S-%f')
+        picture_name = f"{self.selected_train}_{self.selected_camera}_{current_time_str}.png"
+
+        snapshot_path = os.path.join(pictures_dir, picture_name)
+
+        # Take snapshot and save to the Pictures folder
+        success = self.Player.media_player.video_take_snapshot(0, str(snapshot_path), 0, 0)
+        if success == 0:
+            print(f"Snapshot saved at {snapshot_path}")
+        else:
+            print("Failed to take snapshot")
